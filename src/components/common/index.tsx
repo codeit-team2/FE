@@ -6,8 +6,16 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
+import { useState } from 'react';
+import { FaHeart, FaRegHeart } from 'react-icons/fa';
 
 export default function ReviewModal() {
+  const [rating, setRating] = useState(0);
+
+  const handleClick = (index: number) => {
+    setRating(index + 1);
+  };
+
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -19,7 +27,19 @@ export default function ReviewModal() {
         </DialogHeader>
         <DialogHeader>
           <DialogTitle>만족스러운 경험이었나요?</DialogTitle>
-          <p>❤️ ❤️ ❤️ ❤️ ❤️</p> {/* 버튼 추가 필요 */}
+          <div className="flex flex-row gap-2">
+            {[...Array(5)].map((_, index) =>
+              index < rating ? (
+                <FaHeart className="text-red-200" key={index} onClick={() => handleClick(index)} />
+              ) : (
+                <FaRegHeart
+                  className="text-red-200"
+                  key={index}
+                  onClick={() => handleClick(index)}
+                />
+              ),
+            )}
+          </div>
         </DialogHeader>
         <DialogHeader>
           <DialogTitle>경험에 대해 남겨주세요</DialogTitle>
