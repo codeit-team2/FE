@@ -1,5 +1,11 @@
+import GNB from '@/components/common/GNB';
+
 function Main() {
-  return <></>;
+  return (
+    <>
+      <GNB />
+    </>
+  );
 }
 
 export default Main;
