@@ -34,6 +34,9 @@ const config = {
       minHeight: px0_400,
       width: px0_1000,
       height: px0_1000,
+      fontFamily: {
+        Pretendard: ['Pretendard'],
+      },
       colors: {
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
