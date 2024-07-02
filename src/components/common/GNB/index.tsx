@@ -3,7 +3,7 @@ import Image from 'next/image';
 
 export default function GNB() {
   // api 연동하면서 수정필요
-  const isloginStatus = true;
+  const isloginStatus = false;
   const likeItems = 10;
 
   return (
