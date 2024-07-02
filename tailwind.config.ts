@@ -34,6 +34,9 @@ const config = {
       minHeight: px0_400,
       width: px0_1000,
       height: px0_1000,
+      fontFamily: {
+        Pretendard: ['Pretendard'],
+      },
       colors: {
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
@@ -70,6 +73,9 @@ const config = {
         },
         'primary-hover': 'var(--primary-hover)',
         'secondary-hover': 'var(--secondary-hover)',
+      },
+      boxShadow: {
+        gnbShadow: '0px 8px 13px 0px rgba(25, 31, 40, 0.04);',
       },
       keyframes: {
         'accordion-down': {
