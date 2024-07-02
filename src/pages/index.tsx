@@ -1,5 +1,11 @@
+import Tap from '@/components/common/tap';
+
 function Main() {
-  return <></>;
+  return (
+    <>
+      <Tap />
+    </>
+  );
 }
 
 export default Main;
