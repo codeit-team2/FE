@@ -15,14 +15,14 @@ export default function Card() {
         <div className="relative h-190 w-373">
           <Image src={'/images/러닝이미지.jpg'} alt="러닝이미지" fill className="rounded-20" />
         </div>
-        <div className="relative text-text-gray">
+        <div className="relative text-gray-600">
           <div>
             <div className="flex gap-6">
-              <p className="text-text-blue">러닝</p>
+              <p className="text-secondary-blue-300">러닝</p>
               <p>중랑구</p>
             </div>
             <div className="flex gap-6">
-              <p className="text-text-red">오늘마감</p>·<p>7월 2일 화요일</p>·<p>오전 11:11</p>
+              <p className="text-secondary-red-300">오늘마감</p>·<p>7월 2일 화요일</p>·<p>오전 11:11</p>
             </div>
             <div className="text-24 font-medium text-black">중랑천 함께 뛰어요</div>
           </div>
