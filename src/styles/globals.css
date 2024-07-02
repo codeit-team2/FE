@@ -72,6 +72,9 @@
   * {
     @apply border-border;
   }
+  html {
+    font-family: 'Pretendard';
+  }
   body {
     @apply bg-background text-foreground;
   }

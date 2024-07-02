@@ -7,7 +7,7 @@ export default function GNB() {
   const likeItems = 10;
 
   return (
-    <div className="shadow-gnbShadow flex w-full flex-row justify-between px-32 py-16">
+    <div className="shadow-sm flex w-full flex-row justify-between px-32 py-16">
       <Image src="/icons/Logo.svg" alt="logo" priority={true} width={65} height={14} />
       <div className="flex flex-row gap-40">
         <a href="/" className="font-Pretendard text-base font-semibold">
