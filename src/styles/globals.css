@@ -21,6 +21,46 @@
     --secondary-foreground: #fff;
     --secondary-hover: #c2410c;
 
+    --neutral-gray-10: #f9fafb;
+    --neutral-gray-50: #f2f4f6;
+    --neutral-gray-100: #e5e8eb;
+    --neutral-gray-200: #d1d6db;
+    --neutral-gray-300: #b0b8c1;
+    --neutral-gray-400: #8b95a1;
+    --neutral-gray-500: #6b7684;
+    --neutral-gray-600: #4e5968;
+    --neutral-gray-700: #333d4b;
+    --neutral-gray-800: #242b36;
+    --neutral-gray-900: #191f28;
+
+    --secondary-blue-10: #f5f8fe;
+    --secondary-blue-50: #e2ebfd;
+    --secondary-blue-100: #b1cafb;
+    --secondary-blue-200: #78a2f7;
+    --secondary-blue-300: #4580f7;
+    --secondary-blue-400: #1662f8;
+    --secondary-blue-500: #0146d0;
+    --secondary-blue-600: #013aad;
+    --secondary-blue-700: #002b80;
+    --secondary-blue-800: #001d57;
+    --secondary-blue-900: #001133;
+
+    --secondary-red-10: #fef6f6;
+    --secondary-red-50: #fbdcda;
+    --secondary-red-100: #f8c6c3;
+    --secondary-red-200: #f39591;
+    --secondary-red-300: #ed615a;
+    --secondary-red-400: #e93d35;
+    --secondary-red-500: #e22a21;
+    --secondary-red-600: #ba231c;
+    --secondary-red-700: #8c1c17;
+    --secondary-red-800: #671714;
+    --secondary-red-900: #4d120f;
+
+    --status-success: #00b26b;
+    --status-warning: #ffa625;
+    --status-error: #e93d35;
+
     --muted: 210 40% 96.1%;
     --muted-foreground: 215.4 16.3% 46.9%;
 
