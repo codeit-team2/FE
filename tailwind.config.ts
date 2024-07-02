@@ -25,10 +25,99 @@ const config = {
       },
     },
     extend: {
-      borderRadius: px0_50,
+      borderRadius: { sm: '8px', md: '20px', lg: '30px', full: '50%' },
       borderWidth: px0_50,
       lineHeight: px0_100,
-      fontSize: px0_100,
+      fontSize: {
+        'heading-1B': [
+          '24px',
+          {
+            fontWeight: '700',
+            lineHeight: '140%',
+            letterSpacing: '-0.24px',
+          },
+        ],
+        'heading-1Sb': [
+          '24px',
+          {
+            fontWeight: '600',
+            lineHeight: '140%',
+            letterSpacing: '-0.24px',
+          },
+        ],
+        'heading-1M': [
+          '24px',
+          {
+            fontWeight: '500',
+            lineHeight: '140%',
+            letterSpacing: '-0.24px',
+          },
+        ],
+        'heading-2Sb': [
+          '20px',
+          {
+            fontWeight: '600',
+            lineHeight: '140%',
+            letterSpacing: '-0.2px',
+          },
+        ],
+        'heading-2M': [
+          '20px',
+          {
+            fontWeight: '500',
+            lineHeight: '140%',
+            letterSpacing: '-0.2px',
+          },
+        ],
+        'body-1Sb': [
+          '16px',
+          {
+            fontWeight: '600',
+            lineHeight: '140%',
+            letterSpacing: '-0.16px',
+          },
+        ],
+        'body-1M': [
+          '16px',
+          {
+            fontWeight: '500',
+            lineHeight: '140%',
+            letterSpacing: '-0.16px',
+          },
+        ],
+        'body-2Sb': [
+          '14px',
+          {
+            fontWeight: '600',
+            lineHeight: '140%',
+            letterSpacing: '-0.14px',
+          },
+        ],
+        'body-2M': [
+          '14px',
+          {
+            fontWeight: '500',
+            lineHeight: '140%',
+            letterSpacing: '-0.14px',
+          },
+        ],
+        'body-3Sb': [
+          '12px',
+          {
+            fontWeight: '600',
+            lineHeight: '140%',
+            letterSpacing: '-0.12px',
+          },
+        ],
+        'body-3M': [
+          '12px',
+          {
+            fontWeight: '500',
+            lineHeight: '140%',
+            letterSpacing: '-0.12px',
+          },
+        ],
+      },
       spacing: px0_400,
       minWidth: px0_400,
       minHeight: px0_400,
@@ -75,7 +164,9 @@ const config = {
         'secondary-hover': 'var(--secondary-hover)',
       },
       boxShadow: {
-        gnbShadow: '0px 8px 13px 0px rgba(25, 31, 40, 0.04);',
+        sm: '0px 8px 13px 0px rgba(25, 31, 40, 0.04)',
+        md: '3px 6px 28px 0px rgba(25, 31, 40, 0.08)',
+        lg: '0px 16px 34px 0px rgba(25, 31, 40, 0.16)',
       },
       keyframes: {
         'accordion-down': {
