@@ -12,12 +12,15 @@ export default function Tap() {
 
   const selectedFont = 'flex text-24 font-semibold';
   const notSelectedFont = 'flex text-24 font-medium text-[#6B7684]';
+
   const [selectedIndex, setSelectedIndex] = useState<number>(0);
   const [indicatorStyle, setIndicatorStyle] = useState({ width: 0, left: 0 });
+
   const tabRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   useEffect(() => {
     const currentTab = tabRefs.current[selectedIndex];
+    console.log(currentTab?.offsetWidth);
     if (currentTab) {
       const { offsetWidth, offsetLeft } = currentTab;
       setIndicatorStyle({
@@ -27,19 +30,22 @@ export default function Tap() {
     }
   }, [selectedIndex]);
 
-  const handleClick = (index: number) => {
+  // 클릭시 해당 탭의 이름이 필요하면 title꺼내서 사용
+  const handleTapChange = (index: number, title: string) => {
     setSelectedIndex(index);
   };
 
   return (
-    <div className="ml-15 mt-15 relative flex flex-col items-center">
+    <div className="relative flex flex-col items-center">
       <div className="flex items-center gap-32">
         {titles.map(({ title, icon, iconWidth, iconHeight }, index) => (
           <div
             key={index}
             className={`${selectedIndex === index ? selectedFont : notSelectedFont} cursor-pointer gap-2`}
-            onClick={() => handleClick(index)}
-            ref={(el) => (tabRefs.current[index] = el)}
+            onClick={() => handleTapChange(index, title)}
+            ref={(el) => {
+              tabRefs.current[index] = el;
+            }}
           >
             {title}
             <Image src={icon} alt={`${title} icon`} width={iconWidth} height={iconHeight} />
@@ -47,11 +53,10 @@ export default function Tap() {
         ))}
       </div>
       <span
-        className="absolute h-1 bg-black transition-all duration-300"
+        className="absolute top-full h-1 bg-black transition-all duration-300"
         style={{
           width: indicatorStyle.width,
           left: indicatorStyle.left,
-          bottom: '-2px',
         }}
       ></span>
     </div>
