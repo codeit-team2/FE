@@ -20,7 +20,6 @@ export default function Tap() {
 
   useEffect(() => {
     const currentTab = tabRefs.current[selectedIndex];
-    console.log(currentTab?.offsetWidth);
     if (currentTab) {
       const { offsetWidth, offsetLeft } = currentTab;
       setIndicatorStyle({
