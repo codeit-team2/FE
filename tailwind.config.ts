@@ -18,6 +18,15 @@ const config = {
       },
     },
     extend: {
+      borderRadius: px0_50,
+      borderWidth: px0_50,
+      lineHeight: px0_100,
+      fontSize: px0_100,
+      spacing: px0_400,
+      minWidth: px0_400,
+      minHeight: px0_400,
+      width: px0_1000,
+      height: px0_1000,
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -25,12 +34,12 @@ const config = {
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         primary: {
-          DEFAULT: "hsl(var(--primary))",
-          foreground: "hsl(var(--primary-foreground))",
+          DEFAULT: 'var(--primary)',
+          foreground: 'var(--primary-foreground)',
         },
         secondary: {
-          DEFAULT: "hsl(var(--secondary))",
-          foreground: "hsl(var(--secondary-foreground))",
+          DEFAULT: 'var(--secondary)',
+          foreground: 'var(--secondary-foreground)',
         },
         destructive: {
           DEFAULT: "hsl(var(--destructive))",
@@ -52,11 +61,8 @@ const config = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
-      },
-      borderRadius: {
-        lg: "var(--radius)",
-        md: "calc(var(--radius) - 2px)",
-        sm: "calc(var(--radius) - 4px)",
+        'primary-hover': 'var(--primary-hover)',
+        'secondary-hover': 'var(--secondary-hover)',
       },
       keyframes: {
         "accordion-down": {
