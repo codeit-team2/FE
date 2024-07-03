@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
@@ -27,10 +27,6 @@ export default function MakeClubModal() {
   ];
   const [selectTime, setSelectTime] = useState<string[]>([]);
 
-  useEffect(() => {
-    console.log(selectTime);
-  }, [selectTime]);
-
   const handleTimeClick = (time: string) => {
     setSelectTime((prev) => {
       if (prev.includes(time)) {
@@ -39,6 +35,11 @@ export default function MakeClubModal() {
         return [...prev, time];
       }
     });
+  };
+
+  const fileInput = React.useRef<HTMLInputElement | null>(null);
+  const handleButtonClick = () => {
+    fileInput.current?.click();
   };
 
   return (
@@ -54,10 +55,16 @@ export default function MakeClubModal() {
           <div className="flex w-full flex-col gap-24">
             <div>
               <DialogDescription>대표 이미지</DialogDescription>
-              <Input type="text" placeholder="대표이미지를 첨부해주세요" />
-              <Button variant="chip" selected={true}>
-                파일찾기
-              </Button>
+              <div className="flex flex-row items-center gap-8">
+                <input
+                  type="file"
+                  ref={fileInput}
+                  className="block rounded-sm bg-neutral-50 px-12 py-10 file:hidden"
+                />
+                <Button variant="chip" selected={true} onClick={() => handleButtonClick()}>
+                  파일찾기
+                </Button>
+              </div>
             </div>
             <div className="flex flex-row gap-12">
               <div className="w-3/6">
