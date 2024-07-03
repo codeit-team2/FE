@@ -38,8 +38,6 @@ export default function Dropdown({ items, icon, itemTrigger = 'Open' }: Dropdown
 
   return (
     <div ref={dropdownRef}>
-      {/* <div className="hover:bg-black" ref={dropdownRef}> */}
-      {/* #6B7684 */}
       <button
         onClick={toggleDropdown}
         className="text-body-1M relative flex items-center text-neutral-500"

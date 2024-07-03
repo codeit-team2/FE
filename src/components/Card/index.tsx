@@ -43,7 +43,6 @@ export default function Card({ data }: any) {
               <div className="relative h-6 w-full rounded-full bg-gray-100">
                 <div
                   className="bg-primary-300 absolute h-6 rounded-full"
-                  // className="absolute h-6 w-full rounded-full bg-black"
                   style={{ width: `${progressPercentage}%` }}
                 />
               </div>
@@ -55,21 +54,11 @@ export default function Card({ data }: any) {
               <div className="relative h-6 w-full rounded-full bg-gray-100">
                 <div
                   className="bg-primary-300 absolute h-6 rounded-full"
-                  // className="absolute h-6 w-full rounded-full bg-black"
                   style={{ width: `${progressPercentage}%` }}
                 />
               </div>
             </>
           )}
-
-          {/* <div className="text-14">{data.member}/20</div>
-          <div className="relative h-6 w-full rounded-full bg-gray-100">
-            <div
-              className="bg-primary-300 absolute h-6 rounded-full"
-              // className="absolute h-6 w-full rounded-full bg-black"
-              style={{ width: `${progressPercentage}%` }}
-            />
-          </div> */}
         </div>
       </div>
       <div className="flex flex-col items-end justify-between">
@@ -91,10 +80,6 @@ export default function Card({ data }: any) {
             참여하기
           </Button>
         )}
-
-        {/* <div className="right-26 top-26 absolute"> */}
-
-        {/* </div> */}
       </div>
     </div>
   );

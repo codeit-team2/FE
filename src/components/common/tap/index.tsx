@@ -36,11 +36,6 @@ export default function Tap() {
 
   return (
     <div className="relative flex w-full items-center justify-center gap-32">
-      {/* 원본 */}
-      {/* <div className="relative flex flex-col items-center"> */}
-      {/* <div className="relative flex flex-col items-center"> */}
-      {/* 원본 */}
-      {/* <div className="flex items-center gap-32"> */}
       {titles.map(({ title, icon, iconWidth, iconHeight }, index) => (
         <div
           key={index}
@@ -56,7 +51,6 @@ export default function Tap() {
           </div>
         </div>
       ))}
-      {/* </div> */}
       <span
         className="absolute top-full h-2 rounded-[99px] bg-black transition-all duration-300"
         style={{
