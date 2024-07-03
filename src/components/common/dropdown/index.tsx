@@ -1,11 +1,13 @@
+import Image from 'next/image';
 import React, { useState, useRef, useEffect } from 'react';
 
 interface DropdownProps {
-  item: string[];
+  items?: string[];
+  icon: string;
   itemTrigger: string;
 }
 
-export default function Dropdown({ item, itemTrigger = 'Open' }: DropdownProps) {
+export default function Dropdown({ items, icon, itemTrigger = 'Open' }: DropdownProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [itemValue, setItemValue] = useState(itemTrigger);
 
@@ -36,23 +38,32 @@ export default function Dropdown({ item, itemTrigger = 'Open' }: DropdownProps) 
 
   return (
     <div className="dropdown" ref={dropdownRef}>
-      <button onClick={toggleDropdown} className="dropdown-toggle">
+      {/* #6B7684 */}
+      <button onClick={toggleDropdown} className="text-neutral-gray-500 flex items-center">
         {itemValue}
+        <Image src={icon} alt="dropdownIcon" width={32} height={32} />
       </button>
+
       {/* 이후 고정 값 나오면 map으로 변경작업 */}
-      {isOpen && (
-        <ul className="dropdown-menu">
-          <li className="dropdown-item" onClick={handleItemClick}>
-            아이템 1
-          </li>
-          <li className="dropdown-item" onClick={handleItemClick}>
-            아이템 2
-          </li>
-          <li className="dropdown-item" onClick={handleItemClick}>
-            아이템 3
-          </li>
-        </ul>
-      )}
+
+      {isOpen ? (
+        items && items.length > 0 ? (
+          <div className="text-body-2Sb rounded-md bg-white py-5 shadow-[#191f28]">
+            {items.map((item, index) => (
+              <div
+                key={index}
+                onClick={handleItemClick}
+                className="hover:bg-secondary-blue-50 flex cursor-pointer items-center justify-center px-10 py-12 hover:rounded-full"
+              >
+                {item}
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div>Loading...</div> // items가 없는 경우
+        )
+      ) : null}
+      {/* isOpen이 false일 때는 아무것도 렌더링하지 않음 */}
     </div>
   );
 }

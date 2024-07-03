@@ -10,8 +10,8 @@ export default function Tap() {
     { title: '콘텐츠 감상', icon: '/icons/eyeIcon.svg', iconWidth: 24, iconHeight: 20 },
   ];
 
-  const selectedFont = 'flex text-24 font-semibold';
-  const notSelectedFont = 'flex text-24 font-medium text-[#6B7684]';
+  const selectedFont = 'flex text-[24px] font-semibold';
+  const notSelectedFont = 'flex text-[24px] font-medium text-[#6B7684]';
 
   const [selectedIndex, setSelectedIndex] = useState<number>(0);
   const [indicatorStyle, setIndicatorStyle] = useState({ width: 0, left: 0 });
