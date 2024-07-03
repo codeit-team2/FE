@@ -25,7 +25,7 @@ const config = {
       },
     },
     extend: {
-      borderRadius: { sm: '8px', md: '20px', lg: '30px', full: '50%' },
+      borderRadius: { sm: '8px', md: '20px', lg: '30px', xl: '50%', full: '9999px' },
       borderWidth: px0_50,
       lineHeight: px0_100,
       fontSize: {
