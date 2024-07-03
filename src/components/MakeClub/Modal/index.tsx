@@ -50,7 +50,7 @@ export default function MakeClubModal() {
         </Button>
       </DialogTrigger>
       <DialogContent className="flex flex-col items-center gap-24 px-40 py-32">
-        <DialogTitle className="w-946 text-center">모임 만들기</DialogTitle>
+        <DialogTitle className="w-952 text-center">모임 만들기</DialogTitle>
         <div className="flex w-full flex-row justify-center">
           <div className="flex w-full flex-col gap-24">
             <div>
@@ -128,7 +128,7 @@ export default function MakeClubModal() {
           </div>
         </div>
         <div className="flex justify-center">
-          <Button className="w-946">확인</Button>
+          <Button className="w-952">확인</Button>
         </div>
       </DialogContent>
     </Dialog>

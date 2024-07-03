@@ -1,11 +1,5 @@
-import MakeClubModal from '@/components/MakeClub/Modal';
-
 function Main() {
-  return (
-    <>
-      <MakeClubModal />
-    </>
-  );
+  return <></>;
 }
 
 export default Main;
