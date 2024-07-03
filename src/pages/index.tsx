@@ -1,25 +1,29 @@
-import BackgroundColor from '@/components/common/BackgroundColor';
+import Card from '@/components/Card';
+import ChipTap from '@/components/ChipTap';
+import MainLayout from '@/components/common/MainLayout';
 import Banner from '@/components/common/Banner';
 import Dropdown from '@/components/common/Dropdown';
 import GNB from '@/components/common/GNB';
 import Tap from '@/components/common/Tap';
+import Test from '@/components/Card/testData.js';
 
 function Main() {
   return (
     <>
-      {/* <div> */}
-      <BackgroundColor>
-        {/* c최상위 div는 테스트용이니 꼭 지울것 */}
-        <GNB />
+      <GNB />
+      <MainLayout>
         <Banner
           mainTitle="취미를 함께할 동료를 찾고 있나요?
 취ZONE에서 쉽고 빠르게 다채로운 취미 모임에 참여해보세요"
           subTitle="운동부터 원데이클래스까지 든든하게 준비되어 있어요"
         />
-        <div className="mb-20 mt-32">
+        <div className="px-156 mb-20 mt-32">
           <Tap />
         </div>
-        {/* chip button 자리 */}
+        <div className="px-95 w-full">
+          <ChipTap />
+        </div>
+
         <div className="flex justify-between">
           <div className="flex">
             <Dropdown
@@ -35,8 +39,13 @@ function Main() {
             itemTrigger="마감임박"
           />
         </div>
-      </BackgroundColor>
-      {/* </div> */}
+
+        <div>
+          {Test.map((data, index) => (
+            <Card key={index} data={data} />
+          ))}
+        </div>
+      </MainLayout>
     </>
   );
 }

@@ -24,7 +24,7 @@ export default function Dropdown({ items, icon, itemTrigger = 'Open' }: Dropdown
   };
 
   const handleItemClick = (e: any) => {
-    const itemText = e.currentTarget.textContent;
+    const itemText = e.currentTarget?.textContent;
     setIsOpen(false);
     setItemValue(itemText);
   };
@@ -38,14 +38,14 @@ export default function Dropdown({ items, icon, itemTrigger = 'Open' }: Dropdown
 
   return (
     <div className="dropdown" ref={dropdownRef}>
+      {/* <div className="hover:bg-black" ref={dropdownRef}> */}
       {/* #6B7684 */}
-      <button onClick={toggleDropdown} className="text-neutral-gray-500 flex items-center">
+      <button onClick={toggleDropdown} className="flex items-center text-neutral-500">
         {itemValue}
         <Image src={icon} alt="dropdownIcon" width={32} height={32} />
       </button>
 
-      {/* 이후 고정 값 나오면 map으로 변경작업 */}
-
+      {/* 이후 고정 값 나오면 변경작업 */}
       {isOpen ? (
         items && items.length > 0 ? (
           <div className="text-body-2Sb rounded-md bg-white py-5 shadow-[#191f28]">
@@ -53,7 +53,7 @@ export default function Dropdown({ items, icon, itemTrigger = 'Open' }: Dropdown
               <div
                 key={index}
                 onClick={handleItemClick}
-                className="hover:bg-secondary-blue-50 flex cursor-pointer items-center justify-center px-10 py-12 hover:rounded-full"
+                className="hover:bg-primary-50 flex cursor-pointer items-center justify-center px-10 py-12 hover:rounded-full"
               >
                 {item}
               </div>
