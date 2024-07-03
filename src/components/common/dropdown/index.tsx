@@ -37,18 +37,29 @@ export default function Dropdown({ items, icon, itemTrigger = 'Open' }: Dropdown
   }, []);
 
   return (
-    <div className="dropdown" ref={dropdownRef}>
+    <div ref={dropdownRef}>
       {/* <div className="hover:bg-black" ref={dropdownRef}> */}
       {/* #6B7684 */}
-      <button onClick={toggleDropdown} className="flex items-center text-neutral-500">
+      <button
+        onClick={toggleDropdown}
+        className="text-body-1M relative flex items-center text-neutral-500"
+      >
         {itemValue}
-        <Image src={icon} alt="dropdownIcon" width={32} height={32} />
+        {itemTrigger === '마감임박' ? (
+          <div className="relative h-32 w-32">
+            <Image src={icon} alt="dropdownIcon" fill className="px-11 py-8" />
+          </div>
+        ) : (
+          <div className="relative h-32 w-32">
+            <Image src={icon} alt="dropdownIcon" fill />
+          </div>
+        )}
       </button>
 
       {/* 이후 고정 값 나오면 변경작업 */}
       {isOpen ? (
         items && items.length > 0 ? (
-          <div className="text-body-2Sb rounded-md bg-white py-5 shadow-[#191f28]">
+          <div className="text-body-2Sb absolute z-10 rounded-md bg-white py-5 shadow-[#191f28]">
             {items.map((item, index) => (
               <div
                 key={index}
@@ -60,7 +71,7 @@ export default function Dropdown({ items, icon, itemTrigger = 'Open' }: Dropdown
             ))}
           </div>
         ) : (
-          <div>Loading...</div> // items가 없는 경우
+          <div className="absolute z-10">Loading...</div> // items가 없는 경우
         )
       ) : null}
       {/* isOpen이 false일 때는 아무것도 렌더링하지 않음 */}

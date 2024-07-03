@@ -10,8 +10,8 @@ export default function Tap() {
     { title: '콘텐츠 감상', icon: '/icons/eyeIcon.svg', iconWidth: 24, iconHeight: 20 },
   ];
 
-  const selectedFont = 'flex text-[24px] font-semibold';
-  const notSelectedFont = 'flex text-[24px] font-medium text-[#6B7684]';
+  const selectedFont = 'flex text-heading-1M';
+  const notSelectedFont = 'flex text-heading-1M text-[#6B7684]';
 
   const [selectedIndex, setSelectedIndex] = useState<number>(0);
   const [indicatorStyle, setIndicatorStyle] = useState({ width: 0, left: 0 });
@@ -35,24 +35,30 @@ export default function Tap() {
   };
 
   return (
-    <div className="relative flex flex-col items-center">
-      <div className="flex items-center gap-32">
-        {titles.map(({ title, icon, iconWidth, iconHeight }, index) => (
-          <div
-            key={index}
-            className={`${selectedIndex === index ? selectedFont : notSelectedFont} cursor-pointer gap-2`}
-            onClick={() => handleTapChange(index, title)}
-            ref={(el) => {
-              tabRefs.current[index] = el;
-            }}
-          >
-            {title}
-            <Image src={icon} alt={`${title} icon`} width={iconWidth} height={iconHeight} />
+    <div className="relative flex w-full items-center justify-center gap-32">
+      {/* 원본 */}
+      {/* <div className="relative flex flex-col items-center"> */}
+      {/* <div className="relative flex flex-col items-center"> */}
+      {/* 원본 */}
+      {/* <div className="flex items-center gap-32"> */}
+      {titles.map(({ title, icon, iconWidth, iconHeight }, index) => (
+        <div
+          key={index}
+          className={`${selectedIndex === index ? selectedFont : notSelectedFont} flex cursor-pointer items-center gap-2`}
+          onClick={() => handleTapChange(index, title)}
+          ref={(el) => {
+            tabRefs.current[index] = el;
+          }}
+        >
+          {title}
+          <div className="relative" style={{ width: iconWidth, height: iconHeight }}>
+            <Image src={icon} alt={`${title} icon`} fill />
           </div>
-        ))}
-      </div>
+        </div>
+      ))}
+      {/* </div> */}
       <span
-        className="absolute top-full h-1 bg-black transition-all duration-300"
+        className="absolute top-full h-2 rounded-[99px] bg-black transition-all duration-300"
         style={{
           width: indicatorStyle.width,
           left: indicatorStyle.left,
