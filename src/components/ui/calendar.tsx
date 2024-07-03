@@ -11,7 +11,7 @@ function UiCalendar({ className, classNames, showOutsideDays = true, ...props }:
   return (
     <DayPicker
       showOutsideDays={showOutsideDays}
-      className={cn('w-fit p-12', className)}
+      className={cn('mx-auto w-fit border-none p-12', className)}
       classNames={{
         months: 'flex flex-col sm:flex-row space-y-16 sm:space-x-16 sm:space-y-0',
         month: 'space-y-16',
@@ -31,7 +31,7 @@ function UiCalendar({ className, classNames, showOutsideDays = true, ...props }:
         cell: 'h-36 w-36 text-center text-sm p-0 relative [&:has([aria-selected].day-range-end)]:rounded-full [&:has([aria-selected].day-outside)]:bg-accent/50 [&:has([aria-selected].day-outside)]:rounded-full focus-within:relative focus-within:z-20',
         day: cn(
           buttonVariants({ variant: 'ghost' }),
-          'hover:rounded-full h-36 w-36 p-0 font-normal aria-selected:opacity-100',
+          'rounded-full hover:rounded-full h-36 w-36 p-0 font-normal aria-selected:opacity-100',
         ),
         day_range_end: 'day-range-end',
         day_selected:

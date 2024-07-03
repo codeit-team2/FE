@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
@@ -25,6 +25,21 @@ export default function MakeClubModal() {
     '21:00',
     '22:00',
   ];
+  const [selectTime, setSelectTime] = useState<string[]>([]);
+
+  useEffect(() => {
+    console.log(selectTime);
+  }, [selectTime]);
+
+  const handleTimeClick = (time: string) => {
+    setSelectTime((prev) => {
+      if (prev.includes(time)) {
+        return prev.filter((t) => t !== time);
+      } else {
+        return [...prev, time];
+      }
+    });
+  };
 
   return (
     <Dialog>
@@ -40,29 +55,40 @@ export default function MakeClubModal() {
             <div>
               <DialogDescription>대표 이미지</DialogDescription>
               <Input type="text" placeholder="대표이미지를 첨부해주세요" />
+              <Button variant="chip" selected={true}>
+                파일찾기
+              </Button>
             </div>
             <div className="flex flex-row gap-12">
-              <div>
+              <div className="w-3/6">
                 <DialogDescription>카테고리</DialogDescription>
                 <Input type="text" placeholder="카테고리를 선택해주세요" />
               </div>
-              <div>
+              <div className="w-3/6">
                 <DialogDescription>지역</DialogDescription>
                 <Input type="text" placeholder="지역을 선택해주세요" />
               </div>
             </div>
             <div>
               <DialogDescription>날짜</DialogDescription>
-              <Calendar />
+              <div className="mx-auto w-full rounded-md border">
+                <Calendar />
+              </div>
             </div>
           </div>
           <div className="mx-32 border-l"></div>
           <div className="flex w-full flex-col gap-24">
             <div>
               <DialogDescription>오전</DialogDescription>
-              <div className="flex gap-8">
+              <div className="flex gap-4">
                 {amTime.map((time, i) => (
-                  <Button variant="chip" key={i}>
+                  <Button
+                    variant="chip"
+                    size="chip"
+                    key={i}
+                    selected={selectTime.includes(time)}
+                    onClick={() => handleTimeClick(time)}
+                  >
                     {time}
                   </Button>
                 ))}
@@ -70,9 +96,15 @@ export default function MakeClubModal() {
             </div>
             <div>
               <DialogDescription>오후</DialogDescription>
-              <div className="flex flex-wrap gap-8">
+              <div className="flex flex-wrap gap-4">
                 {pmTime.map((time, i) => (
-                  <Button variant="chip" key={i}>
+                  <Button
+                    variant="chip"
+                    size="chip"
+                    key={i}
+                    selected={selectTime.includes(time)}
+                    onClick={() => handleTimeClick(time)}
+                  >
                     {time}
                   </Button>
                 ))}
