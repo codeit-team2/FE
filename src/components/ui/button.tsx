@@ -5,28 +5,28 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@/lib/utils';
 
 const buttonVariants = cva(
-  'inline-flex items-center justify-center whitespace-nowrap font-semibold ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:bg-gray-400',
+  'inline-flex items-center justify-center whitespace-nowrap ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none',
   {
     variants: {
       variant: {
-        default: 'bg-primary text-primary-foreground hover:bg-primary-hover',
-        destructive: 'bg-destructive text-destructive-foreground hover:bg-destructive/90',
-        outline:
-          'border border-primary bg-white text-primary hover:border-primary hover:text-primary-hover disabled:bg-white disabled:border-gray-400 disabled:text-gray-400',
-        secondary: 'bg-secondary text-secondary-foreground hover:bg-secondary-hover',
-        ghost: 'hover:bg-accent hover:text-accent-foreground',
-        link: 'text-primary underline-offset-4 hover:underline',
+        default: 'bg-primary-300 !text-white hover:!text-primary-100 disabled:bg-primary-100',
+        secondary:
+          'bg-neutral-900 !text-white hover:!text-neutral-500 disabled:bg-neutral-400 disabled:!text-neutral-100',
+        chip: 'border-2 border-neutral-100 bg-white !text-neutral-500 disabled:bg-neutral-50 disabled:!text-neutral-200 disabled:border-neutral-50',
       },
       size: {
-        default: 'h-40 w-120 rounded-12 px-4 py-2',
-        sm: 'h-9 rounded-md px-3',
-        lg: 'h-11 rounded-md px-8',
-        icon: 'h-10 w-10',
+        default: 'h-42 rounded-sm p-10 text-body-1Sb',
+        chip: 'h-42 rounded-sm py-10 px-20 text-body-1M',
+      },
+      selected: {
+        true: 'bg-neutral-900 !text-white border-neutral-900',
+        false: '',
       },
     },
     defaultVariants: {
       variant: 'default',
       size: 'default',
+      selected: false,
     },
   },
 );
@@ -35,13 +35,14 @@ export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof buttonVariants> {
   asChild?: boolean;
+  selected?: boolean;
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant, size, asChild = false, ...props }, ref) => {
+  ({ className, variant, size, selected = false, asChild = false, ...props }, ref) => {
     const Comp = asChild ? Slot : 'button';
     return (
-      <Comp className={cn(buttonVariants({ variant, size, className }))} ref={ref} {...props} />
+      <Comp className={cn(buttonVariants({ variant, size, selected, className }))} ref={ref} {...props} />
     );
   },
 );
