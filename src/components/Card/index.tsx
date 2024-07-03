@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import React, { useState } from 'react';
 import { Button } from '../ui/button';
+import Liked from '@/components/Card/Liked';
 
 export default function Card({ data }: any) {
   const [isBookmarked, setIsBookmarked] = useState(false);
@@ -61,15 +62,9 @@ export default function Card({ data }: any) {
           )}
         </div>
       </div>
+
       <div className="flex flex-col items-end justify-between">
-        <button type="button" className="relative h-48 w-48" onClick={handleClick}>
-          <Image
-            src={isBookmarked ? '/icons/heart-pink.svg' : '/icons/heart-gray.svg'}
-            alt="찜 버튼"
-            fill
-            className="absolute"
-          />
-        </button>
+        <Liked onClick={handleClick} isBookmarked={isBookmarked} />
 
         {data.member >= 20 ? (
           <Button className="h-42 w-288 mb-2" disabled variant={'secondary'}>

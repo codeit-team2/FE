@@ -6,6 +6,7 @@ import Dropdown from '@/components/common/Dropdown';
 import GNB from '@/components/common/GNB';
 import Tap from '@/components/common/Tap';
 import Test from '@/components/Card/testData.js';
+import CreateHobby from '@/components/CreateHobby';
 
 function Main() {
   return (
@@ -39,7 +40,7 @@ function Main() {
             itemTrigger="마감임박"
           />
         </div>
-
+        <CreateHobby />
         <div className="flex flex-col gap-20">
           {Test.map((data, index) => (
             <Card key={index} data={data} />
