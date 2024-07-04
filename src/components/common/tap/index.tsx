@@ -16,7 +16,7 @@ export default function Tap() {
   const [selectedIndex, setSelectedIndex] = useState<number>(0);
   const [indicatorStyle, setIndicatorStyle] = useState({ width: 0, left: 0 });
 
-  const tabRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
 
   const updateIndicator = () => {
     const currentTab = tabRefs.current[selectedIndex];
@@ -46,9 +46,9 @@ export default function Tap() {
   return (
     <div className="relative flex w-full items-center justify-center gap-32">
       {titles.map(({ title, icon, iconWidth, iconHeight }, index) => (
-        <div
+        <button
           key={index}
-          className={`cursor-pointer ${selectedIndex === index ? selectedFont : notSelectedFont} flex items-center gap-2`}
+          className={`${selectedIndex === index ? selectedFont : notSelectedFont} flex items-center gap-2`}
           onClick={() => handleTapChange(index)}
           ref={(el) => {
             tabRefs.current[index] = el;
@@ -60,7 +60,7 @@ export default function Tap() {
             </div>
           </div>
           <span>{title}</span>
-        </div>
+        </button>
       ))}
       <span
         className="absolute bottom-0 h-1 rounded-full bg-black transition-all duration-300"

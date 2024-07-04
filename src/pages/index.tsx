@@ -50,7 +50,7 @@ function Main() {
         </div>
         {/* 데이터가 남아있다면 true 없다면 false처리해서 ui그리기 */}
         <div className="mb-16 mt-40 h-2 w-full bg-neutral-100" />
-        <button className="pb-50 flex w-full cursor-pointer items-center justify-center">
+        <button className="pb-50 flex w-full items-center justify-center">
           더 보기
           <div className="relative h-24 w-24">
             <Image src="icons/dropdownIcon.svg" alt="dropdown" fill />
