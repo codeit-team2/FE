@@ -11,6 +11,8 @@ import Footer from '@/components/common/Footer';
 import Image from 'next/image';
 
 function Main() {
+  const starArray = [...Array(5)];
+  console.log(starArray);
   return (
     <>
       <GNB />

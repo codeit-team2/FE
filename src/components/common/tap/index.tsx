@@ -10,8 +10,8 @@ export default function Tap() {
     { title: '콘텐츠 감상', icon: '/icons/eyeIcon.svg', iconWidth: 24, iconHeight: 20 },
   ];
 
-  const selectedFont = 'text-heading-1M font-semibold';
-  const notSelectedFont = 'text-heading-1M text-[#6B7684] font-medium';
+  const selectedFont = 'text-heading-1M';
+  const notSelectedFont = 'text-heading-1M text-neutral-500';
 
   const [selectedIndex, setSelectedIndex] = useState<number>(0);
   const [indicatorStyle, setIndicatorStyle] = useState({ width: 0, left: 0 });
@@ -44,7 +44,7 @@ export default function Tap() {
   };
 
   return (
-    <div className="relative mx-auto flex w-full max-w-6xl items-center justify-center gap-8 md:gap-16 lg:gap-24">
+    <div className="relative flex w-full items-center justify-center gap-32">
       {titles.map(({ title, icon, iconWidth, iconHeight }, index) => (
         <div
           key={index}
