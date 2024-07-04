@@ -2,6 +2,7 @@ import Image from 'next/image';
 import React, { useState } from 'react';
 import { Button } from '../ui/button';
 import Liked from '@/components/Card/Liked';
+import Description from '@/components/Card/description';
 
 export default function Card({ data }: any) {
   const [isBookmarked, setIsBookmarked] = useState(false);
@@ -23,7 +24,8 @@ export default function Card({ data }: any) {
         )}
       </div>
       <div className="gap-30 relative flex w-full flex-col items-start justify-between text-gray-600">
-        <div className="mb-4 flex flex-col">
+        <Description data={data} />
+        {/* <div className="mb-4 flex flex-col">
           <div className="flex gap-6">
             <p className="text-primary-300">{data.category}</p>
             <p className="text-neutral-500">{data.place}</p>
@@ -34,7 +36,7 @@ export default function Card({ data }: any) {
             <p className="text-neutral-500">{data.time}</p>
           </div>
           <div className="text-heading-2M">{data.title}</div>
-        </div>
+        </div> */}
 
         <div className="mb-11 flex w-full items-center justify-center gap-16">
           {data.member > 5 ? (
