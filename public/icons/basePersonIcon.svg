@@ -1,0 +1,13 @@
+<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Grid">
+<mask id="mask0_2009_10985" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="16" height="16">
+<rect id="Rectangle 34624992" width="16" height="16" fill="white"/>
+</mask>
+<g mask="url(#mask0_2009_10985)">
+<g id="Group 1707479997">
+<circle id="Ellipse 2528" cx="7.99935" cy="3.33333" r="3.33333" fill="#8B95A1"/>
+<path id="Rectangle 34625089" d="M1.4708 11.5468C2.30132 9.40865 4.35968 8 6.65347 8H9.34653C11.6403 8 13.6987 9.40866 14.5292 11.5468C15.237 13.369 13.8927 15.3333 11.9379 15.3333H4.06214C2.10729 15.3333 0.762995 13.369 1.4708 11.5468Z" fill="#8B95A1"/>
+</g>
+</g>
+</g>
+</svg>
