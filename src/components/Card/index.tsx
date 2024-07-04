@@ -31,15 +31,11 @@ export default function Card({ data }: any) {
           {data.member > 5 ? (
             <>
               <Person data={data} />
-              {/* <Image src="/icons/overPersonIcon.svg" alt="overPersonIcon" width={24} height={24} />
-              <div className="text-14 text-primary-300">{data.member}/20</div> */}
               <ProgressPercentage data={data} />
             </>
           ) : (
             <>
               <Person data={data} />
-              {/* <Image src="/icons/basePersonIcon.svg" alt="basePersonIcon" width={24} height={24} />
-              <div className="text-14 text-neutral-500">{data.member}/20</div> */}
               <ProgressPercentage data={data} />
             </>
           )}
