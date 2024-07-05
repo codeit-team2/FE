@@ -6,10 +6,14 @@ import Dropdown from '@/components/common/Dropdown';
 import GNB from '@/components/common/GNB';
 import Tap from '@/components/common/Tap';
 import Test from '@/components/Card/testData.js';
+import Signup from '@/components/common/Modal/Signup';
+import Login from '@/components/common/Modal/Login';
 
 function Main() {
   return (
     <>
+      {/* <Signup /> */}
+      <Login />
       <GNB />
       <MainLayout>
         <Banner
@@ -17,10 +21,10 @@ function Main() {
 취ZONE에서 쉽고 빠르게 다채로운 취미 모임에 참여해보세요"
           subTitle="운동부터 원데이클래스까지 든든하게 준비되어 있어요"
         />
-        <div className="px-156 mb-27 mt-32">
+        <div className="mb-27 mt-32 px-156">
           <Tap />
         </div>
-        <div className="px-95 mb-16 w-full">
+        <div className="mb-16 w-full px-95">
           <ChipTap />
         </div>
 
