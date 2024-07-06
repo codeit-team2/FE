@@ -16,6 +16,10 @@ const config = {
     './src/**/*.{ts,tsx}',
   ],
   prefix: '',
+  screens: {
+    md: { max: '1023px' },
+    sm: { max: '767px' },
+  },
   theme: {
     container: {
       center: true,
