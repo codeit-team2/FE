@@ -6,7 +6,7 @@ export default function ApiTest() {
 
   const postText = async () => {
     try {
-      const res = await axios.post('http://35.216.7.103/api/test', {
+      const res = await axios.post('https://hobbyzone-instance-083440.duckdns.org/api/test', {
         text: text,
       });
       const products = res.data;
