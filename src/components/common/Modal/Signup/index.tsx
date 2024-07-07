@@ -223,7 +223,7 @@ export default function Signup({
                   </p>
                 </div>
                 <Button
-                  className={`w-full ${!isValid && 'cursor-default bg-neutral-400 !text-neutral-100 hover:!text-neutral-100'}`}
+                  className={`w-full ${(!isValid || !isAgree) && 'cursor-default bg-neutral-400 !text-neutral-100 hover:!text-neutral-100'}`}
                   variant="secondary"
                   type="submit"
                 >
