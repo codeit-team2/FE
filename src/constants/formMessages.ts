@@ -1,5 +1,5 @@
 export const ERROR_MESSAGE = {
-  nickName: {
+  nickname: {
     required: '닉네임을 입력해 주세요',
     min: '2자~8자 사이의 닉네임을 입력해 주세요',
     max: '2자~8자 사이의 닉네임을 입력해 주세요',
@@ -27,7 +27,7 @@ export const ERROR_MESSAGE = {
 };
 
 export const PLACEHOLDER = {
-  nickName: '닉네임을 입력해 주세요',
+  nickname: '닉네임을 입력해 주세요',
   email: '이메일을 입력해 주세요',
   verifyCode: '인증코드를 입력해 주세요',
   password: '비밀번호를 입력해 주세요',
