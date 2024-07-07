@@ -45,7 +45,7 @@ function Input(
     <div className="relative w-full">
       <div className="relative">
         <input
-          className={`h-42 w-full rounded-sm bg-neutral-50 py-10 pl-20 pr-66 text-body-1M text-neutral-900 caret-primary-300 outline-none placeholder:text-neutral-400 ${errorMessage && isSubmitted && 'border border-secondary-300'} ${isDisabled && 'bg-neutral-100 text-neutral-400'}`}
+          className={`h-42 w-full rounded-sm bg-neutral-50 py-10 pl-20 text-body-1M text-neutral-900 caret-primary-300 outline-none placeholder:text-neutral-400 ${type === 'password' ? 'pr-66' : 'pr-36'} ${errorMessage && isSubmitted && 'border border-secondary-300'} ${isDisabled && 'bg-neutral-100 text-neutral-400'}`}
           type={typeState}
           id={id}
           placeholder={placeholder}
