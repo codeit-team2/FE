@@ -1,7 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image';
+import Login from '@/components/common/Modal/Login';
+import Signup from '@/components/common/Modal/Signup';
 
 export default function GNB() {
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
+  const [isSignupModalOpen, setIsSignupModalOpen] = useState(false);
+
   // api 연동하면서 수정필요
   const isloginStatus = false;
   const likeItems = 10;
@@ -27,9 +32,18 @@ export default function GNB() {
             <Image src="/icons/profile.svg" alt="profile" width={32} height={32} />
           </>
         ) : (
-          <a href="/" className="font-Pretendard text-base font-medium text-gray-500">
-            로그인
-          </a>
+          <div className="font-Pretendard text-base font-medium text-gray-500">
+            <Login
+              isLoginModalOpen={isLoginModalOpen}
+              setIsLoginModalOpen={setIsLoginModalOpen}
+              setIsSignupModalOpen={setIsSignupModalOpen}
+            />
+            <Signup
+              isSignupModalOpen={isSignupModalOpen}
+              setIsSignupModalOpen={setIsSignupModalOpen}
+              setIsLoginModalOpen={setIsLoginModalOpen}
+            />
+          </div>
         )}
       </div>
     </div>

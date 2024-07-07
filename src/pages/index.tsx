@@ -6,14 +6,10 @@ import Dropdown from '@/components/common/Dropdown';
 import GNB from '@/components/common/GNB';
 import Tap from '@/components/common/Tap';
 import Test from '@/components/Card/testData.js';
-import Signup from '@/components/common/Modal/Signup';
-import Login from '@/components/common/Modal/Login';
 
 function Main() {
   return (
     <>
-      {/* <Signup /> */}
-      <Login />
       <GNB />
       <MainLayout>
         <Banner
