@@ -17,10 +17,10 @@ function Main() {
 취ZONE에서 쉽고 빠르게 다채로운 취미 모임에 참여해보세요"
           subTitle="운동부터 원데이클래스까지 든든하게 준비되어 있어요"
         />
-        <div className="mb-27 mt-32 px-156">
+        <div className="px-156 mb-27 mt-32">
           <Tap />
         </div>
-        <div className="mb-16 w-full px-95">
+        <div className="px-95 mb-16 w-full">
           <ChipTap />
         </div>
 
