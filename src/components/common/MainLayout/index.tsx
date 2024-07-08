@@ -5,5 +5,5 @@ interface MainLayoutrProps {
 }
 
 export default function MainLayout({ children }: MainLayoutrProps) {
-  return <div className="md:px-135 bg-neutral-50 px-12 pt-20 md:pt-32">{children}</div>;
+  return <div className="bg-neutral-50 px-12 pt-20 md:px-135 md:pt-32">{children}</div>;
 }

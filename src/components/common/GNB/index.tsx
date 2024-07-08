@@ -12,9 +12,9 @@ export default function GNB() {
   const likeItems = 10;
 
   return (
-    <div className="flex w-full flex-row justify-between px-32 py-16 shadow-sm">
+    <div className="flex w-full flex-row justify-between px-20 py-16 shadow-sm md:px-32 md:py-16">
       <Image src="/icons/Logo.svg" alt="logo" priority={true} width={65} height={14} />
-      <div className="flex flex-row gap-40">
+      <div className="flex flex-row gap-12 md:gap-40">
         <a href="/" className="font-Pretendard text-base font-semibold">
           모임 찾기
         </a>
