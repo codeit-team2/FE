@@ -4,7 +4,7 @@ import NotCard from '@/components/NotCard';
 import React from 'react';
 
 export default function Meeting() {
-  const TESTS = Test;
+  const TESTS = null;
   return (
     <div>
       <div className="flex flex-col gap-20 pb-50">

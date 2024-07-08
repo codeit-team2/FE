@@ -5,8 +5,8 @@ import GNB from '@/components/common/GNB';
 import MainLayout from '@/components/common/MainLayout';
 import React, { useState } from 'react';
 import Meeting from './meeting';
-import Club from './Club';
-import Review from './Review';
+import Club from './club';
+import Review from './review';
 
 export default function My() {
   const [selectTab, setSelectTab] = useState('meeting');
