@@ -1,6 +1,10 @@
 import Image from 'next/image';
 import React, { useState } from 'react';
 import { Button } from '../ui/button';
+import Liked from '@/components/Card/Liked';
+import Description from '@/components/Card/Description';
+import ProgressPercentage from '@/components/Card/ProgressPercentage';
+import Person from '@/components/Card/Person';
 
 export default function Card({ data }: any) {
   const [isBookmarked, setIsBookmarked] = useState(false);
@@ -9,50 +13,47 @@ export default function Card({ data }: any) {
     setIsBookmarked((prevIsBookmarked) => !prevIsBookmarked);
   };
 
-  const progressPercentage = (data.member / 20) * 100;
-
   return (
-    <div className="relative flex h-230 w-[1216px] gap-20 rounded-30 bg-white p-20">
-      <div className="relative h-190 w-373">
-        <Image src={data.imageUrl} alt={data.title} fill className="rounded-20" />
+    <div className="h-230 relative flex w-full gap-20 rounded-lg bg-white p-20">
+      <div className="h-190 w-373 relative">
+        <Image src={data.imageUrl} alt={data.title} fill className="rounded-md" />
         {data.confirmed && (
-          <div className="bg-secondary-red-300 absolute flex h-36 w-81 items-center justify-center rounded-br-20 rounded-tl-20 text-14 text-white">
+          <div className="bg-secondary-300 w-81 text-body-2M absolute flex h-36 items-center justify-center rounded-br-md rounded-tl-md text-white">
             개설확정
           </div>
         )}
       </div>
-      <div className="relative text-gray-600">
-        <div>
-          <div className="flex gap-6">
-            <p className="text-secondary-blue-300">{data.category}</p>
-            <p>{data.place}</p>
-          </div>
-          <div className="flex gap-6">
-            <p className="text-secondary-red-300">{data.deadline}</p>·<p>{data.date}</p>·
-            <p>{data.time}</p>
-          </div>
-          <div className="text-24 font-medium text-black">{data.title}</div>
-        </div>
-        <div className="absolute bottom-11 flex items-center justify-center gap-16">
-          <div className="text-14">{data.member}/20</div>
-          <div className="relative h-6 w-422 rounded-full bg-gray-100">
-            <div
-              className="bg-secondary-blue-300 absolute h-6 rounded-full"
-              style={{ width: `${progressPercentage}%` }}
-            />
-          </div>
+
+      <div className="gap-30 relative flex w-full flex-col items-start justify-between text-gray-600">
+        <Description data={data} />
+
+        <div className="mb-11 flex w-full items-center justify-center gap-16">
+          {data.member > 5 ? (
+            <>
+              <Person data={data} />
+              <ProgressPercentage data={data} />
+            </>
+          ) : (
+            <>
+              <Person data={data} />
+              <ProgressPercentage data={data} />
+            </>
+          )}
         </div>
       </div>
-      <Button className="absolute bottom-19 right-20 h-42 w-288">참여하기</Button>
-      <div className="absolute right-26 top-26">
-        <button type="button" className="relative h-48 w-48" onClick={handleClick}>
-          <Image
-            src={isBookmarked ? '/icons/heart-pink.svg' : '/icons/heart-gray.svg'}
-            alt="찜 버튼"
-            fill
-            className="absolute"
-          />
-        </button>
+
+      <div className="flex flex-col items-end justify-between">
+        <Liked onClick={handleClick} isBookmarked={isBookmarked} />
+
+        {data.member >= 20 ? (
+          <Button className="h-42 w-288 mb-2" disabled variant={'secondary'}>
+            참여마감
+          </Button>
+        ) : (
+          <Button className="h-42 w-288 mb-2" variant={'secondary'}>
+            참여하기
+          </Button>
+        )}
       </div>
     </div>
   );

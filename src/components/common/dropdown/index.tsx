@@ -1,11 +1,13 @@
+import Image from 'next/image';
 import React, { useState, useRef, useEffect } from 'react';
 
 interface DropdownProps {
-  item: string[];
+  items?: string[];
+  icon: string;
   itemTrigger: string;
 }
 
-export default function Dropdown({ item, itemTrigger = 'Open' }: DropdownProps) {
+export default function Dropdown({ items, icon, itemTrigger = 'Open' }: DropdownProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [itemValue, setItemValue] = useState(itemTrigger);
 
@@ -22,7 +24,7 @@ export default function Dropdown({ item, itemTrigger = 'Open' }: DropdownProps) 
   };
 
   const handleItemClick = (e: any) => {
-    const itemText = e.currentTarget.textContent;
+    const itemText = e.currentTarget?.textContent;
     setIsOpen(false);
     setItemValue(itemText);
   };
@@ -35,24 +37,42 @@ export default function Dropdown({ item, itemTrigger = 'Open' }: DropdownProps) 
   }, []);
 
   return (
-    <div className="dropdown" ref={dropdownRef}>
-      <button onClick={toggleDropdown} className="dropdown-toggle">
+    <div ref={dropdownRef}>
+      <button
+        onClick={toggleDropdown}
+        className="text-body-1M relative flex items-center text-neutral-500"
+      >
         {itemValue}
+        {itemTrigger === '마감임박' ? (
+          <div className="relative h-32 w-32">
+            <Image src={icon} alt="dropdownIcon" fill className="px-11 py-8" />
+          </div>
+        ) : (
+          <div className="relative h-32 w-32">
+            <Image src={icon} alt="dropdownIcon" fill />
+          </div>
+        )}
       </button>
-      {/* 이후 고정 값 나오면 map으로 변경작업 */}
-      {isOpen && (
-        <ul className="dropdown-menu">
-          <li className="dropdown-item" onClick={handleItemClick}>
-            아이템 1
-          </li>
-          <li className="dropdown-item" onClick={handleItemClick}>
-            아이템 2
-          </li>
-          <li className="dropdown-item" onClick={handleItemClick}>
-            아이템 3
-          </li>
-        </ul>
-      )}
+
+      {/* 이후 고정 값 나오면 변경작업 */}
+      {isOpen ? (
+        items && items.length > 0 ? (
+          <div className="text-body-2Sb absolute z-10 rounded-md bg-white py-5 shadow-[#191f28]">
+            {items.map((item, index) => (
+              <div
+                key={index}
+                onClick={handleItemClick}
+                className="hover:bg-primary-50 flex cursor-pointer items-center justify-center px-10 py-12 hover:rounded-full"
+              >
+                {item}
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div className="absolute z-10">Loading...</div> // items가 없는 경우
+        )
+      ) : null}
+      {/* isOpen이 false일 때는 아무것도 렌더링하지 않음 */}
     </div>
   );
 }
