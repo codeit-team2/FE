@@ -208,6 +208,11 @@ const config = {
         'custom-warmgray-700': 'var(--custom-warmgray-700)',
         'custom-warmgray-900': 'var(--custom-warmgray-900)',
       },
+      backgroundImage: {
+        'custom-profile-gradient': `linear-gradient(79deg, rgba(255, 255, 255, 0.00) 64.19%, rgba(255, 255, 255, 0.50) 118.27%), 
+                            linear-gradient(280deg, rgba(255, 255, 255, 0.00) 65.05%, rgba(255, 255, 255, 0.50) 122.92%), 
+                            linear-gradient(180deg, #4580F7 7.1%, #591BDD 221.02%)`,
+      },
       boxShadow: {
         sm: '0px 8px 13px 0px rgba(25, 31, 40, 0.04)',
         md: '3px 6px 28px 0px rgba(25, 31, 40, 0.08)',
