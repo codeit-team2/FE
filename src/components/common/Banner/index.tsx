@@ -7,13 +7,9 @@ interface BannerProps {
 
 export default function Banner({ mainTitle, subTitle }: BannerProps) {
   return (
-    <div className="w-full rounded-lg bg-[#191F28] py-44 text-center">
-      <p className="text-24 mb-16 font-semibold leading-[140%] tracking-[-0.24px] text-white">
-        {mainTitle}
-      </p>
-      <p className="text-20 font-semibold leading-[140%] tracking-[-0.2px] text-zinc-400">
-        {subTitle}
-      </p>
+    <div className="w-full rounded-lg bg-neutral-900 px-30 py-40 text-center md:px-36 md:py-44">
+      <p className="mb-16 text-heading-2Sb text-white md:text-heading-1Sb">{mainTitle}</p>
+      <p className="text-body-1Sb text-neutral-400 md:text-heading-2Sb">{subTitle}</p>
     </div>
   );
 }
