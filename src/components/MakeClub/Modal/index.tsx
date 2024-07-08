@@ -10,6 +10,7 @@ import {
 import Input from '@/components/common/Input';
 import Calendar from '@/components/common/Calendar';
 import { FieldValues, FormProvider, SubmitHandler, useForm } from 'react-hook-form';
+import Image from 'next/image';
 
 interface Props {
   trigger: 'text' | 'plus';
@@ -36,7 +37,16 @@ export default function MakeClubModal({ trigger }: Props) {
     fileInput.current?.click();
   };
 
-  const triggerButton = trigger === 'text' ? <Button>모임만들기</Button> : <Button>Plus</Button>;
+  const triggerButton =
+    trigger === 'text' ? (
+      <Button>모임만들기</Button>
+    ) : (
+      <button className="fixed right-32 z-20 cursor-pointer rounded-[40px] bg-primary-300 p-16">
+        <div className="relative h-24 w-24">
+          <Image src="/icons/plus.svg" alt="plusIcon" fill />
+        </div>
+      </button>
+    );
 
   const form = useForm();
 

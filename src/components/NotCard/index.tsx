@@ -23,7 +23,7 @@ export default function NotCard() {
         <br></br>
         지금 바로 모임을 만들어보세요
       </p>
-      <MakeClubModal trigger="plus" />
+      <MakeClubModal trigger="text" />
       {/* <Button>모임 만들기</Button> */}
     </>
   );

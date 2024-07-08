@@ -10,6 +10,7 @@ import CreateHobby from '@/components/CreateHobby';
 import Footer from '@/components/common/Footer';
 import Image from 'next/image';
 import NotCard from '@/components/NotCard';
+import MakeClubModal from '@/components/MakeClub/Modal';
 
 function Main() {
   let TESTS = null;
@@ -44,7 +45,8 @@ function Main() {
             itemTrigger="마감임박"
           />
         </div>
-        <CreateHobby />
+        {/* <CreateHobby /> */}
+        <MakeClubModal trigger="plus" />
         <div className="flex flex-col gap-20">
           {TESTS ? (
             <>
