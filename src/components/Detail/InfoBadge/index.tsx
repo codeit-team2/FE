@@ -1,10 +1,12 @@
 import Image from 'next/image';
 import React from 'react';
+import ProfileImageGroup from '../ProfileImageGroup';
 
 export default function InfoBadge({ data }: any) {
   const progressPercentage = (data.member / 20) * 100;
   const minReached = data.member >= 5;
   const maxReached = data.member >= 20;
+  const usersProfile = data.users;
 
   return (
     <div className="flex h-102 w-full flex-col rounded-md bg-neutral-700 p-12 md:w-475">
@@ -16,7 +18,9 @@ export default function InfoBadge({ data }: any) {
             </div>
             <div className="text-body-2Sb text-primary-300">{data.member}/20</div>
           </div>
-          <div>프로필</div>
+          <div className="flex">
+            <ProfileImageGroup usersProfile={usersProfile} />
+          </div>
         </div>
         {data.confirmed && (
           <div className="flex h-32 w-58 items-center justify-center rounded-sm bg-secondary-300 px-8 py-4 text-body-3Sb text-white md:w-72 md:text-body-2Sb">
