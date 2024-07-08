@@ -37,7 +37,7 @@ export default function SignupModal({
   }, [isSignupModalOpen]);
   return (
     <Dialog open={isSignupModalOpen} onOpenChange={setIsSignupModalOpen}>
-      <DialogContent className="px-20 pb-50 pt-32 md:w-520 md:px-40 md:pb-32">
+      <DialogContent className="top-0 max-h-[calc(100%-56px)] translate-y-56 overflow-y-auto px-20 pb-50 pt-32 md:top-[50%] md:w-520 md:translate-y-[-50%] md:px-40 md:pb-32">
         <DialogTitle>회원가입</DialogTitle>
         <FormProvider {...form}>
           <form
