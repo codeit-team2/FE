@@ -1,0 +1,13 @@
+[
+  {
+    "category": "러닝",
+    "place": "중랑구",
+    "date": "7월 3일 수요일",
+    "time": "오후 10:00",
+    "title": "나이트 러닝으로 중랑천 함께 뛰어요",
+    "member": 15,
+    "imageUrl": "/images/러닝이미지.jpg",
+    "deadline": "오늘마감",
+    "confirmed": true
+  }
+]

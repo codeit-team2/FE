@@ -6,8 +6,13 @@ import Dropdown from '@/components/common/Dropdown';
 import GNB from '@/components/common/GNB';
 import Tap from '@/components/common/Tap';
 import Test from '@/components/Card/testData.js';
+import CreateHobby from '@/components/CreateHobby';
+import Footer from '@/components/common/Footer';
+import Image from 'next/image';
+import NotCard from '@/components/NotCard';
 
 function Main() {
+  let TESTS = null;
   return (
     <>
       <GNB />
@@ -39,13 +44,28 @@ function Main() {
             itemTrigger="마감임박"
           />
         </div>
-
+        <CreateHobby />
         <div className="flex flex-col gap-20">
-          {Test.map((data, index) => (
-            <Card key={index} data={data} />
-          ))}
+          {TESTS ? (
+            <>
+              {Test.map((data, index) => (
+                <Card key={index} data={data} />
+              ))}
+            </>
+          ) : (
+            <NotCard />
+          )}
         </div>
+        {/* 데이터가 남아있다면 true 없다면 false처리해서 ui그리기 */}
+        <div className="mb-16 mt-40 h-2 w-full bg-neutral-100" />
+        <button className="pb-50 flex w-full items-center justify-center">
+          더 보기
+          <div className="relative h-24 w-24">
+            <Image src="icons/dropdownIcon.svg" alt="dropdown" fill />
+          </div>
+        </button>
       </MainLayout>
+      <Footer />
     </>
   );
 }
