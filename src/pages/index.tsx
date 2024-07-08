@@ -22,15 +22,15 @@ function Main() {
 취ZONE에서 쉽고 빠르게 다채로운 취미 모임에 참여해보세요"
           subTitle="운동부터 원데이클래스까지 든든하게 준비되어 있어요"
         />
-        <div className="px-156 mb-27 mt-32">
+        <div className="md:mb-27 mb-20 mt-32">
           <Tap />
         </div>
-        <div className="px-95 mb-16 w-full">
-          <ChipTap />
-        </div>
+        {/* <div className="px-95 mb-16 w-full"> */}
+        <ChipTap />
+        {/* </div> */}
 
         <div className="mb-32 flex justify-between">
-          <div className="flex gap-12">
+          <div className="flex gap-8 md:gap-12">
             <Dropdown
               items={['중랑구', '광진구', '용산구', '을지로3가']}
               icon="/icons/dropdownIcon.svg"

@@ -17,7 +17,7 @@ export default function ChipTap() {
 
   return (
     <>
-      <div className="flex w-full justify-center gap-8">
+      <div className="mb-8 flex w-full justify-center gap-6 overflow-x-auto md:mb-16 md:gap-8">
         {MockDatas.map((data: ChipTapType, index: number) => (
           <Button
             className="px-20"
