@@ -17,8 +17,8 @@ const config = {
   ],
   prefix: '',
   screens: {
-    md: { max: '1023px' },
-    sm: { max: '767px' },
+    md: "768px",
+    lg: "1024px"
   },
   theme: {
     container: {

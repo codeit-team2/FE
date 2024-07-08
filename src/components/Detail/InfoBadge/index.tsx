@@ -7,10 +7,10 @@ export default function InfoBadge({ data }: any) {
   const maxReached = data.member >= 20;
 
   return (
-    <div className="absolute bottom-19 right-20 flex h-102 w-475 flex-col rounded-md bg-neutral-700 p-12">
+    <div className="flex h-102 w-full flex-col rounded-md bg-neutral-700 p-12 md:w-475">
       <div className="flex items-center justify-between">
         <div className="flex items-center justify-center gap-6">
-          <div className="flex h-32 w-82 items-center gap-2 rounded-sm bg-primary-50 px-8 py-4">
+          <div className="flex h-32 w-74 items-center gap-2 rounded-sm bg-primary-50 px-8 py-4 md:w-82">
             <div className="relative h-24 w-24">
               <Image src={'/icons/person.svg'} alt="ic-person" fill />
             </div>
@@ -19,13 +19,13 @@ export default function InfoBadge({ data }: any) {
           <div>프로필</div>
         </div>
         {data.confirmed && (
-          <div className="relative h-32 w-72">
-            <Image src={'/icons/개설확정뱃지.svg'} alt="개설확정뱃지" fill />
+          <div className="flex h-32 w-58 items-center justify-center rounded-sm bg-secondary-300 px-8 py-4 text-body-3Sb text-white md:w-72 md:text-body-2Sb">
+            개설확정
           </div>
         )}
       </div>
       <div>
-        <div className="relative mb-11 mt-14 h-4 w-451 rounded-full bg-neutral-200">
+        <div className="relative mb-11 mt-14 h-4 w-full rounded-full bg-neutral-200 md:w-451">
           <div
             className="absolute h-4 rounded-full bg-primary-300"
             style={{ width: `${progressPercentage}%` }}
