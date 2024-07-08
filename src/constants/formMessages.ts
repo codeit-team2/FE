@@ -32,4 +32,8 @@ export const PLACEHOLDER = {
   verifyCode: '인증코드를 입력해 주세요',
   password: '비밀번호를 입력해 주세요',
   passwordCheck: '비밀번호를 다시 한 번 입력해 주세요',
+  category: '카테고리를 선택해주세요',
+  location: '지역을 선택해주세요',
+  clubName: '30자 이내로 모임명을 입력해주세요',
+  headcount: '5에서 20까지 숫자로만 입력해주세요',
 };

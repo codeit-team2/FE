@@ -1,5 +1,5 @@
 import { Button } from '@/components/ui/button';
-import MakeClubModal from '../MakeClub/Modal';
+import MakeClubModal from '@/components/MakeClub/Modal';
 
 export default function NotCard() {
   const boxinnerStyle = 'rounded-[4px] bg-neutral-50';

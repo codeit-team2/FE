@@ -12,6 +12,7 @@ import Calendar from '@/components/common/Calendar';
 import { FieldValues, FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import Image from 'next/image';
 import LoginRequired from '@/components/common/Modal/LoginRequired';
+import { PLACEHOLDER } from '@/constants/formMessages';
 
 interface Props {
   trigger: 'text' | 'plus';
@@ -60,14 +61,14 @@ export default function MakeClubModal({ trigger }: Props) {
   const onSubmit: SubmitHandler<FieldValues> = (value: FieldValues) => {};
 
   // login 상태 확인하는 과정 추가 필요
-  const isLogin = false;
+  const isLogin = true;
 
   return (
     <Dialog>
       <DialogTrigger asChild>{triggerButton}</DialogTrigger>
       {isLogin ? (
         <DialogContent className="flex h-729 w-fit flex-col items-center gap-24 overflow-y-scroll px-40 py-32">
-          <DialogTitle className="w-460 text-center md:w-952">모임 만들기</DialogTitle>
+          <DialogTitle className="w-440 text-center md:w-952">모임 만들기</DialogTitle>
           <FormProvider {...form}>
             <form
               className="flex w-fit flex-col justify-center md:flex-row"
@@ -91,21 +92,21 @@ export default function MakeClubModal({ trigger }: Props) {
                 <div className="flex flex-row gap-12">
                   <div className="w-3/6">
                     <DialogDescription>카테고리</DialogDescription>
-                    <Input type="text" id="category" placeholder="카테고리를 선택해주세요" />
+                    <Input type="text" id="category" placeholder={PLACEHOLDER.category} />
                   </div>
                   <div className="w-3/6">
                     <DialogDescription>지역</DialogDescription>
-                    <Input type="text" id="location" placeholder="지역을 선택해주세요" />
+                    <Input type="text" id="location" placeholder={PLACEHOLDER.location} />
                   </div>
                 </div>
                 <div>
                   <DialogDescription>날짜</DialogDescription>
-                  <div className="mx-auto w-fit rounded-md border">
+                  <div className="mx-auto w-full rounded-md border">
                     <Calendar />
                   </div>
                 </div>
               </div>
-              <div className="mx-32 border-l"></div>
+              <div className="mx-32 my-12 border-l"></div>
               <div className="flex w-fit flex-col gap-24">
                 <div className="w-440">
                   <DialogDescription>오전</DialogDescription>
@@ -144,7 +145,7 @@ export default function MakeClubModal({ trigger }: Props) {
                   <Input
                     type="text"
                     id="clubName"
-                    placeholder="30자 이내로 모임명을 입력해주세요"
+                    placeholder={PLACEHOLDER.clubName}
                     maxLength={30}
                   />
                 </div>
@@ -152,8 +153,8 @@ export default function MakeClubModal({ trigger }: Props) {
                   <DialogDescription>모임 정원</DialogDescription>
                   <Input
                     type="text"
-                    id="number"
-                    placeholder="5에서 20까지 숫자로만 입력해주세요"
+                    id="headcount"
+                    placeholder={PLACEHOLDER.headcount}
                     maxLength={20}
                   />
                 </div>
@@ -161,7 +162,7 @@ export default function MakeClubModal({ trigger }: Props) {
             </form>
           </FormProvider>
           <div className="flex justify-center">
-            <Button className="w-460 md:w-952">확인</Button>
+            <Button className="w-440 md:w-952">확인</Button>
           </div>
         </DialogContent>
       ) : (

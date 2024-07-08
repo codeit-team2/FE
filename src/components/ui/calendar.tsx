@@ -11,7 +11,7 @@ function UiCalendar({ className, classNames, showOutsideDays = true, ...props }:
   return (
     <DayPicker
       showOutsideDays={showOutsideDays}
-      className={cn('mx-auuto w-fit border-none p-12', className)}
+      className={cn('mx-auto w-fit border-none p-12', className)}
       classNames={{
         months: 'flex flex-col sm:flex-row space-y-16 sm:space-x-16 sm:space-y-0',
         month: 'space-y-16',
