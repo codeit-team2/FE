@@ -1,5 +1,5 @@
-import Card from '@/components/Card';
 import Test from '@/components/Card/testData';
+import MyCard from '@/components/My/MyCard';
 import NotCard from '@/components/NotCard';
 import { Button } from '@/components/ui/button';
 import React, { useState } from 'react';
@@ -31,7 +31,7 @@ export default function Review() {
         {TESTS ? (
           <>
             {Test.map((data, index) => (
-              <Card key={index} data={data} />
+              <MyCard key={index} data={data} />
             ))}
           </>
         ) : (

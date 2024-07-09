@@ -9,7 +9,7 @@ import Club from './club';
 import Review from './review';
 
 export default function My() {
-  const [selectTab, setSelectTab] = useState('meeting');
+  const [selectTab, setSelectTab] = useState('review');
   return (
     <>
       <GNB />

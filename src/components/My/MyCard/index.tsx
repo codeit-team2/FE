@@ -7,6 +7,7 @@ import useIsDateBeforeToday from '@/hooks/useIsDateBeforeToday';
 
 interface Props {
   data: Data;
+  type?: 'default' | 'review' | 'club';
 }
 
 interface Data {
@@ -20,15 +21,8 @@ interface Data {
   confirmed: boolean;
 }
 
-export default function MyCard({ data }: Props) {
-  const [isBookmarked, setIsBookmarked] = useState(false);
-
-  const handleClick = () => {
-    setIsBookmarked((prevIsBookmarked) => !prevIsBookmarked);
-  };
-
+export default function MyCard({ data, type = 'default' }: Props) {
   const isDateBeforeToday = useIsDateBeforeToday({ date: data.date });
-  console.log(isDateBeforeToday);
 
   return (
     <div className="relative flex h-230 w-full gap-20 rounded-lg bg-white p-20">
@@ -56,24 +50,27 @@ export default function MyCard({ data }: Props) {
           </div>
         )}
       </div>
-
-      <div className="relative flex grow flex-col items-start justify-between gap-30 text-gray-600">
+      <div className="flex grow flex-col justify-between">
         <Description data={data} />
-        <div className="mb-11 flex w-full items-center justify-end gap-16">
-          <Person data={data} />
-        </div>
-      </div>
 
-      <div className="flex flex-col items-end justify-end">
-        {isDateBeforeToday ? (
-          <Button className="mb-2 h-42 w-288" variant={'default'}>
-            후기 작성하기
+        <div className="flex flex-row justify-end gap-16">
+          <Button className="w-186" variant={'secondary'}>
+            후기 수정하기
           </Button>
-        ) : (
-          <Button className="mb-2 h-42 w-288" variant={'secondary'}>
-            예약 취소하기
-          </Button>
-        )}
+        </div>
+
+        <div className="flex flex-row justify-end gap-16">
+          <Person data={data} />
+          {isDateBeforeToday ? (
+            <Button className="mb-2 h-42 w-288" variant={'default'}>
+              후기 작성하기
+            </Button>
+          ) : (
+            <Button className="mb-2 h-42 w-288" variant={'secondary'}>
+              예약 취소하기
+            </Button>
+          )}
+        </div>
       </div>
     </div>
   );
