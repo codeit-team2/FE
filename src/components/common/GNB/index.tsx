@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
-import Login from '@/components/common/Modal/Login';
-import Signup from '@/components/common/Modal/Signup';
+import LoginModal from '@/components/common/Modal/Login';
+import SignupModal from '@/components/common/Modal/Signup';
 
 export default function GNB() {
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
@@ -33,12 +33,12 @@ export default function GNB() {
           </>
         ) : (
           <div className="font-Pretendard text-base font-medium text-gray-500">
-            <Login
+            <LoginModal
               isLoginModalOpen={isLoginModalOpen}
               setIsLoginModalOpen={setIsLoginModalOpen}
               setIsSignupModalOpen={setIsSignupModalOpen}
             />
-            <Signup
+            <SignupModal
               isSignupModalOpen={isSignupModalOpen}
               setIsSignupModalOpen={setIsSignupModalOpen}
               setIsLoginModalOpen={setIsLoginModalOpen}
