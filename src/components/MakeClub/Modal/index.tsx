@@ -41,11 +41,11 @@ export default function MakeClubModal({ trigger }: Props) {
 
   const triggerButton =
     trigger === 'text' ? (
-      <Button>모임만들기</Button>
+      <Button className="mb-50 hidden md:block">모임만들기</Button>
     ) : (
       <button className="fixed right-32 z-20 cursor-pointer rounded-[40px] bg-primary-300 p-16">
         <div className="relative h-24 w-24">
-          <Image src="/icons/plus.svg" alt="plusIcon" fill />
+          <Image src="/icons/ic-plus.svg" alt="ic-plus" fill />
         </div>
       </button>
     );

@@ -16,7 +16,11 @@ const config = {
     './src/**/*.{ts,tsx}',
   ],
   prefix: '',
-  screens: { md: '768px', lg: '1024px' },
+  screens: {
+    md: '768px',
+    lg: '1024px',
+  },
+
   theme: {
     container: {
       center: true,

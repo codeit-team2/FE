@@ -14,8 +14,8 @@ export default function Card({ data }: any) {
   };
 
   return (
-    <div className="relative flex h-230 w-full gap-20 rounded-lg bg-white p-20">
-      <div className="relative h-190 w-373">
+    <div className="relative flex w-full flex-col gap-16 rounded-lg bg-white p-8 md:h-230 md:flex-row md:gap-10 md:p-20 lg:gap-20">
+      <div className="relative h-163 w-full md:h-190 md:w-373">
         <Image src={data.imageUrl} alt={data.title} fill className="rounded-md" />
         {data.confirmed && (
           <div className="absolute flex h-36 w-81 items-center justify-center rounded-br-md rounded-tl-md bg-secondary-300 text-body-2M text-white">
@@ -23,10 +23,9 @@ export default function Card({ data }: any) {
           </div>
         )}
       </div>
-
-      <div className="relative flex w-full flex-col items-start justify-between gap-30 text-gray-600">
+      <Liked onClick={handleClick} isBookmarked={isBookmarked} />
+      <div className="relative flex w-full flex-col items-start justify-between px-12 text-gray-600">
         <Description data={data} />
-
         <div className="mb-11 flex w-full items-center justify-center gap-16">
           <Person data={data} />
           <ProgressPercentage data={data} />
