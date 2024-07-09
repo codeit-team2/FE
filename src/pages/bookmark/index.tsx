@@ -44,18 +44,20 @@ export default function Bookmark() {
         </div>
         {/* <CreateHobby /> */}
         <div className="flex flex-col gap-20">
-          {TESTS ? (
+          {Test ? (
             <>
               {Test.map((data, index) => (
                 <Card key={index} data={data} />
               ))}
-              <div className="mb-16 mt-40 h-2 w-full bg-neutral-100" />
+              {/* 나중에 디자인 답변오면 수정 예정입니다. */}
+              {/* <div className="mb-16 mt-40 h-2 w-full bg-neutral-100" />
               <button className="flex w-full items-center justify-center pb-50">
                 더 보기
                 <div className="relative h-24 w-24">
                   <Image src="icons/ic-chevron-down.svg" alt="dropdown" fill />
                 </div>
-              </button>
+              </button> */}
+              <div className="mb-50" />
             </>
           ) : (
             <NotCard findClub="모임 찾기" />
