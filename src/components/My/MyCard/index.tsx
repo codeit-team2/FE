@@ -36,21 +36,20 @@ export default function MyCard({ data }: Props) {
       <div className="relative h-190 w-373">
         <Image src={data.imageUrl} alt={data.title} fill className="rounded-md" />
         {isDateBeforeToday ? (
-          <div className="absolute z-20 flex h-36 w-81 items-center justify-center rounded-br-md rounded-tl-md bg-primary-300 text-body-2M text-white">
-            이용예정
-          </div>
-        ) : (
           <div className="absolute z-20 flex h-36 w-81 items-center justify-center rounded-br-md rounded-tl-md bg-neutral-700 text-body-2M text-white">
             이용완료
           </div>
+        ) : (
+          <div className="absolute z-20 flex h-36 w-81 items-center justify-center rounded-br-md rounded-tl-md bg-primary-300 text-body-2M text-white">
+            이용예정
+          </div>
         )}
-        {data.confirmed ||
-          (isDateBeforeToday && (
-            <div className="absolute left-61 z-10 flex h-36 w-91 items-center justify-center rounded-br-md rounded-tl-md bg-secondary-300 pl-10 text-body-2M text-white">
-              개설확정
-            </div>
-          ))}
-        {!isDateBeforeToday && (
+        {data.confirmed && !isDateBeforeToday && (
+          <div className="absolute left-61 z-10 flex h-36 w-91 items-center justify-center rounded-br-md rounded-tl-md bg-secondary-300 pl-10 text-body-2M text-white">
+            개설확정
+          </div>
+        )}
+        {isDateBeforeToday && (
           <div className="absolute flex h-full w-full items-center justify-center rounded-md bg-neutral-900 text-white opacity-70">
             이용하신 모임에 대해
             <br />
@@ -70,12 +69,12 @@ export default function MyCard({ data }: Props) {
         <Liked onClick={handleClick} isBookmarked={isBookmarked} />
 
         {isDateBeforeToday ? (
-          <Button className="mb-2 h-42 w-288" variant={'secondary'}>
-            예약 취소하기
-          </Button>
-        ) : (
           <Button className="mb-2 h-42 w-288" variant={'default'}>
             후기 작성하기
+          </Button>
+        ) : (
+          <Button className="mb-2 h-42 w-288" variant={'secondary'}>
+            예약 취소하기
           </Button>
         )}
       </div>
