@@ -4,7 +4,7 @@ import Image from 'next/image';
 import React, { useState } from 'react';
 
 export default function FloatingBar({ data }: any) {
-  const isOwner = false;
+  const isOwner = true;
 
   const maxReached = data.member >= 20;
 
@@ -43,17 +43,17 @@ export default function FloatingBar({ data }: any) {
           <LoginRequired onClose={handleCloseLoginModal} />
         </>
       )}
-      <div className="fixed bottom-0 flex h-74 w-full items-center justify-center border border-t-neutral-100 py-16 backdrop-blur-sm">
+      <div className="fixed bottom-0 flex h-84 w-full items-center justify-center border border-t-neutral-100 px-12 py-12 backdrop-blur-sm md:h-74 md:py-16">
         {isOwner ? (
-          <div className="flex items-center justify-center gap-12">
-            <Button className="w-392">개설 취소하기</Button>
+          <div className="flex w-full justify-center gap-12">
+            <Button className="w-286 md:w-392">개설 취소하기</Button>
             <button onClick={handleCopyURL}>
               <Image src={'/icons/share-button.svg'} alt="share-button" width={42} height={42} />
             </button>
           </div>
         ) : (
           <Button
-            className="w-392"
+            className="w-336 md:w-392"
             onClick={handleClick}
             disabled={!isEntered && maxReached}
             children={isEntered ? '참여 취소하기' : '참여하기'}

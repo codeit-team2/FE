@@ -6,17 +6,17 @@ import Input from '@/components/common/Input';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog';
 
-interface SignupProps {
+interface SignupModalProps {
   isSignupModalOpen: boolean;
   setIsSignupModalOpen: Dispatch<SetStateAction<boolean>>;
   setIsLoginModalOpen: Dispatch<SetStateAction<boolean>>;
 }
 
-export default function Signup({
+export default function SignupModal({
   isSignupModalOpen,
   setIsSignupModalOpen,
   setIsLoginModalOpen,
-}: SignupProps) {
+}: SignupModalProps) {
   const [isAgree, setIsAgree] = useState(false);
 
   const form = useForm();
@@ -37,7 +37,7 @@ export default function Signup({
   }, [isSignupModalOpen]);
   return (
     <Dialog open={isSignupModalOpen} onOpenChange={setIsSignupModalOpen}>
-      <DialogContent className="px-20 pb-50 pt-32 sm:w-520 sm:px-40 sm:pb-32">
+      <DialogContent className="top-0 max-h-[calc(100%-56px)] translate-y-56 overflow-y-auto px-20 pb-50 pt-32 md:top-[50%] md:w-520 md:translate-y-[-50%] md:px-40 md:pb-32">
         <DialogTitle>회원가입</DialogTitle>
         <FormProvider {...form}>
           <form

@@ -1,37 +1,42 @@
-import { Dispatch, SetStateAction } from 'react';
+import { Dispatch, SetStateAction, useEffect } from 'react';
 import { useForm, SubmitHandler, FieldValues, FormProvider } from 'react-hook-form';
 import { ERROR_MESSAGE, PLACEHOLDER } from '@/constants/formMessages';
 import Input from '@/components/common/Input';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 
-interface LoginProps {
+interface LoginModalProps {
   isLoginModalOpen: boolean;
   setIsLoginModalOpen: Dispatch<SetStateAction<boolean>>;
   setIsSignupModalOpen: Dispatch<SetStateAction<boolean>>;
 }
 
-export default function Login({
+export default function LoginModal({
   isLoginModalOpen,
   setIsLoginModalOpen,
   setIsSignupModalOpen,
-}: LoginProps) {
+}: LoginModalProps) {
   const form = useForm();
 
   const {
     handleSubmit,
     register,
+    trigger,
     formState: { isValid },
   } = form;
 
   const onSubmit: SubmitHandler<FieldValues> = (value: FieldValues) => {};
+
+  useEffect(() => {
+    trigger();
+  }, [isLoginModalOpen]);
 
   return (
     <Dialog open={isLoginModalOpen} onOpenChange={setIsLoginModalOpen}>
       <DialogTrigger>
         <div>로그인</div>
       </DialogTrigger>
-      <DialogContent className="px-20 pb-50 pt-32 sm:w-520 sm:px-40 sm:pb-32">
+      <DialogContent className="top-0 translate-y-56 px-20 pb-50 pt-32 md:top-[50%] md:w-520 md:translate-y-[-50%] md:px-40 md:pb-32">
         <DialogTitle>로그인</DialogTitle>
         <FormProvider {...form}>
           <form
