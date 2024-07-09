@@ -44,7 +44,7 @@ export default function Main() {
         </div>
         <CreateHobby />
         <div className="flex flex-col gap-20">
-          {TESTS ? (
+          {Test ? (
             <>
               {Test.map((data, index) => (
                 <Card key={index} data={data} />
