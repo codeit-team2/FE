@@ -40,7 +40,7 @@ export default function Dropdown({ items, icon, itemTrigger = 'Open' }: Dropdown
     <div ref={dropdownRef}>
       <button
         onClick={toggleDropdown}
-        className="text-body-1M relative flex items-center text-neutral-500"
+        className="md:text-body-1M text-body-2M relative flex items-center text-neutral-500"
       >
         {itemValue}
         {itemTrigger === '마감임박' ? (

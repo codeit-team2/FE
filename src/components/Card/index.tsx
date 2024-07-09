@@ -14,46 +14,42 @@ export default function Card({ data }: any) {
   };
 
   return (
-    <div className="h-230 relative flex w-full gap-20 rounded-lg bg-white p-20">
-      <div className="h-190 w-373 relative">
+    <div className="relative flex w-full flex-col gap-16 rounded-lg bg-white p-8 md:h-230 md:flex-row md:gap-10 md:p-20 lg:gap-20">
+      <div className="relative h-163 w-full md:h-190 md:w-373">
         <Image src={data.imageUrl} alt={data.title} fill className="rounded-md" />
         {data.confirmed && (
-          <div className="bg-secondary-300 w-81 text-body-2M absolute flex h-36 items-center justify-center rounded-br-md rounded-tl-md text-white">
+          <div className="absolute flex h-36 w-81 items-center justify-center rounded-br-md rounded-tl-md bg-secondary-300 text-body-2M text-white">
             개설확정
           </div>
         )}
       </div>
-
-      <div className="gap-30 relative flex w-full flex-col items-start justify-between text-gray-600">
+      <Liked onClick={handleClick} isBookmarked={isBookmarked} />
+      <div className="relative flex w-full flex-col items-start justify-between px-12 text-gray-600">
         <Description data={data} />
-
         <div className="mb-11 flex w-full items-center justify-center gap-16">
-          {data.member > 5 ? (
-            <>
-              <Person data={data} />
-              <ProgressPercentage data={data} />
-            </>
+          <div className="flex w-full items-center gap-8">
+            {data.member > 5 ? (
+              <>
+                <Person data={data} />
+                <ProgressPercentage data={data} />
+              </>
+            ) : (
+              <>
+                <Person data={data} />
+                <ProgressPercentage data={data} />
+              </>
+            )}
+          </div>
+          {data.member >= 20 ? (
+            <Button className="mb-2 h-42 w-full md:w-200 lg:w-288" disabled variant={'secondary'}>
+              참여마감
+            </Button>
           ) : (
-            <>
-              <Person data={data} />
-              <ProgressPercentage data={data} />
-            </>
+            <Button className="mb-2 h-42 w-full md:w-200 lg:w-288" variant={'secondary'}>
+              참여하기
+            </Button>
           )}
         </div>
-      </div>
-
-      <div className="flex flex-col items-end justify-between">
-        <Liked onClick={handleClick} isBookmarked={isBookmarked} />
-
-        {data.member >= 20 ? (
-          <Button className="h-42 w-288 mb-2" disabled variant={'secondary'}>
-            참여마감
-          </Button>
-        ) : (
-          <Button className="h-42 w-288 mb-2" variant={'secondary'}>
-            참여하기
-          </Button>
-        )}
       </div>
     </div>
   );
