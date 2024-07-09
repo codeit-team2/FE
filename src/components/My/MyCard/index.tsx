@@ -52,25 +52,46 @@ export default function MyCard({ data, type = 'default' }: Props) {
       </div>
       <div className="flex grow flex-col justify-between">
         <Description data={data} />
-
-        <div className="flex flex-row justify-end gap-16">
-          <Button className="w-186" variant={'secondary'}>
-            후기 수정하기
-          </Button>
-        </div>
-
-        <div className="flex flex-row justify-end gap-16">
-          <Person data={data} />
-          {isDateBeforeToday ? (
-            <Button className="mb-2 h-42 w-288" variant={'default'}>
-              후기 작성하기
+        {type === 'review' && (
+          <div className="flex flex-row justify-end gap-16">
+            <Button className="w-186" variant={'secondary'}>
+              후기 수정하기
             </Button>
-          ) : (
-            <Button className="mb-2 h-42 w-288" variant={'secondary'}>
-              예약 취소하기
+            <Button variant={'secondary'}>
+              <Image src="/icons/ic-delete.svg" alt="delete" width={24} height={24} />
             </Button>
-          )}
-        </div>
+          </div>
+        )}
+
+        {type === 'club' && (
+          <div className="flex flex-row justify-end gap-16">
+            <Person data={data} />
+            <Button className="w-186" variant={'secondary'}>
+              모임 수정하기
+            </Button>
+            <Button variant={'secondary'}>
+              <Image src="/icons/ic-delete.svg" alt="delete" width={24} height={24} />
+            </Button>
+            <Button variant={'secondary'}>
+              <Image src="/icons/ic-share.svg" alt="share" width={24} height={24} />
+            </Button>
+          </div>
+        )}
+
+        {type === 'default' && (
+          <div className="flex flex-row justify-end gap-16">
+            <Person data={data} />
+            {isDateBeforeToday ? (
+              <Button className="mb-2 h-42 w-288" variant={'default'}>
+                후기 작성하기
+              </Button>
+            ) : (
+              <Button className="mb-2 h-42 w-288" variant={'secondary'}>
+                예약 취소하기
+              </Button>
+            )}
+          </div>
+        )}
       </div>
     </div>
   );
