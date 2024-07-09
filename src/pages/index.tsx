@@ -39,14 +39,14 @@ function Main() {
           <div className="flex gap-12">
             <Dropdown
               items={['중랑구', '광진구', '용산구', '을지로3가']}
-              icon="/icons/dropdownIcon.svg"
+              icon="/icons/ic-chevron-down.svg"
               itemTrigger="지역선택"
             />
-            <Dropdown icon="/icons/dropdownIcon.svg" itemTrigger="날짜선택" />
+            <Dropdown icon="/icons/ic-chevron-down.svg" itemTrigger="날짜선택" />
           </div>
           <Dropdown
             items={['마감임박', '참여 인원순']}
-            icon="/icons/dropdownArray.svg"
+            icon="/icons/ic-chevron-updown.svg"
             itemTrigger="마감임박"
           />
         </div>
@@ -68,7 +68,7 @@ function Main() {
         <button className="flex w-full items-center justify-center pb-50">
           더 보기
           <div className="relative h-24 w-24">
-            <Image src="icons/dropdownIcon.svg" alt="dropdown" fill />
+            <Image src="icons/ic-chevron-down.svg" alt="dropdown" fill />
           </div>
         </button>
       </MainLayout>
