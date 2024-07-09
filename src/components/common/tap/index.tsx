@@ -3,10 +3,10 @@ import Image from 'next/image';
 
 export default function Tap() {
   const titles = [
-    { title: '운동', icon: '/icons/fireIcon.svg', iconWidth: 23, iconHeight: 24 },
+    { title: '운동', icon: '/icons/ic-fire.svg', iconWidth: 23, iconHeight: 24 },
     { title: '활동', icon: '/icons/ic-game.svg', iconWidth: 24, iconHeight: 20 },
-    { title: '학습', icon: '/icons/bookIcon.svg', iconWidth: 17, iconHeight: 18 },
-    { title: '문화생활', icon: '/icons/diamondIcon.svg', iconWidth: 28, iconHeight: 22 },
+    { title: '학습', icon: '/icons/ic-book.svg', iconWidth: 17, iconHeight: 18 },
+    { title: '문화생활', icon: '/icons/ic-diamond.svg', iconWidth: 28, iconHeight: 22 },
   ];
 
   const selectedFont = 'md:text-heading-1M text-heading-2M';

@@ -7,7 +7,7 @@ export default function Footer() {
       <footer className="flex h-200 flex-col justify-between gap-32 pl-20 pt-32 md:flex-row md:pl-32 md:pr-32 md:pt-40">
         <div className="logo, description">
           <div className="relative mb-8 h-28 w-66 md:mb-13">
-            <Image src="/icons/Logo.svg" alt="logo" fill />
+            <Image src="/icons/ic-logo.svg" alt="logo" fill />
           </div>
           <p className="text-heading-2Sb md:text-heading-1B">
             함께하면 더 좋은
@@ -39,7 +39,7 @@ export default function Footer() {
             className="rounded-full bg-neutral-50 p-19 md:p-26"
           >
             <div className="relative h-30 w-30">
-              <Image src="/icons/facebook.svg" alt="facebook" fill />
+              <Image src="/icons/ic-facebook.svg" alt="facebook" fill />
             </div>
           </Link>
           <Link
@@ -48,7 +48,7 @@ export default function Footer() {
             className="rounded-full bg-neutral-50 p-19 md:p-26"
           >
             <div className="relative h-30 w-30">
-              <Image src="/icons/twitter.svg" alt="twitter" fill />
+              <Image src="/icons/ic-twitter.svg" alt="twitter" fill />
             </div>
           </Link>
           <Link
@@ -57,7 +57,7 @@ export default function Footer() {
             className="rounded-full bg-neutral-50 p-19 md:p-26"
           >
             <div className="relative h-30 w-30">
-              <Image src="/icons/instagram.svg" alt="instagram" fill />
+              <Image src="/icons/ic-instagram.svg" alt="instagram" fill />
             </div>
           </Link>
         </div>
