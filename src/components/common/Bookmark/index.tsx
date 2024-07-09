@@ -9,7 +9,7 @@ export default function Bookmark() {
   };
 
   return (
-    <button type="button" className="relative h-48 w-48" onClick={handleClick}>
+    <button type="button" className="relative h-40 w-40 md:h-48 md:w-48" onClick={handleClick}>
       <Image
         src={isBookmarked ? '/icons/heart-type-on.svg' : '/icons/heart-type-off.svg'}
         alt="찜 버튼"
