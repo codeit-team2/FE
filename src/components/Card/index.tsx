@@ -24,7 +24,7 @@ export default function Card({ data }: any) {
         )}
       </div>
       <Liked onClick={handleClick} isBookmarked={isBookmarked} />
-      <div className="relative flex w-full flex-col items-start justify-between px-12 text-gray-600">
+      <div className="relative flex grow flex-col items-start justify-between px-12 text-gray-600">
         <Description data={data} />
         <div className="mb-11 flex w-full items-center justify-center gap-16">
           <Person data={data} />
@@ -32,7 +32,7 @@ export default function Card({ data }: any) {
         </div>
       </div>
 
-      <div className="flex flex-col items-end justify-between">
+      <div className="flex h-full flex-col justify-end">
         <Liked onClick={handleClick} isBookmarked={isBookmarked} />
 
         {data.member >= 20 ? (

@@ -1,6 +1,5 @@
 import Image from 'next/image';
 import React, { useState } from 'react';
-import Liked from '@/components/Card/Liked';
 import Description from '@/components/Card/Description';
 import Person from '@/components/Card/Person';
 import { Button } from '@/components/ui/button';
@@ -58,16 +57,14 @@ export default function MyCard({ data }: Props) {
         )}
       </div>
 
-      <div className="relative flex w-full flex-col items-start justify-between gap-30 text-gray-600">
+      <div className="relative flex grow flex-col items-start justify-between gap-30 text-gray-600">
         <Description data={data} />
         <div className="mb-11 flex w-full items-center justify-end gap-16">
           <Person data={data} />
         </div>
       </div>
 
-      <div className="flex flex-col items-end justify-between">
-        <Liked onClick={handleClick} isBookmarked={isBookmarked} />
-
+      <div className="flex flex-col items-end justify-end">
         {isDateBeforeToday ? (
           <Button className="mb-2 h-42 w-288" variant={'default'}>
             후기 작성하기
