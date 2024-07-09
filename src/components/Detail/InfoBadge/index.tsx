@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import React from 'react';
-import ProfileImageGroup from '../ProfileImageGroup';
+import ProfileImageGroup from '@/components/Detail/ProfileImageGroup';
 
 export default function InfoBadge({ data }: any) {
   const progressPercentage = (data.member / 20) * 100;
