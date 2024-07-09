@@ -5,6 +5,7 @@ import Description from '@/components/Card/Description';
 import ProgressPercentage from '@/components/Card/ProgressPercentage';
 import Person from '@/components/Card/Person';
 import { Button } from '@/components/ui/button';
+import useFormatDate from '@/hooks/useFormatDate';
 
 interface Props {
   data: Data;
@@ -14,7 +15,6 @@ interface Data {
   category: string;
   place: string;
   date: string;
-  time: string;
   title: string;
   member: number;
   imageUrl: string;

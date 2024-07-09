@@ -14,17 +14,17 @@ export default function Card({ data }: any) {
   };
 
   return (
-    <div className="h-230 relative flex w-full gap-20 rounded-lg bg-white p-20">
-      <div className="h-190 w-373 relative">
+    <div className="relative flex h-230 w-full gap-20 rounded-lg bg-white p-20">
+      <div className="relative h-190 w-373">
         <Image src={data.imageUrl} alt={data.title} fill className="rounded-md" />
         {data.confirmed && (
-          <div className="bg-secondary-300 w-81 text-body-2M absolute flex h-36 items-center justify-center rounded-br-md rounded-tl-md text-white">
+          <div className="absolute flex h-36 w-81 items-center justify-center rounded-br-md rounded-tl-md bg-secondary-300 text-body-2M text-white">
             개설확정
           </div>
         )}
       </div>
 
-      <div className="gap-30 relative flex w-full flex-col items-start justify-between text-gray-600">
+      <div className="relative flex w-full flex-col items-start justify-between gap-30 text-gray-600">
         <Description data={data} />
 
         <div className="mb-11 flex w-full items-center justify-center gap-16">
@@ -46,11 +46,11 @@ export default function Card({ data }: any) {
         <Liked onClick={handleClick} isBookmarked={isBookmarked} />
 
         {data.member >= 20 ? (
-          <Button className="h-42 w-288 mb-2" disabled variant={'secondary'}>
+          <Button className="mb-2 h-42 w-288" disabled variant={'secondary'}>
             참여마감
           </Button>
         ) : (
-          <Button className="h-42 w-288 mb-2" variant={'secondary'}>
+          <Button className="mb-2 h-42 w-288" variant={'secondary'}>
             참여하기
           </Button>
         )}
