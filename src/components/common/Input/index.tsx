@@ -17,6 +17,7 @@ function Input(
   const {
     getFieldState,
     setValue,
+    watch,
     formState: { errors, isSubmitted },
   } = useFormContext();
   const [typeState, setTypeState] = useState(type);
@@ -34,12 +35,14 @@ function Input(
     setValue(id, '');
   };
 
-  const inputIcon =
-    !getFieldState(id).invalid && isSubmitted
-      ? { icon: 'success', alt: '성공 아이콘' }
-      : errorMessage && isSubmitted
-        ? { icon: 'error', alt: '실패 아이콘' }
-        : { icon: 'xmark', alt: '텍스트 삭제 아이콘' };
+  let inputIcon = { icon: '', alt: '' };
+  if (!getFieldState(id).invalid && isSubmitted) {
+    inputIcon = { icon: 'success', alt: '성공 아이콘' };
+  } else if (errorMessage && isSubmitted) {
+    inputIcon = { icon: 'error', alt: '실패 아이콘' };
+  } else if (watch(id) !== '') {
+    inputIcon = { icon: 'xmark', alt: '텍스트 삭제 아이콘' };
+  }
 
   return (
     <div className="relative w-full">
@@ -55,14 +58,16 @@ function Input(
           {...props}
         />
         <div className="absolute right-12 top-1/2 flex -translate-y-1/2 gap-6">
-          <Image
-            className={`${inputIcon.icon === 'xmark' && 'cursor-pointer'}`}
-            src={`/icons/ic-${inputIcon.icon}.svg`}
-            alt={inputIcon.alt}
-            width={24}
-            height={24}
-            onClick={() => inputIcon.icon === 'xmark' && handleDeleteText()}
-          />
+          {inputIcon.icon && (
+            <Image
+              className={`${inputIcon.icon === 'xmark' && 'cursor-pointer'}`}
+              src={`/icons/ic-${inputIcon.icon}.svg`}
+              alt={inputIcon.alt}
+              width={24}
+              height={24}
+              onClick={() => inputIcon.icon === 'xmark' && handleDeleteText()}
+            />
+          )}
           {type === 'password' && (
             <Image
               className="cursor-pointer"
