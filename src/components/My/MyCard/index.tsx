@@ -4,21 +4,11 @@ import Description from '@/components/Card/Description';
 import Person from '@/components/Card/Person';
 import { Button } from '@/components/ui/button';
 import useIsDateBeforeToday from '@/hooks/useIsDateBeforeToday';
+import { Data } from '@/types';
 
 interface Props {
   data: Data;
   type?: 'default' | 'review' | 'club';
-}
-
-interface Data {
-  category: string;
-  place: string;
-  date: string;
-  title: string;
-  member: number;
-  imageUrl: string;
-  deadline: string;
-  confirmed: boolean;
 }
 
 export default function MyCard({ data, type = 'default' }: Props) {

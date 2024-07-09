@@ -2,22 +2,11 @@ import MyCard from '@/components/My/MyCard';
 import NotCard from '@/components/NotCard';
 import { Button } from '@/components/ui/button';
 import useIsDateBeforeToday from '@/hooks/useIsDateBeforeToday';
+import { Data } from '@/types';
 import React, { useState } from 'react';
 
 interface Props {
   data: Data[];
-}
-
-interface Data {
-  category: string;
-  place: string;
-  date: string;
-  title: string;
-  member: number;
-  imageUrl: string;
-  deadline: string;
-  confirmed: boolean;
-  review: boolean;
 }
 
 export default function Review({ data }: Props) {

@@ -19,9 +19,9 @@ export default function My() {
         <div className="mb-27 mt-32 px-156">
           <MyTap setSelectTab={setSelectTab} />
         </div>
-        {selectTab === 'meeting' && <Meeting />}
+        {selectTab === 'meeting' && <Meeting data={Test} />}
         {selectTab === 'review' && <Review data={Test} />}
-        {selectTab === 'club' && <Club />}
+        {selectTab === 'club' && <Club data={Test} />}
       </MainLayout>
       <Footer />
     </>
