@@ -27,21 +27,24 @@ export default function Card({ data }: any) {
       {/* px-12 */}
       <div className="relative flex w-full flex-col items-start justify-between text-gray-600">
         <Description data={data} />
-        <div className="mb-11 flex w-full items-center justify-center gap-8 md:gap-16">
-          <div className="flex w-full items-center gap-16">
-            <Person data={data} />
-            <ProgressPercentage data={data} />
-          </div>
-          {data.member >= 20 ? (
-            <Button className="mb-2 h-42 w-full md:w-200 lg:w-288" disabled variant={'secondary'}>
-              참여마감
-            </Button>
-          ) : (
-            <Button className="mb-2 h-42 w-full md:w-200 lg:w-288" variant={'secondary'}>
-              참여하기
-            </Button>
-          )}
+        <div className="mb-11 flex w-full items-center justify-center gap-16">
+          <Person data={data} />
+          <ProgressPercentage data={data} />
         </div>
+      </div>
+
+      <div className="flex flex-col items-end justify-between">
+        <Liked onClick={handleClick} isBookmarked={isBookmarked} />
+
+        {data.member >= 20 ? (
+          <Button className="mb-2 h-42 w-288" disabled variant={'secondary'}>
+            참여마감
+          </Button>
+        ) : (
+          <Button className="mb-2 h-42 w-288" variant={'secondary'}>
+            참여하기
+          </Button>
+        )}
       </div>
     </div>
   );

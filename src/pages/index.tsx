@@ -13,6 +13,7 @@ import NotCard from '@/components/NotCard';
 
 export default function Main() {
   let TESTS = null;
+
   return (
     <>
       <GNB />
