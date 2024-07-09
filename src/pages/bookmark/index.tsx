@@ -11,17 +11,16 @@ import Footer from '@/components/common/Footer';
 import Image from 'next/image';
 import NotCard from '@/components/NotCard';
 
-export default function Main() {
+export default function Bookmark() {
   let TESTS = null;
-
   return (
     <>
       <GNB />
       <MainLayout>
         <Banner
-          mainTitle="취미를 함께할 동료를 찾고 있나요?
-취ZONE에서 쉽고 빠르게 다채로운 취미 모임에 참여해보세요"
-          subTitle="운동부터 원데이클래스까지 든든하게 준비되어 있어요"
+          mainTitle="[000(유저닉네임) or 유저]님이 찜한
+          취ZONE의 취미 모임이에요"
+          subTitle="마감되기 전에 지금 바로 참여해보세요"
         />
         <div className="mb-20 mt-32 md:mb-27">
           <Tap />
@@ -43,23 +42,25 @@ export default function Main() {
             itemTrigger="마감임박"
           />
         </div>
-        <CreateHobby />
+        {/* <CreateHobby /> */}
         <div className="flex flex-col gap-20">
           {Test ? (
             <>
               {Test.map((data, index) => (
                 <Card key={index} data={data} />
               ))}
-              <div className="mb-16 mt-40 h-2 w-full bg-neutral-100" />
+              {/* 나중에 디자인 답변오면 수정 예정입니다. */}
+              {/* <div className="mb-16 mt-40 h-2 w-full bg-neutral-100" />
               <button className="flex w-full items-center justify-center pb-50">
                 더 보기
                 <div className="relative h-24 w-24">
                   <Image src="icons/ic-chevron-down.svg" alt="dropdown" fill />
                 </div>
-              </button>
+              </button> */}
+              <div className="mb-50" />
             </>
           ) : (
-            <NotCard />
+            <NotCard findClub="모임 찾기" />
           )}
         </div>
       </MainLayout>
