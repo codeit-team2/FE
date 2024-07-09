@@ -40,5 +40,61 @@
     "profileImage": "/images/profileimage.jpeg",
     "nickname": "하루하루",
     "date": "7월 2일 화요일"
+  },
+  {
+    "star": 4,
+    "comment": "모임장님도 친절하고, 이상한 사람도 없었어요~",
+    "profileImage": "/images/profileimage.jpeg",
+    "nickname": "거짓말",
+    "date": "6월 23일 일요일"
+  },
+  {
+    "star": 3,
+    "comment": "기대했던 모임인데 날씨때문에 취소 되었어요.. 다음에는 같이 해요~",
+    "profileImage": "/images/profileimage.jpeg",
+    "nickname": "판타스틱",
+    "date": "6월 28일 금요일"
+  },
+  {
+    "star": 2,
+    "comment": "체력이 안좋은 저에겐 힘든 모임이었네요.",
+    "profileImage": "/images/profileimage.jpeg",
+    "nickname": "그XX",
+    "date": "7월 1일 월요일"
+  },
+  {
+    "star": 1,
+    "comment": "러닝 너무 힘들어요..",
+    "profileImage": "/images/profileimage.jpeg",
+    "nickname": "하루하루",
+    "date": "7월 2일 화요일"
+  },
+  {
+    "star": 4,
+    "comment": "모임장님도 친절하고, 이상한 사람도 없었어요~",
+    "profileImage": "/images/profileimage.jpeg",
+    "nickname": "거짓말",
+    "date": "6월 23일 일요일"
+  },
+  {
+    "star": 3,
+    "comment": "기대했던 모임인데 날씨때문에 취소 되었어요.. 다음에는 같이 해요~",
+    "profileImage": "/images/profileimage.jpeg",
+    "nickname": "판타스틱",
+    "date": "6월 28일 금요일"
+  },
+  {
+    "star": 2,
+    "comment": "체력이 안좋은 저에겐 힘든 모임이었네요.",
+    "profileImage": "/images/profileimage.jpeg",
+    "nickname": "그XX",
+    "date": "7월 1일 월요일"
+  },
+  {
+    "star": 1,
+    "comment": "러닝 너무 힘들어요..",
+    "profileImage": "/images/profileimage.jpeg",
+    "nickname": "하루하루",
+    "date": "7월 2일 화요일"
   }
 ]

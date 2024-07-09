@@ -6,27 +6,22 @@ import reviewData from '@/components/Detail/reviewData.json';
 import Image from 'next/image';
 import FloatingBar from '@/components/Detail/FloatingBar';
 import ReviewCard from '@/components/Detail/ReviewCard';
-import LoginRequired from '@/components/common/Modal/LoginRequired';
 
 export default function Detail() {
   const isReview = true;
 
-
   return (
     <>
-      <div
-        style={{ height: 'calc(100vh - 60px)' }}
-        className="mx-auto flex min-h-screen w-full flex-col items-center bg-neutral-50"
-      >
-        <GNB />
-        <div className="flex flex-col items-center pt-32">
+      <GNB />
+      <div className="mx-auto flex min-h-screen w-full flex-col items-center bg-neutral-50 px-12 pb-100 md:px-32">
+        <div className="flex w-full flex-col items-center pt-32">
           <TitleCard data={mockData[0]} />
-          <div className="mt-42 flex items-center gap-8 text-heading-2Sb text-neutral-900">
+          <div className="mt-42 flex items-center gap-8 text-body-1Sb text-neutral-900 md:text-heading-2Sb">
             이용자들은 이 모임을 이렇게 느꼈어요!
             <Image src={'/icons/ic-message.svg'} alt="ic-message" width={24} height={24} />
           </div>
           {isReview ? (
-            <div className="mx-auto mt-34 grid w-full max-w-[1010px] grid-cols-1 gap-20 md:grid-cols-2">
+            <div className="mx-auto mt-34 grid w-full max-w-[1010px] grid-cols-1 justify-items-center gap-20 md:grid-cols-2">
               {reviewData.map((data, index) => (
                 <ReviewCard key={index} data={data} />
               ))}
@@ -34,8 +29,22 @@ export default function Detail() {
           ) : (
             <div className="flex flex-col items-center gap-20 pt-16">
               <div className="flex gap-12">
-                <Image src={'/images/none-review.png'} alt="none-review" width={220} height={123} />
-                <Image src={'/images/none-review.png'} alt="none-review" width={220} height={123} />
+                <div className="w-full md:w-auto">
+                  <Image
+                    src={'/images/none-review.png'}
+                    alt="none-review"
+                    width={220}
+                    height={123}
+                  />
+                </div>
+                <div className="hidden w-full md:block md:w-auto">
+                  <Image
+                    src={'/images/none-review.png'}
+                    alt="none-review"
+                    width={220}
+                    height={123}
+                  />
+                </div>
               </div>
               <p className="text-body-1M text-neutral-500">앗, 아직 리뷰가 없어요</p>
             </div>
