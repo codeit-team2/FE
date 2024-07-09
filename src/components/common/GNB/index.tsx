@@ -13,8 +13,8 @@ export default function GNB() {
 
   return (
     <div className="flex w-full flex-row justify-between px-32 py-16 shadow-sm">
-      <Image src="/icons/Logo.svg" alt="logo" priority={true} width={65} height={14} />
-      <div className="flex flex-row gap-40">
+      <Image src="/icons/ic-logo.svg" alt="logo" priority={true} width={65} height={24} />
+      <div className="flex flex-row gap-40 items-center">
         <a href="/" className="font-Pretendard text-base font-semibold">
           모임 찾기
         </a>
@@ -29,7 +29,7 @@ export default function GNB() {
               </a>
               {likeItems ? <p className="text-blue-600">{likeItems}</p> : ''}
             </div>
-            <Image src="/icons/profile.svg" alt="profile" width={32} height={32} />
+            <Image src="/icons/ic-profile.svg" alt="ic-profile" width={32} height={32} />
           </>
         ) : (
           <div className="font-Pretendard text-base font-medium text-gray-500">

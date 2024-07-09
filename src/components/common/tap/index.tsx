@@ -3,11 +3,11 @@ import Image from 'next/image';
 
 export default function Tap() {
   const titles = [
-    { title: '운동', icon: '/icons/fireIcon.svg', iconWidth: 23, iconHeight: 24 },
-    { title: '원데이클래스', icon: '/icons/blackboardIcon.svg', iconWidth: 24, iconHeight: 21 },
-    { title: '독서', icon: '/icons/bookIcon.svg', iconWidth: 17, iconHeight: 18 },
-    { title: '문화생활', icon: '/icons/diamondIcon.svg', iconWidth: 28, iconHeight: 22 },
-    { title: '콘텐츠 감상', icon: '/icons/eyeIcon.svg', iconWidth: 24, iconHeight: 20 },
+    { title: '운동', icon: '/icons/ic-fire.svg', iconWidth: 23, iconHeight: 24 },
+    { title: '원데이클래스', icon: '/icons/ic-blackboard.svg', iconWidth: 24, iconHeight: 21 },
+    { title: '독서', icon: '/icons/ic-book.svg', iconWidth: 17, iconHeight: 18 },
+    { title: '문화생활', icon: '/icons/ic-diamond.svg', iconWidth: 28, iconHeight: 22 },
+    { title: '콘텐츠 감상', icon: '/icons/ic-eye.svg', iconWidth: 24, iconHeight: 20 },
   ];
 
   const selectedFont = 'text-heading-1M';

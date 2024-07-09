@@ -4,15 +4,15 @@ export default function Person({ data }: any) {
   return (
     <>
       {data.member > 5 ? (
-        <>
-          <Image src="/icons/overPersonIcon.svg" alt="overPersonIcon" width={24} height={24} />
-          <div className="text-14 text-primary-300">{data.member}/20</div>
-        </>
+        <div className="flex items-center gap-2">
+          <Image src="/icons/ic-person-blue.svg" alt="ic-person-blue" width={24} height={24} />
+          <div className="text-body-2Sb text-primary-300">{data.member}/20</div>
+        </div>
       ) : (
-        <>
-          <Image src="/icons/basePersonIcon.svg" alt="basePersonIcon" width={24} height={24} />
-          <div className="text-14 text-neutral-500">{data.member}/20</div>
-        </>
+        <div className="flex items-center gap-2">
+          <Image src="/icons/ic-person-gray.svg" alt="ic-person-gray" width={24} height={24} />
+          <div className="text-body-2Sb text-neutral-500">{data.member}/20</div>
+        </div>
       )}
     </>
   );

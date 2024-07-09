@@ -23,7 +23,7 @@ export default function Detail() {
           <TitleCard data={mockData[0]} />
           <div className="mt-42 flex items-center gap-8 text-heading-2Sb text-neutral-900">
             이용자들은 이 모임을 이렇게 느꼈어요!
-            <Image src={'/icons/messageicon.svg'} alt="messageicon" width={24} height={24} />
+            <Image src={'/icons/ic-message.svg'} alt="ic-message" width={24} height={24} />
           </div>
           {isReview ? (
             <div className="mx-auto mt-34 grid w-full max-w-[1010px] grid-cols-1 gap-20 md:grid-cols-2">

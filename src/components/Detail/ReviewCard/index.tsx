@@ -8,7 +8,7 @@ export default function ReviewCard({ data }: any) {
       starArray.push(
         <div key={i} className="relative h-24 w-24">
           <Image
-            src={i < data.star ? '/icons/star-filled.svg' : '/icons/star-empty.svg'}
+            src={i < data.star ? '/icons/ic-star-on.svg' : '/icons/ic-star-off.svg'}
             alt={i < data.star ? 'Filled star' : 'Empty star'}
             fill
           />
