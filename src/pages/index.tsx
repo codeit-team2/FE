@@ -13,7 +13,7 @@ import NotCard from '@/components/NotCard';
 import MakeClubModal from '@/components/MakeClub/Modal';
 
 function Main() {
-  let TESTS = null;
+  let TESTS = Test;
   return (
     <>
       <GNB />

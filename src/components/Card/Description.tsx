@@ -14,7 +14,6 @@ interface Data {
 
 export default function Description({ data }: Props) {
   const formatDate = useFormatDate({ date: data.date });
-  console.log(formatDate);
 
   return (
     <div className="mb-4 flex flex-col">
