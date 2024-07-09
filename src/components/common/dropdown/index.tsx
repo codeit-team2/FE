@@ -37,10 +37,10 @@ export default function Dropdown({ items, icon, itemTrigger = 'Open' }: Dropdown
   }, []);
 
   return (
-    <div ref={dropdownRef}>
+    <div ref={dropdownRef} className="z-50">
       <button
         onClick={toggleDropdown}
-        className="md:text-body-1M text-body-2M relative flex items-center text-neutral-500"
+        className="relative flex items-center text-body-2M text-neutral-500 md:text-body-1M"
       >
         {itemValue}
         {itemTrigger === '마감임박' ? (
@@ -57,12 +57,12 @@ export default function Dropdown({ items, icon, itemTrigger = 'Open' }: Dropdown
       {/* 이후 고정 값 나오면 변경작업 */}
       {isOpen ? (
         items && items.length > 0 ? (
-          <div className="text-body-2Sb absolute z-10 rounded-md bg-white py-5 shadow-[#191f28]">
+          <div className="absolute z-10 rounded-md bg-white py-5 text-body-2Sb shadow-[#191f28]">
             {items.map((item, index) => (
               <div
                 key={index}
                 onClick={handleItemClick}
-                className="hover:bg-primary-50 flex cursor-pointer items-center justify-center px-10 py-12 hover:rounded-full"
+                className="flex cursor-pointer items-center justify-center px-10 py-12 hover:rounded-full hover:bg-primary-50"
               >
                 {item}
               </div>
