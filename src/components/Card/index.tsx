@@ -28,17 +28,8 @@ export default function Card({ data }: any) {
         <Description data={data} />
 
         <div className="mb-11 flex w-full items-center justify-center gap-16">
-          {data.member > 5 ? (
-            <>
-              <Person data={data} />
-              <ProgressPercentage data={data} />
-            </>
-          ) : (
-            <>
-              <Person data={data} />
-              <ProgressPercentage data={data} />
-            </>
-          )}
+          <Person data={data} />
+          <ProgressPercentage data={data} />
         </div>
       </div>
 

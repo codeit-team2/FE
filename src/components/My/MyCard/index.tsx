@@ -69,13 +69,13 @@ export default function MyCard({ data }: Props) {
       <div className="flex flex-col items-end justify-between">
         <Liked onClick={handleClick} isBookmarked={isBookmarked} />
 
-        {data.member >= 20 ? (
-          <Button className="mb-2 h-42 w-288" disabled variant={'secondary'}>
-            후기 작성하기
-          </Button>
-        ) : (
+        {isDateBeforeToday ? (
           <Button className="mb-2 h-42 w-288" variant={'secondary'}>
             예약 취소하기
+          </Button>
+        ) : (
+          <Button className="mb-2 h-42 w-288" variant={'default'}>
+            후기 작성하기
           </Button>
         )}
       </div>
