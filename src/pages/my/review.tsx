@@ -1,38 +1,61 @@
-import Test from '@/components/Card/testData';
 import MyCard from '@/components/My/MyCard';
 import NotCard from '@/components/NotCard';
 import { Button } from '@/components/ui/button';
+import useIsDateBeforeToday from '@/hooks/useIsDateBeforeToday';
 import React, { useState } from 'react';
 
-export default function Review() {
-  const [clicked, setClicked] = useState('available');
+interface Props {
+  data: Data[];
+}
 
-  const TESTS = Test;
+interface Data {
+  category: string;
+  place: string;
+  date: string;
+  title: string;
+  member: number;
+  imageUrl: string;
+  deadline: string;
+  confirmed: boolean;
+  review: boolean;
+}
+
+export default function Review({ data }: Props) {
+  const [clicked, setClicked] = useState(true);
+
   return (
     <div>
       <div className="mb-32 flex flex-row justify-center gap-8">
         <Button
-          variant={clicked === 'available' ? 'secondary' : 'ghost'}
+          variant={clicked === true ? 'secondary' : 'ghost'}
           type="submit"
-          onClick={() => setClicked('available')}
+          onClick={() => setClicked(true)}
         >
           작성 가능한 후기
         </Button>
         <Button
-          variant={clicked === 'written' ? 'secondary' : 'ghost'}
+          variant={clicked === false ? 'secondary' : 'ghost'}
           type="submit"
-          onClick={() => setClicked('written')}
+          onClick={() => setClicked(false)}
         >
           작성한 후기
         </Button>
       </div>
-      {/* 작성 가능한 후기와 작성한 후기 데이터에 따라서 분리 필요 */}
       <div className="flex flex-col gap-20 pb-50">
-        {TESTS ? (
+        {data ? (
           <>
-            {Test.map((data, index) => (
-              <MyCard key={index} data={data} />
-            ))}
+            {data
+              .filter((data) => data.review === clicked)
+              .map(
+                (data, index) =>
+                  useIsDateBeforeToday({ date: data.date }) && (
+                    <MyCard
+                      key={index}
+                      data={data}
+                      type={clicked === true ? 'default' : 'review'}
+                    />
+                  ),
+              )}
           </>
         ) : (
           <NotCard />

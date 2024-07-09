@@ -7,6 +7,7 @@ import React, { useState } from 'react';
 import Meeting from './meeting';
 import Club from './club';
 import Review from './review';
+import Test from '@/components/Card/testData';
 
 export default function My() {
   const [selectTab, setSelectTab] = useState('review');
@@ -19,7 +20,7 @@ export default function My() {
           <MyTap setSelectTab={setSelectTab} />
         </div>
         {selectTab === 'meeting' && <Meeting />}
-        {selectTab === 'review' && <Review />}
+        {selectTab === 'review' && <Review data={Test} />}
         {selectTab === 'club' && <Club />}
       </MainLayout>
       <Footer />
