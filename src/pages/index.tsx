@@ -12,7 +12,7 @@ import Image from 'next/image';
 import NotCard from '@/components/NotCard';
 
 function Main() {
-  let TESTS = null;
+  let TESTS = Test;
   return (
     <>
       <GNB />
