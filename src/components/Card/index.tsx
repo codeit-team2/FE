@@ -10,7 +10,6 @@ export default function Card({ data }: any) {
   const [isBookmarked, setIsBookmarked] = useState(false);
 
   const handleClick = () => {
-    console.log('CLick!');
     setIsBookmarked((prevIsBookmarked) => !prevIsBookmarked);
   };
 
@@ -27,7 +26,6 @@ export default function Card({ data }: any) {
       <Liked onClick={handleClick} isBookmarked={isBookmarked} />
       <div className="relative flex w-full flex-col items-start justify-between px-12 text-gray-600">
         <Description data={data} />
-        {/* <div></div> */}
         <div className="mb-11 flex w-full items-center justify-center gap-16">
           <div className="flex w-full items-center gap-8">
             {data.member > 5 ? (
@@ -53,10 +51,6 @@ export default function Card({ data }: any) {
           )}
         </div>
       </div>
-
-      {/* <div className="flex flex-col items-end justify-between"> */}
-
-      {/* </div> */}
     </div>
   );
 }

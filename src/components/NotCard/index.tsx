@@ -28,7 +28,6 @@ export default function NotCard() {
         지금 바로 모임을 만들어보세요
       </p>
       <Button className="mb-50 hidden md:block">모임 만들기</Button>
-      {/* <Button className="">모임 만들기</Button> */}
     </>
   );
 }

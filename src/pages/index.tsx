@@ -22,10 +22,10 @@ function Main() {
 취ZONE에서 쉽고 빠르게 다채로운 취미 모임에 참여해보세요"
           subTitle="운동부터 원데이클래스까지 든든하게 준비되어 있어요"
         />
-        <div className="mb-20 mt-32 md:mb-27">{/* <Tap /> */}</div>
-        {/* <div className="px-95 mb-16 w-full"> */}
+        <div className="mb-20 mt-32 md:mb-27">
+          <Tap />
+        </div>
         <ChipTap />
-        {/* </div> */}
 
         <div className="mb-32 flex justify-between">
           <div className="flex gap-8 md:gap-12">
