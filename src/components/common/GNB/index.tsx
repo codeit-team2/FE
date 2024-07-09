@@ -29,7 +29,7 @@ export default function GNB() {
               </a>
               {likeItems ? <p className="text-blue-600">{likeItems}</p> : ''}
             </div>
-            <Image src="/icons/profile.svg" alt="profile" width={32} height={32} />
+            <Image src="/icons/ic-profile.svg" alt="ic-profile" width={32} height={32} />
           </>
         ) : (
           <div className="font-Pretendard text-base font-medium text-gray-500">

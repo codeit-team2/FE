@@ -11,7 +11,7 @@ export default function Bookmark() {
   return (
     <button type="button" className="relative h-40 w-40 md:h-48 md:w-48" onClick={handleClick}>
       <Image
-        src={isBookmarked ? '/icons/heart-type-on.svg' : '/icons/heart-type-off.svg'}
+        src={isBookmarked ? '/icons/ic-heart-on.svg' : '/icons/ic-heart-off.svg'}
         alt="찜 버튼"
         fill
       />

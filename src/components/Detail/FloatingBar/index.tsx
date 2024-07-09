@@ -48,7 +48,7 @@ export default function FloatingBar({ data }: any) {
           <div className="flex w-full justify-center gap-12">
             <Button className="w-286 md:w-392">개설 취소하기</Button>
             <button onClick={handleCopyURL}>
-              <Image src={'/icons/share-button.svg'} alt="share-button" width={42} height={42} />
+              <Image src={'/icons/ic-share.svg'} alt="share-button" width={42} height={42} />
             </button>
           </div>
         ) : (

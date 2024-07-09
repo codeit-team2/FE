@@ -45,11 +45,11 @@ export default function Dropdown({ items, icon, itemTrigger = 'Open' }: Dropdown
         {itemValue}
         {itemTrigger === '마감임박' ? (
           <div className="relative h-32 w-32">
-            <Image src={icon} alt="dropdownIcon" fill className="px-11 py-8" />
+            <Image src={icon} alt="ic-chevron-down" fill className="px-11 py-8" />
           </div>
         ) : (
           <div className="relative h-32 w-32">
-            <Image src={icon} alt="dropdownIcon" fill />
+            <Image src={icon} alt="ic-chevron-down" fill />
           </div>
         )}
       </button>

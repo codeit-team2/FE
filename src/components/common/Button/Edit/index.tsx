@@ -15,7 +15,7 @@ export default function EditButton({ size }: EditButton) {
       className={`${sizeStyles[size].button} group flex cursor-pointer items-center justify-center rounded-xl border-neutral-600 bg-neutral-900 hover:bg-neutral-700`}
     >
       <div
-        className={`${sizeStyles[size].icon} bg-[url("/icons/ic-edit.svg")] bg-[length:18px] bg-center bg-no-repeat group-active:bg-[url("/icons/ic-edit-pressed.svg")]`}
+        className={`${sizeStyles[size].icon} bg-[url("/icons/ic-edit.svg")] bg-[length:18px] bg-center bg-no-repeat group-active:bg-[url("/icons/ic-edit-gray.svg")]`}
       ></div>
     </span>
   );
