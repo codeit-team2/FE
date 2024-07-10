@@ -11,8 +11,9 @@ import Footer from '@/components/common/Footer';
 import Image from 'next/image';
 import NotCard from '@/components/NotCard';
 
-function Main() {
-  let TESTS = Test;
+export default function Main() {
+  let TESTS = null;
+
   return (
     <>
       <GNB />
@@ -70,5 +71,3 @@ function Main() {
     </>
   );
 }
-
-export default Main;
