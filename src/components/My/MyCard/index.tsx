@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import Liked from '@/components/Card/Liked';
 import Description from '@/components/Card/Description';
 import Person from '@/components/Card/Person';
+import ReviewModal from '@/components/common/Modal/Review';
 import { Button } from '@/components/ui/button';
 import useIsDateBeforeToday from '@/hooks/useIsDateBeforeToday';
 
@@ -70,7 +71,7 @@ export default function MyCard({ data }: Props) {
 
         {isDateBeforeToday ? (
           <Button className="mb-2 h-42 w-288" variant={'default'}>
-            후기 작성하기
+            <ReviewModal />
           </Button>
         ) : (
           <Button className="mb-2 h-42 w-288" variant={'secondary'}>

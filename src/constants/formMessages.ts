@@ -24,6 +24,11 @@ export const ERROR_MESSAGE = {
     valid: '영문, 숫자를 모두 포함해 주세요',
     check: '비밀번호가 일치하지 않습니다',
   },
+  review: {
+    required: '소감을 입력해 주세요',
+    min: '2자~50자 사이의 소감을 입력해 주세요',
+    max: '2자~50자 사이의 소감을 입력해 주세요',
+  },
 };
 
 export const PLACEHOLDER = {
@@ -32,8 +37,10 @@ export const PLACEHOLDER = {
   verifyCode: '인증코드를 입력해 주세요',
   password: '비밀번호를 입력해 주세요',
   passwordCheck: '비밀번호를 다시 한 번 입력해 주세요',
-  category: '카테고리를 선택해주세요',
-  location: '지역을 선택해주세요',
-  clubName: '30자 이내로 모임명을 입력해주세요',
-  headcount: '5에서 20까지 숫자로만 입력해주세요',
+  category: '카테고리를 선택해 주세요',
+  location: '지역을 선택해 주세요',
+  clubName: '30자 이내로 모임명을 입력해 주세요',
+  headcount: '5에서 20까지 숫자로만 입력해 주세요',
+  review:
+    '남겨주신 후기는 모임 운영 및 다른 회원 분들께 큰 도움이 됩니다 (띄어쓰기 포함 50자 이내)',
 };
