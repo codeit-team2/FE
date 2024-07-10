@@ -1,0 +1,482 @@
+{
+  "categories": {
+    "Exercise": [
+      {
+        "star": 5,
+        "comment": "다음 차수도 신청 예정이에요~ 역시 러닝은 다같이!",
+        "profileImage": "/images/profileimage1.jpeg",
+        "cardImage": "/images/runningimage.jpeg",
+        "nickname": "붉은노을",
+        "date": "2024-07-03T19:00:00",
+        "place": "송파구",
+        "group": "running"
+      },
+      {
+        "star": 4,
+        "comment": "등산 정말 멋졌어요! 좋아요! 산도 예쁘고 같이 갔던 사람들도 너무 너무 좋았습니다. 등산 정말 멋졌어요! 산도 예쁘고 같이 갔던 사람들도 너무 너무 좋았습니다.",
+        "profileImage": "/images/profileimage1.jpeg",
+        "cardImage": "/images/hikingimage.jpeg",
+        "nickname": "산악인",
+        "date": "2024-07-04T08:00:00",
+        "place": "송파구",
+        "group": "hiking"
+      },
+      {
+        "star": 3,
+        "comment": "배드민턴 재미있었지만 조금 붐볐어요.",
+        "profileImage": "/images/profileimage1.jpeg",
+        "cardImage": "/images/badmintonimage.jpeg",
+        "nickname": "셔틀마스터",
+        "date": "2024-07-05T18:00:00",
+        "place": "송파구",
+        "group": "badminton"
+      },
+      {
+        "star": 5,
+        "comment": "테니스 게임 정말 좋았어요! 운동 최고!",
+        "profileImage": "/images/profileimage1.jpeg",
+        "cardImage": "/images/tennisimage.jpeg",
+        "nickname": "에이스플레이어",
+        "date": "2024-07-06T17:00:00",
+        "place": "송파구",
+        "group": "tennis"
+      },
+      {
+        "star": 4,
+        "comment": "클라이밍 도전적이지만 보람 있었어요.",
+        "profileImage": "/images/profileimage1.jpeg",
+        "cardImage": "/images/climbingimage.jpeg",
+        "nickname": "클리프행어",
+        "date": "2024-07-07T09:00:00",
+        "place": "송파구",
+        "group": "climbing"
+      },
+      {
+        "star": 4,
+        "comment": "풋살 팀과 함께 즐거운 시간 보냈어요.",
+        "profileImage": "/images/profileimage1.jpeg",
+        "cardImage": "/images/futsalimage.jpeg",
+        "nickname": "골키퍼",
+        "date": "2024-07-08T19:00:00",
+        "place": "송파구",
+        "group": "futsal"
+      },
+      {
+        "star": 3,
+        "comment": "헬스장 세션 좋았지만 기구가 좀 더 필요해요.",
+        "profileImage": "/images/profileimage1.jpeg",
+        "cardImage": "/images/gymimage.jpeg",
+        "nickname": "헬스광",
+        "date": "2024-07-09T10:00:00",
+        "place": "송파구",
+        "group": "gym"
+      },
+      {
+        "star": 5,
+        "comment": "요가 클래스 매우 릴렉스되고 에너제틱했어요.",
+        "profileImage": "/images/profileimage1.jpeg",
+        "cardImage": "/images/yogaimage.jpeg",
+        "nickname": "젠마스터",
+        "date": "2024-07-10T07:00:00",
+        "place": "송파구",
+        "group": "yoga"
+      },
+      {
+        "star": 4,
+        "comment": "다양한 운동을 즐길 수 있었어요.",
+        "profileImage": "/images/profileimage1.jpeg",
+        "cardImage": "/images/miscimage.jpeg",
+        "nickname": "운동광",
+        "date": "2024-07-11T06:00:00",
+        "place": "송파구",
+        "group": "misc"
+      },
+      {
+        "star": 5,
+        "comment": "친구들과 함께 러닝 정말 즐거웠어요!",
+        "profileImage": "/images/profileimage1.jpeg",
+        "cardImage": "/images/runningimage.jpeg",
+        "nickname": "스피드스터",
+        "date": "2024-07-12T06:30:00",
+        "place": "송파구",
+        "group": "running"
+      },
+      {
+        "star": 4,
+        "comment": "등산 즐겁게 했어요.",
+        "profileImage": "/images/profileimage1.jpeg",
+        "cardImage": "/images/hikingimage.jpeg",
+        "nickname": "트레일",
+        "date": "2024-07-13T07:00:00",
+        "place": "송파구",
+        "group": "hiking"
+      },
+      {
+        "star": 3,
+        "comment": "배드민턴 재미있었지만 셔틀콕이 자꾸 부러졌어요.",
+        "profileImage": "/images/profileimage1.jpeg",
+        "cardImage": "/images/badmintonimage.jpeg",
+        "nickname": "네트스매셔",
+        "date": "2024-07-14T19:00:00",
+        "place": "송파구",
+        "group": "badminton"
+      },
+      {
+        "star": 5,
+        "comment": "테니스 경기 매우 흥미진진했어요!",
+        "profileImage": "/images/profileimage1.jpeg",
+        "cardImage": "/images/tennisimage.jpeg",
+        "nickname": "라켓킹",
+        "date": "2024-07-15T17:00:00",
+        "place": "송파구",
+        "group": "tennis"
+      },
+      {
+        "star": 4,
+        "comment": "팀과 함께한 클라이밍 대단한 경험이었어요.",
+        "profileImage": "/images/profileimage1.jpeg",
+        "cardImage": "/images/climbingimage.jpeg",
+        "nickname": "록스타",
+        "date": "2024-07-16T10:00:00",
+        "place": "송파구",
+        "group": "climbing"
+      },
+      {
+        "star": 4,
+        "comment": "풋살 게임 항상 재미있고 경쟁적이에요.",
+        "profileImage": "/images/profileimage15.jpeg",
+        "cardImage": "/images/futsalimage.jpeg",
+        "nickname": "스트라이커",
+        "date": "2024-07-17T20:00:00",
+        "place": "송파구",
+        "group": "futsal"
+      },
+      {
+        "star": 3,
+        "comment": "헬스장 세션 생산적이었지만 붐볐어요.",
+        "profileImage": "/images/profileimage1.jpeg",
+        "cardImage": "/images/gymimage.jpeg",
+        "nickname": "보디빌더",
+        "date": "2024-07-18T11:00:00",
+        "place": "송파구",
+        "group": "gym"
+      },
+      {
+        "star": 5,
+        "comment": "요가 세션이 제 내면의 평화를 찾게 해줬어요.",
+        "profileImage": "/images/profileimage1.jpeg",
+        "cardImage": "/images/yogaimage.jpeg",
+        "nickname": "요가요기",
+        "date": "2024-07-19T07:00:00",
+        "place": "송파구",
+        "group": "yoga"
+      },
+      {
+        "star": 4,
+        "comment": "다양한 운동들 덕분에 지루하지 않았어요.",
+        "profileImage": "/images/profileimage1.jpeg",
+        "cardImage": "/images/miscimage.jpeg",
+        "nickname": "운동전사",
+        "date": "2024-07-20T06:00:00",
+        "place": "송파구",
+        "group": "misc"
+      },
+      {
+        "star": 5,
+        "comment": "아침에 러닝하는 것이 상쾌해요.",
+        "profileImage": "/images/profileimage1.jpeg",
+        "cardImage": "/images/runningimage.jpeg",
+        "nickname": "모닝러너",
+        "date": "2024-07-21T06:30:00",
+        "place": "송파구",
+        "group": "running"
+      },
+      {
+        "star": 4,
+        "comment": "친구들과 함께한 등산 정말 좋았어요.",
+        "profileImage": "/images/profileimage1.jpeg",
+        "cardImage": "/images/hikingimage.jpeg",
+        "nickname": "하이커",
+        "date": "2024-07-22T07:00:00",
+        "place": "송파구",
+        "group": "hiking"
+      },
+      {
+        "star": 3,
+        "comment": "배드민턴 세션은 괜찮았지만 너무 더웠어요.",
+        "profileImage": "/images/profileimage1.jpeg",
+        "cardImage": "/images/badmintonimage.jpeg",
+        "nickname": "코트마스터",
+        "date": "2024-07-23T19:00:00",
+        "place": "송파구",
+        "group": "badminton"
+      },
+      {
+        "star": 5,
+        "comment": "테니스 그룹과 함께하는 것 정말 좋았어요.",
+        "profileImage": "/images/profileimage1.jpeg",
+        "cardImage": "/images/tennisimage.jpeg",
+        "nickname": "서브킹",
+        "date": "2024-07-24T17:00:00",
+        "place": "송파구",
+        "group": "tennis"
+      },
+      {
+        "star": 4,
+        "comment": "클라이밍 실력이 늘어나는 게 느껴져요.",
+        "profileImage": "/images/profileimage1.jpeg",
+        "cardImage": "/images/climbingimage.jpeg",
+        "nickname": "월크래커",
+        "date": "2024-07-25T11:00:00",
+        "place": "송파구",
+        "group": "climbing"
+      },
+      {
+        "star": 5,
+        "comment": "풋살 경기 후 팀원들과의 친목이 좋았어요.",
+        "profileImage": "/images/profileimage1.jpeg",
+        "cardImage": "/images/futsalimage.jpeg",
+        "nickname": "미드필더",
+        "date": "2024-07-26T20:00:00",
+        "place": "송파구",
+        "group": "futsal"
+      },
+      {
+        "star": 4,
+        "comment": "헬스장 트레이너의 조언이 매우 유용했어요.",
+        "profileImage": "/images/profileimage1.jpeg",
+        "cardImage": "/images/gymimage.jpeg",
+        "nickname": "근육좋아",
+        "date": "2024-07-27T09:00:00",
+        "place": "송파구",
+        "group": "gym"
+      },
+      {
+        "star": 5,
+        "comment": "요가로 하루를 시작하니 정말 좋아요.",
+        "profileImage": "/images/profileimage1.jpeg",
+        "cardImage": "/images/yogaimage.jpeg",
+        "nickname": "요가러버",
+        "date": "2024-07-28T06:00:00",
+        "place": "송파구",
+        "group": "yoga"
+      },
+      {
+        "star": 4,
+        "comment": "새로운 운동을 배워서 즐거웠어요.",
+        "profileImage": "/images/profileimage1.jpeg",
+        "cardImage": "/images/miscimage.jpeg",
+        "nickname": "운동탐험가",
+        "date": "2024-07-29T18:00:00",
+        "place": "송파구",
+        "group": "misc"
+      },
+      {
+        "star": 5,
+        "comment": "러닝 그룹과 함께 하니 동기부여가 돼요.",
+        "profileImage": "/images/profileimage1.jpeg",
+        "cardImage": "/images/runningimage.jpeg",
+        "nickname": "마라토너",
+        "date": "2024-07-30T07:00:00",
+        "place": "송파구",
+        "group": "running"
+      },
+      {
+        "star": 4,
+        "comment": "등산하며 본 경치가 정말 아름다웠어요.",
+        "profileImage": "/images/profileimage1.jpeg",
+        "cardImage": "/images/hikingimage.jpeg",
+        "nickname": "산사랑",
+        "date": "2024-07-31T08:00:00",
+        "place": "송파구",
+        "group": "hiking"
+      },
+      {
+        "star": 5,
+        "comment": "배드민턴 실력이 많이 늘었어요!",
+        "profileImage": "/images/profileimage1.jpeg",
+        "cardImage": "/images/badmintonimage.jpeg",
+        "nickname": "라켓 마스터",
+        "date": "2024-08-01T19:30:00",
+        "place": "송파구",
+        "group": "badminton"
+      },
+      {
+        "star": 4,
+        "comment": "테니스 코치의 지도가 매우 도움됐어요.",
+        "profileImage": "/images/profileimage1.jpeg",
+        "cardImage": "/images/tennisimage.jpeg",
+        "nickname": "코트의왕",
+        "date": "2024-08-02T16:00:00",
+        "place": "송파구",
+        "group": "tennis"
+      },
+      {
+        "star": 5,
+        "comment": "클라이밍 후의 성취감이 정말 좋아요.",
+        "profileImage": "/images/profileimage1.jpeg",
+        "cardImage": "/images/climbingimage.jpeg",
+        "nickname": "암벽정복자",
+        "date": "2024-08-03T10:00:00",
+        "place": "송파구",
+        "group": "climbing"
+      },
+      {
+        "star": 4,
+        "comment": "풋살로 스트레스가 다 날아갔어요.",
+        "profileImage": "/images/profileimage1.jpeg",
+        "cardImage": "/images/futsalimage.jpeg",
+        "nickname": "골헌터",
+        "date": "2024-08-04T21:00:00",
+        "place": "송파구",
+        "group": "futsal"
+      },
+      {
+        "star": 5,
+        "comment": "헬스장 시설이 정말 좋아요.",
+        "profileImage": "/images/profileimage1.jpeg",
+        "cardImage": "/images/gymimage.jpeg",
+        "nickname": "헬스좋아",
+        "date": "2024-08-04T21:00:00",
+        "place": "송파구",
+        "group": "gym"
+      },
+      {
+        "star": 5,
+        "comment": "헬스장 시설이 정말 좋아요. 새로운 장비도 많아졌어요!",
+        "profileImage": "/images/profileimage1.jpeg",
+        "cardImage": "/images/gymimage.jpeg",
+        "nickname": "철봉왕",
+        "date": "2024-08-05T10:00:00",
+        "place": "송파구",
+        "group": "gym"
+      },
+      {
+        "star": 4,
+        "comment": "클라이밍 코스가 다양해서 좋았어요. 난이도별로 도전할 수 있어요.",
+        "profileImage": "/images/profileimage1.jpeg",
+        "cardImage": "/images/climbingimage.jpeg",
+        "nickname": "암벽여왕",
+        "date": "2024-08-06T14:00:00",
+        "place": "송파구",
+        "group": "climbing"
+      },
+      {
+        "star": 5,
+        "comment": "복싱 클래스를 처음 들어봤는데, 정말 재미있었어요!",
+        "profileImage": "/images/profileimage1.jpeg",
+        "cardImage": "/images/miscimage.jpeg",
+        "nickname": "복싱루키",
+        "date": "2024-08-07T18:30:00",
+        "place": "송파구",
+        "group": "misc"
+      },
+      {
+        "star": 3,
+        "comment": "헬스장이 약간 붐볐지만, 운동은 잘 했어요.",
+        "profileImage": "/images/profileimage1.jpeg",
+        "cardImage": "/images/gymimage.jpeg",
+        "nickname": "근육맨",
+        "date": "2024-08-08T17:00:00",
+        "place": "송파구",
+        "group": "gym"
+      },
+      {
+        "star": 5,
+        "comment": "클라이밍 동호회 멤버들과 함께해서 더 즐거웠어요!",
+        "profileImage": "/images/profileimage1.jpeg",
+        "cardImage": "/images/climbingimage.jpeg",
+        "nickname": "암벽친구",
+        "date": "2024-08-09T11:00:00",
+        "place": "송파구",
+        "group": "climbing"
+      },
+      {
+        "star": 4,
+        "comment": "줌바 댄스 수업이 너무 신나고 재미있었어요.",
+        "profileImage": "/images/profileimage1.jpeg",
+        "cardImage": "/images/miscimage.jpeg",
+        "nickname": "댄스킹",
+        "date": "2024-08-10T19:00:00",
+        "place": "송파구",
+        "group": "misc"
+      },
+      {
+        "star": 5,
+        "comment": "PT 받으면서 운동하니 효과가 빠르게 나타나요.",
+        "profileImage": "/images/profileimage1.jpeg",
+        "cardImage": "/images/gymimage.jpeg",
+        "nickname": "헬스신봉자",
+        "date": "2024-08-11T08:00:00",
+        "place": "송파구",
+        "group": "gym"
+      },
+      {
+        "star": 4,
+        "comment": "실내 클라이밍장이라 날씨와 상관없이 즐길 수 있어 좋아요.",
+        "profileImage": "/images/profileimage1.jpeg",
+        "cardImage": "/images/climbingimage.jpeg",
+        "nickname": "클라이머",
+        "date": "2024-08-12T16:00:00",
+        "place": "송파구",
+        "group": "climbing"
+      },
+      {
+        "star": 5,
+        "comment": "크로스핏 수업이 힘들었지만 성취감이 대단해요!",
+        "profileImage": "/images/profileimage1.jpeg",
+        "cardImage": "/images/miscimage.jpeg",
+        "nickname": "크로스핏매니아",
+        "date": "2024-08-13T20:00:00",
+        "place": "송파구",
+        "group": "misc"
+      },
+      {
+        "star": 4,
+        "comment": "24시간 운영하는 헬스장이라 편해요. 새벽에도 운동할 수 있어요.",
+        "profileImage": "/images/profileimage1.jpeg",
+        "cardImage": "/images/gymimage.jpeg",
+        "nickname": "야간운동러",
+        "date": "2024-08-14T05:00:00",
+        "place": "송파구",
+        "group": "gym"
+      }
+    ],
+    "Activity": [
+      {
+        "star": 4,
+        "comment": "정말 즐거웠어요!",
+        "profileImage": "/images/profileimage1.jpeg",
+        "cardImage": "/images/활동이미지.jpeg",
+        "nickname": "푸른 하늘",
+        "date": "2024-07-04T15:00:00",
+        "place": "송파구",
+        "group": "hiking"
+      }
+    ],
+    "Learning": [
+      {
+        "star": 5,
+        "comment": "많은 것을 배웠어요!",
+        "profileImage": "/images/profileimage1.jpeg",
+        "cardImage": "/images/학습이미지.jpeg",
+        "nickname": "지적인 사람",
+        "date": "2024-07-05T10:00:00",
+        "place": "송파구",
+        "group": "study"
+      }
+    ],
+    "Culture": [
+      {
+        "star": 3,
+        "comment": "문화 체험 재미있었어요.",
+        "profileImage": "/images/profileimage1.jpeg",
+        "cardImage": "/images/문화이미지.jpeg",
+        "nickname": "문화인",
+        "date": "2024-07-06T12:00:00",
+        "place": "송파구",
+        "group": "museum"
+      }
+    ]
+  }
+}
