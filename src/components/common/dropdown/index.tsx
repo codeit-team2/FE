@@ -37,7 +37,7 @@ export default function Dropdown({ items, icon, itemTrigger = 'Open' }: Dropdown
   }, []);
 
   return (
-    <div ref={dropdownRef} className="z-50">
+    <div ref={dropdownRef} className="z-10">
       <button
         onClick={toggleDropdown}
         className="relative flex items-center text-body-2M text-neutral-500 md:text-body-1M"
