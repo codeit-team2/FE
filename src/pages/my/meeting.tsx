@@ -1,17 +1,19 @@
-import Card from '@/components/Card';
-import Test from '@/components/Card/testData';
 import MyCard from '@/components/My/MyCard';
 import NotCard from '@/components/NotCard';
+import { Data } from '@/types';
 import React from 'react';
 
-export default function Meeting() {
-  const TESTS = Test;
+interface Props {
+  data: Data[];
+}
+
+export default function Meeting({ data }: Props) {
   return (
     <div>
       <div className="flex flex-col gap-20 pb-50">
-        {TESTS ? (
+        {data ? (
           <>
-            {Test.map((data, index) => (
+            {data.map((data, index) => (
               <MyCard key={index} data={data} />
             ))}
           </>

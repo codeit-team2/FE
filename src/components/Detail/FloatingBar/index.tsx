@@ -4,7 +4,7 @@ import Image from 'next/image';
 import React, { useState } from 'react';
 
 export default function FloatingBar({ data }: any) {
-  const isOwner = true;
+  const isOwner = false;
 
   const maxReached = data.member >= 20;
 
