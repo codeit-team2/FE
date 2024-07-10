@@ -15,13 +15,15 @@ export default function My() {
     <>
       <GNB />
       <MainLayout>
-        <Profile nickname="배고픈 망곰이" email="hungrybear@gamil.com" />
-        <div className="mb-27 mt-32 px-156">
-          <MyTap setSelectTab={setSelectTab} />
+        <div className="mx-auto max-w-screen-lg">
+          <Profile nickname="배고픈 망곰이" email="hungrybear@gamil.com" />
+          <div className="mb-27 mt-32 px-156">
+            <MyTap setSelectTab={setSelectTab} />
+          </div>
+          {selectTab === 'meeting' && <Meeting data={Test} />}
+          {selectTab === 'review' && <Review data={Test} />}
+          {selectTab === 'club' && <Club data={Test} />}
         </div>
-        {selectTab === 'meeting' && <Meeting data={Test} />}
-        {selectTab === 'review' && <Review data={Test} />}
-        {selectTab === 'club' && <Club data={Test} />}
       </MainLayout>
       <Footer />
     </>

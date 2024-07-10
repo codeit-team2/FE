@@ -15,7 +15,7 @@ export default function MyCard({ data, type = 'default' }: Props) {
   const isDateBeforeToday = useIsDateBeforeToday({ date: data.date });
 
   return (
-    <div className="relative flex w-full flex-col gap-16 rounded-lg bg-white p-8 md:h-230 md:flex-row md:gap-10 md:p-20 lg:gap-20">
+    <div className="relative flex w-full max-w-screen-lg flex-col gap-16 rounded-lg bg-white p-8 md:h-230 md:flex-row md:gap-10 md:p-20 lg:gap-20">
       <div className="relative h-163 w-full md:h-190 md:w-373">
         <Image src={data.imageUrl} alt={data.title} fill className="rounded-md" />
         {isDateBeforeToday ? (
