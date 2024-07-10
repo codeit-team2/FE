@@ -12,8 +12,10 @@ export default function NotFound() {
     <>
       <GNB />
       <MainLayout>
-        <div className="flex h-full flex-col items-center justify-center gap-16 pt-50 sm:gap-22 sm:pt-180">
-          <Image src="/icons/ic-warning-cloud.svg" alt="cloud" width={150} height={150} />
+        <div className="flex h-screen flex-col items-center justify-center gap-16 md:gap-22">
+          <div className="relative h-100 w-100 md:h-150 md:w-150">
+            <Image src="/icons/ic-warning-cloud.svg" alt="cloud" fill />
+          </div>
           <p className="text-xl">서비스 이용에 불편을 드려 죄송합니다</p>
           {useIsMobile() ? (
             <p className="text-center font-Pretendard text-base text-neutral-500">
