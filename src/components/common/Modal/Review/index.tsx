@@ -23,8 +23,6 @@ export default function ReviewModal() {
     formState: { isValid },
   } = form;
 
-  console.log(rating);
-
   const onSubmit: SubmitHandler<FieldValues> = (value: FieldValues) => {};
 
   return (
