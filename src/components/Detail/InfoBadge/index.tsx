@@ -14,7 +14,7 @@ export default function InfoBadge({ data }: any) {
         <div className="flex items-center justify-center gap-6">
           <div className="flex h-32 w-74 items-center gap-2 rounded-sm bg-primary-50 px-8 py-4 md:w-82">
             <div className="relative h-24 w-24">
-              <Image src={'/icons/person.svg'} alt="ic-person" fill />
+              <Image src={'/icons/ic-person-blue.svg'} alt="ic-person" fill />
             </div>
             <div className="text-body-2Sb text-primary-300">{data.member}/20</div>
           </div>
@@ -41,7 +41,7 @@ export default function InfoBadge({ data }: any) {
           className={`flex items-center justify-center gap-7 ${minReached ? 'text-primary-200' : ''}`}
         >
           <Image
-            src={minReached ? '/icons/check-on.svg' : '/icons/check-off.svg'}
+            src={minReached ? '/icons/ic-checkbox-on.svg' : '/icons/ic-checkbox-off.svg'}
             alt="check"
             width={18}
             height={18}
@@ -52,7 +52,7 @@ export default function InfoBadge({ data }: any) {
           className={`flex items-center justify-center gap-7 ${maxReached ? 'text-primary-200' : ''}`}
         >
           <Image
-            src={maxReached ? '/icons/check-on.svg' : '/icons/check-off.svg'}
+            src={maxReached ? '/icons/ic-checkbox-on.svg' : '/icons/ic-checkbox-off.svg'}
             alt="check"
             width={18}
             height={18}
