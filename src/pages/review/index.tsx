@@ -12,7 +12,7 @@ import Dropdown from '@/components/common/dropdown';
 import UserReview from '@/components/Review/UserReview';
 
 export default function Review() {
-  const isReview = true;
+  const isReview = false;
 
   return (
     <>
@@ -46,17 +46,21 @@ export default function Review() {
             />
           </div>
           {isReview ? (
-            <div className='flex flex-col gap-20'><UserReview mockData={mockData} /></div>
+            <div className="mb-40 flex flex-col gap-20 md:mb-50">
+              <UserReview mockData={mockData} />
+            </div>
           ) : (
-            <NotReview
-              text={
-                <>
-                  <span className="text-primary-300">모임 찾기</span>에서 모임에 참여해보세요
-                </>
-              }
-            />
+            <>
+              <NotReview
+                text={
+                  <>
+                    <span className="text-primary-300">모임 찾기</span>에서 모임에 참여해보세요
+                  </>
+                }
+              />
+              <Button className="mb-40 mt-32 w-full max-w-[1008px] md:mb-50" children="모임찾기" />
+            </>
           )}
-          <Button className="mt-32 w-full max-w-[1008px]" children="모임찾기" />
         </div>
       </div>
       <Footer />
