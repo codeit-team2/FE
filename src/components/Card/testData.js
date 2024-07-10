@@ -8,6 +8,7 @@ const Test = [
     imageUrl: '/images/러닝이미지.jpg',
     deadline: '오늘마감',
     confirmed: true,
+    review: true,
   },
   {
     category: '축구',
@@ -18,6 +19,7 @@ const Test = [
     imageUrl: '/images/풋살이미지.jpeg',
     deadline: '이번주마감',
     confirmed: false,
+    review: false,
   },
   {
     category: '등산',
@@ -28,6 +30,7 @@ const Test = [
     imageUrl: '/images/등산이미지.png',
     deadline: '다음주마감',
     confirmed: true,
+    review: false,
   },
 ];
 export default Test;
