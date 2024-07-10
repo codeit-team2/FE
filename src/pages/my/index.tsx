@@ -10,7 +10,7 @@ import Review from './review';
 import Test from '@/components/Card/testData';
 
 export default function My() {
-  const [selectTab, setSelectTab] = useState('review');
+  const [selectTab, setSelectTab] = useState('meeting');
   return (
     <>
       <GNB />
