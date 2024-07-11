@@ -24,6 +24,12 @@ export const ERROR_MESSAGE = {
     valid: '영문, 숫자를 모두 포함해 주세요',
     check: '비밀번호가 일치하지 않습니다',
   },
+  clubName: {
+    required: '클럽이름을 입력해주세요',
+  },
+  headcount: {
+    required: '인원수를 입력해주세요',
+  },
 };
 
 export const PLACEHOLDER = {
