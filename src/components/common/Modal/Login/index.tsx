@@ -31,10 +31,6 @@ export default function LoginModal({
     trigger();
   }, [isLoginModalOpen]);
 
-  useEffect(() => {
-    console.log(form);
-  }, [form]);
-
   return (
     <Dialog open={isLoginModalOpen} onOpenChange={setIsLoginModalOpen}>
       <DialogTrigger>
