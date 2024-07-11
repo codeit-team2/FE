@@ -22,7 +22,7 @@ export default function ReviewCard({ data }: any) {
     <div className="flex md:h-158 w-full h-146 flex-col justify-between rounded-md bg-white px-20 py-16">
       <div className="flex flex-col gap-6">
         <div className="relative flex">{renderStars()}</div>
-        <p className="text-body-1Sb text-neutral-900 w-296 h-40 md:w-full md-h-44">{data.comment}</p>
+        <p className="text-body-1Sb text-neutral-900 w-296 h-40 md:w-full md:h-44">{data.comment}</p>
       </div>
       <div className="flex items-center gap-8 pt-14">
         <div className="relative h-32 w-32 overflow-hidden rounded-full">

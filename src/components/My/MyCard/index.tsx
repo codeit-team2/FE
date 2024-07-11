@@ -2,6 +2,7 @@ import Image from 'next/image';
 import React, { useState } from 'react';
 import Description from '@/components/Card/Description';
 import Person from '@/components/Card/Person';
+import ReviewModal from '@/components/common/Modal/Review';
 import { Button } from '@/components/ui/button';
 import useIsDateBeforeToday from '@/hooks/useIsDateBeforeToday';
 import { Data } from '@/types';
@@ -67,7 +68,7 @@ export default function MyCard({ data, type = 'default' }: Props) {
             </Button>
           </div>
         )}
-
+        
         {type === 'default' && (
           <div className="flex flex-row justify-end gap-16">
             <Person data={data} />
