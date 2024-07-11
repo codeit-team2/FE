@@ -6,9 +6,16 @@ interface DropdownProps {
   icon: string;
   isUpDown?: boolean;
   itemTrigger: string;
+  type?: string;
 }
 
-export default function Dropdown({ items, icon, isUpDown, itemTrigger = 'Open' }: DropdownProps) {
+export default function Dropdown({
+  items,
+  icon,
+  isUpDown,
+  itemTrigger = 'Open',
+  type = 'default',
+}: DropdownProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [itemValue, setItemValue] = useState<string | null>(itemTrigger);
 
@@ -38,31 +45,27 @@ export default function Dropdown({ items, icon, isUpDown, itemTrigger = 'Open' }
   }, []);
 
   return (
-    <div ref={dropdownRef} className="z-10">
+    <div ref={dropdownRef} className="relative z-10">
       <button
         onClick={toggleDropdown}
-        className="relative flex items-center text-body-2M text-neutral-500 md:text-body-1M"
+        className={`${type === 'default' ? 'relative flex items-center text-body-2M text-neutral-500 md:text-body-1M' : 'relative flex w-full items-center justify-between rounded-sm bg-neutral-50 px-12 py-10 text-body-2M text-neutral-400 md:text-body-1M'}`}
+        type="button"
       >
         {itemValue}
         <div className="relative h-32 w-32">
-          <Image
-            src={icon}
-            alt="ic-chevron-down"
-            fill
-            className={isUpDown ? 'px-11 py-8' : ''}
-          />
+          <Image src={icon} alt="ic-chevron-down" fill className={isUpDown ? 'px-11 py-8' : ''} />
         </div>
       </button>
 
       {/* 이후 고정 값 나오면 변경작업 */}
       {isOpen ? (
         items && items.length > 0 ? (
-          <div className="absolute z-10 rounded-md bg-white py-5 text-body-2Sb shadow-[#191f28]">
+          <div className="absolute z-10 w-full rounded-md bg-white py-5 text-body-2Sb shadow-[#191f28]">
             {items.map((item, index) => (
               <div
                 key={index}
                 onClick={handleItemClick}
-                className="flex cursor-pointer items-center justify-center px-10 py-12 hover:rounded-full hover:bg-primary-50"
+                className={`${type === 'default' ? 'flex cursor-pointer items-center justify-center px-10 py-12 hover:rounded-full hover:bg-primary-50' : 'flex w-full cursor-pointer items-center justify-center px-10 py-12 hover:rounded-full hover:bg-primary-50'}`}
               >
                 {item}
               </div>

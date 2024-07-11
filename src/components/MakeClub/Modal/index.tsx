@@ -13,6 +13,7 @@ import { FieldValues, FormProvider, SubmitHandler, useForm } from 'react-hook-fo
 import Image from 'next/image';
 import LoginRequired from '@/components/common/Modal/LoginRequired';
 import { PLACEHOLDER } from '@/constants/formMessages';
+import Dropdown from '@/components/common/Dropdown';
 
 interface Props {
   trigger: 'text' | 'plus';
@@ -85,19 +86,34 @@ export default function MakeClubModal({ trigger }: Props) {
                         ref={fileInput}
                         className="block rounded-sm bg-neutral-50 px-12 py-10 file:hidden"
                       />
-                      <Button variant="chip" selected={true} onClick={() => handleButtonClick()}>
+                      <Button
+                        variant="chip"
+                        selected={true}
+                        onClick={() => handleButtonClick()}
+                        type="button"
+                      >
                         파일찾기
                       </Button>
                     </div>
                   </div>
                   <div className="flex flex-row gap-12">
-                    <div className="w-3/6">
+                    <div className="relative w-3/6">
                       <DialogDescription>카테고리</DialogDescription>
-                      <Input type="text" id="category" placeholder={PLACEHOLDER.category} />
+                      <Dropdown
+                        items={['러닝', '등산', '배드민턴', '헬스']}
+                        icon="icons/ic-chevron-down.svg"
+                        itemTrigger="카테고리를 선택해주세요"
+                        type="makeClub"
+                      />
                     </div>
-                    <div className="w-3/6">
+                    <div className="relative w-3/6">
                       <DialogDescription>지역</DialogDescription>
-                      <Input type="text" id="location" placeholder={PLACEHOLDER.location} />
+                      <Dropdown
+                        items={['중랑구', '광진구', '용산구', '을지로3가']}
+                        icon="icons/ic-chevron-down.svg"
+                        itemTrigger="지역을 선택해주세요"
+                        type="makeClub"
+                      />
                     </div>
                   </div>
                   <div>
@@ -119,6 +135,7 @@ export default function MakeClubModal({ trigger }: Props) {
                           key={i}
                           selected={selectTime === time}
                           onClick={() => setSelectTime(time)}
+                          type="button"
                         >
                           {time}
                         </Button>
@@ -135,6 +152,7 @@ export default function MakeClubModal({ trigger }: Props) {
                           key={i}
                           selected={selectTime === time}
                           onClick={() => setSelectTime(time)}
+                          type="button"
                         >
                           {time}
                         </Button>
@@ -162,7 +180,7 @@ export default function MakeClubModal({ trigger }: Props) {
                 </div>
               </div>
               <div className="flex justify-center">
-                <Button className="w-440 md:w-952">모임 만들기</Button>
+                <Button className="w-440 sm:w-952">모임 만들기</Button>
               </div>
             </form>
           </FormProvider>
