@@ -1,7 +1,9 @@
+import { Data } from '@/types';
+
+import React from 'react';
+
 import MyCard from '@/components/My/MyCard';
 import NotCard from '@/components/NotCard';
-import { Data } from '@/types';
-import React from 'react';
 
 interface Props {
   data: Data[];

@@ -1,6 +1,12 @@
+import { Data } from '@/types';
+
 import Image from 'next/image';
 
-export default function Person({ data }: any) {
+interface PersonProps {
+  data: Data;
+}
+
+export default function Person({ data }: PersonProps) {
   return (
     <>
       {data.member > 5 ? (

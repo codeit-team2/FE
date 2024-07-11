@@ -1,6 +1,7 @@
 import { forwardRef, useEffect, useState } from 'react';
-import Image from 'next/image';
 import { useFormContext } from 'react-hook-form';
+
+import Image from 'next/image';
 
 interface InputProps {
   type: 'text' | 'password';

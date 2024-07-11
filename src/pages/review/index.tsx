@@ -1,15 +1,17 @@
-import ChipTap from '@/components/ChipTap';
+import React from 'react';
+
 import Banner from '@/components/common/Banner';
+import Dropdown from '@/components/common/Dropdown';
 import Footer from '@/components/common/Footer';
 import GNB from '@/components/common/GNB';
 import Tap from '@/components/common/Tap';
-import React from 'react';
+
+import ChipTap from '@/components/ChipTap';
 import NotReview from '@/components/NotReview';
-import { Button } from '@/components/ui/button';
 import StarRatingAverage from '@/components/Review/StarRatingAverage';
-import mockData from '@/components/Review/reviewTestData.json';
-import Dropdown from '@/components/common/Dropdown';
 import UserReview from '@/components/Review/UserReview';
+import mockData from '@/components/Review/reviewTestData.json';
+import { Button } from '@/components/ui/button';
 
 export default function Review() {
   const isReview = false;

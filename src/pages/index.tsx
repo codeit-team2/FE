@@ -1,19 +1,22 @@
-import Card from '@/components/Card';
-import ChipTap from '@/components/ChipTap';
-import MainLayout from '@/components/common/MainLayout';
+import Image from 'next/image';
+
 import Banner from '@/components/common/Banner';
 import Dropdown from '@/components/common/Dropdown';
-import GNB from '@/components/common/GNB';
-import Tap from '@/components/common/Tap';
-import Test from '@/components/Card/testData.js';
-import CreateHobby from '@/components/CreateHobby';
 import Footer from '@/components/common/Footer';
-import Image from 'next/image';
+import GNB from '@/components/common/GNB';
+import MainLayout from '@/components/common/MainLayout';
+import Tap from '@/components/common/Tap';
+
+import Card from '@/components/Card';
+import Test from '@/components/Card/testData.js';
+import ChipTap from '@/components/ChipTap';
+import MakeClubModal from '@/components/MakeClub/Modal';
 import NotCard from '@/components/NotCard';
 
-export default function Main() {
-  let TESTS = null;
+import useFavorite from '@/hooks/useFavorite';
 
+export default function Main() {
+  const { ClickFavorites, isFavorite } = useFavorite();
   return (
     <>
       <GNB />
@@ -50,12 +53,17 @@ export default function Main() {
               isUpDown
             />
           </div>
-          <CreateHobby />
+          <MakeClubModal trigger="plus" />
           <div className="flex flex-col gap-20">
-            {TESTS ? (
+            {Test ? (
               <>
                 {Test.map((data, index) => (
-                  <Card key={index} data={data} />
+                  <Card
+                    key={index}
+                    data={data}
+                    ClickFavorites={ClickFavorites}
+                    isFavorite={isFavorite}
+                  />
                 ))}
                 <div className="mb-16 mt-40 h-2 w-full bg-neutral-100" />
                 <button className="flex w-full items-center justify-center pb-50">

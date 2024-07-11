@@ -1,5 +1,7 @@
-import Image from 'next/image';
 import React from 'react';
+
+import Image from 'next/image';
+
 import ProfileEditModal from '@/components/common/Modal/ProfileEdit';
 
 interface Props {

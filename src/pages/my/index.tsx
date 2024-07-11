@@ -1,13 +1,16 @@
-import MyTap from '@/components/My/MyTab';
-import Profile from '@/components/My/Profile';
+import React, { useState } from 'react';
+
+import Club from './club';
+import Meeting from './meeting';
+import Review from './review';
+
 import Footer from '@/components/common/Footer';
 import GNB from '@/components/common/GNB';
 import MainLayout from '@/components/common/MainLayout';
-import React, { useState } from 'react';
-import Meeting from './meeting';
-import Club from './club';
-import Review from './review';
+
 import Test from '@/components/Card/testData';
+import MyTap from '@/components/My/MyTab';
+import Profile from '@/components/My/Profile';
 
 export default function My() {
   const [selectTab, setSelectTab] = useState('meeting');

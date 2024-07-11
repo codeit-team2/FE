@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
+
 import Image from 'next/image';
+
 import LoginModal from '@/components/common/Modal/Login';
 import SignupModal from '@/components/common/Modal/Signup';
 

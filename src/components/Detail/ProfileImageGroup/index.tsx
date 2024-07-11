@@ -1,8 +1,10 @@
-import useIsMobile from '@/hooks/useIsMobile';
-import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
 
-export default function ProfileImageGroup({usersProfile}: any) {
+import Image from 'next/image';
+
+import useIsMobile from '@/hooks/useIsMobile';
+
+export default function ProfileImageGroup({ usersProfile }: any) {
   const [isMounted, setIsMounted] = useState(false);
   const isMobile = useIsMobile();
   const profileSize = isMobile ? 3 : 4;
@@ -14,7 +16,6 @@ export default function ProfileImageGroup({usersProfile}: any) {
   if (!isMounted) {
     return null;
   }
-
 
   return (
     <>
@@ -43,7 +44,9 @@ export default function ProfileImageGroup({usersProfile}: any) {
             zIndex: 0,
           }}
         >
-          <span className="text-body-3Sb text-neutral-700">+{usersProfile.length - profileSize}</span>
+          <span className="text-body-3Sb text-neutral-700">
+            +{usersProfile.length - profileSize}
+          </span>
         </div>
       )}
     </>

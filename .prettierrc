@@ -7,10 +7,9 @@
   "printWidth": 100,
   "bracketSpacing": true,
   "arrowParens": "always",
-  "plugins": ["prettier-plugin-tailwindcss"],
+  "plugins": ["prettier-plugin-tailwindcss", "@trivago/prettier-plugin-sort-imports"],
   "importOrder": [
     "^react(.*)$",
-    "^@types/(.*)$",
     "^[^@/](.*)$",
     "^@/pages/(.*)$",
     "^@/components/common(.*)$",
@@ -22,5 +21,6 @@
     "^@/assets/(.*)$",
     "^[./]"
   ],
+  "importOrderSeparation": true,
   "importOrderSortSpecifiers": true
 }
