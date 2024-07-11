@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+
 import axios from 'axios';
 
 export default function ApiTest() {
@@ -26,7 +27,9 @@ export default function ApiTest() {
         placeholder="Enter text"
         className="border border-black"
       />
-      <button onClick={postText} className='border border-black'>Send Text</button>
+      <button onClick={postText} className="border border-black">
+        Send Text
+      </button>
     </div>
   );
 }

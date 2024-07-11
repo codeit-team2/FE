@@ -1,7 +1,8 @@
-import { Button } from '@/components/ui/button';
-import MakeClubModal from '@/components/MakeClub/Modal';
-import { useRouter } from 'next/router';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
+
+import MakeClubModal from '@/components/MakeClub/Modal';
+import { Button } from '@/components/ui/button';
 
 interface NotcardProps {
   findClub?: string;

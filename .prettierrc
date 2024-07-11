@@ -10,7 +10,6 @@
   "plugins": ["prettier-plugin-tailwindcss", "@trivago/prettier-plugin-sort-imports"],
   "importOrder": [
     "^react(.*)$",
-    "^@types/(.*)$",
     "^[^@/](.*)$",
     "^@/pages/(.*)$",
     "^@/components/common(.*)$",
@@ -22,5 +21,6 @@
     "^@/assets/(.*)$",
     "^[./]"
   ],
+  "importOrderSeparation": true,
   "importOrderSortSpecifiers": true
 }

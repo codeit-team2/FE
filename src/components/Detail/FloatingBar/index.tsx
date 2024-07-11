@@ -1,7 +1,10 @@
-import LoginRequired from '@/components/common/Modal/LoginRequired';
-import { Button } from '@/components/ui/button';
-import Image from 'next/image';
 import React, { useState } from 'react';
+
+import Image from 'next/image';
+
+import LoginRequired from '@/components/common/Modal/LoginRequired';
+
+import { Button } from '@/components/ui/button';
 
 export default function FloatingBar({ data }: any) {
   const isOwner = false;

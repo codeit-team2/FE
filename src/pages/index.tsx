@@ -1,19 +1,21 @@
-import Card from '@/components/Card';
-import ChipTap from '@/components/ChipTap';
-import MainLayout from '@/components/common/MainLayout';
+import Image from 'next/image';
+
 import Banner from '@/components/common/Banner';
 import Dropdown from '@/components/common/Dropdown';
-import GNB from '@/components/common/GNB';
-import Tap from '@/components/common/Tap';
-import Test from '@/components/Card/testData.js';
 import Footer from '@/components/common/Footer';
-import Image from 'next/image';
-import NotCard from '@/components/NotCard';
-import useFavorite from '@/hooks/useFavorite';
+import GNB from '@/components/common/GNB';
+import MainLayout from '@/components/common/MainLayout';
+import Tap from '@/components/common/Tap';
+
+import Card from '@/components/Card';
+import Test from '@/components/Card/testData.js';
+import ChipTap from '@/components/ChipTap';
 import MakeClubModal from '@/components/MakeClub/Modal';
+import NotCard from '@/components/NotCard';
+
+import useFavorite from '@/hooks/useFavorite';
 
 export default function Main() {
-  let TESTS = null;
   const { ClickFavorites, isFavorite } = useFavorite();
   return (
     <>

@@ -1,11 +1,14 @@
 import React from 'react';
-import TitleCard from '@/components/Detail/TitleCard';
-import GNB from '@/components/common/GNB';
-import mockData from '@/components/Detail/mockData.json';
-import reviewData from '@/components/Detail/reviewData.json';
+
 import Image from 'next/image';
+
+import GNB from '@/components/common/GNB';
+
 import FloatingBar from '@/components/Detail/FloatingBar';
 import ReviewCard from '@/components/Detail/ReviewCard';
+import TitleCard from '@/components/Detail/TitleCard';
+import mockData from '@/components/Detail/mockData.json';
+import reviewData from '@/components/Detail/reviewData.json';
 import NotReview from '@/components/NotReview';
 
 export default function Detail() {

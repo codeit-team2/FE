@@ -1,4 +1,5 @@
 import { Data } from '@/types';
+
 import Image from 'next/image';
 
 interface PersonProps {
