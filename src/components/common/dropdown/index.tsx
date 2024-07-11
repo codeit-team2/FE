@@ -4,10 +4,11 @@ import React, { useState, useRef, useEffect } from 'react';
 interface DropdownProps {
   items?: string[];
   icon: string;
+  isUpDown?: boolean;
   itemTrigger: string;
 }
 
-export default function Dropdown({ items, icon, itemTrigger = 'Open' }: DropdownProps) {
+export default function Dropdown({ items, icon, isUpDown, itemTrigger = 'Open' }: DropdownProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [itemValue, setItemValue] = useState(itemTrigger);
 
@@ -43,15 +44,14 @@ export default function Dropdown({ items, icon, itemTrigger = 'Open' }: Dropdown
         className="relative flex items-center text-body-2M text-neutral-500 md:text-body-1M"
       >
         {itemValue}
-        {itemTrigger === '마감임박' ? (
-          <div className="relative h-32 w-32">
-            <Image src={icon} alt="ic-chevron-down" fill className="px-11 py-8" />
-          </div>
-        ) : (
-          <div className="relative h-32 w-32">
-            <Image src={icon} alt="ic-chevron-down" fill />
-          </div>
-        )}
+        <div className="relative h-32 w-32">
+          <Image
+            src={icon}
+            alt="ic-chevron-down"
+            fill
+            className={isUpDown ? 'px-11 py-8' : ''}
+          />
+        </div>
       </button>
 
       {/* 이후 고정 값 나오면 변경작업 */}

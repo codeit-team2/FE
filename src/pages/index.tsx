@@ -47,6 +47,7 @@ export default function Main() {
               items={['마감임박', '참여 인원순']}
               icon="/icons/ic-chevron-updown.svg"
               itemTrigger="마감임박"
+              isUpDown
             />
           </div>
           <CreateHobby />

@@ -6,14 +6,15 @@ import reviewData from '@/components/Detail/reviewData.json';
 import Image from 'next/image';
 import FloatingBar from '@/components/Detail/FloatingBar';
 import ReviewCard from '@/components/Detail/ReviewCard';
+import NotReview from '@/components/NotReview';
 
 export default function Detail() {
-  const isReview = true;
+  const isReview = false;
 
   return (
     <>
       <GNB />
-      <div className="mx-auto flex min-h-screen w-full flex-col items-center bg-neutral-50 px-12 pb-100 md:px-32">
+      <div className="mx-auto flex min-h-screen w-full flex-col items-center bg-neutral-50 px-12 md:px-32">
         <div className="flex w-full flex-col items-center pt-32">
           <TitleCard data={mockData[0]} />
           <div className="mt-42 flex items-center gap-8 text-body-1Sb text-neutral-900 md:text-heading-2Sb">
@@ -27,27 +28,7 @@ export default function Detail() {
               ))}
             </div>
           ) : (
-            <div className="flex flex-col items-center gap-20 pt-16">
-              <div className="flex gap-12">
-                <div className="w-full md:w-auto">
-                  <Image
-                    src={'/images/none-review.png'}
-                    alt="none-review"
-                    width={220}
-                    height={123}
-                  />
-                </div>
-                <div className="hidden w-full md:block md:w-auto">
-                  <Image
-                    src={'/images/none-review.png'}
-                    alt="none-review"
-                    width={220}
-                    height={123}
-                  />
-                </div>
-              </div>
-              <p className="text-body-1M text-neutral-500">앗, 아직 리뷰가 없어요</p>
-            </div>
+            <NotReview />
           )}
         </div>
         <FloatingBar data={mockData[0]} />

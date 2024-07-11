@@ -122,6 +122,14 @@ const config = {
             letterSpacing: '-0.12px',
           },
         ],
+        average: [
+          '30px',
+          {
+            fontWeight: '700',
+            lineHeight: '140%',
+            letterSpacing: '-0.6px',
+          },
+        ],
       },
       spacing: px0_400,
       minWidth: px0_400,
