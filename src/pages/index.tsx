@@ -6,10 +6,10 @@ import Dropdown from '@/components/common/dropdown';
 import GNB from '@/components/common/GNB';
 import Tap from '@/components/common/tap';
 import Test from '@/components/Card/testData.js';
-import CreateHobby from '@/components/CreateHobby';
 import Footer from '@/components/common/Footer';
 import Image from 'next/image';
 import NotCard from '@/components/NotCard';
+import MakeClubModal from '@/components/MakeClub/Modal';
 
 export default function Main() {
   let TESTS = Test;
@@ -46,7 +46,7 @@ export default function Main() {
               itemTrigger="마감임박"
             />
           </div>
-          <CreateHobby />
+          <MakeClubModal trigger="plus" />
           <div className="flex flex-col gap-20">
             {TESTS ? (
               <>
