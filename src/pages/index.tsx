@@ -10,10 +10,11 @@ import CreateHobby from '@/components/CreateHobby';
 import Footer from '@/components/common/Footer';
 import Image from 'next/image';
 import NotCard from '@/components/NotCard';
+import useFavorite from '@/hooks/useFavorite';
 
 export default function Main() {
   let TESTS = null;
-
+  const { ClickFavorites, isFavorite } = useFavorite();
   return (
     <>
       <GNB />
@@ -52,10 +53,15 @@ export default function Main() {
           </div>
           <CreateHobby />
           <div className="flex flex-col gap-20">
-            {TESTS ? (
+            {Test ? (
               <>
                 {Test.map((data, index) => (
-                  <Card key={index} data={data} />
+                  <Card
+                    key={index}
+                    data={data}
+                    ClickFavorites={ClickFavorites}
+                    isFavorite={isFavorite}
+                  />
                 ))}
                 <div className="mb-16 mt-40 h-2 w-full bg-neutral-100" />
                 <button className="flex w-full items-center justify-center pb-50">
