@@ -43,7 +43,7 @@ export default function MakeClubModal({ trigger }: Props) {
     trigger === 'text' ? (
       <Button className="mb-50 hidden md:block">모임만들기</Button>
     ) : (
-      <button className="fixed right-32 z-20 cursor-pointer rounded-[40px] bg-primary-300 p-16">
+      <button className="fixed bottom-32 right-32 z-20 cursor-pointer rounded-[40px] bg-primary-300 p-16">
         <div className="relative h-24 w-24">
           <Image src="/icons/ic-plus.svg" alt="ic-plus" fill />
         </div>
@@ -162,7 +162,7 @@ export default function MakeClubModal({ trigger }: Props) {
             </form>
           </FormProvider>
           <div className="flex justify-center">
-            <Button className="w-440 md:w-952">확인</Button>
+            <Button className="w-440 md:w-952">모임 만들기</Button>
           </div>
         </DialogContent>
       ) : (

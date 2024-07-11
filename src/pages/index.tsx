@@ -6,17 +6,17 @@ import Dropdown from '@/components/common/Dropdown';
 import GNB from '@/components/common/GNB';
 import Tap from '@/components/common/Tap';
 import Test from '@/components/Card/testData.js';
-import CreateHobby from '@/components/CreateHobby';
 import Footer from '@/components/common/Footer';
 import Image from 'next/image';
 import NotCard from '@/components/NotCard';
 import useFavorite from '@/hooks/useFavorite';
+import MakeClubModal from '@/components/MakeClub/Modal';
 
 export default function Main() {
   let TESTS = null;
   const { ClickFavorites, isFavorite } = useFavorite();
   return (
-    <> 
+    <>
       <GNB />
       <MainLayout>
         <Banner
@@ -51,7 +51,7 @@ export default function Main() {
               isUpDown
             />
           </div>
-          <CreateHobby />
+          <MakeClubModal trigger="plus" />
           <div className="flex flex-col gap-20">
             {Test ? (
               <>
