@@ -5,16 +5,17 @@ import Liked from '@/components/Card/Liked';
 import Description from '@/components/Card/Description';
 import ProgressPercentage from '@/components/Card/ProgressPercentage';
 import Person from '@/components/Card/Person';
+import { Data } from '@/types';
 
 interface CardProps {
-  data: any;
+  data: Data;
   ClickFavorites: (item: string) => void;
   isFavorite: (item: string) => boolean;
 }
 
 export default function Card({ data, ClickFavorites, isFavorite }: CardProps) {
   // const [isBookmarked, setIsBookmarked] = useState(false);
-  const handleClick = (data: any) => {
+  const handleClick = (data: Data) => {
     if (ClickFavorites) {
       ClickFavorites(data.category);
     }

@@ -9,7 +9,7 @@ interface DropdownProps {
 
 export default function Dropdown({ items, icon, itemTrigger = 'Open' }: DropdownProps) {
   const [isOpen, setIsOpen] = useState(false);
-  const [itemValue, setItemValue] = useState(itemTrigger);
+  const [itemValue, setItemValue] = useState<string | null>(itemTrigger);
 
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -23,7 +23,7 @@ export default function Dropdown({ items, icon, itemTrigger = 'Open' }: Dropdown
     }
   };
 
-  const handleItemClick = (e: any) => {
+  const handleItemClick = (e: React.MouseEvent<HTMLDivElement>) => {
     const itemText = e.currentTarget?.textContent;
     setIsOpen(false);
     setItemValue(itemText);
