@@ -97,20 +97,22 @@ export default function MakeClubModal({ trigger }: Props) {
                     </div>
                   </div>
                   <div className="flex flex-row gap-12">
-                    <div className="w-3/6">
+                    <div className="relative w-3/6">
                       <DialogDescription>카테고리</DialogDescription>
                       <Dropdown
                         items={['러닝', '등산', '배드민턴', '헬스']}
                         icon="icons/ic-chevron-down.svg"
                         itemTrigger="카테고리를 선택해주세요"
+                        type="modal"
                       />
                     </div>
-                    <div className="w-3/6">
+                    <div className="relative w-3/6">
                       <DialogDescription>지역</DialogDescription>
                       <Dropdown
                         items={['중랑구', '광진구', '용산구', '을지로3가']}
                         icon="icons/ic-chevron-down.svg"
                         itemTrigger="지역을 선택해주세요"
+                        type="modal"
                       />
                     </div>
                   </div>
