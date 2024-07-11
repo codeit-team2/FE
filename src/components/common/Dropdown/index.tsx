@@ -61,7 +61,7 @@ export default function Dropdown({
       {/* 이후 고정 값 나오면 변경작업 */}
       {isOpen ? (
         items && items.length > 0 ? (
-          <div className="absolute z-10 w-full rounded-md bg-white py-5 text-body-2Sb shadow-[#191f28] px-4">
+          <div className="absolute z-10 w-full rounded-md bg-white py-5 text-body-2Sb shadow-lg px-4">
             {items.map((item, index) => (
               <div
                 key={index}
