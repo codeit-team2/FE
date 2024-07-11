@@ -128,7 +128,7 @@ export default function MakeClubModal({ trigger }: Props) {
                   </div>
                 </div>
                 <div className="mx-32 my-12 border-l"></div>
-                <div className="flex w-fit flex-col gap-24">
+                <div className="flex w-fit flex-col gap-40">
                   <div className="w-440">
                     <DialogDescription>오전</DialogDescription>
                     <div className="flex gap-4">
