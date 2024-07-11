@@ -1,10 +1,8 @@
 import { Data } from '@/types';
 
-import React, { useState } from 'react';
+import React from 'react';
 
 import Image from 'next/image';
-
-import ReviewModal from '@/components/common/Modal/Review';
 
 import Description from '@/components/Card/Description';
 import Person from '@/components/Card/Person';

@@ -14,7 +14,7 @@ import mockData from '@/components/Review/reviewTestData.json';
 import { Button } from '@/components/ui/button';
 
 export default function Review() {
-  const isReview = false;
+  const isReview = true;
 
   return (
     <>

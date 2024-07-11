@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 
 import Image from 'next/image';
 
@@ -39,7 +39,7 @@ export default function MyTap({ setSelectTab }: Props) {
 
   const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
 
-  const updateIndicator = () => {
+  const updateIndicator = useCallback(() => {
     const currentTab = tabRefs.current[selectedIndex];
     if (currentTab) {
       const { offsetWidth, offsetLeft } = currentTab;
@@ -49,7 +49,7 @@ export default function MyTap({ setSelectTab }: Props) {
         left: offsetLeft,
       });
     }
-  };
+  }, [selectedIndex]);
 
   useEffect(() => {
     updateIndicator();
@@ -58,7 +58,7 @@ export default function MyTap({ setSelectTab }: Props) {
     return () => {
       window.removeEventListener('resize', updateIndicator);
     };
-  }, [selectedIndex]);
+  }, [selectedIndex, updateIndicator]);
 
   const handleTapChange = (index: number, id: string) => {
     setSelectedIndex(index);

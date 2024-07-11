@@ -5,7 +5,13 @@ import Image from 'next/image';
 
 import Bookmark from '@/components/common/Bookmark';
 
-export default function TitleCard({ data }: any) {
+import { Activity } from '@/types/testDataType';
+
+interface TitleCardProps {
+  data: Activity;
+}
+
+export default function TitleCard({ data }: TitleCardProps) {
   return (
     <>
       <div className="relative flex h-400 w-full max-w-[1010px] flex-col rounded-lg bg-neutral-900 md:h-253 md:flex-row">
@@ -31,12 +37,12 @@ export default function TitleCard({ data }: any) {
                   <p>{data.time}</p>
                 </div>
               </div>
-              <div className="h-44 w-220 text-body-1Sb text-white md:h-56 md:w-392 md:text-heading-2Sb whitespace-normal">
+              <div className="h-44 w-220 whitespace-normal text-body-1Sb text-white md:h-56 md:w-392 md:text-heading-2Sb">
                 {data.title}
               </div>
             </div>
           </div>
-          <div className="mx-10 md:mx-20 mt-16 md:mt-12">
+          <div className="mx-10 mt-16 md:mx-20 md:mt-12">
             <InfoBadge data={data} />
           </div>
         </div>

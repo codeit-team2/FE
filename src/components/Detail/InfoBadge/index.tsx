@@ -4,11 +4,17 @@ import Image from 'next/image';
 
 import ProfileImageGroup from '@/components/Detail/ProfileImageGroup';
 
-export default function InfoBadge({ data }: any) {
+import { Activity, User } from '@/types/testDataType';
+
+interface InfoBadgeProps {
+  data: Activity;
+}
+
+export default function InfoBadge({ data }: InfoBadgeProps) {
   const progressPercentage = (data.member / 20) * 100;
   const minReached = data.member >= 5;
   const maxReached = data.member >= 20;
-  const usersProfile = data.users;
+  const usersProfile: User[] = data.users;
 
   return (
     <div className="flex h-102 w-full flex-col rounded-md bg-neutral-700 p-12 md:w-475">

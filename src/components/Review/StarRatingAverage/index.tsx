@@ -2,8 +2,13 @@ import React from 'react';
 
 import Image from 'next/image';
 
-export default function StarRatingAverage({ mockData }: any) {
-  const exerciseArray = mockData.categories.exercise;
+import { ExerciseReview } from '@/types/testDataType';
+
+interface StarRatingAverageProps {
+  mockData: ExerciseReview;
+}
+
+export default function StarRatingAverage({ mockData }: StarRatingAverageProps) {
   const scores = [5, 4, 3, 2, 1];
 
   const renderStars = () => {
@@ -26,7 +31,7 @@ export default function StarRatingAverage({ mockData }: any) {
     <div className="flex h-180 w-full max-w-[1010px] items-center justify-center gap-22 rounded-lg bg-white p-20 md:gap-80">
       <div className="flex h-130 w-full max-w-284 flex-col items-center justify-center gap-4 rounded-md bg-neutral-50">
         <div className="flex items-baseline gap-2">
-          <p className="md:text-average text-heading-1Sb">4.7</p>
+          <p className="text-heading-1Sb md:text-average">4.7</p>
           <p className="text-body-2Sb text-neutral-400 md:text-body-1Sb">/5 (50)</p>
         </div>
         <div className="flex">{renderStars()}</div>
