@@ -16,7 +16,7 @@ export default function Main() {
   let TESTS = null;
   const { ClickFavorites, isFavorite } = useFavorite();
   return (
-    <>
+    <> 
       <GNB />
       <MainLayout>
         <Banner
