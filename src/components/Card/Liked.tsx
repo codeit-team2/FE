@@ -9,7 +9,7 @@ export default function Liked({ onClick, isBookmarked }: LikedProps) {
   return (
     <button
       type="button"
-      className="absolute right-20 top-187 z-10 md:right-30 md:top-30"
+      className="absolute right-20 top-187 md:right-30 md:top-30"
       onClick={onClick}
     >
       <div className="relative h-48 w-48">
