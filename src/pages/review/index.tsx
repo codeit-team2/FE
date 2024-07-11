@@ -2,13 +2,13 @@ import ChipTap from '@/components/ChipTap';
 import Banner from '@/components/common/Banner';
 import Footer from '@/components/common/Footer';
 import GNB from '@/components/common/GNB';
-import Tap from '@/components/common/tap';
+import Tap from '@/components/common/Tap';
 import React from 'react';
 import NotReview from '@/components/NotReview';
 import { Button } from '@/components/ui/button';
 import StarRatingAverage from '@/components/Review/StarRatingAverage';
 import mockData from '@/components/Review/reviewTestData.json';
-import Dropdown from '@/components/common/dropdown';
+import Dropdown from '@/components/common/Dropdown';
 import UserReview from '@/components/Review/UserReview';
 
 export default function Review() {
