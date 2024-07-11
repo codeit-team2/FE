@@ -25,7 +25,7 @@ export default function Description({ data }: Props) {
         <p className="text-secondary-300">{data.deadline}</p>·
         <p className="text-neutral-500">{formatDate}</p>
       </div>
-      <div className="max-w-380 text-body-1Sb md:text-heading-2M">{data.title}</div>
+      <div className="text-body-1Sb md:text-heading-2M">{data.title}</div>
     </div>
   );
 }

@@ -25,8 +25,7 @@ const Test = [
     category: '등산',
     place: '광진구',
     date: '2024-07-19T14:00:00',
-    title:
-      '아차산 정상까지 등산 14년차 베테랑이 함께해요 sdfafdfdsffdsfdfasdfasfsdfd sdfdsfs asdfasdfdsfsaf sdfd',
+    title: '아차산 정상까지 등산 14년차 베테랑이 함께해요',
     member: 14,
     imageUrl: '/images/등산이미지.png',
     deadline: '다음주마감',
