@@ -1,11 +1,14 @@
-import Image from 'next/image';
-import React, { useState } from 'react';
-import { Button } from '../ui/button';
-import Liked from '@/components/Card/Liked';
-import Description from '@/components/Card/Description';
-import ProgressPercentage from '@/components/Card/ProgressPercentage';
-import Person from '@/components/Card/Person';
 import { Data } from '@/types';
+
+import React, { useState } from 'react';
+
+import { Button } from '../ui/button';
+import Image from 'next/image';
+
+import Description from '@/components/Card/Description';
+import Liked from '@/components/Card/Liked';
+import Person from '@/components/Card/Person';
+import ProgressPercentage from '@/components/Card/ProgressPercentage';
 
 interface CardProps {
   data: Data;

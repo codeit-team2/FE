@@ -1,5 +1,7 @@
-import Image from 'next/image';
 import React from 'react';
+
+import Image from 'next/image';
+
 import ProfileImageGroup from '@/components/Detail/ProfileImageGroup';
 
 export default function InfoBadge({ data }: any) {

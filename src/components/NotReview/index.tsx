@@ -1,4 +1,5 @@
 import React from 'react';
+
 import Image from 'next/image';
 
 interface NotReviewProps {
@@ -16,7 +17,7 @@ export default function NotReview({ text }: NotReviewProps) {
           <Image src={'/images/none-review.png'} alt="none-review" width={220} height={123} />
         </div>
       </div>
-      <div className='flex flex-col items-center'>
+      <div className="flex flex-col items-center">
         <p className="text-body-1M text-neutral-500">앗, 아직 활동 후기가 없어요</p>
         <p className="text-body-1M text-neutral-500">{text}</p>
       </div>

@@ -1,5 +1,6 @@
-import Image from 'next/image';
 import React from 'react';
+
+import Image from 'next/image';
 
 export default function UserReview({ mockData }: any) {
   const exerciseList = mockData.categories.Exercise;

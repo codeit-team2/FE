@@ -1,6 +1,8 @@
-import { Button } from '@/components/ui/button';
-import MockDatas from './MockDatas';
 import { useState } from 'react';
+
+import MockDatas from './MockDatas';
+
+import { Button } from '@/components/ui/button';
 
 interface ChipTapType {
   id: string;

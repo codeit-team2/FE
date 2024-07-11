@@ -1,10 +1,14 @@
-import GNB from '@/components/common/GNB';
-import MainLayout from '@/components/common/MainLayout';
-import { Button } from '@/components/ui/button';
-import useIsMobile from '@/hooks/useIsMobile';
+import React from 'react';
+
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import React from 'react';
+
+import GNB from '@/components/common/GNB';
+import MainLayout from '@/components/common/MainLayout';
+
+import { Button } from '@/components/ui/button';
+
+import useIsMobile from '@/hooks/useIsMobile';
 
 export default function NotFound() {
   const router = useRouter();

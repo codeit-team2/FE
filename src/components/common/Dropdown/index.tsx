@@ -1,5 +1,6 @@
+import React, { useEffect, useRef, useState } from 'react';
+
 import Image from 'next/image';
-import React, { useState, useRef, useEffect } from 'react';
 
 interface DropdownProps {
   items?: string[];

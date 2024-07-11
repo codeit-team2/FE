@@ -1,7 +1,9 @@
-import Bookmark from '@/components/common/Bookmark';
-import Image from 'next/image';
 import React from 'react';
+
 import InfoBadge from '../InfoBadge';
+import Image from 'next/image';
+
+import Bookmark from '@/components/common/Bookmark';
 
 export default function TitleCard({ data }: any) {
   return (

@@ -1,6 +1,7 @@
+import { PLACEHOLDER } from '@/constants/formMessages';
+
 import { forwardRef } from 'react';
 import { useFormContext } from 'react-hook-form';
-import { PLACEHOLDER } from '@/constants/formMessages';
 
 interface TextareaProps {
   id: string;
