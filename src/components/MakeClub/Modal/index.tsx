@@ -12,7 +12,7 @@ import Calendar from '@/components/common/Calendar';
 import { FieldValues, FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import Image from 'next/image';
 import LoginRequired from '@/components/common/Modal/LoginRequired';
-import { PLACEHOLDER } from '@/constants/formMessages';
+import { ERROR_MESSAGE, PLACEHOLDER } from '@/constants/formMessages';
 import Dropdown from '@/components/common/Dropdown';
 
 interface Props {
@@ -166,6 +166,9 @@ export default function MakeClubModal({ trigger }: Props) {
                       id="clubName"
                       placeholder={PLACEHOLDER.clubName}
                       maxLength={30}
+                      {...register('clubName', {
+                        required: ERROR_MESSAGE.clubName.required,
+                      })}
                     />
                   </div>
                   <div>
@@ -175,6 +178,9 @@ export default function MakeClubModal({ trigger }: Props) {
                       id="headcount"
                       placeholder={PLACEHOLDER.headcount}
                       maxLength={20}
+                      {...register('headcount', {
+                        required: ERROR_MESSAGE.headcount.required,
+                      })}
                     />
                   </div>
                 </div>
