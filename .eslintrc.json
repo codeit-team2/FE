@@ -11,6 +11,7 @@
   "extends": [
     "plugin:@typescript-eslint/recommended",
     "plugin:prettier/recommended",
+    "prettier",  // 추가
     "next/core-web-vitals"
   ],
   "rules": {
