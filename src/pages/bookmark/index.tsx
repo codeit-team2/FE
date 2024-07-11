@@ -10,9 +10,13 @@ import CreateHobby from '@/components/CreateHobby';
 import Footer from '@/components/common/Footer';
 import Image from 'next/image';
 import NotCard from '@/components/NotCard';
+import useFavorite from '@/hooks/useFavorite';
 
 export default function Bookmark() {
   let TESTS = null;
+  const { favorites, isFavorite, ClickFavorites } = useFavorite();
+
+  console.log(favorites);
   return (
     <>
       <GNB />
@@ -47,7 +51,12 @@ export default function Bookmark() {
           {Test ? (
             <>
               {Test.map((data, index) => (
-                <Card key={index} data={data} />
+                <Card
+                  key={index}
+                  data={data}
+                  isFavorite={isFavorite}
+                  ClickFavorites={ClickFavorites}
+                />
               ))}
               {/* 나중에 디자인 답변오면 수정 예정입니다. */}
               {/* <div className="mb-16 mt-40 h-2 w-full bg-neutral-100" />

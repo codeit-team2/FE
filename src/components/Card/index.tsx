@@ -6,15 +6,23 @@ import Description from '@/components/Card/Description';
 import ProgressPercentage from '@/components/Card/ProgressPercentage';
 import Person from '@/components/Card/Person';
 
-export default function Card({ data }: any) {
-  const [isBookmarked, setIsBookmarked] = useState(false);
+interface CardProps {
+  data: any;
+  ClickFavorites: (item: string) => void;
+  isFavorite: (item: string) => boolean;
+}
 
-  const handleClick = () => {
-    setIsBookmarked((prevIsBookmarked) => !prevIsBookmarked);
+export default function Card({ data, ClickFavorites, isFavorite }: CardProps) {
+  // const [isBookmarked, setIsBookmarked] = useState(false);
+  const handleClick = (data: any) => {
+    if (ClickFavorites) {
+      ClickFavorites(data.category);
+    }
+    // setIsBookmarked((prevIsBookmarked) => !prevIsBookmarked);
   };
 
   return (
-    <div className="relative flex w-full max-w-screen-lg flex-col gap-16 rounded-lg bg-white p-8 md:h-230 md:flex-row md:gap-10 md:p-20 lg:gap-20">
+    <div className="relative flex w-full flex-col gap-16 rounded-lg bg-white p-8 md:h-230 md:flex-row md:gap-10 md:p-20 lg:gap-20">
       <div className="relative h-163 w-full md:h-190 md:w-373">
         <Image src={data.imageUrl} alt={data.title} fill className="rounded-md" />
         {data.confirmed && (
@@ -23,27 +31,25 @@ export default function Card({ data }: any) {
           </div>
         )}
       </div>
-      <Liked onClick={handleClick} isBookmarked={isBookmarked} />
-      <div className="relative flex grow flex-col items-start justify-between px-12 text-gray-600">
+      <Liked onClick={() => handleClick(data)} isBookmarked={isFavorite(data.category)} />
+      {/* px-12 */}
+      <div className="relative flex w-full flex-col items-start justify-between text-gray-600">
         <Description data={data} />
-        <div className="mb-11 flex w-full items-center justify-center gap-16">
-          <Person data={data} />
-          <ProgressPercentage data={data} />
+        <div className="mb-11 flex w-full items-center justify-center gap-8 md:gap-16">
+          <div className="flex w-full items-center gap-16">
+            <Person data={data} />
+            <ProgressPercentage data={data} />
+          </div>
+          {data.member >= 20 ? (
+            <Button className="mb-2 h-42 w-full md:w-200 lg:w-288" disabled variant={'secondary'}>
+              참여마감
+            </Button>
+          ) : (
+            <Button className="mb-2 h-42 w-full md:w-200 lg:w-288" variant={'secondary'}>
+              참여하기
+            </Button>
+          )}
         </div>
-      </div>
-
-      <div className="flex h-full flex-col justify-end">
-        <Liked onClick={handleClick} isBookmarked={isBookmarked} />
-
-        {data.member >= 20 ? (
-          <Button className="mb-2 h-42 w-288" disabled variant={'secondary'}>
-            참여마감
-          </Button>
-        ) : (
-          <Button className="mb-2 h-42 w-288" variant={'secondary'}>
-            참여하기
-          </Button>
-        )}
       </div>
     </div>
   );

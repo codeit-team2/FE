@@ -6,6 +6,7 @@ import reviewData from '@/components/Detail/reviewData.json';
 import Image from 'next/image';
 import FloatingBar from '@/components/Detail/FloatingBar';
 import ReviewCard from '@/components/Detail/ReviewCard';
+import useFavorite from '@/hooks/useFavorite';
 
 export default function Detail() {
   const isReview = true;
