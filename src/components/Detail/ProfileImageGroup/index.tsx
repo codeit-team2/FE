@@ -4,7 +4,13 @@ import Image from 'next/image';
 
 import useIsMobile from '@/hooks/useIsMobile';
 
-export default function ProfileImageGroup({ usersProfile }: any) {
+import { User } from '@/types/testDataType';
+
+interface ProfileImageGroupProps {
+  usersProfile: User[];
+}
+
+export default function ProfileImageGroup({ usersProfile }: ProfileImageGroupProps) {
   const [isMounted, setIsMounted] = useState(false);
   const isMobile = useIsMobile();
   const profileSize = isMobile ? 3 : 4;
@@ -19,7 +25,7 @@ export default function ProfileImageGroup({ usersProfile }: any) {
 
   return (
     <>
-      {usersProfile.slice(0, profileSize).map((user: any, index: number) => (
+      {usersProfile.slice(0, profileSize).map((user, index) => (
         <div
           key={index}
           className="relative h-36 w-36 rounded-full border-2 border-neutral-700"

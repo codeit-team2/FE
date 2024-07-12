@@ -1,5 +1,3 @@
-import Image from 'next/image';
-
 import Banner from '@/components/common/Banner';
 import Dropdown from '@/components/common/Dropdown';
 import Footer from '@/components/common/Footer';
@@ -10,13 +8,11 @@ import Tap from '@/components/common/Tap';
 import Card from '@/components/Card';
 import Test from '@/components/Card/testData.js';
 import ChipTap from '@/components/ChipTap';
-import CreateHobby from '@/components/CreateHobby';
 import NotCard from '@/components/NotCard';
 
 import useFavorite from '@/hooks/useFavorite';
 
 export default function Bookmark() {
-  const TESTS = null;
   const { favorites, isFavorite, ClickFavorites } = useFavorite();
 
   console.log(favorites);
@@ -49,7 +45,6 @@ export default function Bookmark() {
             itemTrigger="마감임박"
           />
         </div>
-        {/* <CreateHobby /> */}
         <div className="flex flex-col gap-20">
           {Test ? (
             <>
