@@ -61,12 +61,12 @@ export default function Dropdown({
       {/* 이후 고정 값 나오면 변경작업 */}
       {isOpen ? (
         items && items.length > 0 ? (
-          <div className="absolute z-10 w-full rounded-md bg-white py-5 text-body-2Sb shadow-lg px-4">
+          <div className="absolute z-10 w-full rounded-md bg-white px-4 py-5 text-body-2Sb shadow-lg">
             {items.map((item, index) => (
               <div
                 key={index}
                 onClick={handleItemClick}
-                className={`${type === 'default' ? 'flex cursor-pointer items-center justify-center py-7 my-4 hover:rounded-full hover:bg-primary-50' : 'flex w-full cursor-pointer items-center justify-center px-10 py-12 hover:rounded-full hover:bg-primary-50'}`}
+                className={`${type === 'default' ? 'my-4 flex cursor-pointer items-center justify-center py-7 hover:rounded-full hover:bg-primary-50' : 'flex w-full cursor-pointer items-center justify-center px-10 py-12 hover:rounded-full hover:bg-primary-50'}`}
               >
                 {item}
               </div>

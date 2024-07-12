@@ -5,7 +5,11 @@ import Link from 'next/link';
 
 import { Button } from '@/components/ui/button';
 
-export default function LoginRequired({ onClose }: any) {
+interface LoginRequiredProps {
+  onClose: () => void;
+}
+
+export default function LoginRequired({ onClose }: LoginRequiredProps) {
   return (
     <>
       <div className="fixed left-1/2 top-1/2 z-50 flex h-252 w-320 -translate-x-1/2 -translate-y-1/2 transform justify-center rounded-md bg-white p-20 md:h-332 md:w-520 md:px-40 md:py-32">
