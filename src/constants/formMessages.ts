@@ -29,6 +29,9 @@ export const ERROR_MESSAGE = {
     min: '2자~50자 사이의 소감을 입력해 주세요',
     max: '2자~50자 사이의 소감을 입력해 주세요',
   },
+  thumbnail: {
+    required: '대표 이미지를 등록해주세요'
+  },
   clubName: {
     required: '클럽이름을 입력해주세요',
   },

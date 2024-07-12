@@ -9,6 +9,7 @@ import Calendar from '@/components/common/Calendar';
 import Dropdown from '@/components/common/Dropdown';
 import Input from '@/components/common/Input';
 import LoginRequired from '@/components/common/Modal/LoginRequired';
+import FileInput from '@/components/MakeClub/FileInput';
 
 import { Button } from '@/components/ui/button';
 import {
@@ -89,21 +90,7 @@ export default function MakeClubModal({ trigger }: Props) {
                 <div className="flex w-fit flex-col gap-24">
                   <div>
                     <DialogDescription>대표 이미지</DialogDescription>
-                    <div className="flex flex-row items-center gap-8">
-                      <input
-                        type="file"
-                        ref={fileInput}
-                        className="block rounded-sm bg-neutral-50 px-12 py-10 file:hidden"
-                      />
-                      <Button
-                        variant="chip"
-                        selected={true}
-                        onClick={() => handleButtonClick()}
-                        type="button"
-                      >
-                        파일찾기
-                      </Button>
-                    </div>
+                    <FileInput isSubmitted={isSubmitCheck} />
                   </div>
                   <div className="flex flex-row gap-12">
                     <div className="relative w-3/6">
