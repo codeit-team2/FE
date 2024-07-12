@@ -197,7 +197,13 @@ export default function MakeClubModal({ trigger }: Props) {
                 </div>
               </div>
               <div className="flex justify-center">
-                <Button className="w-440 sm:w-952" onClick={() => handleSubmitButton()}>모임 만들기</Button>
+              <Button 
+                  className={`w-full ${!isValid && 'cursor-default bg-neutral-400 !text-neutral-100 hover:!text-neutral-100'}`}
+                  type="submit"
+                  onClick={() => handleSubmitButton()}
+                >
+                  모임 만들기
+                </Button>
               </div>
             </form>
           </FormProvider>
