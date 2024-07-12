@@ -1,9 +1,18 @@
-export default function Loading() {
+import { Player } from '@lottiefiles/react-lottie-player';
+
+interface LoadingProps {
+  width: string;
+  height: string;
+}
+export default function Loading({ width, height }: LoadingProps) {
   return (
     <>
-      <div className="h-400 w-500 bg-red-300">
-        <div className="text-9xl text-white">로딩!!</div>
-      </div>
+      <Player
+        autoplay
+        loop
+        src="/images/loadingLottie.json"
+        style={{ height: `${width}px`, width: `${height}px` }}
+      ></Player>
     </>
   );
 }

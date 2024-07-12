@@ -1,5 +1,3 @@
-import Image from 'next/image';
-
 import Banner from '@/components/common/Banner';
 import Dropdown from '@/components/common/Dropdown';
 import Footer from '@/components/common/Footer';
@@ -16,9 +14,7 @@ import useFavorite from '@/hooks/useFavorite';
 
 export default function Bookmark() {
   const TESTS = null;
-  const { favorites, isFavorite, ClickFavorites } = useFavorite();
-
-  console.log(favorites);
+  const { isFavorite, ClickFavorites } = useFavorite();
   return (
     <>
       <GNB />
