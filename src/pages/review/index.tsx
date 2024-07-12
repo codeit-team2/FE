@@ -13,6 +13,10 @@ import UserReview from '@/components/Review/UserReview';
 import mockData from '@/components/Review/reviewTestData.json';
 import { Button } from '@/components/ui/button';
 
+// import { CategoryReviews } from '@/types/testDataType';
+
+// const mockDataTyped: CategoryReviews = mockData;
+
 export default function Review() {
   const isReview = true;
 
@@ -37,7 +41,7 @@ export default function Review() {
           </div>
           <ChipTap />
           <div className="mt-24 w-full md:mt-32">
-            <StarRatingAverage mockData={mockData} />
+            <StarRatingAverage />
           </div>
           <div className="my-24 mb-32 flex w-full max-w-[1010px] justify-end md:my-32">
             <Dropdown
@@ -60,7 +64,7 @@ export default function Review() {
                   </>
                 }
               />
-              <Button className="mb-40 mt-32 w-full max-w-[1008px] md:mb-50" children="모임찾기" />
+              <Button className="mb-40 mt-32 w-full max-w-[1008px] md:mb-50">모임찾기</Button>
             </>
           )}
         </div>

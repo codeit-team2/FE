@@ -2,12 +2,10 @@ import React from 'react';
 
 import Image from 'next/image';
 
-import { CategoryReviews, ExerciseReview } from '@/types/testDataType';
-
-// 적절한 경로로 수정해주세요.
+import { ReviewCard } from '@/types/testDataType';
 
 interface UserReviewProps {
-  mockData: CategoryReviews;
+  mockData: ReviewCard;
 }
 
 export default function UserReview({ mockData }: UserReviewProps) {
