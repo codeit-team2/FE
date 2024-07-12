@@ -13,9 +13,8 @@ import NotCard from '@/components/NotCard';
 import useFavorite from '@/hooks/useFavorite';
 
 export default function Bookmark() {
-  const { favorites, isFavorite, ClickFavorites } = useFavorite();
-
-  console.log(favorites);
+  const TESTS = null;
+  const { isFavorite, clickFavorites } = useFavorite();
   return (
     <>
       <GNB />
@@ -53,7 +52,7 @@ export default function Bookmark() {
                   key={index}
                   data={data}
                   isFavorite={isFavorite}
-                  ClickFavorites={ClickFavorites}
+                  clickFavorites={clickFavorites}
                 />
               ))}
               {/* 나중에 디자인 답변오면 수정 예정입니다. */}
