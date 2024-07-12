@@ -238,6 +238,10 @@ const config = {
           from: { height: 'var(--radix-accordion-content-height)' },
           to: { height: '0' },
         },
+        spins: {
+          from: { transform: 'rotate(0deg)' },
+          to: { transform: 'rotate(360deg)' },
+        },
         fillHeart: {
           '0%': { transform: 'scale(0)' },
           '20%': { transform: 'scale(0.2)' },
@@ -253,6 +257,7 @@ const config = {
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
+        spins: 'spin 2s linear 2',
         fillHeart: 'fillHeart 300ms ease-in-out',
         pulseSmall: 'pulseSmall 300ms ease-in-out',
       },
