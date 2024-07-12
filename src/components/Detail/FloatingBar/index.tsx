@@ -6,7 +6,13 @@ import LoginRequired from '@/components/common/Modal/LoginRequired';
 
 import { Button } from '@/components/ui/button';
 
-export default function FloatingBar({ data }: any) {
+import { Activity } from '@/types/testDataType';
+
+interface FloatingBarProps {
+  data: Activity;
+}
+
+export default function FloatingBar({ data }: FloatingBarProps) {
   const isOwner = false;
 
   const maxReached = data.member >= 20;
@@ -59,8 +65,9 @@ export default function FloatingBar({ data }: any) {
             className="w-336 md:w-392"
             onClick={handleClick}
             disabled={!isEntered && maxReached}
-            children={isEntered ? '참여 취소하기' : '참여하기'}
-          />
+          >
+            {isEntered ? '참여 취소하기' : '참여하기'}
+          </Button>
         )}
       </div>
     </>

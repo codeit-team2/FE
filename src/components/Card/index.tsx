@@ -1,6 +1,6 @@
 import { Data } from '@/types';
 
-import React, { useState } from 'react';
+import React from 'react';
 
 import { Button } from '../ui/button';
 import Image from 'next/image';

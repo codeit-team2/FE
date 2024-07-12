@@ -34,7 +34,8 @@ export default function SignupModal({
     formState: { isValid },
   } = form;
 
-  const onSubmit: SubmitHandler<FieldValues> = (value: FieldValues) => {};
+  // const onSubmit: SubmitHandler<FieldValues> = (value: FieldValues) => {}; 빌드 에러 때문에 주석 처리
+  const onSubmit: SubmitHandler<FieldValues> = () => {};
 
   useEffect(() => {
     trigger();

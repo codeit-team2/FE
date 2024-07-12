@@ -2,7 +2,13 @@ import React from 'react';
 
 import Image from 'next/image';
 
-export default function UserReview({ mockData }: any) {
+import { ReviewCard } from '@/types/testDataType';
+
+interface UserReviewProps {
+  mockData: ReviewCard;
+}
+
+export default function UserReview({ mockData }: UserReviewProps) {
   const exerciseList = mockData.categories.Exercise;
 
   const renderStars = (starCount: number) => {
@@ -23,11 +29,11 @@ export default function UserReview({ mockData }: any) {
 
   return (
     <>
-      {exerciseList.map((data: any, index: any) => {
+      {exerciseList.map((data, index) => {
         return (
           <div
             key={index}
-            className="mx-auto flex h-351 md:h-230 w-full max-w-[1010px] flex-col gap-20 rounded-lg bg-white p-20 md:flex-row"
+            className="mx-auto flex h-351 w-full max-w-[1010px] flex-col gap-20 rounded-lg bg-white p-20 md:h-230 md:flex-row"
           >
             <div className="relative h-190 w-373 bg-yellow-50">
               <Image
@@ -38,7 +44,7 @@ export default function UserReview({ mockData }: any) {
                 objectFit="cover"
               />
             </div>
-            <div className="flex flex-col md:gap-36 gap-12">
+            <div className="flex flex-col gap-12 md:gap-36">
               <div>
                 <div className="flex">{renderStars(data.star)}</div>
                 <div

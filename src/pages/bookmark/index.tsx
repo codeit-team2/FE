@@ -13,8 +13,10 @@ import NotCard from '@/components/NotCard';
 import useFavorite from '@/hooks/useFavorite';
 
 export default function Bookmark() {
+
   const TESTS = null;
   const { isFavorite, ClickFavorites } = useFavorite();
+
   return (
     <>
       <GNB />
