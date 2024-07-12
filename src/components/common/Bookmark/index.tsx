@@ -1,12 +1,15 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import Image from 'next/image';
 
-export default function Bookmark() {
-  const [isBookmarked, setIsBookmarked] = useState(false);
+interface BookmarkProps {
+  isBookmarked: boolean;
+  onToggleBookmark: (newState: boolean) => void;
+}
 
+export default function Bookmark({ isBookmarked, onToggleBookmark }: BookmarkProps) {
   const handleClick = () => {
-    setIsBookmarked((prev) => !prev);
+    onToggleBookmark(!isBookmarked);
   };
 
   return (

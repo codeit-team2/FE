@@ -1,28 +1,28 @@
 import { Data } from '@/types';
 
-import React from 'react';
+import React, { useState } from 'react';
 
+import Bookmark from '../common/Bookmark';
 import { Button } from '../ui/button';
 import Image from 'next/image';
 
 import Description from '@/components/Card/Description';
-import Liked from '@/components/Card/Liked';
 import Person from '@/components/Card/Person';
 import ProgressPercentage from '@/components/Card/ProgressPercentage';
 
 interface CardProps {
   data: Data;
   clickFavorites: (item: string) => void;
-  isFavorite: (item: string) => boolean;
 }
 
-export default function Card({ data, clickFavorites, isFavorite }: CardProps) {
-  // const [isBookmarked, setIsBookmarked] = useState(false);
-  const handleClick = (data: Data) => {
+export default function Card({ data, clickFavorites }: CardProps) {
+  const [isBookmarked, setIsBookmarked] = useState(false);
+
+  const handleToggleBookmark = (newState: boolean) => {
+    setIsBookmarked(newState);
     if (clickFavorites) {
       clickFavorites(data.category);
     }
-    // setIsBookmarked((prevIsBookmarked) => !prevIsBookmarked);
   };
 
   return (
@@ -35,7 +35,6 @@ export default function Card({ data, clickFavorites, isFavorite }: CardProps) {
           </div>
         )}
       </div>
-      <Liked onClick={() => handleClick(data)} isBookmarked={isFavorite(data.category)} />
       <div className="relative flex grow flex-col items-start justify-between text-gray-600">
         <Description data={data} />
         <div className="mb-11 flex w-full items-center justify-center gap-8 md:gap-16">
@@ -53,6 +52,9 @@ export default function Card({ data, clickFavorites, isFavorite }: CardProps) {
             </Button>
           )}
         </div>
+      </div>
+      <div className="absolute right-30 top-30">
+        <Bookmark isBookmarked={isBookmarked} onToggleBookmark={handleToggleBookmark} />
       </div>
     </div>
   );
