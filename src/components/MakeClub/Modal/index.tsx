@@ -96,6 +96,7 @@ export default function MakeClubModal({ trigger }: Props) {
                     <div className="relative w-3/6">
                       <DialogDescription>카테고리</DialogDescription>
                       <Dropdown
+                        id='category'
                         items={['러닝', '등산', '배드민턴', '헬스']}
                         icon="icons/ic-chevron-down.svg"
                         itemTrigger="카테고리를 선택해주세요"
@@ -106,6 +107,7 @@ export default function MakeClubModal({ trigger }: Props) {
                     <div className="relative w-3/6">
                       <DialogDescription>지역</DialogDescription>
                       <Dropdown
+                        id='location'
                         items={['중랑구', '광진구', '용산구', '을지로3가']}
                         icon="icons/ic-chevron-down.svg"
                         itemTrigger="지역을 선택해주세요"

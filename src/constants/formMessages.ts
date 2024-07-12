@@ -1,4 +1,6 @@
-export const ERROR_MESSAGE = {
+import { ErrorMessage } from "@/types";
+
+export const ERROR_MESSAGE: ErrorMessage = {
   nickname: {
     required: '닉네임을 입력해 주세요',
     min: '2자~8자 사이의 닉네임을 입력해 주세요',
@@ -31,6 +33,12 @@ export const ERROR_MESSAGE = {
   },
   thumbnail: {
     required: '대표 이미지를 등록해주세요'
+  },
+  category: {
+    required: '카테고리를 선택해주세요'
+  },
+  location: {
+    required: '지역을 선택해주세요'
   },
   clubName: {
     required: '클럽이름을 입력해주세요',

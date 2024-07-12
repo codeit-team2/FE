@@ -1,7 +1,7 @@
 import { Button } from '@/components/ui/button'
 import { ERROR_MESSAGE } from '@/constants/formMessages';
 import Image from 'next/image';
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 
 interface Props {
   isSubmitted?: boolean;
@@ -28,18 +28,12 @@ export default function FileInput({ isSubmitted }: Props) {
     const file = event.target.files[0];
     if (file) {
       setFileName(file.name)
-    } else {
-      setFileName('')
-    }
-  };
-
-  useEffect(() => {
-    if(fileName){
       setErrorMessage(null)
     } else {
+      setFileName('')
       setErrorMessage(ERROR_MESSAGE.thumbnail.required)
     }
-  }, [fileName])
+  };
 
   return (
     <div className='relative flex flex-row gap-8'>

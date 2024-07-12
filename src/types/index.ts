@@ -9,3 +9,51 @@ export interface Data {
   confirmed: boolean;
   review: boolean;
 }
+
+export type ErrorMessage = {
+  nickname: {
+    required: string;
+    min: string;
+    max: string;
+    duplicate: string;
+    valid: string;
+  };
+  email: {
+    required: string;
+    valid: string;
+    duplicate: string;
+    register: string;
+  };
+  verifyCode: {
+    required: string;
+    max: string;
+    valid: string;
+    auth: string;
+  };
+  password: {
+    required: string;
+    min: string;
+    valid: string;
+    check: string;
+  };
+  review: {
+    required: string;
+    min: string;
+    max: string;
+  };
+  thumbnail: {
+    required: string;
+  };
+  category: {
+    required: string;
+  };
+  location: {
+    required: string;
+  };
+  clubName: {
+    required: string;
+  };
+  headcount: {
+    required: string;
+  };
+};
