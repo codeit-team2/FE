@@ -38,6 +38,7 @@ export default function MakeClubModal({ trigger }: Props) {
     '22:00',
   ];
   const [selectTime, setSelectTime] = useState<string>();
+  const [isSubmitCheck, setIsSubmitCheck] = useState(false)
 
   const fileInput = React.useRef<HTMLInputElement | null>(null);
   const handleButtonClick = () => {
@@ -67,6 +68,10 @@ export default function MakeClubModal({ trigger }: Props) {
 
   // login 상태 확인하는 과정 추가 필요
   const isLogin = true;
+
+  const handleSubmitButton = () => {
+    setIsSubmitCheck(true)
+  }
 
   return (
     <Dialog>
@@ -108,6 +113,7 @@ export default function MakeClubModal({ trigger }: Props) {
                         icon="icons/ic-chevron-down.svg"
                         itemTrigger="카테고리를 선택해주세요"
                         type="makeClub"
+                        isSubmitted={isSubmitCheck}
                       />
                     </div>
                     <div className="relative w-3/6">
@@ -117,6 +123,7 @@ export default function MakeClubModal({ trigger }: Props) {
                         icon="icons/ic-chevron-down.svg"
                         itemTrigger="지역을 선택해주세요"
                         type="makeClub"
+                        isSubmitted={isSubmitCheck}
                       />
                     </div>
                   </div>
@@ -190,7 +197,7 @@ export default function MakeClubModal({ trigger }: Props) {
                 </div>
               </div>
               <div className="flex justify-center">
-                <Button className="w-440 sm:w-952">모임 만들기</Button>
+                <Button className="w-440 sm:w-952" onClick={() => handleSubmitButton()}>모임 만들기</Button>
               </div>
             </form>
           </FormProvider>
