@@ -12,7 +12,7 @@ export default function useFavorite() {
   };
 
   // 찜 목록 로컬 스토리지에 추가
-  const ClickFavorites = (item: string) => {
+  const clickFavorites = (item: string) => {
     if (!favorites.includes(item)) {
       const newFavorite = [...favorites, item];
       saveFavorites(newFavorite);
@@ -42,5 +42,5 @@ export default function useFavorite() {
     }
   }, []);
 
-  return { ClickFavorites, favorites, saveFavorites, isFavorite };
+  return { clickFavorites, favorites, saveFavorites, isFavorite };
 }
