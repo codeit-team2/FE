@@ -13,7 +13,7 @@ interface FloatingBarProps {
 }
 
 export default function FloatingBar({ data }: FloatingBarProps) {
-  const isOwner = false;
+  const isOwner = true;
 
   const maxReached = data.member >= 20;
 
@@ -56,8 +56,10 @@ export default function FloatingBar({ data }: FloatingBarProps) {
         {isOwner ? (
           <div className="flex w-full justify-center gap-12">
             <Button className="w-286 md:w-392">개설 취소하기</Button>
-            <button onClick={handleCopyURL}>
-              <Image src={'/icons/ic-share.svg'} alt="share-button" width={42} height={42} />
+            <button onClick={handleCopyURL} className="h-42 w-42 rounded-sm bg-neutral-900 p-9">
+              <div className="relative h-24 w-24">
+                <Image src={'/icons/ic-share.svg'} alt="share-button" fill />
+              </div>
             </button>
           </div>
         ) : (

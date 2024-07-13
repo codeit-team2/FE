@@ -37,7 +37,7 @@ export default function InfoBadge({ data }: InfoBadgeProps) {
         )}
       </div>
       <div>
-        <div className="relative mb-11 mt-14 h-4 w-full rounded-full bg-neutral-200 md:w-451">
+        <div className="relative mb-8 mt-12 h-4 w-full rounded-full bg-neutral-200 md:w-451">
           <div
             className="absolute h-4 rounded-full bg-primary-300"
             style={{ width: `${progressPercentage}%` }}
@@ -51,8 +51,8 @@ export default function InfoBadge({ data }: InfoBadgeProps) {
           <Image
             src={minReached ? '/icons/ic-checkbox-on.svg' : '/icons/ic-checkbox-off.svg'}
             alt="check"
-            width={18}
-            height={18}
+            width={24}
+            height={24}
           />
           모임 개설 최소 인원 · 5명
         </div>
@@ -62,8 +62,8 @@ export default function InfoBadge({ data }: InfoBadgeProps) {
           <Image
             src={maxReached ? '/icons/ic-checkbox-on.svg' : '/icons/ic-checkbox-off.svg'}
             alt="check"
-            width={18}
-            height={18}
+            width={24}
+            height={24}
           />
           모임 참여 최대 인원 · 20명
         </div>
