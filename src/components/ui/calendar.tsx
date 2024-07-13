@@ -47,8 +47,11 @@ function UiCalendar({ className, classNames, showOutsideDays = true, ...props }:
         ...classNames,
       }}
       components={{
-        IconLeft: ({ ...props }) => <ChevronLeft className="h-28 w-28" />,
-        IconRight: ({ ...props }) => <ChevronRight className="h-28 w-28" />,
+        // 빌드 에러로 안쓰는 props주석 처리
+        // IconLeft: ({ ...props }) => <ChevronLeft className="h-28 w-28" />,
+        IconLeft: () => <ChevronLeft className="h-28 w-28" />,
+        // IconRight: ({ ...props }) => <ChevronRight className="h-28 w-28" />,
+        IconRight: () => <ChevronRight className="h-28 w-28" />,
       }}
       {...props}
     />

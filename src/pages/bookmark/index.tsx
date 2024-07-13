@@ -13,7 +13,8 @@ import NotCard from '@/components/NotCard';
 import useFavorite from '@/hooks/useFavorite';
 
 export default function Bookmark() {
-  const TESTS = null;
+  // 빌드 에러로 테스트용 주석처리
+  // const TESTS = null;
   const { isFavorite, clickFavorites } = useFavorite();
   return (
     <>

@@ -1,10 +1,9 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 const FAVORITES_KEY = 'favorites';
 
 export default function useFavorite() {
   const [favorites, setFavorites] = useState<string[]>([]);
-
   // 찜 목록 로컬 스토리지에 저장
   const saveFavorites = (item: string[]) => {
     setFavorites(item);
@@ -23,12 +22,19 @@ export default function useFavorite() {
   };
 
   // 찜 목록 가져오기
-  const getFavorites = () => {
+  // const getFavorites = () => {
+  //   const storaged = localStorage.getItem(FAVORITES_KEY);
+  //   if (storaged) {
+  //     setFavorites(JSON.parse(storaged));
+  //   }
+  // };
+
+  const getFavorites = useCallback(() => {
     const storaged = localStorage.getItem(FAVORITES_KEY);
     if (storaged) {
       setFavorites(JSON.parse(storaged));
     }
-  };
+  }, [favorites]);
 
   // 찜 여부 확인 함수
   const isFavorite = (item: string) => {
@@ -40,6 +46,7 @@ export default function useFavorite() {
     if (favorites) {
       getFavorites();
     }
+    // 빌드 에러로 의존성 추가
   }, []);
 
   return { clickFavorites, favorites, saveFavorites, isFavorite };

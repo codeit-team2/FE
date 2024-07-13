@@ -27,10 +27,13 @@ export default function ProfileEditModal() {
     register,
     getFieldState,
     trigger,
-    formState: { isValid },
+    // 빌드 오류로 인한 안쓰는 코드 주석 처리
+    // formState: { isValid },
   } = form;
 
-  const onSubmit: SubmitHandler<FieldValues> = (value: FieldValues) => {};
+  // 빌드 오류로 인해 안쓰는 vaule주석처리
+  // const onSubmit: SubmitHandler<FieldValues> = (value: FieldValues) => {};
+  const onSubmit: SubmitHandler<FieldValues> = () => {};
 
   useEffect(() => {
     trigger();
