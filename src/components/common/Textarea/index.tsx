@@ -5,21 +5,22 @@ import { useFormContext } from 'react-hook-form';
 
 interface TextareaProps {
   id: string;
-  // 빌드 오류로 인한 안쓰는 maxLength 주석 처리
-  placeholder: string;
-  // maxLength?: number;
+  // 빌드 오류로 인한 안쓰는 placeholder, maxLength 옵셔널 처리
+  placeholder?: string;
+  maxLength?: number;
 }
 
 function Textarea(
-  // 빌드 오류로 인한 안쓰는  maxLength 주석 처리
+  // 빌드 오류로 인한 안쓰는  maxLength, placeholder 주석 처리
+  // build시 maxLength placeholder 사용되지 않는다고 에러가 뜨는데 확인 바랍니다.
   // { id, placeholder, maxLength, ...props }: TextareaProps,
-  { id, placeholder, ...props }: TextareaProps,
+  { id, ...props }: TextareaProps,
   ref: React.ForwardedRef<HTMLTextAreaElement>,
 ) {
   const {
     formState: { errors },
   } = useFormContext();
-  console.log(placeholder);
+
   const errorMessage = errors[id]?.message?.toString();
 
   return (

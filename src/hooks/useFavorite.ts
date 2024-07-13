@@ -46,7 +46,6 @@ export default function useFavorite() {
     if (favorites) {
       getFavorites();
     }
-    // 빌드 에러로 의존성 추가
   }, []);
 
   return { clickFavorites, favorites, saveFavorites, isFavorite };
