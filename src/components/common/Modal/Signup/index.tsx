@@ -42,7 +42,7 @@ export default function SignupModal({
   }, [isSignupModalOpen]);
   return (
     <Dialog open={isSignupModalOpen} onOpenChange={setIsSignupModalOpen}>
-      <DialogContent className="top-0 h-full translate-y-56 px-20 pb-50 pt-32 md:top-[50%] md:w-520 md:translate-y-[-50%] md:px-40 md:pb-[calc(86px+64px)]">
+      <DialogContent className="top-0 max-h-[854px] translate-y-56 px-0 pb-50 pt-32 md:top-[50%] md:w-520 md:translate-y-[-50%] md:pb-[calc(86px+64px)]">
         <DialogTitle>회원가입</DialogTitle>
         <FormProvider {...form}>
           <form
@@ -50,9 +50,8 @@ export default function SignupModal({
             onSubmit={handleSubmit(onSubmit)}
             className="h-full overflow-hidden"
           >
-            {/* 아래 scroll은 globals.css class예요 */}
-            <div className="scroll h-full overflow-y-auto">
-              <div className="flex flex-col gap-50">
+            <div className="scroll h-full overflow-y-auto px-40">
+              <div className="flex h-full flex-col gap-50">
                 <div>
                   <label className="mb-6 block text-body-2Sb" htmlFor="nickname">
                     닉네임

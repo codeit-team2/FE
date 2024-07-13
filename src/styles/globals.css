@@ -137,7 +137,7 @@
 .scroll::-webkit-scrollbar-thumb {
   background-color: #4580f7;
   border: 8px solid #fff;
-  border-radius: 12px;
+  border-radius: 10px;
 }
 
 @font-face {
