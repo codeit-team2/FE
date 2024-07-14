@@ -63,7 +63,7 @@ export default function Tap() {
         </button>
       ))}
       <span
-        className="absolute bottom-0 h-1 rounded-full bg-black transition-all duration-300"
+        className="absolute bottom-0 h-2 rounded-full bg-black transition-all duration-300"
         style={{
           width: indicatorStyle.width,
           left: indicatorStyle.left,
