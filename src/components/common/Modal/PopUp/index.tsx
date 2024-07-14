@@ -4,8 +4,8 @@ import { Button } from '@/components/ui/button';
 import {
   Dialog,
   DialogContent,
-  DialogHeader,
-  DialogTitle,
+  DialogHeader, // 빌드 에러로 주석  처리
+  // DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
 

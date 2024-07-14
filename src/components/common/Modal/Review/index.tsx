@@ -26,7 +26,7 @@ export default function ReviewModal() {
     register,
     formState: { isValid },
   } = form;
-
+  // 빌드 오류로 인한 안쓰는 코드 주석 처리
   // const onSubmit: SubmitHandler<FieldValues> = (value: FieldValues) => {};
   const onSubmit: SubmitHandler<FieldValues> = () => {};
 
