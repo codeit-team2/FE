@@ -6,7 +6,8 @@ import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 
 interface LoginRequiredProps {
-  onClose: () => void;
+  // build에러로 옵서녈처리
+  onClose?: () => void;
 }
 
 export default function LoginRequired({ onClose }: LoginRequiredProps) {
