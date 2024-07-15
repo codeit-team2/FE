@@ -4,8 +4,6 @@ import Image from 'next/image';
 
 import Calendar from '@/components/common/Calendar';
 
-import { Button } from '@/components/ui/button';
-
 interface DropdownProps {
   items?: string[];
   icon: string;
@@ -77,12 +75,7 @@ export default function Dropdown({
             ))}
           </div>
         ) : (
-          // <div className="absolute z-10">Loading...</div> // items가 없는 경우
-          <>
-            {/* button따로 없고  */}
-            <Calendar />
-            <Button>7월 25일 선택하기</Button>
-          </>
+          <Calendar isDropdown />
         )
       ) : null}
       {/* isOpen이 false일 때는 아무것도 렌더링하지 않음 */}
