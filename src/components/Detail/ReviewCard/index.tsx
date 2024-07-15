@@ -2,7 +2,13 @@ import React from 'react';
 
 import Image from 'next/image';
 
-export default function ReviewCard({ data }: any) {
+import { ReviewData } from '@/types/testDataType';
+
+interface ReviewCardProps {
+  data: ReviewData;
+}
+
+export default function ReviewCard({ data }: ReviewCardProps) {
   const renderStars = () => {
     const starArray = [];
     for (let i = 0; i < 5; i++) {
@@ -20,10 +26,10 @@ export default function ReviewCard({ data }: any) {
   };
 
   return (
-    <div className="flex md:h-158 w-full h-146 flex-col justify-between rounded-md bg-white px-20 py-16">
+    <div className="flex h-146 w-full flex-col justify-between rounded-md bg-white px-20 py-16 md:h-158">
       <div className="flex flex-col gap-6">
         <div className="relative flex">{renderStars()}</div>
-        <p className="text-body-1Sb text-neutral-900 w-296 h-40 md:w-full md:h-44">
+        <p className="h-40 w-296 text-body-1Sb text-neutral-900 md:h-44 md:w-full">
           {data.comment}
         </p>
       </div>

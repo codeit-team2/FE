@@ -2,7 +2,13 @@ import React from 'react';
 
 import Image from 'next/image';
 
-export default function UserReview({ mockData }: any) {
+import { ReviewCard } from '@/types/testDataType';
+
+interface UserReviewProps {
+  mockData: ReviewCard;
+}
+
+export default function UserReview({ mockData }: UserReviewProps) {
   const exerciseList = mockData.categories.Exercise;
 
   const renderStars = (starCount: number) => {
@@ -23,13 +29,13 @@ export default function UserReview({ mockData }: any) {
 
   return (
     <>
-      {exerciseList.map((data: any, index: any) => {
+      {exerciseList.map((data, index) => {
         return (
           <div
             key={index}
-            className="mx-auto flex h-351 md:h-230 w-full max-w-[1010px] flex-col gap-20 rounded-lg bg-white p-20 md:flex-row"
+            className="mx-auto flex h-351 w-full max-w-[1010px] flex-col gap-16 rounded-lg bg-white px-8 pb-20 pt-8 md:h-230 md:flex-row md:gap-20 md:p-20"
           >
-            <div className="relative h-190 w-373 bg-yellow-50">
+            <div className="relative h-163 w-full md:h-190 md:w-373">
               <Image
                 src={`${data.cardImage}`}
                 alt={`{data.cardImage}`}
@@ -38,11 +44,11 @@ export default function UserReview({ mockData }: any) {
                 objectFit="cover"
               />
             </div>
-            <div className="flex flex-col md:gap-36 gap-12">
+            <div className="flex w-full flex-col justify-between px-10 md:mx-0 md:w-1/2">
               <div>
                 <div className="flex">{renderStars(data.star)}</div>
                 <div
-                  className="text-body-1S h-44 w-296 truncate text-ellipsis whitespace-normal md:h-56 md:w-578 md:text-heading-2M"
+                  className="text-body-1S mb-36 h-44 truncate text-ellipsis whitespace-normal md:h-56 md:text-heading-2M"
                   style={{
                     display: '-webkit-box',
                     WebkitLineClamp: 2,
@@ -61,7 +67,7 @@ export default function UserReview({ mockData }: any) {
                   <div className="relative h-24 w-24 overflow-hidden rounded-full">
                     <Image src={'/images/profileimage1.jpeg'} alt="profileImage" fill />
                   </div>
-                  <p className="text-neutral-600">{data.nickname}</p>
+                  <p className="text-neutral-700">{data.nickname}</p>
                   <div className="h-16 w-1 rounded-full bg-neutral-200"></div>
                   <p>{new Date(data.date).toLocaleDateString()}</p>
                 </div>

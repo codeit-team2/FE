@@ -65,7 +65,8 @@ export default function MakeClubModal({ trigger }: Props) {
     formState: { isValid },
   } = form;
 
-  const onSubmit: SubmitHandler<FieldValues> = (value: FieldValues) => {};
+  // const onSubmit: SubmitHandler<FieldValues> = (value: FieldValues) => {}; eslint 설정 때문에 잠시 주석 처리
+  const onSubmit: SubmitHandler<FieldValues> = () => {};
 
   // login 상태 확인하는 과정 추가 필요
   const isLogin = true;

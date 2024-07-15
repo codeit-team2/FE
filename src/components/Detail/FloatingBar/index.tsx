@@ -6,8 +6,14 @@ import LoginRequired from '@/components/common/Modal/LoginRequired';
 
 import { Button } from '@/components/ui/button';
 
-export default function FloatingBar({ data }: any) {
-  const isOwner = false;
+import { Activity } from '@/types/testDataType';
+
+interface FloatingBarProps {
+  data: Activity;
+}
+
+export default function FloatingBar({ data }: FloatingBarProps) {
+  const isOwner = true;
 
   const maxReached = data.member >= 20;
 
@@ -50,8 +56,10 @@ export default function FloatingBar({ data }: any) {
         {isOwner ? (
           <div className="flex w-full justify-center gap-12">
             <Button className="w-286 md:w-392">개설 취소하기</Button>
-            <button onClick={handleCopyURL}>
-              <Image src={'/icons/ic-share.svg'} alt="share-button" width={42} height={42} />
+            <button onClick={handleCopyURL} className="h-42 w-42 rounded-sm bg-neutral-900 p-9">
+              <div className="relative h-24 w-24">
+                <Image src={'/icons/ic-share.svg'} alt="share-button" fill />
+              </div>
             </button>
           </div>
         ) : (
@@ -59,8 +67,9 @@ export default function FloatingBar({ data }: any) {
             className="w-336 md:w-392"
             onClick={handleClick}
             disabled={!isEntered && maxReached}
-            children={isEntered ? '참여 취소하기' : '참여하기'}
-          />
+          >
+            {isEntered ? '참여 취소하기' : '참여하기'}
+          </Button>
         )}
       </div>
     </>

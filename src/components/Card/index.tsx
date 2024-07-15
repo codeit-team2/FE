@@ -1,6 +1,6 @@
 import { Data } from '@/types';
 
-import React, { useState } from 'react';
+import React from 'react';
 
 import { Button } from '../ui/button';
 import Image from 'next/image';
@@ -12,15 +12,15 @@ import ProgressPercentage from '@/components/Card/ProgressPercentage';
 
 interface CardProps {
   data: Data;
-  ClickFavorites: (item: string) => void;
+  clickFavorites: (item: string) => void;
   isFavorite: (item: string) => boolean;
 }
 
-export default function Card({ data, ClickFavorites, isFavorite }: CardProps) {
+export default function Card({ data, clickFavorites, isFavorite }: CardProps) {
   // const [isBookmarked, setIsBookmarked] = useState(false);
   const handleClick = (data: Data) => {
-    if (ClickFavorites) {
-      ClickFavorites(data.category);
+    if (clickFavorites) {
+      clickFavorites(data.category);
     }
     // setIsBookmarked((prevIsBookmarked) => !prevIsBookmarked);
   };

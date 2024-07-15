@@ -4,11 +4,17 @@ import Image from 'next/image';
 
 import ProfileImageGroup from '@/components/Detail/ProfileImageGroup';
 
-export default function InfoBadge({ data }: any) {
+import { Activity, User } from '@/types/testDataType';
+
+interface InfoBadgeProps {
+  data: Activity;
+}
+
+export default function InfoBadge({ data }: InfoBadgeProps) {
   const progressPercentage = (data.member / 20) * 100;
   const minReached = data.member >= 5;
   const maxReached = data.member >= 20;
-  const usersProfile = data.users;
+  const usersProfile: User[] = data.users;
 
   return (
     <div className="flex h-102 w-full flex-col rounded-md bg-neutral-700 p-12 md:w-475">
@@ -31,7 +37,7 @@ export default function InfoBadge({ data }: any) {
         )}
       </div>
       <div>
-        <div className="relative mb-11 mt-14 h-4 w-full rounded-full bg-neutral-200 md:w-451">
+        <div className="relative mb-8 mt-12 h-4 w-full rounded-full bg-neutral-200 md:w-451">
           <div
             className="absolute h-4 rounded-full bg-primary-300"
             style={{ width: `${progressPercentage}%` }}
@@ -45,8 +51,8 @@ export default function InfoBadge({ data }: any) {
           <Image
             src={minReached ? '/icons/ic-checkbox-on.svg' : '/icons/ic-checkbox-off.svg'}
             alt="check"
-            width={18}
-            height={18}
+            width={24}
+            height={24}
           />
           모임 개설 최소 인원 · 5명
         </div>
@@ -56,8 +62,8 @@ export default function InfoBadge({ data }: any) {
           <Image
             src={maxReached ? '/icons/ic-checkbox-on.svg' : '/icons/ic-checkbox-off.svg'}
             alt="check"
-            width={18}
-            height={18}
+            width={24}
+            height={24}
           />
           모임 참여 최대 인원 · 20명
         </div>

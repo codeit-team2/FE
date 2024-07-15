@@ -13,7 +13,7 @@ export default function ChipTap() {
   const [selectedIndex, setSelectedIndex] = useState<number>(0);
 
   // 데이터 연동시 필요한 탭이름은 title 꺼내서 사용
-  const handleMoveToDetailTap = (index: number, title: string) => {
+  const handleMoveToDetailTap = (index: number) => {
     setSelectedIndex(index);
   };
 
@@ -25,7 +25,7 @@ export default function ChipTap() {
             className="px-20"
             key={index}
             variant={'chip'}
-            onClick={() => handleMoveToDetailTap(index, data.title)}
+            onClick={() => handleMoveToDetailTap(index)}
             selected={index === selectedIndex}
           >
             {data.title}
