@@ -10,8 +10,18 @@ import { cn } from '@/lib/utils';
 export type CalendarProps = React.ComponentProps<typeof DayPicker>;
 
 function UiCalendar({ className, classNames, showOutsideDays = true, ...props }: CalendarProps) {
+  const koreanDateFormatter = (date: Date) => {
+    const year = date.getFullYear();
+    const month = date.getMonth() + 1; // 월은 0부터 시작하므로 1을 더해줍니다.
+    return `${year}년 ${month}월`;
+  };
+
   return (
     <DayPicker
+      formatters={{
+        formatMonthCaption: koreanDateFormatter, // Month 표시 부분에 포맷터 적용
+        formatCaption: koreanDateFormatter, // 전체 캡션에 포맷터 적용 (선택 사항)
+      }}
       showOutsideDays={showOutsideDays}
       className={cn('mx-auto w-fit border-none p-12', className)}
       classNames={{
