@@ -22,7 +22,7 @@ export default function Bookmark({ isBookmarked, onToggleBookmark }: BookmarkPro
         >
           <div className="relative h-18 w-20 transition-all duration-300 ease-in md:h-22 md:w-24">
             <Image src="/icons/ic-heart-off.svg" alt="찜 버튼 하트 (꺼짐)" layout="fill" />
-            <div className={`absolute ${isBookmarked ? 'animate-fillHeart inset-0' : ''}`}>
+            <div className={`absolute ${isBookmarked ? 'inset-0 animate-fillHeart' : ''}`}>
               <Image src="/icons/ic-heart-on.svg" alt="찜 버튼 하트 (켜짐)" layout="fill" />
             </div>
           </div>
