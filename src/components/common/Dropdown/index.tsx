@@ -5,6 +5,8 @@ import React, { useEffect, useRef, useState } from 'react';
 
 import Image from 'next/image';
 
+import Calendar from '@/components/common/Calendar';
+
 interface DropdownProps {
   id?: keyof ErrorMessage;
   items?: string[];
@@ -45,6 +47,11 @@ export default function Dropdown({
     setIsOpen(false);
     setItemValue(itemText);
     setErrorMessage(null);
+  };
+
+  const handleCalendarClick = (date: string) => {
+    setIsOpen(false);
+    setItemValue(date);
   };
 
   useEffect(() => {
@@ -103,7 +110,7 @@ export default function Dropdown({
             ))}
           </div>
         ) : (
-          <div className="absolute z-10">Loading...</div> // items가 없는 경우
+          <Calendar isDropdown handleCalendarClick={handleCalendarClick} />
         )
       ) : null}
       {errorMessage && isSubmitted && (
