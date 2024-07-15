@@ -27,22 +27,25 @@ export default function ProfileEditModal() {
     register,
     getFieldState,
     trigger,
-    formState: { isValid },
+    // 빌드 오류로 인한 안쓰는 코드 주석 처리
+    // formState: { isValid },
   } = form;
 
-  const onSubmit: SubmitHandler<FieldValues> = (value: FieldValues) => {};
+  // 빌드 오류로 인해 안쓰는 vaule주석처리
+  // const onSubmit: SubmitHandler<FieldValues> = (value: FieldValues) => {};
+  const onSubmit: SubmitHandler<FieldValues> = () => {};
 
   useEffect(() => {
     trigger();
-  }, [isModalOpen]);
+  }, [isModalOpen, trigger]);
 
   return (
     <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
       <DialogTrigger>
         <EditButton size={48} />
       </DialogTrigger>
-      <DialogOverlay className="bg-black/80 md:bg-transparent" />
-      <DialogContent className="w-320 rounded-md px-20 py-32 md:w-520 md:px-40 md:py-32">
+      <DialogOverlay className="bg-neutral-950/80 md:bg-transparent" />
+      <DialogContent className="max-h-[410px] w-320 overflow-hidden rounded-md px-20 py-32 md:w-520 md:px-40 md:py-32">
         <DialogTitle>프로필 수정</DialogTitle>
         <FormProvider {...form}>
           <form

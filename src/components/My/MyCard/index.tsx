@@ -4,6 +4,8 @@ import React from 'react';
 
 import Image from 'next/image';
 
+import ReviewModal from '@/components/common/Modal/Review';
+
 import Description from '@/components/Card/Description';
 import Person from '@/components/Card/Person';
 import { Button } from '@/components/ui/button';
@@ -76,9 +78,7 @@ export default function MyCard({ data, type = 'default' }: Props) {
           <div className="flex flex-row justify-end gap-16">
             <Person data={data} />
             {isDateBeforeToday ? (
-              <Button className="mb-2 h-42 w-288" variant={'default'}>
-                후기 작성하기
-              </Button>
+              <ReviewModal />
             ) : (
               <Button className="mb-2 h-42 w-288" variant={'secondary'}>
                 예약 취소하기

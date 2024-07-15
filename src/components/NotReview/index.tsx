@@ -8,7 +8,7 @@ interface NotReviewProps {
 
 export default function NotReview({ text }: NotReviewProps) {
   return (
-    <div className="flex flex-col items-center gap-20 pt-16">
+    <div className="flex flex-col items-center gap-20 pt-72">
       <div className="flex gap-12">
         <div className="w-full md:w-auto">
           <Image src={'/images/none-review.png'} alt="none-review" width={220} height={123} />

@@ -1,19 +1,30 @@
 import { Data } from '@/types';
 
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 
 import MyCard from '@/components/My/MyCard';
 import NotCard from '@/components/NotCard';
 import { Button } from '@/components/ui/button';
 
-import useIsDateBeforeToday from '@/hooks/useIsDateBeforeToday';
-
 interface Props {
   data: Data[];
 }
 
+function isDateBeforeToday(date: string): boolean {
+  const compareDate = new Date(date);
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  return compareDate < today;
+}
+
 export default function Review({ data }: Props) {
   const [clicked, setClicked] = useState(true);
+
+  const filteredData = useMemo(() => {
+    if (!data) return [];
+
+    return data.filter((item) => item.review === clicked && isDateBeforeToday(item.date));
+  }, [data, clicked]);
 
   return (
     <div>
@@ -34,21 +45,10 @@ export default function Review({ data }: Props) {
         </Button>
       </div>
       <div className="flex flex-col gap-20 pb-50">
-        {data ? (
-          <>
-            {data
-              .filter((data) => data.review === clicked)
-              .map(
-                (data, index) =>
-                  useIsDateBeforeToday({ date: data.date }) && (
-                    <MyCard
-                      key={index}
-                      data={data}
-                      type={clicked === true ? 'default' : 'review'}
-                    />
-                  ),
-              )}
-          </>
+        {filteredData.length > 0 ? (
+          filteredData.map((item, index) => (
+            <MyCard key={index} data={item} type={clicked ? 'default' : 'review'} />
+          ))
         ) : (
           <NotCard />
         )}

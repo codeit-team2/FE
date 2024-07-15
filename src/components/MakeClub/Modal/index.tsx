@@ -10,6 +10,7 @@ import Dropdown from '@/components/common/Dropdown';
 import Input from '@/components/common/Input';
 import LoginRequired from '@/components/common/Modal/LoginRequired';
 
+import FileInput from '@/components/MakeClub/FileInput';
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
@@ -38,11 +39,7 @@ export default function MakeClubModal({ trigger }: Props) {
     '22:00',
   ];
   const [selectTime, setSelectTime] = useState<string>();
-
-  const fileInput = React.useRef<HTMLInputElement | null>(null);
-  const handleButtonClick = () => {
-    fileInput.current?.click();
-  };
+  const [isSubmitCheck, setIsSubmitCheck] = useState(false);
 
   const triggerButton =
     trigger === 'text' ? (
@@ -69,6 +66,10 @@ export default function MakeClubModal({ trigger }: Props) {
   // login 상태 확인하는 과정 추가 필요
   const isLogin = true;
 
+  const handleSubmitButton = () => {
+    setIsSubmitCheck(true);
+  };
+
   return (
     <Dialog>
       <DialogTrigger asChild>{triggerButton}</DialogTrigger>
@@ -85,39 +86,29 @@ export default function MakeClubModal({ trigger }: Props) {
                 <div className="flex w-fit flex-col gap-24">
                   <div>
                     <DialogDescription>대표 이미지</DialogDescription>
-                    <div className="flex flex-row items-center gap-8">
-                      <input
-                        type="file"
-                        ref={fileInput}
-                        className="block rounded-sm bg-neutral-50 px-12 py-10 file:hidden"
-                      />
-                      <Button
-                        variant="chip"
-                        selected={true}
-                        onClick={() => handleButtonClick()}
-                        type="button"
-                      >
-                        파일찾기
-                      </Button>
-                    </div>
+                    <FileInput isSubmitted={isSubmitCheck} />
                   </div>
                   <div className="flex flex-row gap-12">
                     <div className="relative w-3/6">
                       <DialogDescription>카테고리</DialogDescription>
                       <Dropdown
+                        id="category"
                         items={['러닝', '등산', '배드민턴', '헬스']}
                         icon="icons/ic-chevron-down.svg"
                         itemTrigger="카테고리를 선택해주세요"
                         type="makeClub"
+                        isSubmitted={isSubmitCheck}
                       />
                     </div>
                     <div className="relative w-3/6">
                       <DialogDescription>지역</DialogDescription>
                       <Dropdown
+                        id="location"
                         items={['중랑구', '광진구', '용산구', '을지로3가']}
                         icon="icons/ic-chevron-down.svg"
                         itemTrigger="지역을 선택해주세요"
                         type="makeClub"
+                        isSubmitted={isSubmitCheck}
                       />
                     </div>
                   </div>
@@ -129,7 +120,7 @@ export default function MakeClubModal({ trigger }: Props) {
                   </div>
                 </div>
                 <div className="mx-32 my-12 border-l"></div>
-                <div className="flex w-fit flex-col gap-24">
+                <div className="flex w-fit flex-col gap-40">
                   <div className="w-440">
                     <DialogDescription>오전</DialogDescription>
                     <div className="flex gap-4">
@@ -191,7 +182,11 @@ export default function MakeClubModal({ trigger }: Props) {
                 </div>
               </div>
               <div className="flex justify-center">
-                <Button className="w-440 bg-neutral-900 sm:w-946" disabled={!isValid}>
+                <Button
+                  className={`w-full ${!isValid && 'cursor-default bg-neutral-400 !text-neutral-100 hover:!text-neutral-100'}`}
+                  type="submit"
+                  onClick={() => handleSubmitButton()}
+                >
                   모임 만들기
                 </Button>
               </div>

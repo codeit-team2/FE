@@ -26,16 +26,19 @@ export default function ReviewModal() {
     register,
     formState: { isValid },
   } = form;
-
-  const onSubmit: SubmitHandler<FieldValues> = (value: FieldValues) => {};
+  // 빌드 오류로 인한 안쓰는 코드 주석 처리
+  // const onSubmit: SubmitHandler<FieldValues> = (value: FieldValues) => {};
+  const onSubmit: SubmitHandler<FieldValues> = () => {};
 
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <p>후기 작성하기</p>
+        <Button className="mb-2 h-42 w-288" variant="default">
+          후기 작성하기
+        </Button>
       </DialogTrigger>
       <DialogOverlay className="bg-neutral-950/80 md:bg-transparent" />
-      <DialogContent className="w-320 rounded-md px-20 py-32 md:w-520 md:px-40 md:py-32">
+      <DialogContent className="max-h-[480px] w-320 rounded-md px-20 py-32 md:max-h-[440px] md:w-520 md:px-40 md:py-32">
         <DialogTitle>후기 작성하기</DialogTitle>
         <FormProvider {...form}>
           <form

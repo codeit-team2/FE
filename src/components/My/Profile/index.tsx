@@ -11,7 +11,7 @@ interface Props {
 
 export default function Profile({ nickname, email }: Props) {
   return (
-    <div className="bg-custom-profile-gradient relative mx-auto mt-68 flex h-176 w-336 max-w-screen-lg flex-col items-center justify-center rounded-lg lg:w-full">
+    <div className="relative mx-auto mt-68 flex h-176 w-336 max-w-screen-lg flex-col items-center justify-center rounded-lg bg-custom-profile-gradient lg:w-full">
       <Image
         src="/images/profile-image.jpg"
         alt="profile"

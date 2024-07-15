@@ -16,7 +16,7 @@ import NotCard from '@/components/NotCard';
 import useFavorite from '@/hooks/useFavorite';
 
 export default function Main() {
-  const { ClickFavorites, isFavorite } = useFavorite();
+  const { clickFavorites, isFavorite } = useFavorite();
   return (
     <>
       <GNB />
@@ -61,7 +61,7 @@ export default function Main() {
                   <Card
                     key={index}
                     data={data}
-                    ClickFavorites={ClickFavorites}
+                    clickFavorites={clickFavorites}
                     isFavorite={isFavorite}
                   />
                 ))}
