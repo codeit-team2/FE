@@ -33,14 +33,14 @@ export default function LoginModal({
 
   useEffect(() => {
     trigger();
-  }, [isLoginModalOpen]);
+  }, [isLoginModalOpen, trigger]);
 
   return (
     <Dialog open={isLoginModalOpen} onOpenChange={setIsLoginModalOpen}>
       <DialogTrigger>
         <div>로그인</div>
       </DialogTrigger>
-      <DialogContent className="top-0 translate-y-56 px-20 pb-50 pt-32 md:top-[50%] md:w-520 md:translate-y-[-50%] md:px-40 md:pb-32">
+      <DialogContent className="top-0 max-h-[445px] translate-y-56 overflow-hidden px-20 pb-50 pt-32 md:top-[50%] md:w-520 md:translate-y-[-50%] md:px-40 md:pb-32">
         <DialogTitle>로그인</DialogTitle>
         <FormProvider {...form}>
           <form

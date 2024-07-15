@@ -130,6 +130,16 @@
   }
 }
 
+/* 스크롤바 디자인 */
+.scroll::-webkit-scrollbar {
+  width: 20px;
+}
+.scroll::-webkit-scrollbar-thumb {
+  background-color: #4580f7;
+  border: 8px solid #fff;
+  border-radius: 10px;
+}
+
 @font-face {
   font-family: 'Pretendard';
   font-weight: 600;

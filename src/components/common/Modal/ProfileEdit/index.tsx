@@ -37,15 +37,15 @@ export default function ProfileEditModal() {
 
   useEffect(() => {
     trigger();
-  }, [isModalOpen]);
+  }, [isModalOpen, trigger]);
 
   return (
     <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
       <DialogTrigger>
         <EditButton size={48} />
       </DialogTrigger>
-      <DialogOverlay className="bg-black/80 md:bg-transparent" />
-      <DialogContent className="w-320 rounded-md px-20 py-32 md:w-520 md:px-40 md:py-32">
+      <DialogOverlay className="bg-neutral-950/80 md:bg-transparent" />
+      <DialogContent className="max-h-[410px] w-320 overflow-hidden rounded-md px-20 py-32 md:w-520 md:px-40 md:py-32">
         <DialogTitle>프로필 수정</DialogTitle>
         <FormProvider {...form}>
           <form
