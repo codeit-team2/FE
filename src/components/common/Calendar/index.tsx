@@ -1,33 +1,36 @@
 import React from 'react';
 
-import { format } from 'date-fns';
-
 import { Button } from '@/components/ui/button';
 import { UiCalendar } from '@/components/ui/calendar';
 
+import useFormattedDate from '@/hooks/useFormatedDate';
+
 interface CalendarProps {
   isDropdown?: boolean;
+  handleCalendarClick?: (date: string) => void;
 }
 
-export default function Calendar({ isDropdown }: CalendarProps) {
+export default function Calendar({ isDropdown, handleCalendarClick }: CalendarProps) {
   const [date, setDate] = React.useState<Date | undefined>();
+
+  const { monthDayWithDayOfWeek } = useFormattedDate(date);
 
   const handleDateSelect = (selectedDate: Date | undefined) => {
     setDate(selectedDate);
   };
 
-  const formatDate = (date: Date | undefined) => {
-    return date ? format(date, 'yyyy년 MM월 dd일') : '날짜를 선택해주세요';
-  };
-
   return (
     <>
-      {isDropdown ? (
+      {isDropdown && handleCalendarClick ? (
         <div className="absolute rounded-md border bg-white p-12">
           <UiCalendar mode="single" selected={date} onSelect={handleDateSelect} />
           {isDropdown && (
-            <Button variant="secondary" className="mt-2 w-full">
-              {formatDate(date)}
+            <Button
+              variant="secondary"
+              className="mt-2 w-full"
+              onClick={() => handleCalendarClick(monthDayWithDayOfWeek)}
+            >
+              {monthDayWithDayOfWeek}
             </Button>
           )}
         </div>

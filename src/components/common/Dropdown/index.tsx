@@ -40,6 +40,11 @@ export default function Dropdown({
     setItemValue(itemText);
   };
 
+  const handleCalendarClick = (date: string) => {
+    setIsOpen(false);
+    setItemValue(date);
+  };
+
   useEffect(() => {
     document.addEventListener('mousedown', handleClickOutside);
     return () => {
@@ -75,7 +80,7 @@ export default function Dropdown({
             ))}
           </div>
         ) : (
-          <Calendar isDropdown />
+          <Calendar isDropdown handleCalendarClick={handleCalendarClick} />
         )
       ) : null}
       {/* isOpen이 false일 때는 아무것도 렌더링하지 않음 */}
