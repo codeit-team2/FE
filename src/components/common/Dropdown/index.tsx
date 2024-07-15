@@ -1,11 +1,12 @@
-import React, { use, useEffect, useRef, useState } from 'react';
-
-import Image from 'next/image';
 import { ERROR_MESSAGE } from '@/constants/formMessages';
 import { ErrorMessage } from '@/types';
 
+import React, { useEffect, useRef, useState } from 'react';
+
+import Image from 'next/image';
+
 interface DropdownProps {
-  id: keyof ErrorMessage;
+  id?: keyof ErrorMessage;
   items?: string[];
   icon: string;
   isUpDown?: boolean;
@@ -25,7 +26,7 @@ export default function Dropdown({
 }: DropdownProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [itemValue, setItemValue] = useState<string | null>(itemTrigger);
-  const [errorMessage, setErrorMessage] = useState<string | null>(ERROR_MESSAGE[id]?.required)
+  const [errorMessage, setErrorMessage] = useState<string | null>();
 
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -43,10 +44,13 @@ export default function Dropdown({
     const itemText = e.currentTarget?.textContent;
     setIsOpen(false);
     setItemValue(itemText);
-    setErrorMessage(null)
+    setErrorMessage(null);
   };
 
   useEffect(() => {
+    if (id) {
+      setErrorMessage(ERROR_MESSAGE[id].required);
+    }
     document.addEventListener('mousedown', handleClickOutside);
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
@@ -64,20 +68,20 @@ export default function Dropdown({
     <div ref={dropdownRef} className="relative z-10">
       <button
         onClick={toggleDropdown}
-        className={`${type === 'default' ? 'truncate relative flex items-center text-body-2M text-neutral-500 md:text-body-1M' : 'truncate relative flex w-full items-center justify-between rounded-sm bg-neutral-50 px-12 py-10 text-body-2M text-neutral-400 md:text-body-1M'}`}
+        className={`${type === 'default' ? 'relative flex items-center truncate text-body-2M text-neutral-500 md:text-body-1M' : 'relative flex w-full items-center justify-between truncate rounded-sm bg-neutral-50 px-12 py-10 text-body-2M text-neutral-400 md:text-body-1M'}`}
         type="button"
       >
         {itemValue}
-        <div className='flex flex-row'>
+        <div className="flex flex-row">
           {inputIcon.icon && (
-              <Image
-                className={`${inputIcon.icon === 'xmark' && 'cursor-pointer'}`}
-                src={`/icons/ic-${inputIcon.icon}.svg`}
-                alt={inputIcon.alt}
-                width={24}
-                height={24}
-              />
-            )}
+            <Image
+              className={`${inputIcon.icon === 'xmark' && 'cursor-pointer'}`}
+              src={`/icons/ic-${inputIcon.icon}.svg`}
+              alt={inputIcon.alt}
+              width={24}
+              height={24}
+            />
+          )}
           <div className="relative h-32 w-32">
             <Image src={icon} alt="ic-chevron-down" fill className={isUpDown ? 'px-11 py-8' : ''} />
           </div>

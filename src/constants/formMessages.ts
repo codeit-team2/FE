@@ -1,4 +1,4 @@
-import { ErrorMessage } from "@/types";
+import { ErrorMessage } from '@/types';
 
 export const ERROR_MESSAGE: ErrorMessage = {
   nickname: {
@@ -32,13 +32,13 @@ export const ERROR_MESSAGE: ErrorMessage = {
     max: '2자~50자 사이의 소감을 입력해 주세요',
   },
   thumbnail: {
-    required: '대표 이미지를 등록해주세요'
+    required: '대표 이미지를 등록해주세요',
   },
   category: {
-    required: '카테고리를 선택해주세요'
+    required: '카테고리를 선택해주세요',
   },
   location: {
-    required: '지역을 선택해주세요'
+    required: '지역을 선택해주세요',
   },
   clubName: {
     required: '클럽이름을 입력해주세요',

@@ -9,8 +9,8 @@ import Calendar from '@/components/common/Calendar';
 import Dropdown from '@/components/common/Dropdown';
 import Input from '@/components/common/Input';
 import LoginRequired from '@/components/common/Modal/LoginRequired';
-import FileInput from '@/components/MakeClub/FileInput';
 
+import FileInput from '@/components/MakeClub/FileInput';
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
@@ -39,12 +39,7 @@ export default function MakeClubModal({ trigger }: Props) {
     '22:00',
   ];
   const [selectTime, setSelectTime] = useState<string>();
-  const [isSubmitCheck, setIsSubmitCheck] = useState(false)
-
-  const fileInput = React.useRef<HTMLInputElement | null>(null);
-  const handleButtonClick = () => {
-    fileInput.current?.click();
-  };
+  const [isSubmitCheck, setIsSubmitCheck] = useState(false);
 
   const triggerButton =
     trigger === 'text' ? (
@@ -72,8 +67,8 @@ export default function MakeClubModal({ trigger }: Props) {
   const isLogin = true;
 
   const handleSubmitButton = () => {
-    setIsSubmitCheck(true)
-  }
+    setIsSubmitCheck(true);
+  };
 
   return (
     <Dialog>
@@ -97,7 +92,7 @@ export default function MakeClubModal({ trigger }: Props) {
                     <div className="relative w-3/6">
                       <DialogDescription>카테고리</DialogDescription>
                       <Dropdown
-                        id='category'
+                        id="category"
                         items={['러닝', '등산', '배드민턴', '헬스']}
                         icon="icons/ic-chevron-down.svg"
                         itemTrigger="카테고리를 선택해주세요"
@@ -108,7 +103,7 @@ export default function MakeClubModal({ trigger }: Props) {
                     <div className="relative w-3/6">
                       <DialogDescription>지역</DialogDescription>
                       <Dropdown
-                        id='location'
+                        id="location"
                         items={['중랑구', '광진구', '용산구', '을지로3가']}
                         icon="icons/ic-chevron-down.svg"
                         itemTrigger="지역을 선택해주세요"
@@ -187,7 +182,7 @@ export default function MakeClubModal({ trigger }: Props) {
                 </div>
               </div>
               <div className="flex justify-center">
-              <Button 
+                <Button
                   className={`w-full ${!isValid && 'cursor-default bg-neutral-400 !text-neutral-100 hover:!text-neutral-100'}`}
                   type="submit"
                   onClick={() => handleSubmitButton()}
