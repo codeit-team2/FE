@@ -1,14 +1,20 @@
-import { ERROR_MESSAGE } from '@/constants/formMessages';
-import { ErrorMessage } from '@/types';
-
 import React, { useEffect, useRef, useState } from 'react';
 
 import Image from 'next/image';
 
 import Calendar from '@/components/common/Calendar';
 
+const DROPDOWN_ERROR_MSG = {
+  category: {
+    required: '카테고리를 선택해주세요',
+  },
+  location: {
+    required: '지역을 선택해주세요',
+  },
+};
+
 interface DropdownProps {
-  id?: keyof ErrorMessage;
+  id?: 'category' | 'location';
   items?: string[];
   icon: string;
   isUpDown?: boolean;
@@ -56,7 +62,7 @@ export default function Dropdown({
 
   useEffect(() => {
     if (id) {
-      setErrorMessage(ERROR_MESSAGE[id].required);
+      setErrorMessage(DROPDOWN_ERROR_MSG[id].required);
     }
     document.addEventListener('mousedown', handleClickOutside);
     return () => {
