@@ -27,7 +27,7 @@ function UiCalendar({ className, classNames, showOutsideDays = true, ...props }:
         nav_button_previous: 'absolute left-1',
         nav_button_next: 'absolute right-1',
         table: 'w-full border-collapse space-y-28',
-        head_row: 'flex',
+        head_row: 'flex bg-neutral-50 rounded-[99px] py-[10px]',
         head_cell: 'text-muted-foreground rounded-md w-36 font-normal text-[0.8rem]',
         row: 'flex w-full mt-8',
         cell: 'h-36 w-36 text-center text-sm p-0 relative [&:has([aria-selected].day-range-end)]:rounded-full [&:has([aria-selected].day-outside)]:bg-accent/50 [&:has([aria-selected].day-outside)]:rounded-full focus-within:relative focus-within:z-20',
