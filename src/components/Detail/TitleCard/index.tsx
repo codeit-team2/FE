@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import InfoBadge from '../InfoBadge';
 import Image from 'next/image';
@@ -12,6 +12,12 @@ interface TitleCardProps {
 }
 
 export default function TitleCard({ data }: TitleCardProps) {
+  const [isBookmarked, setIsBookmarked] = useState(false);
+
+  const handleToggleBookmark = (newState: boolean) => {
+    setIsBookmarked(newState);
+  };
+
   return (
     <>
       <div className="relative flex h-400 w-full max-w-[1010px] flex-col rounded-lg bg-neutral-900 md:h-253 md:flex-row">
@@ -47,7 +53,7 @@ export default function TitleCard({ data }: TitleCardProps) {
           </div>
         </div>
         <div className="absolute right-20 top-186 md:right-30 md:top-30">
-          <Bookmark />
+          <Bookmark isBookmarked={isBookmarked} onToggleBookmark={handleToggleBookmark} />
         </div>
       </div>
     </>
