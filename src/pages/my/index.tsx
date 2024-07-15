@@ -20,7 +20,7 @@ export default function My() {
       <MainLayout>
         <div className="mx-auto max-w-screen-lg">
           <Profile nickname="배고픈 망곰이" email="hungrybear@gamil.com" />
-          <div className="mb-27 mt-32 px-156">
+          <div className="mb-27 mt-32 md:px-156">
             <MyTap setSelectTab={setSelectTab} />
           </div>
           {selectTab === 'meeting' && <Meeting data={Test} />}
