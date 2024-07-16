@@ -96,7 +96,6 @@ export default function MakeClubModal({ trigger }: Props) {
                         items={['러닝', '등산', '배드민턴', '헬스']}
                         icon="icons/ic-chevron-down.svg"
                         itemTrigger="카테고리를 선택해주세요"
-                        type="makeClub"
                         isSubmitted={isSubmitCheck}
                       />
                     </div>
@@ -107,7 +106,6 @@ export default function MakeClubModal({ trigger }: Props) {
                         items={['중랑구', '광진구', '용산구', '을지로3가']}
                         icon="icons/ic-chevron-down.svg"
                         itemTrigger="지역을 선택해주세요"
-                        type="makeClub"
                         isSubmitted={isSubmitCheck}
                       />
                     </div>
