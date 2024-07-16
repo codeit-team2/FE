@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { ko } from 'date-fns/locale';
+
 import { Button } from '@/components/ui/button';
 import { UiCalendar } from '@/components/ui/calendar';
 
@@ -39,6 +41,7 @@ export default function Calendar({ isDropdown, handleCalendarClick }: CalendarPr
           <UiCalendar
             mode="single"
             selected={date}
+            locale={ko}
             onSelect={handleDateSelect}
             className="rounded-me border"
           />
