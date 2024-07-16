@@ -6,16 +6,16 @@ import LoginRequired from '@/components/common/Modal/LoginRequired';
 
 import { Button } from '@/components/ui/button';
 
-import { Activity } from '@/types/testDataType';
+import { Gathering } from '@/types/testDataType';
 
 interface FloatingBarProps {
-  data: Activity;
+  data: Gathering;
 }
 
 export default function FloatingBar({ data }: FloatingBarProps) {
-  const isOwner = true;
+  const isOwner = false;
 
-  const maxReached = data.member >= 20;
+  const maxReached = data.participantCount >= data.capacity;
 
   const [isEntered, setIsEntered] = useState(false);
   const [showLoginModal, setShowLoginModal] = useState(false);

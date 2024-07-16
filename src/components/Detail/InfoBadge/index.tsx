@@ -4,17 +4,17 @@ import Image from 'next/image';
 
 import ProfileImageGroup from '@/components/Detail/ProfileImageGroup';
 
-import { Activity, User } from '@/types/testDataType';
+import { Gathering, Participant } from '@/types/testDataType';
 
 interface InfoBadgeProps {
-  data: Activity;
+  data: Gathering;
+  userData: Participant;
 }
 
-export default function InfoBadge({ data }: InfoBadgeProps) {
-  const progressPercentage = (data.member / 20) * 100;
-  const minReached = data.member >= 5;
-  const maxReached = data.member >= 20;
-  const usersProfile: User[] = data.users;
+export default function InfoBadge({ userData, data }: InfoBadgeProps) {
+  const progressPercentage = (data.participantCount / data.capacity) * 100;
+  const minReached = data.participantCount >= 5;
+  const maxReached = data.participantCount >= data.capacity;
 
   return (
     <div className="flex h-102 w-full flex-col rounded-md bg-neutral-700 p-12 md:w-475">
@@ -24,13 +24,15 @@ export default function InfoBadge({ data }: InfoBadgeProps) {
             <div className="relative h-24 w-24">
               <Image src={'/icons/ic-person-blue.svg'} alt="ic-person" fill />
             </div>
-            <div className="text-body-2Sb text-primary-300">{data.member}/20</div>
+            <div className="text-body-2Sb text-primary-300">
+              {data.participantCount}/{data.capacity}
+            </div>
           </div>
           <div className="flex">
-            <ProfileImageGroup usersProfile={usersProfile} />
+            <ProfileImageGroup usersProfile={userData.accounts} />
           </div>
         </div>
-        {data.confirmed && (
+        {minReached && (
           <div className="flex h-32 w-58 items-center justify-center rounded-sm bg-secondary-300 px-8 py-4 text-body-3Sb text-white md:w-72 md:text-body-2Sb">
             개설확정
           </div>
@@ -65,7 +67,7 @@ export default function InfoBadge({ data }: InfoBadgeProps) {
             width={24}
             height={24}
           />
-          모임 참여 최대 인원 · 20명
+          모임 참여 최대 인원 · {data.capacity}명
         </div>
       </div>
     </div>
