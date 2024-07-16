@@ -57,3 +57,8 @@ export type ErrorMessage = {
     required: string;
   };
 };
+
+export interface ErrorResponse {
+  code: string;
+  message: string;
+}

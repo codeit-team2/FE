@@ -10,6 +10,8 @@ import Input from '@/components/common/Input';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog';
 
+import { usePostNickname } from '@/hooks/useAuths';
+
 interface SignupModalProps {
   isSignupModalOpen: boolean;
   setIsSignupModalOpen: Dispatch<SetStateAction<boolean>>;
@@ -22,6 +24,7 @@ export default function SignupModal({
   setIsLoginModalOpen,
 }: SignupModalProps) {
   const [isAgree, setIsAgree] = useState(false);
+  const { mutate: mutateNicknameDuplicate, data: dataNicknameDuplicate } = usePostNickname();
 
   const form = useForm();
 
@@ -33,6 +36,14 @@ export default function SignupModal({
     trigger,
     formState: { isValid },
   } = form;
+
+  const handleNicknameDuplicate = async () => {
+    mutateNicknameDuplicate({ nickname: watch('nickname') });
+    // console.log(watch('nickname'));
+  };
+  // console.log(getFieldState('nickname').invalid)
+  // console.log(dataNicknameDuplicate?.isDuplicate);
+  // console.log(getFieldState('nickname').invalid && !dataNicknameDuplicate?.isDuplicate);
 
   // const onSubmit: SubmitHandler<FieldValues> = (value: FieldValues) => {}; 빌드 에러 때문에 주석 처리
   const onSubmit: SubmitHandler<FieldValues> = () => {};
@@ -84,6 +95,7 @@ export default function SignupModal({
                       className="w-130 flex-shrink-0"
                       variant="secondary"
                       disabled={getFieldState('nickname').invalid}
+                      onClick={handleNicknameDuplicate}
                     >
                       중복 검사하기
                     </Button>

@@ -1,12 +1,19 @@
 import { ERROR_MESSAGE, PLACEHOLDER } from '@/constants/formMessages';
+import { ErrorResponse } from '@/types';
 
 import { Dispatch, SetStateAction, useEffect } from 'react';
-import { FieldValues, FormProvider, SubmitHandler, useForm } from 'react-hook-form';
+import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
+
+import { AxiosError } from 'axios';
 
 import Input from '@/components/common/Input';
 
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+
+import { usePostSignin } from '@/hooks/useAuths';
+
+import { PostSignin } from '@/types/auths';
 
 interface LoginModalProps {
   isLoginModalOpen: boolean;
@@ -14,26 +21,48 @@ interface LoginModalProps {
   setIsSignupModalOpen: Dispatch<SetStateAction<boolean>>;
 }
 
+const errorMessages: { [key: string]: string } = {
+  PASSWORD_MISMATCH: '이메일 또는 비밀번호를 확인해 주세요',
+  UNREGISTERED_ACCOUNT: '이메일 또는 비밀번호를 확인해 주세요',
+};
+
 export default function LoginModal({
   isLoginModalOpen,
   setIsLoginModalOpen,
   setIsSignupModalOpen,
 }: LoginModalProps) {
-  const form = useForm();
+  const { mutate, error, data, isSuccess } = usePostSignin();
+
+  const axiosError = error as AxiosError<ErrorResponse>;
+  console.log(data);
+
+  // if (isSuccess) {
+  //   setCookie('accessToken', data.accessToken);
+  // }
+
+  const form = useForm<PostSignin>();
 
   const {
     handleSubmit,
     register,
     trigger,
+    setError,
     formState: { isValid },
   } = form;
 
-  // const onSubmit: SubmitHandler<FieldValues> = (value: FieldValues) => {}; 빌드 에러 때문에 주석 처리
-  const onSubmit: SubmitHandler<FieldValues> = () => {};
+  useEffect(() => {
+    if (axiosError?.response?.data.code) {
+      setError('email', { message: errorMessages[axiosError?.response?.data.code] });
+    }
+  }, [axiosError, setError]);
+
+  const onSubmit: SubmitHandler<PostSignin> = (value: PostSignin) => {
+    mutate(value);
+  };
 
   useEffect(() => {
     trigger();
-  }, [isLoginModalOpen, trigger]);
+  }, [isLoginModalOpen]);
 
   return (
     <Dialog open={isLoginModalOpen} onOpenChange={setIsLoginModalOpen}>
