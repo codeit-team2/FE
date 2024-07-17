@@ -1,9 +1,9 @@
-import { Data } from '@/types';
-
 import Image from 'next/image';
 
+import { TestCardData } from '@/types/testDataType';
+
 interface PersonProps {
-  data: Data;
+  data: TestCardData;
 }
 
 export default function Person({ data }: PersonProps) {

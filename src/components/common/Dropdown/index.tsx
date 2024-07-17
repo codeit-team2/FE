@@ -27,7 +27,7 @@ interface DropdownProps {
 export default function Dropdown({
   id,
   items,
-  icon,
+  // icon,
   isUpDown,
   itemTrigger = 'Open',
   isSubmitted,
