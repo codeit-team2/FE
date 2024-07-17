@@ -1,21 +1,31 @@
 //Detail
 
-export interface User {
-  profileImage: string;
-  nickname: string;
+export interface Gathering {
+  gatheringId: number;
+  location: string;
+  mainCategory: string;
+  subCategory: string;
+  name: string;
+  dateTime: string;
+  registrationEnd?: string;
+  participantCount: number;
+  capacity: number;
+  gatheringImageUrl: string;
+  createdAt: string;
+  canceledAt: string;
 }
 
-export interface Activity {
-  category: string;
-  place: string;
-  date: string;
-  time: string;
-  title: string;
-  member: number;
-  imageUrl: string;
-  deadline: string;
-  confirmed: boolean;
-  users: User[];
+export interface Participant {
+  gatheringId: number;
+  accounts: Account[];
+}
+
+export interface Account {
+  accountId: number;
+  email: string;
+  nickname: string;
+  profileImageUrl: string;
+  joinedAt: string;
 }
 
 export interface ReviewData {
