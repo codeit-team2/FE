@@ -1,3 +1,4 @@
+import { postGatherings } from '@/apis/gatherings';
 import { ERROR_MESSAGE, PLACEHOLDER } from '@/constants/formMessages';
 
 import React, { useState } from 'react';
@@ -64,17 +65,32 @@ export default function MakeClubModal({ trigger }: Props) {
     formState: { isValid },
   } = form;
 
+  interface CreateGatheringDto {
+    name: string;
+    capacity: number;
+    subCategoryName: string;
+    location: string;
+    dateTime: string;
+  }
+
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     const formData = new FormData();
     if (data && category && location && date && gatheringImage) {
-      const selectedDate = date.toISOString();
-      formData.append('name', data.clubName);
-      formData.append('capacity', data.headcount);
-      formData.append('subCategory', category);
-      formData.append('location', location);
-      formData.append('dateTime', selectedDate);
-      formData.append('registrationEnd', selectedDate);
+      const createGatheringDto: CreateGatheringDto = {
+        name: data.clubName,
+        capacity: data.headcount,
+        location: location,
+        subCategoryName: category,
+        dateTime: date.toISOString(),
+      };
+
+      formData.append('createGatheringDto', JSON.stringify(createGatheringDto));
+      console.log(JSON.stringify(createGatheringDto));
+
       formData.append('gatheringImage', gatheringImage);
+
+      const res = postGatherings(formData);
+      console.log(res);
     }
   };
 
@@ -119,7 +135,7 @@ export default function MakeClubModal({ trigger }: Props) {
                       <DialogDescription>지역</DialogDescription>
                       <Dropdown
                         id="location"
-                        items={['중랑구', '광진구', '용산구', '을지로3가']}
+                        items={['중랑구', '광진구', '용산구', '성북구', '을지로3가']}
                         setItem={setLocation}
                         icon="icons/ic-chevron-down.svg"
                         itemTrigger="지역을 선택해주세요"

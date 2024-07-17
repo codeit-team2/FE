@@ -9,8 +9,13 @@ import { instance } from '@/lib/axios';
 // };
 
 export const postGatherings = async (value) => {
-  const res = await instance.post('/gatherings', value);
-  return res.data;
+  try {
+    const res = await instance.post('/gatherings', value);
+    return res.data;
+  } catch (error) {
+    console.error('Error Message:', error.message);
+    throw error;
+  }
 };
 
 // export const getGatheringsJoined = async (value) => {
