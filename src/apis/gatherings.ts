@@ -1,4 +1,6 @@
-// import { instance } from '@/lib/axios';
+import { instance } from '@/lib/axios';
+
+import { Gathering } from '@/types/gathering';
 
 // // export const getGatheringsList = async (value) => {
 // //   const res = await instance.get(
@@ -20,11 +22,18 @@
 // //   );
 // //   return res.data;
 // // };
-
-// export const getGatherings = async (gatheringId: number, value) => {
-//   const res = await instance.get(`/gatherings/${gatheringId}`, { params: value });
-//   return res.data;
-// };
+// https://hobbyzone.p-e.kr/gatherings?page=0&size=5&sortBy=dateTime&sortOrder=asc
+export const getGatherings = async (
+  page: string = '0',
+  size: string = '5',
+  sortBy: string = 'dateTime',
+  sortOrder: string = 'asc',
+) => {
+  const res = await instance.get(
+    `/gatherings?page=${page}&size=${size}&sortBy=${sortBy}&sortOrder=${sortOrder}`,
+  );
+  return res.data;
+};
 
 // export const getParticipantsList = async (gatheringId: number, value) => {
 //   const res = await instance.get(`/gatherings/${gatheringId}/participants`, { params: value });
