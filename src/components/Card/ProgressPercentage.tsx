@@ -1,7 +1,7 @@
-import { Data } from '@/types';
+import { TestCardData } from '@/types/testDataType';
 
 interface ProgressPercentageProps {
-  data: Data;
+  data: TestCardData;
 }
 export default function ProgressPercentage({ data }: ProgressPercentageProps) {
   const progressPercentage = (data.member / 20) * 100;

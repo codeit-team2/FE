@@ -1,5 +1,3 @@
-import { Data } from '@/types';
-
 import React, { useState } from 'react';
 
 import Bookmark from '../common/Bookmark';
@@ -10,8 +8,10 @@ import Description from '@/components/Card/Description';
 import Person from '@/components/Card/Person';
 import ProgressPercentage from '@/components/Card/ProgressPercentage';
 
+import { TestCardData } from '@/types/testDataType';
+
 interface CardProps {
-  data: Data;
+  data: TestCardData;
   clickFavorites: (item: string) => void;
   isFavorite: (item: string) => boolean;
 }
