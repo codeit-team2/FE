@@ -1,13 +1,13 @@
-import { Data } from '@/types';
-
 import React, { useMemo, useState } from 'react';
 
 import MyCard from '@/components/My/MyCard';
 import NotCard from '@/components/NotCard';
 import { Button } from '@/components/ui/button';
 
+import { TestCardData } from '@/types/testDataType';
+
 interface Props {
-  data: Data[];
+  data: TestCardData[];
 }
 
 function isDateBeforeToday(date: string): boolean {

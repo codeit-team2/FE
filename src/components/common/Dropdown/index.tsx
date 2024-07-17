@@ -1,32 +1,42 @@
-import { ERROR_MESSAGE } from '@/constants/formMessages';
-import { ErrorMessage } from '@/types';
-
 import React, { useEffect, useRef, useState } from 'react';
 
 import Image from 'next/image';
 
+import Calendar from '@/components/common/Calendar';
+import IcChevronDown from '@/components/common/Dropdown/IcChevronDown';
+import IcChevronUpdown from '@/components/common/Dropdown/IcChevronUpdown';
+
+const DROPDOWN_ERROR_MSG = {
+  category: {
+    required: '카테고리를 선택해주세요',
+  },
+  location: {
+    required: '지역을 선택해주세요',
+  },
+};
+
 interface DropdownProps {
-  id?: keyof ErrorMessage;
+  id?: 'category' | 'location';
   items?: string[];
-  icon: string;
+  icon?: string;
   isUpDown?: boolean;
   itemTrigger: string;
-  type?: string;
   isSubmitted?: boolean;
 }
 
 export default function Dropdown({
   id,
   items,
-  icon,
+  // icon,
   isUpDown,
   itemTrigger = 'Open',
-  type = 'default',
   isSubmitted,
 }: DropdownProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [itemValue, setItemValue] = useState<string | null>(itemTrigger);
   const [errorMessage, setErrorMessage] = useState<string | null>();
+
+  const isSelectedValue = itemValue !== itemTrigger;
 
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -47,9 +57,14 @@ export default function Dropdown({
     setErrorMessage(null);
   };
 
+  const handleCalendarClick = (date: string) => {
+    setIsOpen(false);
+    setItemValue(date);
+  };
+
   useEffect(() => {
     if (id) {
-      setErrorMessage(ERROR_MESSAGE[id].required);
+      setErrorMessage(DROPDOWN_ERROR_MSG[id].required);
     }
     document.addEventListener('mousedown', handleClickOutside);
     return () => {
@@ -68,7 +83,7 @@ export default function Dropdown({
     <div ref={dropdownRef} className="relative z-10">
       <button
         onClick={toggleDropdown}
-        className={`${type === 'default' ? 'relative flex items-center truncate text-body-2M text-neutral-500 md:text-body-1M' : 'relative flex w-full items-center justify-between truncate rounded-sm bg-neutral-50 px-12 py-10 text-body-2M text-neutral-400 md:text-body-1M'}`}
+        className={`${isSelectedValue && '!text-black'} relative flex w-full items-center justify-between truncate rounded-sm bg-neutral-50 px-12 py-10 text-body-2M text-neutral-400 hover:text-primary-300 md:text-body-1M`}
         type="button"
       >
         {itemValue}
@@ -83,7 +98,11 @@ export default function Dropdown({
             />
           )}
           <div className="relative h-32 w-32">
-            <Image src={icon} alt="ic-chevron-down" fill className={isUpDown ? 'px-11 py-8' : ''} />
+            {isUpDown ? (
+              <IcChevronUpdown className="px-10 py-4" />
+            ) : (
+              <IcChevronDown className={`${isSelectedValue && 'animate-halfTurn'}`} />
+            )}
           </div>
         </div>
       </button>
@@ -96,14 +115,14 @@ export default function Dropdown({
               <div
                 key={index}
                 onClick={handleItemClick}
-                className={`${type === 'default' ? 'my-4 flex cursor-pointer items-center justify-center py-7 hover:rounded-full hover:bg-primary-50' : 'flex w-full cursor-pointer items-center justify-center px-10 py-12 hover:rounded-full hover:bg-primary-50'}`}
+                className="flex w-full cursor-pointer items-center justify-center px-10 py-12 hover:rounded-full hover:bg-primary-50"
               >
                 {item}
               </div>
             ))}
           </div>
         ) : (
-          <div className="absolute z-10">Loading...</div> // items가 없는 경우
+          <Calendar isDropdown handleCalendarClick={handleCalendarClick} />
         )
       ) : null}
       {errorMessage && isSubmitted && (

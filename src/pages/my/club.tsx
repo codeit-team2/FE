@@ -1,12 +1,12 @@
-import { Data } from '@/types';
-
 import React from 'react';
 
 import MyCard from '@/components/My/MyCard';
 import NotCard from '@/components/NotCard';
 
+import { TestCardData } from '@/types/testDataType';
+
 interface Props {
-  data: Data[];
+  data: TestCardData[];
 }
 
 export default function Club({ data }: Props) {

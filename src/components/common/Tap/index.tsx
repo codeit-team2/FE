@@ -11,7 +11,8 @@ export default function Tap() {
   ];
 
   const selectedFont = 'md:text-heading-1M text-heading-2M';
-  const notSelectedFont = 'md:text-heading-1M text-neutral-500 text-heading-2M';
+  const notSelectedFont =
+    'md:text-heading-1M text-neutral-500 text-heading-2M hover:text-primary-300';
 
   const [selectedIndex, setSelectedIndex] = useState<number>(0);
   const [indicatorStyle, setIndicatorStyle] = useState({ width: 0, left: 0 });
