@@ -40,6 +40,7 @@ export default function MakeClubModal({ trigger }: Props) {
   ];
   const [selectTime, setSelectTime] = useState<string>();
   const [isSubmitCheck, setIsSubmitCheck] = useState(false);
+  const [date, setDate] = React.useState<Date | undefined>();
 
   const triggerButton =
     trigger === 'text' ? (
@@ -113,7 +114,7 @@ export default function MakeClubModal({ trigger }: Props) {
                   <div>
                     <DialogDescription>날짜</DialogDescription>
                     <div className="mx-auto w-full rounded-md border">
-                      <Calendar />
+                      <Calendar date={date} setDate={setDate} />
                     </div>
                   </div>
                 </div>

@@ -6,6 +6,10 @@ import Calendar from '@/components/common/Calendar';
 import IcChevronDown from '@/components/common/Dropdown/IcChevronDown';
 import IcChevronUpdown from '@/components/common/Dropdown/IcChevronUpdown';
 
+import { Button } from '@/components/ui/button';
+
+import useFormattedDate from '@/hooks/useFormatedDate';
+
 const DROPDOWN_ERROR_MSG = {
   category: {
     required: '카테고리를 선택해주세요',
@@ -27,7 +31,7 @@ interface DropdownProps {
 export default function Dropdown({
   id,
   items,
-  icon,
+  // icon,
   isUpDown,
   itemTrigger = 'Open',
   isSubmitted,
@@ -35,10 +39,13 @@ export default function Dropdown({
   const [isOpen, setIsOpen] = useState(false);
   const [itemValue, setItemValue] = useState<string | null>(itemTrigger);
   const [errorMessage, setErrorMessage] = useState<string | null>();
+  const [date, setDate] = React.useState<Date | undefined>();
 
   const isSelectedValue = itemValue !== itemTrigger;
 
   const dropdownRef = useRef<HTMLDivElement>(null);
+
+  const { monthDayWithDayOfWeek } = useFormattedDate(date);
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
@@ -55,11 +62,6 @@ export default function Dropdown({
     setIsOpen(false);
     setItemValue(itemText);
     setErrorMessage(null);
-  };
-
-  const handleCalendarClick = (date: string) => {
-    setIsOpen(false);
-    setItemValue(date);
   };
 
   useEffect(() => {
@@ -122,7 +124,12 @@ export default function Dropdown({
             ))}
           </div>
         ) : (
-          <Calendar isDropdown handleCalendarClick={handleCalendarClick} />
+          <div className="absolute rounded-md border bg-white p-12">
+            <Calendar date={date} setDate={setDate} />
+            <Button variant="secondary" className="mt-2 w-full">
+              {date ? monthDayWithDayOfWeek : '날짜를 선택해 주세요'}
+            </Button>
+          </div>
         )
       ) : null}
       {errorMessage && isSubmitted && (
