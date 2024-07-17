@@ -13,7 +13,7 @@ interface Data {
 }
 
 export default function Description({ data }: Props) {
-  const formatDate = useFormatDate({ date: data.date });
+  const formattedDate = useFormatDate({ date: data.date });
 
   return (
     <div className="mb-16 flex w-full flex-col text-body-3Sb md:mb-4 md:text-body-2Sb">
@@ -23,7 +23,10 @@ export default function Description({ data }: Props) {
       </div>
       <div className="mb-8 flex lg:gap-6">
         <p className="text-secondary-300">{data.deadline}</p>·
-        <p className="text-neutral-500">{formatDate}</p>
+        <p className="text-neutral-500">
+          {formattedDate?.formattedDate} {formattedDate?.formattedWeekday} ·{' '}
+          {formattedDate?.formattedTime}
+        </p>
       </div>
       <div className="w-220 min-w-230 text-body-1Sb md:text-heading-2M">{data.title}</div>
     </div>

@@ -1,13 +1,22 @@
 interface Props {
-  date: string;
+  date: string | Date | undefined;
 }
 
-export default function useFormatDate({ date }: Props) {
-  const formatDate = new Date(date);
+interface FormattedDate {
+  formattedDate: string;
+  formattedWeekday: string;
+  formattedTime: string;
+}
+
+export default function useFormatDate({ date }: Props): FormattedDate | null {
+  const formatDate = typeof date === 'string' ? new Date(date) : date;
   const dateOptions: Intl.DateTimeFormatOptions = {
-    weekday: 'long',
     month: 'long',
     day: 'numeric',
+  };
+
+  const weekdayOptions: Intl.DateTimeFormatOptions = {
+    weekday: 'long',
   };
 
   const timeOptions: Intl.DateTimeFormatOptions = {
@@ -16,8 +25,11 @@ export default function useFormatDate({ date }: Props) {
     hour12: true,
   };
 
-  const formattedDate = formatDate.toLocaleDateString('ko-KR', dateOptions);
-  const formattedTime = formatDate.toLocaleTimeString('ko-KR', timeOptions);
+  if (formatDate) {
+    const formattedDate = formatDate.toLocaleDateString('ko-KR', dateOptions);
+    const formattedWeekday = formatDate.toLocaleDateString('ko-KR', weekdayOptions);
+    const formattedTime = formatDate.toLocaleTimeString('ko-KR', timeOptions);
 
-  return `${formattedDate} · ${formattedTime}`;
+    return { formattedDate, formattedWeekday, formattedTime };
+  } else return null;
 }

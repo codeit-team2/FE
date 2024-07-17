@@ -8,7 +8,7 @@ import IcChevronUpdown from '@/components/common/Dropdown/IcChevronUpdown';
 
 import { Button } from '@/components/ui/button';
 
-import useFormattedDate from '@/hooks/useFormatedDate';
+import useFormatDate from '@/hooks/useFormatDate';
 
 const DROPDOWN_ERROR_MSG = {
   category: {
@@ -45,7 +45,7 @@ export default function Dropdown({
 
   const dropdownRef = useRef<HTMLDivElement>(null);
 
-  const { monthDayWithDayOfWeek } = useFormattedDate(date);
+  const formattedDate = useFormatDate({ date });
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
@@ -127,7 +127,9 @@ export default function Dropdown({
           <div className="absolute rounded-md border bg-white p-12">
             <Calendar date={date} setDate={setDate} />
             <Button variant="secondary" className="mt-2 w-full">
-              {date ? monthDayWithDayOfWeek : '날짜를 선택해 주세요'}
+              {formattedDate
+                ? `${formattedDate.formattedDate} (${formattedDate.formattedWeekday})`
+                : '날짜를 선택해주세요'}
             </Button>
           </div>
         )
