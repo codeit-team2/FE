@@ -41,6 +41,9 @@ export default function MakeClubModal({ trigger }: Props) {
   const [selectTime, setSelectTime] = useState<string>();
   const [isSubmitCheck, setIsSubmitCheck] = useState(false);
   const [date, setDate] = React.useState<Date | undefined>();
+  const [gatheringImage, setGatheringImage] = useState<File>();
+  const [category, setCategory] = useState<string | null>(null);
+  const [location, setLocation] = useState<string | null>(null);
 
   const triggerButton =
     trigger === 'text' ? (
@@ -61,8 +64,19 @@ export default function MakeClubModal({ trigger }: Props) {
     formState: { isValid },
   } = form;
 
-  // const onSubmit: SubmitHandler<FieldValues> = (value: FieldValues) => {}; eslint 설정 때문에 잠시 주석 처리
-  const onSubmit: SubmitHandler<FieldValues> = () => {};
+  const onSubmit: SubmitHandler<FieldValues> = (data) => {
+    const formData = new FormData();
+    if (data && category && location && date && gatheringImage) {
+      const selectedDate = date.toISOString();
+      formData.append('name', data.clubName);
+      formData.append('capacity', data.headcount);
+      formData.append('subCategory', category);
+      formData.append('location', location);
+      formData.append('dateTime', selectedDate);
+      formData.append('registrationEnd', selectedDate);
+      formData.append('gatheringImage', gatheringImage);
+    }
+  };
 
   // login 상태 확인하는 과정 추가 필요
   const isLogin = true;
@@ -87,7 +101,7 @@ export default function MakeClubModal({ trigger }: Props) {
                 <div className="flex w-fit flex-col gap-24">
                   <div>
                     <DialogDescription>대표 이미지</DialogDescription>
-                    <FileInput isSubmitted={isSubmitCheck} />
+                    <FileInput setGatheringImage={setGatheringImage} isSubmitted={isSubmitCheck} />
                   </div>
                   <div className="flex flex-row gap-12">
                     <div className="relative w-3/6">
@@ -95,6 +109,7 @@ export default function MakeClubModal({ trigger }: Props) {
                       <Dropdown
                         id="category"
                         items={['러닝', '등산', '배드민턴', '헬스']}
+                        setItem={setCategory}
                         icon="icons/ic-chevron-down.svg"
                         itemTrigger="카테고리를 선택해주세요"
                         isSubmitted={isSubmitCheck}
@@ -105,6 +120,7 @@ export default function MakeClubModal({ trigger }: Props) {
                       <Dropdown
                         id="location"
                         items={['중랑구', '광진구', '용산구', '을지로3가']}
+                        setItem={setLocation}
                         icon="icons/ic-chevron-down.svg"
                         itemTrigger="지역을 선택해주세요"
                         isSubmitted={isSubmitCheck}
@@ -113,9 +129,14 @@ export default function MakeClubModal({ trigger }: Props) {
                   </div>
                   <div>
                     <DialogDescription>날짜</DialogDescription>
-                    <div className="mx-auto w-full rounded-md border">
+                    <div
+                      className={`mx-auto w-full rounded-md border ${!date && isSubmitCheck && 'border-secondary-300'}`}
+                    >
                       <Calendar date={date} setDate={setDate} />
                     </div>
+                    {!date && isSubmitCheck && (
+                      <p className="mt-6 text-body-2Sb text-secondary-300">날짜를 선택해 주세요</p>
+                    )}
                   </div>
                 </div>
                 <div className="mx-32 my-12 border-l"></div>

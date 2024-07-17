@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { SetStateAction, useEffect, useRef, useState } from 'react';
 
 import Image from 'next/image';
 
@@ -22,6 +22,7 @@ const DROPDOWN_ERROR_MSG = {
 interface DropdownProps {
   id?: 'category' | 'location';
   items?: string[];
+  setItem?: React.Dispatch<SetStateAction<string | null>>;
   icon?: string;
   isUpDown?: boolean;
   itemTrigger: string;
@@ -31,6 +32,7 @@ interface DropdownProps {
 export default function Dropdown({
   id,
   items,
+  setItem,
   // icon,
   isUpDown,
   itemTrigger = 'Open',
@@ -62,6 +64,7 @@ export default function Dropdown({
     setIsOpen(false);
     setItemValue(itemText);
     setErrorMessage(null);
+    setItem && setItem(itemText);
   };
 
   useEffect(() => {
