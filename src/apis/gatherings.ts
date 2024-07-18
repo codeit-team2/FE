@@ -23,15 +23,27 @@ import { Gathering } from '@/types/gathering';
 // //   return res.data;
 // // };
 // https://hobbyzone.p-e.kr/gatherings?page=0&size=5&sortBy=dateTime&sortOrder=asc
+// export const getGatherings = async (
+//   page: string = '0',
+//   size: string = '5',
+//   sortBy: string = 'dateTime',
+//   sortOrder: string = 'asc',
+// ) => {
+//   const res = await instance.get(
+//     `/gatherings?page=${page}&size=${size}&sortBy=${sortBy}&sortOrder=${sortOrder}`,
+//   );
+//   return res.data;
+// };
 export const getGatherings = async (
-  page: string = '0',
-  size: string = '5',
-  sortBy: string = 'dateTime',
-  sortOrder: string = 'asc',
+  page: string,
+  size: string,
+  sortBy: string,
+  sortOrder: string,
 ) => {
-  const res = await instance.get(
-    `/gatherings?page=${page}&size=${size}&sortBy=${sortBy}&sortOrder=${sortOrder}`,
-  );
+  // page는 & params로 안 빠진 상태.
+  const res = await instance.get(`/gatherings?page=${page}`, {
+    params: { size, sortBy, sortOrder },
+  });
   return res.data;
 };
 
