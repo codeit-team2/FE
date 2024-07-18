@@ -1,10 +1,14 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { SetStateAction, useEffect, useRef, useState } from 'react';
 
 import Image from 'next/image';
 
 import Calendar from '@/components/common/Calendar';
 import IcChevronDown from '@/components/common/Dropdown/IcChevronDown';
 import IcChevronUpdown from '@/components/common/Dropdown/IcChevronUpdown';
+
+import { Button } from '@/components/ui/button';
+
+import useFormatDate from '@/hooks/useFormatDate';
 
 const DROPDOWN_ERROR_MSG = {
   category: {
@@ -18,6 +22,7 @@ const DROPDOWN_ERROR_MSG = {
 interface DropdownProps {
   id?: 'category' | 'location';
   items?: string[];
+  setItem?: React.Dispatch<SetStateAction<string | null>>;
   icon?: string;
   isUpDown?: boolean;
   itemTrigger: string;
@@ -27,6 +32,7 @@ interface DropdownProps {
 export default function Dropdown({
   id,
   items,
+  setItem,
   // icon,
   isUpDown,
   itemTrigger = 'Open',
@@ -35,10 +41,13 @@ export default function Dropdown({
   const [isOpen, setIsOpen] = useState(false);
   const [itemValue, setItemValue] = useState<string | null>(itemTrigger);
   const [errorMessage, setErrorMessage] = useState<string | null>();
+  const [date, setDate] = React.useState<Date | undefined>();
 
   const isSelectedValue = itemValue !== itemTrigger;
 
   const dropdownRef = useRef<HTMLDivElement>(null);
+
+  const formattedDate = useFormatDate({ date });
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
@@ -55,11 +64,11 @@ export default function Dropdown({
     setIsOpen(false);
     setItemValue(itemText);
     setErrorMessage(null);
-  };
-
-  const handleCalendarClick = (date: string) => {
-    setIsOpen(false);
-    setItemValue(date);
+    if (itemText?.includes(' · ')) {
+      const parts = itemText.split(' · ');
+      const result = parts[1];
+      setItem && setItem(result);
+    } else setItem && setItem(itemText);
   };
 
   useEffect(() => {
@@ -110,7 +119,7 @@ export default function Dropdown({
       {/* 이후 고정 값 나오면 변경작업 */}
       {isOpen ? (
         items && items.length > 0 ? (
-          <div className="absolute z-10 w-full rounded-md bg-white px-4 py-5 text-body-2Sb shadow-lg">
+          <div className="absolute z-10 h-176 w-full overflow-y-scroll rounded-md bg-white px-4 py-5 text-body-2Sb shadow-lg">
             {items.map((item, index) => (
               <div
                 key={index}
@@ -122,7 +131,14 @@ export default function Dropdown({
             ))}
           </div>
         ) : (
-          <Calendar isDropdown handleCalendarClick={handleCalendarClick} />
+          <div className="absolute rounded-md border bg-white p-12">
+            <Calendar date={date} setDate={setDate} />
+            <Button variant="secondary" className="mt-2 w-full">
+              {formattedDate
+                ? `${formattedDate.formattedDate} (${formattedDate.formattedWeekday})`
+                : '날짜를 선택해주세요'}
+            </Button>
+          </div>
         )
       ) : null}
       {errorMessage && isSubmitted && (

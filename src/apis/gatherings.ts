@@ -31,10 +31,10 @@
 //   return res.data;
 // };
 
-// export const deleteGatherings = async (gatheringId: number, value) => {
-//   const res = await instance.delete(`/gatherings/${gatheringId}/participants`, { data: value });
-//   return res.data;
-// };
+export const postGatherings = async (value: FormData) => {
+  const res = await instance.post('/gatherings', value);
+  return res;
+};
 
 // export const postGatheringsJoin = async (gatheringId: number, value) => {
 //   const res = await instance.post(`/gatherings/${gatheringId}/join`, value);

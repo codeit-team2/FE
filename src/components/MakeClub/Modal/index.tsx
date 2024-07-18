@@ -1,9 +1,12 @@
+import { postGatherings } from '@/apis/gatherings';
+import { CATEGORY, LOCATION } from '@/constants/dropdownItems';
 import { ERROR_MESSAGE, PLACEHOLDER } from '@/constants/formMessages';
 
 import React, { useState } from 'react';
 import { FieldValues, FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 
 import Calendar from '@/components/common/Calendar';
 import Dropdown from '@/components/common/Dropdown';
@@ -40,6 +43,24 @@ export default function MakeClubModal({ trigger }: Props) {
   ];
   const [selectTime, setSelectTime] = useState<string>();
   const [isSubmitCheck, setIsSubmitCheck] = useState(false);
+  const [date, setDate] = React.useState<Date | undefined>();
+  const [gatheringImage, setGatheringImage] = useState<File>();
+  const [category, setCategory] = useState<string | null>(null);
+  const [location, setLocation] = useState<string | null>(null);
+
+  const router = useRouter();
+
+  const flattenCategories = (categoryObj: object) => {
+    const result: string[] = [];
+    for (const [key, values] of Object.entries(categoryObj)) {
+      values.forEach((value: string) => {
+        result.push(`${key} · ${value}`);
+      });
+    }
+    return result;
+  };
+
+  const flattenedCategories = flattenCategories(CATEGORY);
 
   const triggerButton =
     trigger === 'text' ? (
@@ -60,8 +81,45 @@ export default function MakeClubModal({ trigger }: Props) {
     formState: { isValid },
   } = form;
 
-  // const onSubmit: SubmitHandler<FieldValues> = (value: FieldValues) => {}; eslint 설정 때문에 잠시 주석 처리
-  const onSubmit: SubmitHandler<FieldValues> = () => {};
+  const postGatheringsAPI = async (data: FormData) => {
+    try {
+      const res = await postGatherings(data);
+      console.log(res);
+      return res;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  interface CreateGatheringDto {
+    name: string;
+    capacity: number;
+    subCategoryName: string;
+    location: string;
+    dateTime: string;
+  }
+
+  const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+    console.log('onSubmit');
+    console.log(data, category, location, date, gatheringImage);
+    const formData = new FormData();
+    if (data && category && location && date && gatheringImage) {
+      const createGatheringDto: CreateGatheringDto = {
+        name: data.clubName,
+        capacity: data.headcount,
+        location: location,
+        subCategoryName: category,
+        dateTime: date.toISOString(),
+      };
+
+      formData.append('createGatheringDto', JSON.stringify(createGatheringDto));
+      formData.append('gatheringImage', gatheringImage);
+
+      const response = await postGatheringsAPI(formData);
+      console.log(response);
+      response?.status === 201 && router.push('/detail');
+    }
+  };
 
   // login 상태 확인하는 과정 추가 필요
   const isLogin = true;
@@ -86,14 +144,15 @@ export default function MakeClubModal({ trigger }: Props) {
                 <div className="flex w-fit flex-col gap-24">
                   <div>
                     <DialogDescription>대표 이미지</DialogDescription>
-                    <FileInput isSubmitted={isSubmitCheck} />
+                    <FileInput setGatheringImage={setGatheringImage} isSubmitted={isSubmitCheck} />
                   </div>
                   <div className="flex flex-row gap-12">
                     <div className="relative w-3/6">
                       <DialogDescription>카테고리</DialogDescription>
                       <Dropdown
                         id="category"
-                        items={['러닝', '등산', '배드민턴', '헬스']}
+                        items={flattenedCategories}
+                        setItem={setCategory}
                         icon="icons/ic-chevron-down.svg"
                         itemTrigger="카테고리를 선택해주세요"
                         isSubmitted={isSubmitCheck}
@@ -103,7 +162,8 @@ export default function MakeClubModal({ trigger }: Props) {
                       <DialogDescription>지역</DialogDescription>
                       <Dropdown
                         id="location"
-                        items={['중랑구', '광진구', '용산구', '을지로3가']}
+                        items={LOCATION}
+                        setItem={setLocation}
                         icon="icons/ic-chevron-down.svg"
                         itemTrigger="지역을 선택해주세요"
                         isSubmitted={isSubmitCheck}
@@ -112,9 +172,14 @@ export default function MakeClubModal({ trigger }: Props) {
                   </div>
                   <div>
                     <DialogDescription>날짜</DialogDescription>
-                    <div className="mx-auto w-full rounded-md border">
-                      <Calendar />
+                    <div
+                      className={`mx-auto w-full rounded-md border ${!date && isSubmitCheck && 'border-secondary-300'}`}
+                    >
+                      <Calendar date={date} setDate={setDate} />
                     </div>
+                    {!date && isSubmitCheck && (
+                      <p className="mt-6 text-body-2Sb text-secondary-300">날짜를 선택해 주세요</p>
+                    )}
                   </div>
                 </div>
                 <div className="mx-32 my-12 border-l"></div>

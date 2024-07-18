@@ -8,9 +8,10 @@ import { Button } from '@/components/ui/button';
 
 interface Props {
   isSubmitted?: boolean;
+  setGatheringImage: React.Dispatch<React.SetStateAction<File | undefined>>;
 }
 
-export default function FileInput({ isSubmitted }: Props) {
+export default function FileInput({ setGatheringImage, isSubmitted }: Props) {
   const [fileName, setFileName] = useState('');
   const [errorMessage, setErrorMessage] = useState<string | null>();
 
@@ -31,6 +32,7 @@ export default function FileInput({ isSubmitted }: Props) {
     if (file) {
       setFileName(file.name);
       setErrorMessage(null);
+      setGatheringImage(file);
     } else {
       setFileName('');
       setErrorMessage(ERROR_MESSAGE.thumbnail.required);
