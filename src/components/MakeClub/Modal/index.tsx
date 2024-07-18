@@ -5,11 +5,11 @@ import { ERROR_MESSAGE, PLACEHOLDER } from '@/constants/formMessages';
 import React, { useState } from 'react';
 import { FieldValues, FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 
+import DropdownInput from '../DropdownInput';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 
 import Calendar from '@/components/common/Calendar';
-import Dropdown from '@/components/common/Dropdown';
 import Input from '@/components/common/Input';
 import LoginRequired from '@/components/common/Modal/LoginRequired';
 
@@ -45,8 +45,6 @@ export default function MakeClubModal({ trigger }: Props) {
   const [isSubmitCheck, setIsSubmitCheck] = useState(false);
   const [date, setDate] = React.useState<Date | undefined>();
   const [gatheringImage, setGatheringImage] = useState<File>();
-  const [category, setCategory] = useState<string | null>(null);
-  const [location, setLocation] = useState<string | null>(null);
 
   const router = useRouter();
 
@@ -73,9 +71,17 @@ export default function MakeClubModal({ trigger }: Props) {
       </button>
     );
 
-  const form = useForm();
+  interface FormValues {
+    category: string;
+    location: string;
+    clubName: string;
+    capacity: number;
+  }
+
+  const form = useForm<FormValues>();
 
   const {
+    control,
     handleSubmit,
     register,
     formState: { isValid },
@@ -100,15 +106,13 @@ export default function MakeClubModal({ trigger }: Props) {
   }
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
-    console.log('onSubmit');
-    console.log(data, category, location, date, gatheringImage);
     const formData = new FormData();
-    if (data && category && location && date && gatheringImage) {
+    if (data && date && gatheringImage) {
       const createGatheringDto: CreateGatheringDto = {
         name: data.clubName,
-        capacity: data.headcount,
-        location: location,
-        subCategoryName: category,
+        capacity: data.capacity,
+        location: data.location,
+        subCategoryName: data.category,
         dateTime: date.toISOString(),
       };
 
@@ -116,7 +120,6 @@ export default function MakeClubModal({ trigger }: Props) {
       formData.append('gatheringImage', gatheringImage);
 
       const response = await postGatheringsAPI(formData);
-      console.log(response);
       response?.status === 201 && router.push('/detail');
     }
   };
@@ -149,24 +152,26 @@ export default function MakeClubModal({ trigger }: Props) {
                   <div className="flex flex-row gap-12">
                     <div className="relative w-3/6">
                       <DialogDescription>카테고리</DialogDescription>
-                      <Dropdown
+                      <DropdownInput
                         id="category"
-                        items={flattenedCategories}
-                        setItem={setCategory}
-                        icon="icons/ic-chevron-down.svg"
+                        control={control}
                         itemTrigger="카테고리를 선택해주세요"
-                        isSubmitted={isSubmitCheck}
+                        items={flattenedCategories}
+                        {...register('category', {
+                          required: ERROR_MESSAGE.category.required,
+                        })}
                       />
                     </div>
                     <div className="relative w-3/6">
                       <DialogDescription>지역</DialogDescription>
-                      <Dropdown
+                      <DropdownInput
                         id="location"
-                        items={LOCATION}
-                        setItem={setLocation}
-                        icon="icons/ic-chevron-down.svg"
+                        control={control}
                         itemTrigger="지역을 선택해주세요"
-                        isSubmitted={isSubmitCheck}
+                        items={LOCATION}
+                        {...register('location', {
+                          required: ERROR_MESSAGE.location.required,
+                        })}
                       />
                     </div>
                   </div>
@@ -237,8 +242,8 @@ export default function MakeClubModal({ trigger }: Props) {
                       id="headcount"
                       placeholder={PLACEHOLDER.headcount}
                       maxLength={20}
-                      {...register('headcount', {
-                        required: ERROR_MESSAGE.headcount.required,
+                      {...register('capacity', {
+                        required: ERROR_MESSAGE.capacity.required,
                       })}
                     />
                   </div>

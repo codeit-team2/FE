@@ -1,7 +1,5 @@
 import React, { SetStateAction, useEffect, useRef, useState } from 'react';
 
-import Image from 'next/image';
-
 import Calendar from '@/components/common/Calendar';
 import IcChevronDown from '@/components/common/Dropdown/IcChevronDown';
 import IcChevronUpdown from '@/components/common/Dropdown/IcChevronUpdown';
@@ -33,7 +31,6 @@ export default function Dropdown({
   id,
   items,
   setItem,
-  // icon,
   isUpDown,
   itemTrigger = 'Open',
   isSubmitted,
@@ -64,11 +61,7 @@ export default function Dropdown({
     setIsOpen(false);
     setItemValue(itemText);
     setErrorMessage(null);
-    if (itemText?.includes(' · ')) {
-      const parts = itemText.split(' · ');
-      const result = parts[1];
-      setItem && setItem(result);
-    } else setItem && setItem(itemText);
+    setItem && setItem(itemText);
   };
 
   useEffect(() => {
@@ -81,13 +74,6 @@ export default function Dropdown({
     };
   }, []);
 
-  let inputIcon = { icon: '', alt: '' };
-  if (itemValue !== itemTrigger && isSubmitted) {
-    inputIcon = { icon: 'success', alt: '성공 아이콘' };
-  } else if (itemValue === itemTrigger && isSubmitted) {
-    inputIcon = { icon: 'error', alt: '실패 아이콘' };
-  }
-
   return (
     <div ref={dropdownRef} className="relative z-10">
       <button
@@ -97,15 +83,6 @@ export default function Dropdown({
       >
         {itemValue}
         <div className="flex flex-row">
-          {inputIcon.icon && (
-            <Image
-              className={`${inputIcon.icon === 'xmark' && 'cursor-pointer'}`}
-              src={`/icons/ic-${inputIcon.icon}.svg`}
-              alt={inputIcon.alt}
-              width={24}
-              height={24}
-            />
-          )}
           <div className="relative h-32 w-32">
             {isUpDown ? (
               <IcChevronUpdown className="px-10 py-4" />
@@ -119,7 +96,7 @@ export default function Dropdown({
       {/* 이후 고정 값 나오면 변경작업 */}
       {isOpen ? (
         items && items.length > 0 ? (
-          <div className="absolute z-10 h-176 w-full overflow-y-scroll rounded-md bg-white px-4 py-5 text-body-2Sb shadow-lg">
+          <div className="absolute z-10 max-h-176 w-full overflow-y-scroll rounded-md bg-white px-4 py-5 text-body-2Sb shadow-lg">
             {items.map((item, index) => (
               <div
                 key={index}

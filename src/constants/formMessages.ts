@@ -41,7 +41,7 @@ export const ERROR_MESSAGE = {
   clubName: {
     required: '클럽이름을 입력해주세요',
   },
-  headcount: {
+  capacity: {
     required: '인원수를 입력해주세요',
   },
 };
