@@ -1,17 +1,20 @@
 import { useCallback, useEffect, useState } from 'react';
 
+import { Gathering } from '@/types/gathering';
+
 const FAVORITES_KEY = 'favorites';
 
 export default function useFavorite() {
-  const [favorites, setFavorites] = useState<string[]>([]);
+  const [favorites, setFavorites] = useState<Gathering[]>([]);
+
   // 찜 목록 로컬 스토리지에 저장
-  const saveFavorites = (item: string[]) => {
-    setFavorites(item);
-    localStorage.setItem(FAVORITES_KEY, JSON.stringify(item));
+  const saveFavorites = (items: Gathering[]) => {
+    setFavorites(items);
+    localStorage.setItem(FAVORITES_KEY, JSON.stringify(items));
   };
 
-  // 찜 목록 로컬 스토리지에 추가
-  const clickFavorites = (item: string) => {
+  // 찜 목록 로컬 스토리지에 추가/제거
+  const clickFavorites = (item: Gathering) => {
     if (!favorites.includes(item)) {
       const newFavorite = [...favorites, item];
       saveFavorites(newFavorite);
@@ -22,22 +25,15 @@ export default function useFavorite() {
   };
 
   // 찜 목록 가져오기
-  // const getFavorites = () => {
-  //   const storaged = localStorage.getItem(FAVORITES_KEY);
-  //   if (storaged) {
-  //     setFavorites(JSON.parse(storaged));
-  //   }
-  // };
-
   const getFavorites = useCallback(() => {
     const storaged = localStorage.getItem(FAVORITES_KEY);
     if (storaged) {
       setFavorites(JSON.parse(storaged));
     }
-  }, [favorites]);
+  }, []);
 
   // 찜 여부 확인 함수
-  const isFavorite = (item: string) => {
+  const isFavorite = (item: Gathering) => {
     return favorites.includes(item);
   };
 

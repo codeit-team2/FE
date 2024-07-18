@@ -8,15 +8,25 @@ import MainLayout from '@/components/common/MainLayout';
 import Tap from '@/components/common/Tap';
 
 import Card from '@/components/Card';
-import Test from '@/components/Card/testData.js';
 import ChipTap from '@/components/ChipTap';
+import Loading from '@/components/Loading';
 import MakeClubModal from '@/components/MakeClub/Modal';
 import NotCard from '@/components/NotCard';
 
 import useFavorite from '@/hooks/useFavorite';
+import { useGetGathering } from '@/hooks/useGatherings';
+
+import { Gathering } from '@/types/gathering';
 
 export default function Main() {
   const { clickFavorites, isFavorite } = useFavorite();
+
+  const { isLoading, data, isError } = useGetGathering();
+
+  // console.log(isLoading);
+  // console.log(isError);
+  // if (isLoading) return <Loading width="300" height="300" />;
+  // if (isError) return <div>에러!!</div>;
   return (
     <>
       <GNB />
@@ -49,9 +59,9 @@ export default function Main() {
           </div>
           <MakeClubModal trigger="plus" />
           <div className="flex flex-col gap-20">
-            {Test ? (
+            {data ? (
               <>
-                {Test.map((data, index) => (
+                {data.map((data: Gathering, index: number) => (
                   <Card
                     key={index}
                     data={data}
@@ -60,7 +70,10 @@ export default function Main() {
                   />
                 ))}
                 <div className="mb-16 mt-40 h-2 w-full bg-neutral-100" />
-                <button className="flex w-full items-center justify-center pb-50">
+                <button
+                  className="flex w-full items-center justify-center pb-50"
+                  // onClick={handlePagination}
+                >
                   더 보기
                   <div className="relative h-24 w-24">
                     <Image src="icons/ic-chevron-down.svg" alt="dropdown" fill />
