@@ -6,6 +6,7 @@ import React, { useState } from 'react';
 import { FieldValues, FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 
 import Calendar from '@/components/common/Calendar';
 import Dropdown from '@/components/common/Dropdown';
@@ -46,6 +47,8 @@ export default function MakeClubModal({ trigger }: Props) {
   const [gatheringImage, setGatheringImage] = useState<File>();
   const [category, setCategory] = useState<string | null>(null);
   const [location, setLocation] = useState<string | null>(null);
+
+  const router = useRouter();
 
   const flattenCategories = (categoryObj: object) => {
     const result: string[] = [];
@@ -114,6 +117,7 @@ export default function MakeClubModal({ trigger }: Props) {
 
       const response = await postGatheringsAPI(formData);
       console.log(response);
+      response?.status === 201 && router.push('/detail');
     }
   };
 

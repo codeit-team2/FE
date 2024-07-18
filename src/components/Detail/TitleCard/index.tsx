@@ -127,7 +127,8 @@ const userData = {
 export default function TitleCard({ data }: TitleCardProps) {
   const [isBookmarked, setIsBookmarked] = useState(false);
 
-  const formatDate = useFormatDate({ date: data.dateTime });
+  // const formatDate = useFormatDate({ date: data.dateTime });
+  const formattedDate = useFormatDate({ date: data.dateTime });
 
   const handleToggleBookmark = (newState: boolean) => {
     setIsBookmarked(newState);
@@ -154,7 +155,7 @@ export default function TitleCard({ data }: TitleCardProps) {
                   <p>{data.location}</p>
                 </div>
                 <div className="flex gap-6">
-                  <p className="text-secondary-200">마감</p>·<p>{formatDate}</p>
+                  <p className="text-secondary-200">마감</p>·<p>{formattedDate?.formattedTime}</p>
                 </div>
               </div>
               <div className="h-44 w-220 whitespace-normal text-body-1Sb text-white md:h-56 md:w-392 md:text-heading-2Sb">
