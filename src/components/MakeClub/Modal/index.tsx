@@ -23,6 +23,8 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog';
 
+import useIsDateBeforeToday from '@/hooks/useIsDateBeforeToday';
+
 interface Props {
   trigger: 'text' | 'plus';
 }
@@ -46,31 +48,6 @@ export default function MakeClubModal({ trigger }: Props) {
   const [date, setDate] = React.useState<Date | undefined>();
   const [gatheringImage, setGatheringImage] = useState<File>();
 
-  const router = useRouter();
-
-  const flattenCategories = (categoryObj: object) => {
-    const result: string[] = [];
-    for (const [key, values] of Object.entries(categoryObj)) {
-      values.forEach((value: string) => {
-        result.push(`${key} · ${value}`);
-      });
-    }
-    return result;
-  };
-
-  const flattenedCategories = flattenCategories(CATEGORY);
-
-  const triggerButton =
-    trigger === 'text' ? (
-      <Button className="mb-50 hidden md:block">모임만들기</Button>
-    ) : (
-      <button className="fixed bottom-32 right-32 z-20 cursor-pointer rounded-[40px] bg-primary-300 p-16">
-        <div className="relative h-24 w-24">
-          <Image src="/icons/ic-plus.svg" alt="ic-plus" fill />
-        </div>
-      </button>
-    );
-
   interface FormValues {
     category: string;
     location: string;
@@ -87,10 +64,46 @@ export default function MakeClubModal({ trigger }: Props) {
     formState: { isValid },
   } = form;
 
+  const router = useRouter();
+
+  // category 객체 -> 배열
+  const flattenCategories = (categoryObj: object) => {
+    const result: string[] = [];
+    for (const [key, values] of Object.entries(categoryObj)) {
+      values.forEach((value: string) => {
+        result.push(`${key} · ${value}`);
+      });
+    }
+    return result;
+  };
+
+  const flattenedCategories = flattenCategories(CATEGORY);
+
+  // 달력 에러 메세지
+  const isSelectedDateBeforeToday = useIsDateBeforeToday({ date });
+  let dateErrorMsg = null;
+  if (!date) {
+    dateErrorMsg = ERROR_MESSAGE.date.required;
+  } else if (isSelectedDateBeforeToday) {
+    dateErrorMsg = ERROR_MESSAGE.date.invalidRange;
+  } else dateErrorMsg = null;
+
+  // trigger Button - '+' or '모임만들기' text
+  const triggerButton =
+    trigger === 'text' ? (
+      <Button className="mb-50 hidden md:block">모임만들기</Button>
+    ) : (
+      <button className="fixed bottom-32 right-32 z-20 cursor-pointer rounded-[40px] bg-primary-300 p-16">
+        <div className="relative h-24 w-24">
+          <Image src="/icons/ic-plus.svg" alt="ic-plus" fill />
+        </div>
+      </button>
+    );
+
+  // 제출 버튼 클릭 시 작동 api
   const postGatheringsAPI = async (data: FormData) => {
     try {
       const res = await postGatherings(data);
-      console.log(res);
       return res;
     } catch (error) {
       console.log(error);
@@ -105,9 +118,10 @@ export default function MakeClubModal({ trigger }: Props) {
     dateTime: string;
   }
 
+  // 제출 버튼 클릭
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     const formData = new FormData();
-    if (data && date && gatheringImage) {
+    if (data && !dateErrorMsg && date && gatheringImage) {
       const createGatheringDto: CreateGatheringDto = {
         name: data.name,
         capacity: data.capacity,
@@ -127,6 +141,7 @@ export default function MakeClubModal({ trigger }: Props) {
   // login 상태 확인하는 과정 추가 필요
   const isLogin = true;
 
+  // 제출버튼 클릭 여부 (제출과 상관 없이 단순 버튼 클릭 여부)
   const handleSubmitButton = () => {
     setIsSubmitCheck(true);
   };
@@ -178,12 +193,12 @@ export default function MakeClubModal({ trigger }: Props) {
                   <div>
                     <DialogDescription>날짜</DialogDescription>
                     <div
-                      className={`mx-auto w-full rounded-md border ${!date && isSubmitCheck && 'border-secondary-300'}`}
+                      className={`mx-auto w-full rounded-md border ${dateErrorMsg && isSubmitCheck && 'border-secondary-300'}`}
                     >
                       <Calendar date={date} setDate={setDate} />
                     </div>
-                    {!date && isSubmitCheck && (
-                      <p className="mt-6 text-body-2Sb text-secondary-300">날짜를 선택해 주세요</p>
+                    {dateErrorMsg && isSubmitCheck && (
+                      <p className="mt-6 text-body-2Sb text-secondary-300">{dateErrorMsg}</p>
                     )}
                   </div>
                 </div>
