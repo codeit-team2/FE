@@ -15,7 +15,7 @@ interface CustomDivProps {
 interface FormValues {
   category: string;
   location: string;
-  clubName: string;
+  name: string;
   capacity: number;
 }
 

@@ -38,11 +38,13 @@ export const ERROR_MESSAGE = {
   location: {
     required: '지역을 선택해주세요',
   },
-  clubName: {
+  name: {
     required: '클럽이름을 입력해주세요',
   },
   capacity: {
     required: '인원수를 입력해주세요',
+    notANumber: '숫자만 입력해 주세요',
+    invalidRange: '5이상 20이하 숫자만 입력해주세요',
   },
 };
 
@@ -54,8 +56,8 @@ export const PLACEHOLDER = {
   passwordCheck: '비밀번호를 다시 한 번 입력해 주세요',
   category: '카테고리를 선택해 주세요',
   location: '지역을 선택해 주세요',
-  clubName: '30자 이내로 모임명을 입력해 주세요',
-  headcount: '5에서 20까지 숫자로만 입력해 주세요',
+  name: '30자 이내로 모임명을 입력해 주세요',
+  capacity: '5에서 20까지 숫자로만 입력해 주세요',
   review:
     '남겨주신 후기는 모임 운영 및 다른 회원 분들께 큰 도움이 됩니다 (띄어쓰기 포함 50자 이내)',
 };

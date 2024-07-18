@@ -74,7 +74,7 @@ export default function MakeClubModal({ trigger }: Props) {
   interface FormValues {
     category: string;
     location: string;
-    clubName: string;
+    name: string;
     capacity: number;
   }
 
@@ -109,7 +109,7 @@ export default function MakeClubModal({ trigger }: Props) {
     const formData = new FormData();
     if (data && date && gatheringImage) {
       const createGatheringDto: CreateGatheringDto = {
-        name: data.clubName,
+        name: data.name,
         capacity: data.capacity,
         location: data.location,
         subCategoryName: data.category,
@@ -227,11 +227,11 @@ export default function MakeClubModal({ trigger }: Props) {
                     <DialogDescription>모임명</DialogDescription>
                     <Input
                       type="text"
-                      id="clubName"
-                      placeholder={PLACEHOLDER.clubName}
+                      id="name"
+                      placeholder={PLACEHOLDER.name}
                       maxLength={30}
-                      {...register('clubName', {
-                        required: ERROR_MESSAGE.clubName.required,
+                      {...register('name', {
+                        required: ERROR_MESSAGE.name.required,
                       })}
                     />
                   </div>
@@ -239,11 +239,19 @@ export default function MakeClubModal({ trigger }: Props) {
                     <DialogDescription>모임 정원</DialogDescription>
                     <Input
                       type="text"
-                      id="headcount"
-                      placeholder={PLACEHOLDER.headcount}
+                      id="capacity"
+                      placeholder={PLACEHOLDER.capacity}
                       maxLength={20}
                       {...register('capacity', {
                         required: ERROR_MESSAGE.capacity.required,
+                        validate: {
+                          isNumber: (value) => !isNaN(value) || ERROR_MESSAGE.capacity.notANumber,
+                          isInRange: (value) => {
+                            return (
+                              (value >= 5 && value <= 20) || ERROR_MESSAGE.capacity.invalidRange
+                            );
+                          },
+                        },
                       })}
                     />
                   </div>
