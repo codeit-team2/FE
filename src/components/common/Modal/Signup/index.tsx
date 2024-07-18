@@ -10,7 +10,7 @@ import Input from '@/components/common/Input';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog';
 
-import { usePostNickname } from '@/hooks/useAuths';
+import { usePostNickname, usePostSendmail, usePostVerify } from '@/hooks/useAuths';
 
 interface SignupModalProps {
   isSignupModalOpen: boolean;
@@ -25,6 +25,8 @@ export default function SignupModal({
 }: SignupModalProps) {
   const [isAgree, setIsAgree] = useState(false);
   const { mutate: mutateNicknameDuplicate, data: dataNicknameDuplicate } = usePostNickname();
+  const { mutate: mutateSendmail, data: dataSendmail } = usePostSendmail();
+  const { mutate: mutateVerify, data: dataVerify } = usePostVerify();
 
   const form = useForm();
 
@@ -37,13 +39,30 @@ export default function SignupModal({
     formState: { isValid },
   } = form;
 
-  const handleNicknameDuplicate = async () => {
+  const handleNicknameDuplicate = () => {
     mutateNicknameDuplicate({ nickname: watch('nickname') });
     // console.log(watch('nickname'));
   };
+  // console.log(dataNicknameDuplicate);
   // console.log(getFieldState('nickname').invalid)
   // console.log(dataNicknameDuplicate?.isDuplicate);
   // console.log(getFieldState('nickname').invalid && !dataNicknameDuplicate?.isDuplicate);
+  console.log(dataVerify);
+  if (dataSendmail) {
+    console.log(dataSendmail);
+  }
+
+  if (dataVerify) {
+    console.log(dataVerify);
+  }
+
+  const handleSendmail = () => {
+    mutateSendmail({ email: watch('email') });
+  };
+
+  const handleVerify = () => {
+    mutateVerify({ email: watch('email'), verifyCode: watch('verifyCode') });
+  };
 
   // const onSubmit: SubmitHandler<FieldValues> = (value: FieldValues) => {}; 빌드 에러 때문에 주석 처리
   const onSubmit: SubmitHandler<FieldValues> = () => {};
@@ -124,6 +143,7 @@ export default function SignupModal({
                       className="w-130 flex-shrink-0"
                       variant="secondary"
                       disabled={getFieldState('email').invalid}
+                      onClick={handleSendmail}
                     >
                       인증코드 보내기
                     </Button>
@@ -160,6 +180,7 @@ export default function SignupModal({
                       className="w-130 flex-shrink-0"
                       variant="secondary"
                       disabled={getFieldState('verifyCode').invalid}
+                      onClick={handleVerify}
                     >
                       확인
                     </Button>

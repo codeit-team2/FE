@@ -86,6 +86,9 @@ function Input(
       {errors[id] && isSubmitted && (
         <p className="absolute mt-6 text-body-2Sb text-secondary-300">{errorMessage}</p>
       )}
+      {errors[id] && isSubmitted && (
+        <p className="absolute mt-6 text-body-2Sb text-secondary-300">{errorMessage}</p>
+      )}
     </div>
   );
 }

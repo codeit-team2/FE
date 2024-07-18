@@ -11,6 +11,10 @@ import Input from '@/components/common/Input';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 
+import { instance } from '@/lib/axios';
+
+import { useGetAccounts } from '@/hooks/useAccounts';
+import useAuth from '@/hooks/useAuth';
 import { usePostSignin } from '@/hooks/useAuths';
 
 import { PostSignin } from '@/types/auths';
@@ -31,14 +35,33 @@ export default function LoginModal({
   setIsLoginModalOpen,
   setIsSignupModalOpen,
 }: LoginModalProps) {
-  const { mutate, error, data, isSuccess } = usePostSignin();
+  const { mutate: mutateSiginin, error: errorSiginin, data: dataSiginin } = usePostSignin();
+  const { mutate: mutateAccounts, data: dataAccounts } = useGetAccounts();
+  const { auth, setAuth } = useAuth();
 
-  const axiosError = error as AxiosError<ErrorResponse>;
-  console.log(data);
+  const axiosError = errorSiginin as AxiosError<ErrorResponse>;
+  // console.log(auth);
 
-  // if (isSuccess) {
-  //   setCookie('accessToken', data.accessToken);
-  // }
+  useEffect(() => {
+    if (dataSiginin) {
+      // console.log(dataSiginin);
+      setAuth((prev) => ({
+        ...prev,
+        accessToken: dataSiginin.accessToken,
+      }));
+      instance.defaults.headers.common['Authorization'] = `Bearer ${dataSiginin.accessToken}`;
+      mutateAccounts();
+    }
+  }, [dataSiginin?.accessToken]);
+
+  useEffect(() => {
+    if (dataAccounts) {
+      setAuth((prevAuth) => ({
+        ...prevAuth,
+        user: dataAccounts,
+      }));
+    }
+  }, [dataAccounts]);
 
   const form = useForm<PostSignin>();
 
@@ -57,7 +80,7 @@ export default function LoginModal({
   }, [axiosError, setError]);
 
   const onSubmit: SubmitHandler<PostSignin> = (value: PostSignin) => {
-    mutate(value);
+    mutateSiginin(value);
   };
 
   useEffect(() => {

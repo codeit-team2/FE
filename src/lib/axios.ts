@@ -4,7 +4,9 @@ export const instance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_BASE_URL,
   headers: {
     'Content-Type': 'application/json',
+    // Authorization: `Bearer ${auth.accessToken}`,
   },
+  withCredentials: true,
 });
 
 instance.interceptors.request.use(

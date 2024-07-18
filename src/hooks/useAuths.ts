@@ -19,11 +19,14 @@ export const usePostSignup = () =>
 export const usePostSendmail = () =>
   useMutation({
     mutationFn: (value: PostSendmail) => postSendmail(value),
+    // onError: (err) => console.log(err),
+    // onSuccess: (data) => console.log(data),
   });
 
 export const usePostVerify = () =>
   useMutation({
     mutationFn: (value: PostVerify) => postVerify(value),
+    // onError: (err) => console.log(err),
   });
 
 export const usePostNickname = () =>
@@ -34,6 +37,8 @@ export const usePostNickname = () =>
 export const usePostSignin = () =>
   useMutation({
     mutationFn: (value: PostSignin) => postSignin(value),
+    // onError: (err) => console.log(err),
+    // onSuccess: (data) => console.log(data),
   });
 
 export const usePostSignout = () =>
