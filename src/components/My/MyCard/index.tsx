@@ -1,5 +1,3 @@
-import { Data } from '@/types';
-
 import React from 'react';
 
 import Image from 'next/image';
@@ -12,8 +10,10 @@ import { Button } from '@/components/ui/button';
 
 import useIsDateBeforeToday from '@/hooks/useIsDateBeforeToday';
 
+import { TestCardData } from '@/types/testDataType';
+
 interface Props {
-  data: Data;
+  data: TestCardData;
   type?: 'default' | 'review' | 'club';
 }
 

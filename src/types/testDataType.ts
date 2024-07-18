@@ -59,3 +59,17 @@ export interface CategoryReviews {
 export interface ReviewCard {
   categories: CategoryReviews;
 }
+
+//Card
+
+export interface TestCardData {
+  category: string; // 카테고리는 러닝 등 문자열 형태
+  place: string; // 장소도 문자열
+  date: string; // 날짜는 ISO 형식의 문자열
+  title: string; // 이벤트 제목도 문자열
+  member: number; // 멤버 수는 숫자
+  imageUrl: string; // 이미지 URL도 문자열
+  deadline: string; // 마감 정보도 문자열
+  confirmed: boolean; // 확인 여부는 불리언
+  review: boolean; // 리뷰 여부도 불리언
+}
