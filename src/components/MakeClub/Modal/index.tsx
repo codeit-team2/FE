@@ -1,4 +1,5 @@
 import { postGatherings } from '@/apis/gatherings';
+import { CATEGORY, LOCATION } from '@/constants/dropdownItems';
 import { ERROR_MESSAGE, PLACEHOLDER } from '@/constants/formMessages';
 
 import React, { useState } from 'react';
@@ -46,6 +47,18 @@ export default function MakeClubModal({ trigger }: Props) {
   const [category, setCategory] = useState<string | null>(null);
   const [location, setLocation] = useState<string | null>(null);
 
+  const flattenCategories = (categoryObj: object) => {
+    const result: string[] = [];
+    for (const [key, values] of Object.entries(categoryObj)) {
+      values.forEach((value: string) => {
+        result.push(`${key} · ${value}`);
+      });
+    }
+    return result;
+  };
+
+  const flattenedCategories = flattenCategories(CATEGORY);
+
   const triggerButton =
     trigger === 'text' ? (
       <Button className="mb-50 hidden md:block">모임만들기</Button>
@@ -65,6 +78,16 @@ export default function MakeClubModal({ trigger }: Props) {
     formState: { isValid },
   } = form;
 
+  const postGatheringsAPI = async (data: FormData) => {
+    try {
+      const res = await postGatherings(data);
+      console.log(res);
+      return res;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   interface CreateGatheringDto {
     name: string;
     capacity: number;
@@ -73,7 +96,9 @@ export default function MakeClubModal({ trigger }: Props) {
     dateTime: string;
   }
 
-  const onSubmit: SubmitHandler<FieldValues> = (data) => {
+  const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+    console.log('onSubmit');
+    console.log(data, category, location, date, gatheringImage);
     const formData = new FormData();
     if (data && category && location && date && gatheringImage) {
       const createGatheringDto: CreateGatheringDto = {
@@ -85,12 +110,10 @@ export default function MakeClubModal({ trigger }: Props) {
       };
 
       formData.append('createGatheringDto', JSON.stringify(createGatheringDto));
-      console.log(JSON.stringify(createGatheringDto));
-
       formData.append('gatheringImage', gatheringImage);
 
-      const res = postGatherings(formData);
-      console.log(res);
+      const response = await postGatheringsAPI(formData);
+      console.log(response);
     }
   };
 
@@ -124,7 +147,7 @@ export default function MakeClubModal({ trigger }: Props) {
                       <DialogDescription>카테고리</DialogDescription>
                       <Dropdown
                         id="category"
-                        items={['러닝', '등산', '배드민턴', '헬스']}
+                        items={flattenedCategories}
                         setItem={setCategory}
                         icon="icons/ic-chevron-down.svg"
                         itemTrigger="카테고리를 선택해주세요"
@@ -135,7 +158,7 @@ export default function MakeClubModal({ trigger }: Props) {
                       <DialogDescription>지역</DialogDescription>
                       <Dropdown
                         id="location"
-                        items={['중랑구', '광진구', '용산구', '성북구', '을지로3가']}
+                        items={LOCATION}
                         setItem={setLocation}
                         icon="icons/ic-chevron-down.svg"
                         itemTrigger="지역을 선택해주세요"
