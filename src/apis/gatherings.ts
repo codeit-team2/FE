@@ -21,10 +21,10 @@ import { instance } from '@/lib/axios';
 // //   return res.data;
 // // };
 
-// export const getGatherings = async (gatheringId: number, value) => {
-//   const res = await instance.get(`/gatherings/${gatheringId}`, { params: value });
-//   return res.data;
-// };
+export const getGatherings = async (gatheringId: number) => {
+  const res = await instance.get(`/gatherings/${gatheringId}`);
+  return res.data;
+};
 
 // export const getParticipantsList = async (gatheringId: number, value) => {
 //   const res = await instance.get(`/gatherings/${gatheringId}/participants`, { params: value });
