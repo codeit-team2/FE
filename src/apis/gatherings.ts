@@ -32,7 +32,6 @@ import { instance } from '@/lib/axios';
 // };
 
 export const postGatherings = async (value: FormData) => {
-  console.log(value);
   const res = await instance.post('/gatherings', value);
   return res;
 };

@@ -1,6 +1,7 @@
 import { postGatherings } from '@/apis/gatherings';
 import { CATEGORY, LOCATION } from '@/constants/dropdownItems';
 import { ERROR_MESSAGE, PLACEHOLDER } from '@/constants/formMessages';
+import { amTime, pmTime } from '@/constants/timeItems';
 
 import React, { useState } from 'react';
 import { FieldValues, FormProvider, SubmitHandler, useForm } from 'react-hook-form';
@@ -30,19 +31,6 @@ interface Props {
 }
 
 export default function MakeClubModal({ trigger }: Props) {
-  const amTime = ['09:00', '10:00', '11:00', '12:00'];
-  const pmTime = [
-    '13:00',
-    '14:00',
-    '15:00',
-    '16:00',
-    '17:00',
-    '18:00',
-    '19:00',
-    '20:00',
-    '21:00',
-    '22:00',
-  ];
   const [selectTime, setSelectTime] = useState<string>();
   const [isSubmitCheck, setIsSubmitCheck] = useState(false);
   const [date, setDate] = React.useState<Date | undefined>();
@@ -88,6 +76,12 @@ export default function MakeClubModal({ trigger }: Props) {
     dateErrorMsg = ERROR_MESSAGE.date.invalidRange;
   } else dateErrorMsg = null;
 
+  // 시간 에러 메세지
+  let timeErrorMsg: string | null = ERROR_MESSAGE.time.required;
+  if (selectTime) {
+    timeErrorMsg = null;
+  }
+
   // trigger Button - '+' or '모임만들기' text
   const triggerButton =
     trigger === 'text' ? (
@@ -122,10 +116,17 @@ export default function MakeClubModal({ trigger }: Props) {
   // 제출 버튼 클릭
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     const formData = new FormData();
-    if (data && !dateErrorMsg && date) {
+
+    if (data && date && !dateErrorMsg && selectTime && !timeErrorMsg) {
+      // category를 main과 sub로 구분
       const splitItem = data.category.split(' · ');
       const mainCategory = splitItem[0];
       const subCateogry = splitItem[1];
+
+      // dateTime
+      const date_str = date?.toISOString();
+      const date_part = date_str.split('T')[0];
+      const newDatetimeStr = `${date_part}T${selectTime}:00.000Z`;
 
       const request: request = {
         name: data.name,
@@ -133,7 +134,7 @@ export default function MakeClubModal({ trigger }: Props) {
         location: data.location,
         mainCategoryName: mainCategory,
         subCategoryName: subCateogry,
-        dateTime: date.toISOString(),
+        dateTime: newDatetimeStr,
       };
 
       formData.append('request', JSON.stringify(request));
@@ -223,6 +224,7 @@ export default function MakeClubModal({ trigger }: Props) {
                         <Button
                           variant="chip"
                           size="chip"
+                          className={`${timeErrorMsg && isSubmitCheck && `border border-secondary-300`}`}
                           key={i}
                           selected={selectTime === time}
                           onClick={() => setSelectTime(time)}
@@ -240,6 +242,7 @@ export default function MakeClubModal({ trigger }: Props) {
                         <Button
                           variant="chip"
                           size="chip"
+                          className={`${timeErrorMsg && isSubmitCheck && `border border-secondary-300`}`}
                           key={i}
                           selected={selectTime === time}
                           onClick={() => setSelectTime(time)}
@@ -249,6 +252,9 @@ export default function MakeClubModal({ trigger }: Props) {
                         </Button>
                       ))}
                     </div>
+                    {isSubmitCheck && timeErrorMsg && (
+                      <p className="mt-6 text-body-2Sb text-secondary-300">{timeErrorMsg}</p>
+                    )}
                   </div>
                   <div>
                     <DialogDescription>모임명</DialogDescription>

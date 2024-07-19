@@ -42,6 +42,9 @@ export const ERROR_MESSAGE = {
     required: '날짜를 선택해 주세요',
     invalidRange: '이미 지난 날짜는 선택할 수 없습니다',
   },
+  time: {
+    required: '시간을 선택해 주세요',
+  },
   name: {
     required: '클럽이름을 입력해주세요',
   },
