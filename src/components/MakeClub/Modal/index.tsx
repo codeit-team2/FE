@@ -104,7 +104,7 @@ export default function MakeClubModal({ trigger }: Props) {
   }
 
   // react-query
-  const mutation = usePostGatherings();
+  const { mutate } = usePostGatherings();
 
   // 제출 버튼 클릭
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
@@ -133,7 +133,7 @@ export default function MakeClubModal({ trigger }: Props) {
       formData.append('request', JSON.stringify(request));
       formData.append('gatheringImage', data.gatheringImage);
 
-      mutation.mutate(formData, {
+      mutate(formData, {
         onSuccess: (data) => {
           data.status === 201 && router.push('/detail');
         },
