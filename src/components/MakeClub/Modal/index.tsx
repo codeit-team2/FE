@@ -1,4 +1,3 @@
-import { postGatherings } from '@/apis/gatherings';
 import { CATEGORY, LOCATION } from '@/constants/dropdownItems';
 import { ERROR_MESSAGE, PLACEHOLDER } from '@/constants/formMessages';
 import { amTime, pmTime } from '@/constants/timeItems';
@@ -24,6 +23,7 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog';
 
+import { usePostGatherings } from '@/hooks/useGatherings';
 import useIsDateBeforeToday from '@/hooks/useIsDateBeforeToday';
 
 interface Props {
@@ -94,16 +94,6 @@ export default function MakeClubModal({ trigger }: Props) {
       </button>
     );
 
-  // 제출 버튼 클릭 시 작동 api
-  const postGatheringsAPI = async (data: FormData) => {
-    try {
-      const res = await postGatherings(data);
-      return res;
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   interface request {
     name: string;
     capacity: number;
@@ -112,6 +102,9 @@ export default function MakeClubModal({ trigger }: Props) {
     location: string;
     dateTime: string;
   }
+
+  // react-query
+  const mutation = usePostGatherings();
 
   // 제출 버튼 클릭
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
@@ -140,8 +133,14 @@ export default function MakeClubModal({ trigger }: Props) {
       formData.append('request', JSON.stringify(request));
       formData.append('gatheringImage', data.gatheringImage);
 
-      const response = await postGatheringsAPI(formData);
-      response?.status === 201 && router.push('/detail');
+      mutation.mutate(formData, {
+        onSuccess: (data) => {
+          data.status === 201 && router.push('/detail');
+        },
+        onError: (error) => {
+          console.error('Error:', error);
+        },
+      });
     }
   };
 
