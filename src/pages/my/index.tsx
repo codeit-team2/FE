@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
-import Club from './club';
-import Meeting from './meeting';
+import Joined from './joined';
+import Mine from './mine';
 import Review from './review';
 
 import Footer from '@/components/common/Footer';
@@ -13,7 +13,7 @@ import MyTap from '@/components/My/MyTab';
 import Profile from '@/components/My/Profile';
 
 export default function My() {
-  const [selectTab, setSelectTab] = useState('club');
+  const [selectTab, setSelectTab] = useState('meeting');
 
   return (
     <>
@@ -24,9 +24,9 @@ export default function My() {
           <div className="mb-27 mt-32 md:px-156">
             <MyTap setSelectTab={setSelectTab} />
           </div>
-          {selectTab === 'meeting' && <Meeting data={Test} />}
+          {selectTab === 'meeting' && <Joined />}
           {selectTab === 'review' && <Review data={Test} />}
-          {selectTab === 'club' && <Club />}
+          {selectTab === 'club' && <Mine />}
         </div>
       </MainLayout>
       <Footer />

@@ -5,18 +5,11 @@ import NotCard from '@/components/NotCard';
 
 import { useGetGatheringsMine } from '@/hooks/useGatherings';
 
-import { Gathering, GatheringsMine } from '@/types/gatherings';
+import { Gathering, GatheringsParams } from '@/types/gatherings';
 
-export default function Club() {
+export default function Mine() {
   const [page, setPage] = useState<number>(0);
   const [cardItems, setCardItems] = useState<Gathering[]>([]);
-
-  const value: GatheringsMine = {
-    page: page,
-    size: 5,
-    sortBy: 'dateTime',
-    sortOrder: 'asc',
-  };
 
   // button click
   const handleButtonClick = () => {
@@ -24,13 +17,17 @@ export default function Club() {
   };
 
   // getGatheringsMine api
-  const { data, error, isLoading } = useGetGatheringsMine(value);
+  const value: GatheringsParams = {
+    page: page,
+    size: 5,
+    sortBy: 'dateTime',
+    sortOrder: 'asc',
+  };
+
+  const { data } = useGetGatheringsMine(value);
   useEffect(() => {
     data && setCardItems((prev) => [...prev, ...data]);
   }, [data]);
-
-  if (isLoading) return <p>Loading...</p>;
-  if (error) return <p>Error: {error.message}</p>;
 
   return (
     <div className="flex flex-col gap-20 pb-50">

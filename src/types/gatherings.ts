@@ -25,7 +25,7 @@ export interface Account {
   joinedAt: string;
 }
 
-export interface GatheringsMine {
+export interface GatheringsParams {
   page: number;
   size: number;
   sortBy: 'dateTime' | 'participantCount';

@@ -1,7 +1,7 @@
-import { getGatheringsMine, postGatherings } from '@/apis/gatherings';
+import { getGatheringsJoined, getGatheringsMine, postGatherings } from '@/apis/gatherings';
 import { useMutation, useQuery } from '@tanstack/react-query';
 
-import { GatheringsMine } from '@/types/gatherings';
+import { GatheringsParams } from '@/types/gatherings';
 
 export const usePostGatherings = () => {
   return useMutation({
@@ -9,9 +9,16 @@ export const usePostGatherings = () => {
   });
 };
 
-export const useGetGatheringsMine = (value: GatheringsMine) => {
+export const useGetGatheringsMine = (value: GatheringsParams) => {
   return useQuery({
     queryKey: ['gatheringsMine', value],
     queryFn: () => getGatheringsMine(value),
+  });
+};
+
+export const useGetGatheringsJoined = (value: GatheringsParams) => {
+  return useQuery({
+    queryKey: ['gatheringsJoined', value],
+    queryFn: () => getGatheringsJoined(value),
   });
 };
