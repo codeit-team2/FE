@@ -1,8 +1,9 @@
 import { ERROR_MESSAGE, PLACEHOLDER } from '@/constants/formMessages';
 
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
-import { FieldValues, FormProvider, SubmitHandler, useForm } from 'react-hook-form';
+import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 
+import { AxiosError } from 'axios';
 import Image from 'next/image';
 
 import Input from '@/components/common/Input';
@@ -10,7 +11,9 @@ import Input from '@/components/common/Input';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog';
 
-import { usePostNickname, usePostSendmail, usePostVerify } from '@/hooks/useAuths';
+import { usePostNickname, usePostSendmail, usePostSignup, usePostVerify } from '@/hooks/useAuths';
+
+import { PostSignup } from '@/types/auths';
 
 interface SignupModalProps {
   isSignupModalOpen: boolean;
@@ -18,17 +21,71 @@ interface SignupModalProps {
   setIsLoginModalOpen: Dispatch<SetStateAction<boolean>>;
 }
 
+interface SignupValue {
+  nickname: string;
+  email: string;
+  code: string;
+  password: string;
+  passwordCheck: string;
+}
+
+interface SubmitErrorMessages {
+  [key: string]: {
+    message: string;
+    name: 'password' | 'nickname' | 'email' | 'code' | 'passwordCheck';
+  };
+}
+
+const errorMessages: { [key: string]: string } = {
+  SERVER_ERROR: '서버에 문제가 발생했습니다',
+  ALREADY_SIGNED_UP: '이미 회원 가입한 이메일입니다',
+  CANNOT_SEND_MAIL: '이미 인증 메일이 발송되었습니다',
+  NOT_VERIFICATION: '아직 메일 인증을 진행하지 않았습니다',
+  VERIFICATION_FAILED: '인증 코드가 일치하지 않습니다',
+  EXPIRED_VERIFY_CODE: '인증 코드가 만료되었습니다',
+};
+
+const submitErrorMessages: SubmitErrorMessages = {
+  VALIDATION_PASSWORD_ERROR: {
+    message: '영문, 숫자를 포함해 8글자 이상 입력해 주세요',
+    name: 'password',
+  },
+  VALIDATION_NICKNAME_ERROR: {
+    message: '2자~8자 사이의 닉네임을 입력해 주세요',
+    name: 'nickname',
+  },
+  NOT_VERIFICATION: {
+    message: '아직 메일 인증을 진행하지 않았습니다',
+    name: 'email',
+  },
+  DUPLICATE_NICKNAME: {
+    message: '중복된 닉네임입니다',
+    name: 'nickname',
+  },
+};
+
 export default function SignupModal({
   isSignupModalOpen,
   setIsSignupModalOpen,
   setIsLoginModalOpen,
 }: SignupModalProps) {
-  const [isAgree, setIsAgree] = useState(false);
-  const { mutate: mutateNicknameDuplicate, data: dataNicknameDuplicate } = usePostNickname();
-  const { mutate: mutateSendmail, data: dataSendmail } = usePostSendmail();
-  const { mutate: mutateVerify, data: dataVerify } = usePostVerify();
+  const [isValidated, setIsValidated] = useState({
+    nickname: false,
+    verify: false,
+    agree: false,
+  });
+  const [successMessages, setSuccessMessages] = useState({
+    nickname: '',
+    email: '',
+    code: '',
+  });
+  const [propErrorMessage, setErrorMessages] = useState({
+    nickname: '',
+    email: '',
+    code: '',
+  });
 
-  const form = useForm();
+  const form = useForm<SignupValue>();
 
   const {
     handleSubmit,
@@ -36,36 +93,96 @@ export default function SignupModal({
     getFieldState,
     watch,
     trigger,
+    setError,
     formState: { isValid },
   } = form;
 
+  const { mutate: mutateNicknameDuplicate } = usePostNickname({
+    onSuccess: (data: { isDuplicate: boolean }) => {
+      if (!data.isDuplicate) {
+        setSuccessMessages((prev) => ({ ...prev, nickname: '사용 가능한 닉네임입니다' }));
+        setIsValidated((prev) => ({ ...prev, nickname: true }));
+      } else {
+        setErrorMessages((prev) => ({ ...prev, nickname: ERROR_MESSAGE.nickname.duplicate }));
+      }
+    },
+  });
+
   const handleNicknameDuplicate = () => {
     mutateNicknameDuplicate({ nickname: watch('nickname') });
-    // console.log(watch('nickname'));
   };
-  // console.log(dataNicknameDuplicate);
-  // console.log(getFieldState('nickname').invalid)
-  // console.log(dataNicknameDuplicate?.isDuplicate);
-  // console.log(getFieldState('nickname').invalid && !dataNicknameDuplicate?.isDuplicate);
-  console.log(dataVerify);
-  if (dataSendmail) {
-    console.log(dataSendmail);
-  }
 
-  if (dataVerify) {
-    console.log(dataVerify);
-  }
+  const { mutate: mutateSendmail } = usePostSendmail({
+    onSuccess: (data: string) => {
+      if (data === '') {
+        setSuccessMessages((prev) => ({ ...prev, email: '인증코드 전송에 성공했습니다' }));
+      }
+    },
+    onError: (error: AxiosError) => {
+      setSuccessMessages((prev) => ({ ...prev, email: '' }));
+      const parsedErrorCode = JSON.parse(error.request.response);
+      setErrorMessages((prev) => ({ ...prev, email: errorMessages[parsedErrorCode.code] }));
+    },
+  });
 
   const handleSendmail = () => {
     mutateSendmail({ email: watch('email') });
   };
 
+  const { mutate: mutateVerify } = usePostVerify({
+    onSuccess: (data: string) => {
+      if (data === '') {
+        setSuccessMessages((prev) => ({ ...prev, code: '인증코드가 일치합니다' }));
+        setErrorMessages((prev) => ({ ...prev, email: '' }));
+        setIsValidated((prev) => ({ ...prev, verify: true }));
+      }
+    },
+    onError: (error: AxiosError) => {
+      setSuccessMessages((prev) => ({ ...prev, code: '' }));
+      const parsedErrorCode = JSON.parse(error.request.response);
+      setErrorMessages((prev) => ({ ...prev, code: errorMessages[parsedErrorCode.code] }));
+    },
+  });
+
   const handleVerify = () => {
-    mutateVerify({ email: watch('email'), verifyCode: watch('verifyCode') });
+    mutateVerify({ email: watch('email'), code: watch('code') });
   };
 
-  // const onSubmit: SubmitHandler<FieldValues> = (value: FieldValues) => {}; 빌드 에러 때문에 주석 처리
-  const onSubmit: SubmitHandler<FieldValues> = () => {};
+  const { mutate: mutateSubmit } = usePostSignup({
+    onSuccess: () => console.log('회원가입 성공! 추후 성공 모달 제작'),
+    onError: (error: AxiosError) => {
+      const parsedErrorCode = JSON.parse(error.request.response);
+      setError(submitErrorMessages[parsedErrorCode.code].name, {
+        message: submitErrorMessages[parsedErrorCode.code].message,
+      });
+    },
+  });
+
+  const onSubmit: SubmitHandler<SignupValue> = (value: SignupValue) => {
+    const validateFields = () => {
+      if (!isValidated.nickname) {
+        setSuccessMessages((prev) => ({ ...prev, nickname: '' }));
+        setError('nickname', { message: '닉네임을 확인해 주세요' });
+        return false;
+      }
+      if (!isValidated.verify) {
+        setError('email', { message: '이메일 또는 인증코드를 확인해 주세요' });
+        setSuccessMessages((prev) => ({ ...prev, email: '' }));
+        return false;
+      }
+      return true;
+    };
+
+    if (validateFields()) {
+      const values: PostSignup = {
+        nickname: value.nickname,
+        email: value.email,
+        password: value.password,
+      };
+
+      mutateSubmit(values);
+    }
+  };
 
   useEffect(() => {
     trigger();
@@ -92,6 +209,8 @@ export default function SignupModal({
                       id="nickname"
                       placeholder={PLACEHOLDER.nickname}
                       maxLength={8}
+                      successMessage={successMessages.nickname}
+                      propErrorMessage={propErrorMessage.nickname}
                       {...register('nickname', {
                         required: ERROR_MESSAGE.nickname.required,
                         minLength: {
@@ -106,14 +225,19 @@ export default function SignupModal({
                           value: /^[a-zA-Z0-9ㄱ-ㅎㅏ-ㅣ가-힣]*$/,
                           message: ERROR_MESSAGE.nickname.valid,
                         },
-                        onChange: () => trigger('nickname'),
+                        onChange: () => {
+                          setSuccessMessages((prev) => ({ ...prev, nickname: '' }));
+                          setErrorMessages((prev) => ({ ...prev, nickname: '' }));
+                          setIsValidated((prev) => ({ ...prev, nickname: false }));
+                          trigger('nickname');
+                        },
                       })}
                     />
                     <Button
                       type="button"
                       className="w-130 flex-shrink-0"
                       variant="secondary"
-                      disabled={getFieldState('nickname').invalid}
+                      disabled={getFieldState('nickname').invalid || isValidated.nickname}
                       onClick={handleNicknameDuplicate}
                     >
                       중복 검사하기
@@ -129,57 +253,89 @@ export default function SignupModal({
                       type="text"
                       id="email"
                       placeholder={PLACEHOLDER.email}
+                      successMessage={successMessages.email}
+                      propErrorMessage={propErrorMessage.email}
                       {...register('email', {
                         required: ERROR_MESSAGE.email.required,
                         pattern: {
                           value: /^[a-zA-Z0-9+-\_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
                           message: ERROR_MESSAGE.email.valid,
                         },
-                        onChange: () => trigger('email'),
+                        onChange: () => {
+                          setSuccessMessages((prev) => ({ ...prev, email: '' }));
+                          setErrorMessages((prev) => ({ ...prev, email: '' }));
+                          setIsValidated((prev) => ({ ...prev, verify: false }));
+                          trigger('email');
+                        },
                       })}
                     />
-                    <Button
-                      type="button"
-                      className="w-130 flex-shrink-0"
-                      variant="secondary"
-                      disabled={getFieldState('email').invalid}
-                      onClick={handleSendmail}
-                    >
-                      인증코드 보내기
-                    </Button>
+                    {isValidated.verify ? (
+                      <Button
+                        type="button"
+                        className="w-130 flex-shrink-0"
+                        variant="secondary"
+                        disabled={true}
+                        onClick={handleSendmail}
+                      >
+                        인증완료
+                      </Button>
+                    ) : (
+                      <Button
+                        type="button"
+                        className="w-130 flex-shrink-0"
+                        variant="secondary"
+                        disabled={getFieldState('email').invalid || !!successMessages.code}
+                        onClick={handleSendmail}
+                      >
+                        인증코드 보내기
+                      </Button>
+                    )}
                   </div>
                 </div>
                 <div>
                   <div className="mb-6 flex justify-between text-body-2Sb">
-                    <label htmlFor="verifyCode">이메일 인증코드</label>
-                    <span className="cursor-pointer text-primary-300 underline underline-offset-2">
+                    <label htmlFor="code">이메일 인증코드</label>
+                    <button
+                      className={`underline underline-offset-2 ${isValidated.verify && (getFieldState('email').invalid || !!successMessages.code) ? 'hidden' : 'text-primary-300'}`}
+                      type="button"
+                      onClick={handleSendmail}
+                      disabled={getFieldState('email').invalid && !!successMessages.code}
+                    >
                       인증코드 재전송
-                    </span>
+                    </button>
                   </div>
                   <div className="flex gap-8">
                     <Input
                       type="text"
-                      id="verifyCode"
-                      placeholder={PLACEHOLDER.verifyCode}
+                      id="code"
+                      placeholder={PLACEHOLDER.code}
+                      successMessage={successMessages.code}
+                      propErrorMessage={propErrorMessage.code}
                       maxLength={6}
-                      {...register('verifyCode', {
-                        required: ERROR_MESSAGE.verifyCode.required,
+                      {...register('code', {
+                        required: ERROR_MESSAGE.code.required,
                         maxLength: {
                           value: 6,
-                          message: ERROR_MESSAGE.verifyCode.max,
+                          message: ERROR_MESSAGE.code.max,
                         },
                         pattern: {
                           value: /^\d{6}$/,
-                          message: ERROR_MESSAGE.verifyCode.valid,
+                          message: ERROR_MESSAGE.code.valid,
                         },
-                        onChange: () => trigger('verifyCode'),
+                        onChange: () => {
+                          setSuccessMessages((prev) => ({ ...prev, code: '' }));
+                          setErrorMessages((prev) => ({ ...prev, code: '' }));
+                          setErrorMessages((prev) => ({ ...prev, email: '' }));
+                          trigger('code');
+                          setIsValidated((prev) => ({ ...prev, verify: false }));
+                        },
                       })}
                     />
                     <Button
                       type="button"
                       className="w-130 flex-shrink-0"
                       variant="secondary"
-                      disabled={getFieldState('verifyCode').invalid}
+                      disabled={getFieldState('code').invalid}
                       onClick={handleVerify}
                     >
                       확인
@@ -232,8 +388,11 @@ export default function SignupModal({
                 </div>
                 <div>
                   <div className="flex items-center gap-6">
-                    <button type="button" onClick={() => setIsAgree((prev) => !prev)}>
-                      {isAgree ? (
+                    <button
+                      type="button"
+                      onClick={() => setIsValidated((prev) => ({ ...prev, agree: !prev.agree }))}
+                    >
+                      {isValidated.agree ? (
                         <Image
                           src={'/icons/ic-checkbox-on.svg'}
                           alt="체크 상태 아이콘"
@@ -263,7 +422,7 @@ export default function SignupModal({
                 </div>
                 <div className="fixed bottom-32 w-[calc(100%-40px)] md:w-[calc(520px-80px)]">
                   <Button
-                    className={`mb-24 w-full ${(!isValid || !isAgree) && 'cursor-default bg-neutral-400 !text-neutral-100 hover:!text-neutral-100'}`}
+                    className={`mb-24 w-full ${(!isValid || !isValidated.agree) && 'cursor-default bg-neutral-400 !text-neutral-100 hover:!text-neutral-100'}`}
                     variant="secondary"
                     type="submit"
                   >
