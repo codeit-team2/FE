@@ -9,6 +9,7 @@ import { Gathering, GatheringsMine } from '@/types/gatherings';
 
 export default function Club() {
   const [page, setPage] = useState<number>(0);
+  const [cardItems, setCardItems] = useState<Gathering[]>([]);
 
   const value: GatheringsMine = {
     page: page,
@@ -17,22 +18,29 @@ export default function Club() {
     sortOrder: 'asc',
   };
 
+  // button click
+  const handleButtonClick = () => {
+    setPage(page + 1);
+  };
+
+  // getGatheringsMine api
   const { data, error, isLoading } = useGetGatheringsMine(value);
   useEffect(() => {
-    console.log(data);
+    data && setCardItems((prev) => [...prev, ...data]);
   }, [data]);
 
   if (isLoading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
+
   return (
     <div className="flex flex-col gap-20 pb-50">
       {/* 내가 만든 모임만 뜨도록 데이터 수정 필요 */}
-      {data ? (
+      {cardItems ? (
         <>
-          {data.map((data: Gathering, index: number) => (
+          {cardItems.map((data: Gathering, index: number) => (
             <MyCard type="club" key={index} data={data} />
           ))}
-          <button onClick={() => setPage(page + 1)}>더보기</button>
+          <button onClick={() => handleButtonClick()}>더보기</button>
         </>
       ) : (
         <NotCard />

@@ -13,7 +13,7 @@ import MyTap from '@/components/My/MyTab';
 import Profile from '@/components/My/Profile';
 
 export default function My() {
-  const [selectTab, setSelectTab] = useState('meeting');
+  const [selectTab, setSelectTab] = useState('club');
 
   return (
     <>

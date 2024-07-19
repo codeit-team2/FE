@@ -33,19 +33,23 @@ export default function MyCard({ data, type = 'default' }: Props) {
             이용예정
           </div>
         )}
-        {/* 작업 필요 */}
-        {/* {data.confirmed && !isDateBeforeToday && (
+        {data.participantCount >= 5 && !isDateBeforeToday && (
           <div className="absolute left-61 z-10 flex h-36 w-91 items-center justify-center rounded-br-md rounded-tl-md bg-secondary-300 pl-10 text-body-2M text-white">
             개설확정
           </div>
-        )} */}
-        {isDateBeforeToday && (
-          <div className="absolute flex h-full w-full items-center justify-center rounded-md bg-neutral-900 text-white opacity-70">
-            이용하신 모임에 대해
-            <br />
-            후기를 남겨주세요
-          </div>
         )}
+        {isDateBeforeToday &&
+          (type === 'club' ? (
+            <div className="absolute flex h-full w-full items-center justify-center rounded-md bg-neutral-900 text-white opacity-70">
+              이미 종료된 모임입니다
+            </div>
+          ) : (
+            <div className="absolute flex h-full w-full items-center justify-center rounded-md bg-neutral-900 text-white opacity-70">
+              이용하신 모임에 대해
+              <br />
+              후기를 남겨주세요
+            </div>
+          ))}
       </div>
       <div className="flex grow flex-col justify-between">
         <Description data={data} />
