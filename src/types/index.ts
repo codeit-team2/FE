@@ -24,7 +24,7 @@ export type ErrorMessage = {
     duplicate: string;
     register: string;
   };
-  verifyCode: {
+  code: {
     required: string;
     max: string;
     valid: string;

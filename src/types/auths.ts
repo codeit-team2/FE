@@ -10,7 +10,7 @@ export interface PostSendmail {
 
 export interface PostVerify {
   email: string;
-  verifyCode: string;
+  code: string;
 }
 
 export interface PostNickname {
