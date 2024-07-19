@@ -157,11 +157,11 @@ export default function MakeClubModal({ trigger }: Props) {
     <Dialog>
       <DialogTrigger asChild>{triggerButton}</DialogTrigger>
       {isLogin ? (
-        <DialogContent className="flex h-729 w-fit flex-col items-center gap-24 overflow-y-scroll px-40 py-32">
+        <DialogContent className="flex h-fit max-h-[729px] w-fit flex-col items-center gap-24 overflow-y-scroll px-40 py-32">
           <DialogTitle className="w-440 text-center md:w-952">모임 만들기</DialogTitle>
           <FormProvider {...form}>
             <form
-              className="flex h-full w-fit flex-col justify-around"
+              className="flex h-full w-fit flex-col justify-between"
               autoComplete="off"
               onSubmit={handleSubmit(onSubmit)}
             >
