@@ -13,6 +13,7 @@ interface CustomDivProps {
 }
 
 interface FormValues {
+  gatheringImage: File | null;
   category: string;
   location: string;
   name: string;
@@ -47,11 +48,7 @@ export default function DropdownInput({ id, control, itemTrigger, items }: Custo
     setIsOpen(false);
     setItemValue(itemText);
     // 폼 상태를 업데이트
-    if (itemText.includes(' · ')) {
-      const parts = itemText.split(' · ');
-      const result = parts[1];
-      onChange(result);
-    } else onChange(itemText);
+    onChange(itemText);
   };
 
   let inputIcon = { icon: '', alt: '' };

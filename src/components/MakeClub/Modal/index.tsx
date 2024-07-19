@@ -46,9 +46,9 @@ export default function MakeClubModal({ trigger }: Props) {
   const [selectTime, setSelectTime] = useState<string>();
   const [isSubmitCheck, setIsSubmitCheck] = useState(false);
   const [date, setDate] = React.useState<Date | undefined>();
-  const [gatheringImage, setGatheringImage] = useState<File>();
 
   interface FormValues {
+    gatheringImage: File | null;
     category: string;
     location: string;
     name: string;
@@ -110,9 +110,10 @@ export default function MakeClubModal({ trigger }: Props) {
     }
   };
 
-  interface CreateGatheringDto {
+  interface request {
     name: string;
     capacity: number;
+    mainCategoryName: string;
     subCategoryName: string;
     location: string;
     dateTime: string;
@@ -121,17 +122,22 @@ export default function MakeClubModal({ trigger }: Props) {
   // 제출 버튼 클릭
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     const formData = new FormData();
-    if (data && !dateErrorMsg && date && gatheringImage) {
-      const createGatheringDto: CreateGatheringDto = {
+    if (data && !dateErrorMsg && date) {
+      const splitItem = data.category.split(' · ');
+      const mainCategory = splitItem[0];
+      const subCateogry = splitItem[1];
+
+      const request: request = {
         name: data.name,
         capacity: data.capacity,
         location: data.location,
-        subCategoryName: data.category,
+        mainCategoryName: mainCategory,
+        subCategoryName: subCateogry,
         dateTime: date.toISOString(),
       };
 
-      formData.append('createGatheringDto', JSON.stringify(createGatheringDto));
-      formData.append('gatheringImage', gatheringImage);
+      formData.append('request', JSON.stringify(request));
+      formData.append('gatheringImage', data.gatheringImage);
 
       const response = await postGatheringsAPI(formData);
       response?.status === 201 && router.push('/detail');
@@ -162,7 +168,13 @@ export default function MakeClubModal({ trigger }: Props) {
                 <div className="flex w-fit flex-col gap-24">
                   <div>
                     <DialogDescription>대표 이미지</DialogDescription>
-                    <FileInput setGatheringImage={setGatheringImage} isSubmitted={isSubmitCheck} />
+                    <FileInput
+                      id="gatheringImage"
+                      control={control}
+                      {...register('gatheringImage', {
+                        required: ERROR_MESSAGE.gatheringImage.required,
+                      })}
+                    />
                   </div>
                   <div className="flex flex-row gap-12">
                     <div className="relative w-3/6">
@@ -170,7 +182,7 @@ export default function MakeClubModal({ trigger }: Props) {
                       <DropdownInput
                         id="category"
                         control={control}
-                        itemTrigger="카테고리를 선택해주세요"
+                        itemTrigger={PLACEHOLDER.category}
                         items={flattenedCategories}
                         {...register('category', {
                           required: ERROR_MESSAGE.category.required,
@@ -182,7 +194,7 @@ export default function MakeClubModal({ trigger }: Props) {
                       <DropdownInput
                         id="location"
                         control={control}
-                        itemTrigger="지역을 선택해주세요"
+                        itemTrigger={PLACEHOLDER.location}
                         items={LOCATION}
                         {...register('location', {
                           required: ERROR_MESSAGE.location.required,

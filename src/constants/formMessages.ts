@@ -29,7 +29,7 @@ export const ERROR_MESSAGE = {
     min: '2자~50자 사이의 소감을 입력해 주세요',
     max: '2자~50자 사이의 소감을 입력해 주세요',
   },
-  thumbnail: {
+  gatheringImage: {
     required: '대표 이미지를 등록해주세요',
   },
   category: {
