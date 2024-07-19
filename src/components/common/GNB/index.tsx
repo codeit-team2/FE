@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
 import Image from 'next/image';
 import Link from 'next/link';
@@ -7,21 +7,15 @@ import LoginModal from '@/components/common/Modal/Login';
 import SignupModal from '@/components/common/Modal/Signup';
 
 import { useGetAccounts } from '@/hooks/useAccounts';
-import useAuth from '@/hooks/useAuth';
 
 export default function GNB() {
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const [isSignupModalOpen, setIsSignupModalOpen] = useState(false);
-  // const { mutate: mutateAccounts, data: dataAccounts } = useGetAccounts();
-  const {
-    auth: { accessToken, user },
-  } = useAuth();
-
-  console.log(accessToken);
 
   // api 연동하면서 수정필요
-  const isloginStatus = false;
   const likeItems = 10;
+
+  const { data: user } = useGetAccounts();
 
   return (
     <div className="flex w-full flex-row justify-between px-20 py-16 shadow-sm md:px-32 md:py-16">
@@ -35,7 +29,7 @@ export default function GNB() {
         <Link href="/" className="font-Pretendard text-base font-medium text-gray-500">
           모든 리뷰
         </Link>
-        {user.email ? (
+        {user?.email ? (
           <>
             <div className="flex flex-row gap-4">
               <Link href="/" className="font-Pretendard text-base font-medium text-gray-500">
@@ -44,7 +38,7 @@ export default function GNB() {
               {likeItems ? <p className="text-blue-600">{likeItems}</p> : ''}
             </div>
             <div>
-              {user.profileImageUrl ? (
+              {user?.profileImageUrl ? (
                 <Image src={user.profileImageUrl} alt="프로필 사진" width={32} height={32} />
               ) : (
                 <Image src="/icons/ic-profile.svg" alt="ic-profile" width={32} height={32} />

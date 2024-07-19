@@ -1,7 +1,11 @@
 import { getAccounts } from '@/apis/accounts';
-import { useMutation } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
+
+import { getCookie } from 'cookies-next';
 
 export const useGetAccounts = () =>
-  useMutation({
-    mutationFn: () => getAccounts(),
+  useQuery({
+    queryKey: ['user'],
+    queryFn: () => getAccounts(),
+    enabled: !!getCookie('accessToken'),
   });

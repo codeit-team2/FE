@@ -12,14 +12,21 @@ import Test from '@/components/Card/testData';
 import MyTap from '@/components/My/MyTab';
 import Profile from '@/components/My/Profile';
 
+import { useGetAccounts } from '@/hooks/useAccounts';
+import useCheckLogin from '@/hooks/useCheckLogin';
+
 export default function My() {
+  useCheckLogin();
+
   const [selectTab, setSelectTab] = useState('meeting');
+  const { data: user } = useGetAccounts();
+
   return (
     <>
       <GNB />
       <MainLayout>
         <div className="mx-auto max-w-screen-lg">
-          <Profile nickname="배고픈 망곰이" email="hungrybear@gamil.com" />
+          <Profile nickname={user?.nickname} email={user?.email} />
           <div className="mb-27 mt-32 md:px-156">
             <MyTap setSelectTab={setSelectTab} />
           </div>
