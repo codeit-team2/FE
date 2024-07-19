@@ -43,6 +43,7 @@ export default function Bookmark() {
             items={['마감임박', '참여 인원순']}
             icon="/icons/ic-chevron-updown.svg"
             itemTrigger="마감임박"
+            isUpDown
           />
         </div>
         <div className="flex flex-col gap-20">

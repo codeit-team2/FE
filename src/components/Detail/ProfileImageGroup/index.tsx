@@ -4,10 +4,10 @@ import Image from 'next/image';
 
 import useIsMobile from '@/hooks/useIsMobile';
 
-import { User } from '@/types/testDataType';
+import { Account } from '@/types/testDataType';
 
 interface ProfileImageGroupProps {
-  usersProfile: User[];
+  usersProfile: Account[];
 }
 
 export default function ProfileImageGroup({ usersProfile }: ProfileImageGroupProps) {
@@ -34,7 +34,7 @@ export default function ProfileImageGroup({ usersProfile }: ProfileImageGroupPro
           }}
         >
           <Image
-            src={user.profileImage}
+            src={user.profileImageUrl}
             alt={`profile-${index}`}
             fill
             objectFit="cover"

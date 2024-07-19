@@ -238,15 +238,28 @@ const config = {
           from: { height: 'var(--radix-accordion-content-height)' },
           to: { height: '0' },
         },
-        spins: {
+        halfTurn: {
           from: { transform: 'rotate(0deg)' },
-          to: { transform: 'rotate(360deg)' },
+          to: { transform: 'rotate(180deg)' },
+        },
+        fillHeart: {
+          '0%': { transform: 'scale(0)' },
+          '20%': { transform: 'scale(0.2)' },
+          '60%': { transform: 'scale(0.6)' },
+          '100%': { transform: 'scale(1)' },
+        },
+        pulseSmall: {
+          '0%': { transform: 'scale(1)' },
+          '50%': { transform: 'scale(0.8)' },
+          '100%': { transform: 'scale(1)' },
         },
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
-        spins: 'spin 2s linear 2',
+        halfTurn: 'halfTurn 300ms linear forwards',
+        fillHeart: 'fillHeart 300ms ease-in-out',
+        pulseSmall: 'pulseSmall 300ms ease-in-out',
       },
     },
   },

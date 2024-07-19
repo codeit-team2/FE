@@ -10,8 +10,18 @@ import { cn } from '@/lib/utils';
 export type CalendarProps = React.ComponentProps<typeof DayPicker>;
 
 function UiCalendar({ className, classNames, showOutsideDays = true, ...props }: CalendarProps) {
+  const koreanDateFormatter = (date: Date) => {
+    const year = date.getFullYear();
+    const month = date.getMonth() + 1; // 월은 0부터 시작하므로 1을 더해줍니다.
+    return `${year}년 ${month}월`;
+  };
+
   return (
     <DayPicker
+      formatters={{
+        formatMonthCaption: koreanDateFormatter, // Month 표시 부분에 포맷터 적용
+        formatCaption: koreanDateFormatter, // 전체 캡션에 포맷터 적용 (선택 사항)
+      }}
       showOutsideDays={showOutsideDays}
       className={cn('mx-auto w-fit border-none p-12', className)}
       classNames={{
@@ -27,7 +37,7 @@ function UiCalendar({ className, classNames, showOutsideDays = true, ...props }:
         nav_button_previous: 'absolute left-1',
         nav_button_next: 'absolute right-1',
         table: 'w-full border-collapse space-y-28',
-        head_row: 'flex',
+        head_row: 'flex bg-neutral-50 rounded-[99px] py-[10px]',
         head_cell: 'text-muted-foreground rounded-md w-36 font-normal text-[0.8rem]',
         row: 'flex w-full mt-8',
         cell: 'h-36 w-36 text-center text-sm p-0 relative [&:has([aria-selected].day-range-end)]:rounded-full [&:has([aria-selected].day-outside)]:bg-accent/50 [&:has([aria-selected].day-outside)]:rounded-full focus-within:relative focus-within:z-20',
