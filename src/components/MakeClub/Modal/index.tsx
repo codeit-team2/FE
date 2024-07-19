@@ -133,9 +133,11 @@ export default function MakeClubModal({ trigger }: Props) {
       formData.append('request', JSON.stringify(request));
       formData.append('gatheringImage', data.gatheringImage);
 
+      // api 함수
       mutate(formData, {
         onSuccess: (data) => {
-          data.status === 201 && router.push('/detail');
+          const gatheringId = data.data.gatheringId.toString();
+          data.status === 201 && router.push(`/detail/${gatheringId}`);
         },
         onError: (error) => {
           console.error('Error:', error);
