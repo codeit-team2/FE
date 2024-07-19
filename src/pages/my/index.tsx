@@ -14,6 +14,7 @@ import Profile from '@/components/My/Profile';
 
 export default function My() {
   const [selectTab, setSelectTab] = useState('meeting');
+
   return (
     <>
       <GNB />
@@ -25,7 +26,7 @@ export default function My() {
           </div>
           {selectTab === 'meeting' && <Meeting data={Test} />}
           {selectTab === 'review' && <Review data={Test} />}
-          {selectTab === 'club' && <Club data={Test} />}
+          {selectTab === 'club' && <Club />}
         </div>
       </MainLayout>
       <Footer />

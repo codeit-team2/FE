@@ -24,3 +24,10 @@ export interface Account {
   profileImageUrl: string;
   joinedAt: string;
 }
+
+export interface GatheringsMine {
+  page: number;
+  size: number;
+  sortBy: 'dateTime' | 'participantCount';
+  sortOrder: 'asc' | 'desc';
+}
