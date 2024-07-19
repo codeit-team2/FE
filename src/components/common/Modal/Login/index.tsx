@@ -1,20 +1,18 @@
 import { ERROR_MESSAGE, PLACEHOLDER } from '@/constants/formMessages';
 import { ErrorResponse } from '@/types';
+import { useQueryClient } from '@tanstack/react-query';
 
 import { Dispatch, SetStateAction, useEffect } from 'react';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 
 import { AxiosError } from 'axios';
+import { setCookie } from 'cookies-next';
 
 import Input from '@/components/common/Input';
 
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 
-import { instance } from '@/lib/axios';
-
-import { useGetAccounts } from '@/hooks/useAccounts';
-import useAuth from '@/hooks/useAuth';
 import { usePostSignin } from '@/hooks/useAuths';
 
 import { PostSignin } from '@/types/auths';
@@ -35,33 +33,20 @@ export default function LoginModal({
   setIsLoginModalOpen,
   setIsSignupModalOpen,
 }: LoginModalProps) {
-  const { mutate: mutateSiginin, error: errorSiginin, data: dataSiginin } = usePostSignin();
-  const { mutate: mutateAccounts, data: dataAccounts } = useGetAccounts();
-  const { auth, setAuth } = useAuth();
+  const queryClient = useQueryClient();
+  const { mutate: mutateSiginin, error: errorSiginin } = usePostSignin({
+    onSuccess: (data: { accessToken: string; tokenScheme: string }) => {
+      setCookie('accessToken', data.accessToken);
+      queryClient.invalidateQueries({
+        queryKey: ['user'],
+        refetchType: 'active',
+      });
+      setIsLoginModalOpen(false);
+      console.log('로그인 성공! 추후 성공 모달 제작');
+    },
+  });
 
   const axiosError = errorSiginin as AxiosError<ErrorResponse>;
-  // console.log(auth);
-
-  useEffect(() => {
-    if (dataSiginin) {
-      // console.log(dataSiginin);
-      setAuth((prev) => ({
-        ...prev,
-        accessToken: dataSiginin.accessToken,
-      }));
-      instance.defaults.headers.common['Authorization'] = `Bearer ${dataSiginin.accessToken}`;
-      mutateAccounts();
-    }
-  }, [dataSiginin?.accessToken]);
-
-  useEffect(() => {
-    if (dataAccounts) {
-      setAuth((prevAuth) => ({
-        ...prevAuth,
-        user: dataAccounts,
-      }));
-    }
-  }, [dataAccounts]);
 
   const form = useForm<PostSignin>();
 

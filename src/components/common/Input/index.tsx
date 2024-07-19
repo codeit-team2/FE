@@ -9,10 +9,21 @@ interface InputProps {
   placeholder: string;
   maxLength?: number;
   isDisabled?: boolean;
+  successMessage?: string;
+  propErrorMessage?: string;
 }
 
 function Input(
-  { type, id, placeholder, maxLength, isDisabled, ...props }: InputProps,
+  {
+    type,
+    id,
+    placeholder,
+    maxLength,
+    isDisabled,
+    successMessage,
+    propErrorMessage,
+    ...props
+  }: InputProps,
   ref: React.ForwardedRef<HTMLInputElement>,
 ) {
   const {
@@ -83,8 +94,11 @@ function Input(
           )}
         </div>
       </div>
-      {errors[id] && isSubmitted && (
-        <p className="absolute mt-6 text-body-2Sb text-secondary-300">{errorMessage}</p>
+      {propErrorMessage && !successMessage && (
+        <p className="absolute mt-6 text-body-2Sb text-secondary-300">{propErrorMessage}</p>
+      )}
+      {successMessage && (
+        <p className="absolute mt-6 text-body-2Sb text-primary-300">{successMessage}</p>
       )}
       {errors[id] && isSubmitted && (
         <p className="absolute mt-6 text-body-2Sb text-secondary-300">{errorMessage}</p>
