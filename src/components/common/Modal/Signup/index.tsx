@@ -149,7 +149,10 @@ export default function SignupModal({
   };
 
   const { mutate: mutateSubmit } = usePostSignup({
-    onSuccess: () => console.log('회원가입 성공! 추후 성공 모달 제작'),
+    onSuccess: () => {
+      setIsLoginModalOpen(false);
+      console.log('회원가입 성공! 추후 성공 모달 제작');
+    },
     onError: (error: AxiosError) => {
       const parsedErrorCode = JSON.parse(error.request.response);
       setError(submitErrorMessages[parsedErrorCode.code].name, {
