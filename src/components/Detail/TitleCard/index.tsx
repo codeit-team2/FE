@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 
-import InfoBadge from '../InfoBadge';
 import Image from 'next/image';
 
 import Bookmark from '@/components/common/Bookmark';
 
+import InfoBadge from '@/components/Detail/InfoBadge';
+
 import useFormatDate from '@/hooks/useFormatDate';
 
-import { Gathering } from '@/types/testDataType';
+import { Gathering } from '@/types/gatherings';
 
 interface TitleCardProps {
   data: Gathering;
@@ -127,7 +128,6 @@ const userData = {
 export default function TitleCard({ data }: TitleCardProps) {
   const [isBookmarked, setIsBookmarked] = useState(false);
 
-  // const formatDate = useFormatDate({ date: data.dateTime });
   const formattedDate = useFormatDate({ date: data.dateTime });
 
   const handleToggleBookmark = (newState: boolean) => {
@@ -151,11 +151,15 @@ export default function TitleCard({ data }: TitleCardProps) {
             <div className="mx-0 mt-16 flex flex-col gap-6 px-20 text-body-3Sb text-neutral-300 md:mx-20 md:px-0 md:text-body-2Sb">
               <div className="flex flex-col">
                 <div className="flex gap-6">
-                  <p className="text-primary-200">{data.subCategory}</p>
+                  <p className="text-primary-200">{data.subCategoryName}</p>
                   <p>{data.location}</p>
                 </div>
                 <div className="flex gap-6">
-                  <p className="text-secondary-200">마감</p>·<p>{formattedDate?.formattedTime}</p>
+                  <div className="flex gap-6">
+                    <p className="text-secondary-200">{formattedDate?.deadline}</p>·
+                  </div>
+                  <p>{formattedDate?.formattedDate}</p>
+                  <p>{formattedDate?.formattedWeekday}</p>·<p>{formattedDate?.formattedTime}</p>
                 </div>
               </div>
               <div className="h-44 w-220 whitespace-normal text-body-1Sb text-white md:h-56 md:w-392 md:text-heading-2Sb">

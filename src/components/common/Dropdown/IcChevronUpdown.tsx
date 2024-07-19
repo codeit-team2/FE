@@ -17,17 +17,17 @@ export default function IcChevronUpdown({ className }: IcChevronUpdown) {
           id="Vector 1843"
           d="M1 13L6 18L11 13"
           stroke="currentColor"
-          stroke-width="1.5"
-          stroke-linecap="round"
+          strokeWidth="1.5"
+          strokeLinecap="round"
         />
         <path
           id="Vector 1844"
           d="M11 7L6 2L1 7"
           stroke="currentColor"
-          stroke-width="1.5"
-          stroke-linecap="round"
+          strokeWidth="1.5"
+          strokeLinecap="round"
         />
-        <path id="Vector 1845" d="M6 18V2.5" stroke="currentColor" stroke-width="1.5" />
+        <path id="Vector 1845" d="M6 18V2.5" stroke="currentColor" strokeWidth="1.5" />
       </g>
     </svg>
   );
