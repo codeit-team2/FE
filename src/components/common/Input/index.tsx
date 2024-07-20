@@ -9,10 +9,21 @@ interface InputProps {
   placeholder: string;
   maxLength?: number;
   isDisabled?: boolean;
+  successMessage?: string;
+  propErrorMessage?: string;
 }
 
 function Input(
-  { type, id, placeholder, maxLength, isDisabled, ...props }: InputProps,
+  {
+    type,
+    id,
+    placeholder,
+    maxLength,
+    isDisabled,
+    successMessage,
+    propErrorMessage,
+    ...props
+  }: InputProps,
   ref: React.ForwardedRef<HTMLInputElement>,
 ) {
   const {
@@ -39,7 +50,7 @@ function Input(
   let inputIcon = { icon: '', alt: '' };
   if (!getFieldState(id).invalid && isSubmitted) {
     inputIcon = { icon: 'success', alt: '성공 아이콘' };
-  } else if (errorMessage && isSubmitted) {
+  } else if (errors[id] && isSubmitted) {
     inputIcon = { icon: 'error', alt: '실패 아이콘' };
   } else if (watch(id) !== '') {
     inputIcon = { icon: 'xmark', alt: '텍스트 삭제 아이콘' };
@@ -49,7 +60,7 @@ function Input(
     <div className="relative w-full">
       <div className="relative">
         <input
-          className={`h-42 w-full rounded-sm bg-neutral-50 py-10 pl-20 text-body-1M text-neutral-900 caret-primary-300 outline-none placeholder:text-neutral-400 ${type === 'password' ? 'pr-66' : 'pr-36'} ${errorMessage && isSubmitted && 'border border-secondary-300'} ${isDisabled && 'bg-neutral-100 text-neutral-400'}`}
+          className={`h-42 w-full rounded-sm bg-neutral-50 py-10 pl-20 text-body-1M text-neutral-900 caret-primary-300 outline-none placeholder:text-neutral-400 ${type === 'password' ? 'pr-66' : 'pr-36'} ${errors[id] && isSubmitted && 'border border-secondary-300'} ${isDisabled && 'bg-neutral-100 text-neutral-400'}`}
           type={typeState}
           id={id}
           placeholder={placeholder}
@@ -83,7 +94,13 @@ function Input(
           )}
         </div>
       </div>
-      {errorMessage && isSubmitted && (
+      {propErrorMessage && !successMessage && (
+        <p className="absolute mt-6 text-body-2Sb text-secondary-300">{propErrorMessage}</p>
+      )}
+      {successMessage && (
+        <p className="absolute mt-6 text-body-2Sb text-primary-300">{successMessage}</p>
+      )}
+      {errors[id] && isSubmitted && (
         <p className="absolute mt-6 text-body-2Sb text-secondary-300">{errorMessage}</p>
       )}
     </div>

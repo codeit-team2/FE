@@ -1,12 +1,21 @@
 import { ERROR_MESSAGE, PLACEHOLDER } from '@/constants/formMessages';
+import { ErrorResponse } from '@/types';
+import { useQueryClient } from '@tanstack/react-query';
 
 import { Dispatch, SetStateAction, useEffect } from 'react';
-import { FieldValues, FormProvider, SubmitHandler, useForm } from 'react-hook-form';
+import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
+
+import { AxiosError } from 'axios';
+import { setCookie } from 'cookies-next';
 
 import Input from '@/components/common/Input';
 
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+
+import { usePostSignin } from '@/hooks/useAuths';
+
+import { PostSignin } from '@/types/auths';
 
 interface LoginModalProps {
   isLoginModalOpen: boolean;
@@ -14,26 +23,54 @@ interface LoginModalProps {
   setIsSignupModalOpen: Dispatch<SetStateAction<boolean>>;
 }
 
+const errorMessages: { [key: string]: string } = {
+  PASSWORD_MISMATCH: '이메일 또는 비밀번호를 확인해 주세요',
+  UNREGISTERED_ACCOUNT: '이메일 또는 비밀번호를 확인해 주세요',
+};
+
 export default function LoginModal({
   isLoginModalOpen,
   setIsLoginModalOpen,
   setIsSignupModalOpen,
 }: LoginModalProps) {
-  const form = useForm();
+  const queryClient = useQueryClient();
+  const { mutate: mutateSiginin, error: errorSiginin } = usePostSignin({
+    onSuccess: (data: { accessToken: string; tokenScheme: string }) => {
+      setCookie('accessToken', data.accessToken);
+      queryClient.invalidateQueries({
+        queryKey: ['user'],
+        refetchType: 'active',
+      });
+      setIsLoginModalOpen(false);
+      console.log('로그인 성공! 추후 성공 모달 제작');
+    },
+  });
+
+  const axiosError = errorSiginin as AxiosError<ErrorResponse>;
+
+  const form = useForm<PostSignin>();
 
   const {
     handleSubmit,
     register,
     trigger,
+    setError,
     formState: { isValid },
   } = form;
 
-  // const onSubmit: SubmitHandler<FieldValues> = (value: FieldValues) => {}; 빌드 에러 때문에 주석 처리
-  const onSubmit: SubmitHandler<FieldValues> = () => {};
+  useEffect(() => {
+    if (axiosError?.response?.data.code) {
+      setError('email', { message: errorMessages[axiosError?.response?.data.code] });
+    }
+  }, [axiosError, setError]);
+
+  const onSubmit: SubmitHandler<PostSignin> = (value: PostSignin) => {
+    mutateSiginin(value);
+  };
 
   useEffect(() => {
     trigger();
-  }, [isLoginModalOpen, trigger]);
+  }, [isLoginModalOpen]);
 
   return (
     <Dialog open={isLoginModalOpen} onOpenChange={setIsLoginModalOpen}>

@@ -12,7 +12,7 @@ export const ERROR_MESSAGE = {
     duplicate: '중복된 이메일입니다',
     register: '이메일 또는 비밀번호를 확인해 주세요',
   },
-  verifyCode: {
+  code: {
     required: '인증코드를 입력해 주세요',
     max: '숫자 6자만 입력해 주세요',
     valid: '숫자 6자만 입력해 주세요',
@@ -58,7 +58,7 @@ export const ERROR_MESSAGE = {
 export const PLACEHOLDER = {
   nickname: '닉네임을 입력해 주세요',
   email: '이메일을 입력해 주세요',
-  verifyCode: '인증코드를 입력해 주세요',
+  code: '인증코드를 입력해 주세요',
   password: '비밀번호를 입력해 주세요',
   passwordCheck: '비밀번호를 다시 한 번 입력해 주세요',
   category: '카테고리를 선택해 주세요',
