@@ -95,7 +95,7 @@ export default function MakeClubModal({ trigger }: Props) {
       </button>
     );
 
-  interface request {
+  interface Request {
     name: string;
     capacity: number;
     mainCategoryName: string;
@@ -122,7 +122,7 @@ export default function MakeClubModal({ trigger }: Props) {
       const date_part = date_str.split('T')[0];
       const newDatetimeStr = `${date_part}T${selectTime}:00.000Z`;
 
-      const request: request = {
+      const request: Request = {
         name: data.name,
         capacity: data.capacity,
         location: data.location,

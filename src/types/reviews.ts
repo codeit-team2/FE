@@ -22,3 +22,9 @@ export interface Reviews {
     subCategoryName: string;
   };
 }
+
+export interface PostReviews {
+  gatheringId: number;
+  score: number;
+  comment: string;
+}

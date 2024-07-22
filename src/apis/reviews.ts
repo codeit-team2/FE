@@ -1,6 +1,6 @@
 import { instance } from '@/lib/axios';
 
-import { ReviewsParams } from '@/types/reviews';
+import { PostReviews, ReviewsParams } from '@/types/reviews';
 
 export const getReviewsMine = async (value: ReviewsParams) => {
   const { page, size, sortBy, sortOrder } = value;
@@ -8,4 +8,9 @@ export const getReviewsMine = async (value: ReviewsParams) => {
     `/reviews/mine?page=${page}&size=${size}&sortBy=${sortBy}&sortOrder=${sortOrder}`,
   );
   return res.data;
+};
+
+export const postReviews = async (value: PostReviews) => {
+  const res = await instance.post(`/reviews`, value);
+  return res;
 };
