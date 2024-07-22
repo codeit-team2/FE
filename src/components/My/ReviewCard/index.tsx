@@ -34,8 +34,6 @@ export default function ReviewCard({ data }: Props) {
     return <NotCard />;
   }
 
-  console.log(data);
-
   return data.map((item, index) => (
     <div
       key={index}

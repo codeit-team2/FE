@@ -26,7 +26,6 @@ export default function Review() {
   const filteredData = useMemo(() => {
     if (!data) return [];
 
-    console.log(data);
     return data.filter((item: Gathering) => isDateBeforeToday({ date: item.dateTime }));
   }, [data]);
 

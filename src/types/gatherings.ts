@@ -10,6 +10,7 @@ export interface Gathering {
   gatheringImageUrl: string;
   createdAt: string;
   canceledAt: string | null;
+  hasReviewed: boolean;
 }
 
 export interface Participant {
