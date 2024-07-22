@@ -3,10 +3,16 @@ import React, { useState } from 'react';
 import Bookmark from '../common/Bookmark';
 import { Button } from '../ui/button';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
+
+import LoginRequired from '@/components/common/Modal/LoginRequired';
 
 import Description from '@/components/Card/Description';
 import Person from '@/components/Card/Person';
 import ProgressPercentage from '@/components/Card/ProgressPercentage';
+import Loading from '@/components/Loading';
+
+import { usePostGatheringsJoin } from '@/hooks/useGatherings';
 
 import { Gathering } from '@/types/gathering';
 
@@ -18,8 +24,26 @@ interface CardProps {
 
 export default function Card({ data, clickFavorites, isFavorite }: CardProps) {
   const minReached = data.participantCount >= 5;
-
+  const router = useRouter();
   const favorite = isFavorite(data);
+  const { gatheringId } = data;
+  const { mutate: mutateGatherJoin, error: errorGatheringJoin } = usePostGatheringsJoin();
+
+  // value is Authorization
+  // 임시값
+  const value = 'test';
+  // login값 미정님꺼 나오면 확인해서 넣기. 근데 Push는 어디로...? 로그인은 모달창인데..? 모달창을 띄워줘야하나?
+  // + try catch문은 어디에 작성해야하지?
+  const login = false;
+  const handleGatheringsJoin = () => {
+    if (login) {
+      mutateGatherJoin({ gatheringId, value });
+    } else {
+      <LoginRequired />;
+      console.log('Click!');
+    }
+  };
+
   const handleToggleBookmark = () => {
     if (data) {
       clickFavorites(data);
@@ -49,6 +73,7 @@ export default function Card({ data, clickFavorites, isFavorite }: CardProps) {
             <ProgressPercentage data={data} />
           </div>
           <Button
+            onClick={handleGatheringsJoin}
             className="mb-2 h-42 w-full md:w-200 lg:w-288"
             variant={'secondary'}
             disabled={data.participantCount >= data.capacity}

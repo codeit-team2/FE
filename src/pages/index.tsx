@@ -1,3 +1,7 @@
+import { Suspense, useEffect, useState } from 'react';
+import React from 'react';
+import { ErrorBoundary } from 'react-error-boundary';
+
 import Image from 'next/image';
 
 import Banner from '@/components/common/Banner';
@@ -14,19 +18,26 @@ import MakeClubModal from '@/components/MakeClub/Modal';
 import NotCard from '@/components/NotCard';
 
 import useFavorite from '@/hooks/useFavorite';
-import { useGetGathering } from '@/hooks/useGatherings';
+import { useGetGatherings } from '@/hooks/useGatherings';
 
 import { Gathering } from '@/types/gathering';
 
 export default function Main() {
+  // const [sortBy, setSortBy] = useState('date');
+  // const [sortOrder, setSortOrder] = useState('asc');
+  const [mainCategory, setMainCategory] = useState('운동');
+  // const [subCategory, SetSubCategory] = useState('전체');
+
   const { clickFavorites, isFavorite } = useFavorite();
 
-  const { isLoading, data, isError } = useGetGathering();
+  const handleChipTapChanger = (title: string) => {
+    setMainCategory(title);
+  };
+  const login = true;
 
-  // console.log(isLoading);
-  // console.log(isError);
-  // if (isLoading) return <Loading width="300" height="300" />;
-  // if (isError) return <div>에러!!</div>;
+  const { data: postsData, isPending, fetchNextPage, status, hasNextPage } = useGetGatherings();
+  if (isPending) return <Loading width="400" height="400" />;
+  console.log(hasNextPage);
   return (
     <>
       <GNB />
@@ -43,7 +54,7 @@ export default function Main() {
             subTitle="운동부터 원데이클래스까지 든든하게 준비되어 있어요"
           />
           <div className="mb-20 mt-32 md:mb-27">
-            <Tap />
+            <Tap handleChipTapChanger={handleChipTapChanger} />
           </div>
           <ChipTap />
 
@@ -59,26 +70,42 @@ export default function Main() {
           </div>
           <MakeClubModal trigger="plus" />
           <div className="flex flex-col gap-20">
-            {data ? (
+            {postsData ? (
               <>
-                {data.map((data: Gathering, index: number) => (
-                  <Card
-                    key={index}
-                    data={data}
-                    clickFavorites={clickFavorites}
-                    isFavorite={isFavorite}
-                  />
+                {postsData.pages.map((datas: Array<Gathering>, i: number) => (
+                  <React.Fragment key={i}>
+                    {datas.map((data: Gathering, index: number) => {
+                      return (
+                        <>
+                          <ErrorBoundary fallback={<Loading width="500" height="500" />}>
+                            <Suspense fallback={<Loading width="500" height="500" />}>
+                              <Card
+                                key={index}
+                                data={data}
+                                clickFavorites={clickFavorites}
+                                isFavorite={isFavorite}
+                              />
+                            </Suspense>
+                          </ErrorBoundary>
+                        </>
+                      );
+                    })}
+                  </React.Fragment>
                 ))}
-                <div className="mb-16 mt-40 h-2 w-full bg-neutral-100" />
-                <button
-                  className="flex w-full items-center justify-center pb-50"
-                  // onClick={handlePagination}
-                >
-                  더 보기
-                  <div className="relative h-24 w-24">
-                    <Image src="icons/ic-chevron-down.svg" alt="dropdown" fill />
-                  </div>
-                </button>
+                {hasNextPage && (
+                  <>
+                    <div className="mb-16 mt-40 h-2 w-full bg-neutral-100" />
+                    <button
+                      className="flex w-full items-center justify-center"
+                      onClick={() => fetchNextPage()}
+                    >
+                      더 보기
+                      <div className="relative h-24 w-24">
+                        <Image src="icons/ic-chevron-down.svg" alt="dropdown" fill />
+                      </div>
+                    </button>
+                  </>
+                )}
               </>
             ) : (
               <NotCard />

@@ -2,7 +2,11 @@ import React, { useEffect, useRef, useState } from 'react';
 
 import Image from 'next/image';
 
-export default function Tap() {
+interface TapProps {
+  handleChipTapChanger: (title: string) => void;
+}
+
+export default function Tap({ handleChipTapChanger }: TapProps) {
   const titles = [
     { title: '운동', icon: '/icons/ic-fire.svg', iconWidth: 23, iconHeight: 24 },
     { title: '활동', icon: '/icons/ic-game.svg', iconWidth: 24, iconHeight: 20 },
@@ -40,8 +44,9 @@ export default function Tap() {
     };
   }, [selectedIndex]);
 
-  const handleTapChange = (index: number) => {
+  const handleTapChange = (index: number, title: string) => {
     setSelectedIndex(index);
+    handleChipTapChanger(title);
   };
 
   return (
@@ -50,7 +55,7 @@ export default function Tap() {
         <button
           key={index}
           className={`${selectedIndex === index ? selectedFont : notSelectedFont} flex items-center gap-2`}
-          onClick={() => handleTapChange(index)}
+          onClick={() => handleTapChange(index, title)}
           ref={(el) => {
             tabRefs.current[index] = el;
           }}

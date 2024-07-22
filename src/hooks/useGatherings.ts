@@ -1,20 +1,41 @@
-import { getGatherings } from '@/apis/gatherings';
-import { useQuery } from '@tanstack/react-query';
+import { getGatherings, getGatheringsTest, postGatheringsJoin } from '@/apis/gatherings';
+import { useInfiniteQuery, useMutation, useQuery } from '@tanstack/react-query';
 
-export const useGetGathering = (
-  page: string = '0',
-  size: string = '5',
-  sortBy: string = 'date',
-  sortOrder: string = 'asc',
-) => {
-  return useQuery({
-    queryKey: ['gatherings', page, size, sortBy, sortOrder],
-    queryFn: () => getGatherings(page, size, sortBy, sortOrder),
+// export const useGetGathering = (
+//   pageParam: number = 0,
+//   size: string = '5',
+//   sortBy: string = 'date',
+//   sortOrder: string = 'asc',
+//   mainCategory: string = '활동',
+//   subCategory: string = '러닝',
+// ) => {
+//   return useQuery({
+//     queryKey: ['gatherings', pageParam, size, sortBy, sortOrder, mainCategory, subCategory],
+//     queryFn: () => getGatherings(pageParam, size, sortBy, sortOrder, mainCategory, subCategory),
+//   });
+// };
+
+// 이것들이 과연 훅인가? use가 들어갈만한 내용들인가?
+export const useGetGatherings = () => {
+  return useInfiniteQuery({
+    queryKey: ['Gatherings'],
+    queryFn: ({ pageParam }) => getGatheringsTest(pageParam),
+    initialPageParam: 0,
+    getNextPageParam: (lastPage, pages) => {
+      if (lastPage.length === 6 && lastPage.length !== 0) {
+        console.log(pages.length);
+        return pages.length;
+      } else {
+        return undefined;
+      }
+    },
+    retry: 0,
   });
 };
 
-//   return useQuery({
-//     ['gatherings', page, size, sortBy, sortOrder], // 쿼리 키
-//     () => getGatherings(page, size, sortBy, sortOrder), // 데이터 페칭 함수
-//   });
-// };
+export const usePostGatheringsJoin = () => {
+  return useMutation({
+    mutationFn: ({ gatheringId, value }: { value: string; gatheringId: number }) =>
+      postGatheringsJoin(gatheringId, value),
+  });
+};

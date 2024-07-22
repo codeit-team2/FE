@@ -15,7 +15,12 @@ import useFavorite from '@/hooks/useFavorite';
 export default function Bookmark() {
   // 빌드 에러로 테스트용 주석처리
   // const TESTS = null;
-  const { isFavorite, clickFavorites } = useFavorite();
+  const { isFavorite, clickFavorites, favorites } = useFavorite();
+  console.log(favorites);
+
+  const handleChipTapChanger = () => {
+    console.log('click!');
+  };
   return (
     <>
       <GNB />
@@ -26,7 +31,7 @@ export default function Bookmark() {
           subTitle="마감되기 전에 지금 바로 참여해보세요"
         />
         <div className="mb-20 mt-32 md:mb-27">
-          <Tap />
+          <Tap handleChipTapChanger={handleChipTapChanger} />
         </div>
         <ChipTap />
 
@@ -49,7 +54,7 @@ export default function Bookmark() {
         <div className="flex flex-col gap-20">
           {Test ? (
             <>
-              {Test.map((data, index) => (
+              {favorites.map((data, index) => (
                 <Card
                   key={index}
                   data={data}

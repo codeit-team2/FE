@@ -8,11 +8,10 @@ interface Props {
 
 export default function Description({ data }: Props) {
   const formatDate = useFormatDate({ date: data.dateTime });
-
   return (
     <div className="mb-16 flex w-full flex-col text-body-3Sb md:mb-4 md:text-body-2Sb">
       <div className="flex gap-6">
-        <p className="text-primary-300">{data.subCategory}</p>
+        <p className="text-primary-300">{data.subCategoryName}</p>
         <p className="text-neutral-500">{data.location}</p>
       </div>
       <div className="mb-8 flex lg:gap-6">

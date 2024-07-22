@@ -2,7 +2,7 @@ export interface Gathering {
   gatheringId: number;
   location: string;
   mainCategory: string;
-  subCategory: string;
+  subCategoryName: string;
   name: string;
   dateTime: string;
   registrationEnd?: string;
