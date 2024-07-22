@@ -1,4 +1,4 @@
-import useFormatDate from '@/hooks/useFormatDate';
+import formatDate from '@/lib/utils';
 
 import { Gathering } from '@/types/gatherings';
 
@@ -7,7 +7,7 @@ interface Props {
 }
 
 export default function Description({ data }: Props) {
-  const formattedDate = useFormatDate({ date: data.dateTime });
+  const formattedDate = formatDate({ date: data.dateTime });
 
   return (
     <div className="mb-16 flex w-full flex-col text-body-3Sb md:mb-4 md:text-body-2Sb">
@@ -16,8 +16,7 @@ export default function Description({ data }: Props) {
         <p className="text-neutral-500">{data.location}</p>
       </div>
       <div className="mb-8 flex lg:gap-6">
-        {/* 작업필요 */}
-        {/* <p className="text-secondary-300">{data.deadline}</p>· */}
+        <p className="text-secondary-300">{formattedDate?.deadline}</p>·
         <p className="text-neutral-500">
           {formattedDate?.formattedDate} {formattedDate?.formattedWeekday} ·{' '}
           {formattedDate?.formattedTime}

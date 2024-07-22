@@ -8,7 +8,7 @@ import Description from '@/components/Card/Description';
 import Person from '@/components/Card/Person';
 import { Button } from '@/components/ui/button';
 
-import { IsDateBeforeToday } from '@/lib/utils';
+import { isDateBeforeToday } from '@/lib/utils';
 
 import { Gathering } from '@/types/gatherings';
 
@@ -18,13 +18,13 @@ interface Props {
 }
 
 export default function MyCard({ data, type = 'default' }: Props) {
-  const isDateBeforeToday = IsDateBeforeToday({ date: data.dateTime });
+  const IsDateBeforeToday = isDateBeforeToday({ date: data.dateTime });
 
   return (
     <div className="relative flex w-full max-w-screen-lg flex-col gap-16 rounded-lg bg-white p-8 md:h-230 md:flex-row md:gap-10 md:p-20 lg:gap-20">
       <div className="relative h-163 w-full md:h-190 md:w-373">
         <Image src={data.gatheringImageUrl} alt={data.name} fill className="rounded-md" />
-        {isDateBeforeToday ? (
+        {IsDateBeforeToday ? (
           <div className="absolute z-20 flex h-36 w-81 items-center justify-center rounded-br-md rounded-tl-md bg-neutral-700 text-body-2M text-white">
             이용완료
           </div>
@@ -33,12 +33,12 @@ export default function MyCard({ data, type = 'default' }: Props) {
             이용예정
           </div>
         )}
-        {data.participantCount >= 5 && !isDateBeforeToday && (
+        {data.participantCount >= 5 && !IsDateBeforeToday && (
           <div className="absolute left-61 z-10 flex h-36 w-91 items-center justify-center rounded-br-md rounded-tl-md bg-secondary-300 pl-10 text-body-2M text-white">
             개설확정
           </div>
         )}
-        {isDateBeforeToday &&
+        {IsDateBeforeToday &&
           (type === 'club' ? (
             <div className="absolute flex h-full w-full items-center justify-center rounded-md bg-neutral-900 text-white opacity-70">
               이미 종료된 모임입니다
@@ -82,7 +82,7 @@ export default function MyCard({ data, type = 'default' }: Props) {
         {type === 'default' && (
           <div className="flex flex-row justify-end gap-16">
             <Person data={data} />
-            {isDateBeforeToday ? (
+            {IsDateBeforeToday ? (
               <ReviewModal />
             ) : (
               <Button className="mb-2 h-42 w-288" variant={'secondary'}>

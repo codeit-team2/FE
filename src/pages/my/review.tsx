@@ -5,7 +5,7 @@ import ReviewComplete from './review-complete';
 
 import { Button } from '@/components/ui/button';
 
-import { IsDateBeforeToday } from '@/lib/utils';
+import { isDateBeforeToday } from '@/lib/utils';
 
 import { useGetGatheringsJoined } from '@/hooks/useGatherings';
 
@@ -27,7 +27,7 @@ export default function Review() {
     if (!data) return [];
 
     console.log(data);
-    return data.filter((item: Gathering) => IsDateBeforeToday({ date: item.dateTime }));
+    return data.filter((item: Gathering) => isDateBeforeToday({ date: item.dateTime }));
   }, [data]);
 
   return (
