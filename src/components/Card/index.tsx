@@ -23,23 +23,23 @@ interface CardProps {
 }
 
 export default function Card({ data, clickFavorites, isFavorite }: CardProps) {
+  // throw new Error();
   const minReached = data.participantCount >= 5;
   const router = useRouter();
   const favorite = isFavorite(data);
   const { gatheringId } = data;
-  const { mutate: mutateGatherJoin, error: errorGatheringJoin } = usePostGatheringsJoin();
-
+  const { mutate: mutateGatherJoin, error: errorGatheringJoin, isError } = usePostGatheringsJoin();
+  console.log(isError);
   // value is Authorization
   // 임시값
   const value = 'test';
   // login값 미정님꺼 나오면 확인해서 넣기. 근데 Push는 어디로...? 로그인은 모달창인데..? 모달창을 띄워줘야하나?
   // + try catch문은 어디에 작성해야하지?
-  const login = false;
+  const login = true;
   const handleGatheringsJoin = () => {
     if (login) {
       mutateGatherJoin({ gatheringId, value });
     } else {
-      <LoginRequired />;
       console.log('Click!');
     }
   };

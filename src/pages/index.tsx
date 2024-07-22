@@ -1,6 +1,5 @@
-import { Suspense, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import React from 'react';
-import { ErrorBoundary } from 'react-error-boundary';
 
 import Image from 'next/image';
 
@@ -23,21 +22,33 @@ import { useGetGatherings } from '@/hooks/useGatherings';
 import { Gathering } from '@/types/gathering';
 
 export default function Main() {
-  // const [sortBy, setSortBy] = useState('date');
-  // const [sortOrder, setSortOrder] = useState('asc');
+  const [sortBy, setSortBy] = useState('date');
+  const [sortOrder, setSortOrder] = useState('asc');
   const [mainCategory, setMainCategory] = useState('운동');
-  // const [subCategory, SetSubCategory] = useState('전체');
+  const [subCategory, SetSubCategory] = useState('러닝');
 
   const { clickFavorites, isFavorite } = useFavorite();
 
   const handleChipTapChanger = (title: string) => {
     setMainCategory(title);
   };
-  const login = true;
 
-  const { data: postsData, isPending, fetchNextPage, status, hasNextPage } = useGetGatherings();
+  const handleChipTapClick = (title: string) => {
+    SetSubCategory(title);
+  };
+
+  const {
+    data: postsData,
+    isPending,
+    fetchNextPage,
+    hasNextPage,
+    isError,
+  } = useGetGatherings(mainCategory, subCategory, sortBy, sortOrder);
+
+  useEffect(() => {}, [mainCategory, subCategory]);
+
   if (isPending) return <Loading width="400" height="400" />;
-  console.log(hasNextPage);
+
   return (
     <>
       <GNB />
@@ -56,7 +67,7 @@ export default function Main() {
           <div className="mb-20 mt-32 md:mb-27">
             <Tap handleChipTapChanger={handleChipTapChanger} />
           </div>
-          <ChipTap />
+          <ChipTap mainCategory={mainCategory} handleChipTapClick={handleChipTapClick} />
 
           <div className="mb-32 flex justify-between">
             <div className="flex gap-8 md:gap-12">
@@ -77,16 +88,12 @@ export default function Main() {
                     {datas.map((data: Gathering, index: number) => {
                       return (
                         <>
-                          <ErrorBoundary fallback={<Loading width="500" height="500" />}>
-                            <Suspense fallback={<Loading width="500" height="500" />}>
-                              <Card
-                                key={index}
-                                data={data}
-                                clickFavorites={clickFavorites}
-                                isFavorite={isFavorite}
-                              />
-                            </Suspense>
-                          </ErrorBoundary>
+                          <Card
+                            key={index}
+                            data={data}
+                            clickFavorites={clickFavorites}
+                            isFavorite={isFavorite}
+                          />
                         </>
                       );
                     })}

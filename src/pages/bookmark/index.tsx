@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 import Banner from '@/components/common/Banner';
 import Dropdown from '@/components/common/Dropdown';
 import Footer from '@/components/common/Footer';
@@ -6,21 +8,26 @@ import MainLayout from '@/components/common/MainLayout';
 import Tap from '@/components/common/Tap';
 
 import Card from '@/components/Card';
-import Test from '@/components/Card/testData.js';
 import ChipTap from '@/components/ChipTap';
+import Loading from '@/components/Loading';
 import NotCard from '@/components/NotCard';
 
 import useFavorite from '@/hooks/useFavorite';
 
 export default function Bookmark() {
-  // 빌드 에러로 테스트용 주석처리
-  // const TESTS = null;
-  const { isFavorite, clickFavorites, favorites } = useFavorite();
-  console.log(favorites);
+  const [mainCategory, setMainCategory] = useState('운동');
+  const [subCategory, SetSubCategory] = useState('전체');
 
-  const handleChipTapChanger = () => {
-    console.log('click!');
+  const { isFavorite, clickFavorites, favorites } = useFavorite();
+
+  const handleChipTapChanger = (title: string) => {
+    setMainCategory(title);
   };
+
+  const handleChipTapClick = (title: string) => {
+    SetSubCategory(title);
+  };
+
   return (
     <>
       <GNB />
@@ -33,7 +40,7 @@ export default function Bookmark() {
         <div className="mb-20 mt-32 md:mb-27">
           <Tap handleChipTapChanger={handleChipTapChanger} />
         </div>
-        <ChipTap />
+        <ChipTap mainCategory={mainCategory} handleChipTapClick={handleChipTapClick} />
 
         <div className="mb-32 flex justify-between">
           <div className="flex gap-8 md:gap-12">
@@ -52,7 +59,7 @@ export default function Bookmark() {
           />
         </div>
         <div className="flex flex-col gap-20">
-          {Test ? (
+          {favorites ? (
             <>
               {favorites.map((data, index) => (
                 <Card
@@ -62,14 +69,6 @@ export default function Bookmark() {
                   clickFavorites={clickFavorites}
                 />
               ))}
-              {/* 나중에 디자인 답변오면 수정 예정입니다. */}
-              {/* <div className="mb-16 mt-40 h-2 w-full bg-neutral-100" />
-              <button className="flex w-full items-center justify-center pb-50">
-                더 보기
-                <div className="relative h-24 w-24">
-                  <Image src="icons/ic-chevron-down.svg" alt="dropdown" fill />
-                </div>
-              </button> */}
               <div className="mb-50" />
             </>
           ) : (

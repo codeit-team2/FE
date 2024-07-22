@@ -17,7 +17,7 @@ export default function Description({ data }: Props) {
       <div className="mb-8 flex lg:gap-6">
         {/* 시간 값 계산해서 넣기 */}
         <p className="text-secondary-300">{data.deadline}</p>·
-        <p className="text-neutral-500">{formatDate}</p>
+        <p className="text-neutral-500">{formatDate?.formattedDate}</p>
       </div>
       <div className="w-220 min-w-230 text-body-1Sb md:text-heading-2M">{data.name}</div>
     </div>
