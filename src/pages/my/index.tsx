@@ -8,7 +8,6 @@ import Footer from '@/components/common/Footer';
 import GNB from '@/components/common/GNB';
 import MainLayout from '@/components/common/MainLayout';
 
-import Test from '@/components/Card/testData';
 import MyTap from '@/components/My/MyTab';
 import Profile from '@/components/My/Profile';
 
@@ -25,7 +24,7 @@ export default function My() {
             <MyTap setSelectTab={setSelectTab} />
           </div>
           {selectTab === 'meeting' && <Joined />}
-          {selectTab === 'review' && <Review data={Test} />}
+          {selectTab === 'review' && <Review />}
           {selectTab === 'club' && <Mine />}
         </div>
       </MainLayout>

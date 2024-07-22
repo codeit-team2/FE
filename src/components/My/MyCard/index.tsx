@@ -8,7 +8,7 @@ import Description from '@/components/Card/Description';
 import Person from '@/components/Card/Person';
 import { Button } from '@/components/ui/button';
 
-import useIsDateBeforeToday from '@/hooks/useIsDateBeforeToday';
+import { IsDateBeforeToday } from '@/lib/utils';
 
 import { Gathering } from '@/types/gatherings';
 
@@ -18,7 +18,7 @@ interface Props {
 }
 
 export default function MyCard({ data, type = 'default' }: Props) {
-  const isDateBeforeToday = useIsDateBeforeToday({ date: data.dateTime });
+  const isDateBeforeToday = IsDateBeforeToday({ date: data.dateTime });
 
   return (
     <div className="relative flex w-full max-w-screen-lg flex-col gap-16 rounded-lg bg-white p-8 md:h-230 md:flex-row md:gap-10 md:p-20 lg:gap-20">

@@ -23,8 +23,9 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog';
 
+import { IsDateBeforeToday } from '@/lib/utils';
+
 import { usePostGatherings } from '@/hooks/useGatherings';
-import useIsDateBeforeToday from '@/hooks/useIsDateBeforeToday';
 
 interface Props {
   trigger: 'text' | 'plus';
@@ -68,7 +69,7 @@ export default function MakeClubModal({ trigger }: Props) {
   const flattenedCategories = flattenCategories(CATEGORY);
 
   // 달력 에러 메세지
-  const isSelectedDateBeforeToday = useIsDateBeforeToday({ date });
+  const isSelectedDateBeforeToday = IsDateBeforeToday({ date });
   let dateErrorMsg = null;
   if (!date) {
     dateErrorMsg = ERROR_MESSAGE.date.required;
