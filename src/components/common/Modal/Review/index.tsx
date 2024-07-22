@@ -16,7 +16,11 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog';
 
-export default function ReviewModal() {
+interface Props {
+  gatheringId: number;
+}
+
+export default function ReviewModal({ gatheringId }: Props) {
   const [rating, setRating] = useState(5);
 
   const form = useForm();
@@ -28,7 +32,11 @@ export default function ReviewModal() {
   } = form;
   // 빌드 오류로 인한 안쓰는 코드 주석 처리
   // const onSubmit: SubmitHandler<FieldValues> = (value: FieldValues) => {};
-  const onSubmit: SubmitHandler<FieldValues> = () => {};
+  const onSubmit: SubmitHandler<FieldValues> = (data) => {
+    console.log(gatheringId);
+    console.log(data);
+    console.log(rating);
+  };
 
   return (
     <Dialog>

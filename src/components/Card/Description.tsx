@@ -1,3 +1,5 @@
+import { useRouter } from 'next/router';
+
 import formatDate from '@/lib/utils';
 
 import { Gathering } from '@/types/gatherings';
@@ -8,9 +10,13 @@ interface Props {
 
 export default function Description({ data }: Props) {
   const formattedDate = formatDate({ date: data.dateTime });
+  const router = useRouter();
 
   return (
-    <div className="mb-16 flex w-full flex-col text-body-3Sb md:mb-4 md:text-body-2Sb">
+    <div
+      className="mb-16 flex w-full cursor-pointer flex-col text-body-3Sb md:mb-4 md:text-body-2Sb"
+      onClick={() => console.log(router.push(`/detail/${data.gatheringId}`))}
+    >
       <div className="flex gap-6">
         <p className="text-primary-300">{data.subCategoryName}</p>
         <p className="text-neutral-500">{data.location}</p>

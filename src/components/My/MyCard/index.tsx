@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 
 import ReviewModal from '@/components/common/Modal/Review';
 
@@ -19,10 +20,14 @@ interface Props {
 
 export default function MyCard({ data, type = 'default' }: Props) {
   const IsDateBeforeToday = isDateBeforeToday({ date: data.dateTime });
+  const router = useRouter();
 
   return (
     <div className="relative flex w-full max-w-screen-lg flex-col gap-16 rounded-lg bg-white p-8 md:h-230 md:flex-row md:gap-10 md:p-20 lg:gap-20">
-      <div className="relative h-163 w-full md:h-190 md:w-373">
+      <div
+        className="relative h-163 w-full cursor-pointer md:h-190 md:w-373"
+        onClick={() => console.log(router.push(`/detail/${data.gatheringId}`))}
+      >
         <Image src={data.gatheringImageUrl} alt={data.name} fill className="rounded-md" />
         {IsDateBeforeToday ? (
           <div className="absolute z-20 flex h-36 w-81 items-center justify-center rounded-br-md rounded-tl-md bg-neutral-700 text-body-2M text-white">
@@ -79,7 +84,7 @@ export default function MyCard({ data, type = 'default' }: Props) {
           <div className="flex flex-row justify-end gap-16">
             <Person data={data} />
             {IsDateBeforeToday ? (
-              <ReviewModal />
+              <ReviewModal gatheringId={data.gatheringId} />
             ) : (
               <Button className="mb-2 h-42 w-288" variant={'secondary'}>
                 예약 취소하기
