@@ -55,12 +55,8 @@ export default function MyCard({ data, type = 'default' }: Props) {
         <Description data={data} />
         {type === 'review' && (
           <div className="flex flex-row justify-end gap-16">
-            <Button className="w-186" variant={'secondary'}>
-              후기 수정하기
-            </Button>
-            <Button variant={'secondary'}>
-              <Image src="/icons/ic-delete.svg" alt="delete" width={24} height={24} />
-            </Button>
+            <Person data={data} />
+            <Button className="w-186">후기 작성하기</Button>
           </div>
         )}
 
