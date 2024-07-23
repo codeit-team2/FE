@@ -1,11 +1,15 @@
 import {
   deleteGatherings,
   getGatherings,
+  getGatheringsJoined,
+  getGatheringsMine,
   postGatherings,
   postGatheringsJoin,
   postGatheringsLeave,
 } from '@/apis/gatherings';
 import { UseMutationResult, useMutation, useQuery } from '@tanstack/react-query';
+
+import { GatheringsParams } from '@/types/gatherings';
 
 interface PostGatheringsResponse {
   success: boolean;
@@ -60,5 +64,19 @@ export const useDeleteGatherings = ({
     mutationFn: (gatheringId: number) => deleteGatherings(gatheringId),
     onSuccess: onSuccess,
     onError: onError,
+  });
+};
+
+export const useGetGatheringsMine = (value: GatheringsParams) => {
+  return useQuery({
+    queryKey: ['gatheringsMine', value],
+    queryFn: () => getGatheringsMine(value),
+  });
+};
+
+export const useGetGatheringsJoined = (value: GatheringsParams) => {
+  return useQuery({
+    queryKey: ['gatheringsJoined', value],
+    queryFn: () => getGatheringsJoined(value),
   });
 };
