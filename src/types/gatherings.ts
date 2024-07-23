@@ -9,8 +9,9 @@ export interface Gathering {
   capacity: number;
   gatheringImageUrl: string;
   createdAt: string;
-  canceledAt: string | null;
-  hasReviewed: boolean;
+  hasReviewed?: boolean;
+  isCreator?: boolean;
+  isJoiner?: boolean;
 }
 
 export interface Participant {
