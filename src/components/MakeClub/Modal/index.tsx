@@ -23,8 +23,9 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog';
 
+import { isDateBeforeToday } from '@/lib/utils';
+
 import { usePostGatherings } from '@/hooks/useGatherings';
-import useIsDateBeforeToday from '@/hooks/useIsDateBeforeToday';
 
 interface Props {
   trigger: 'text' | 'plus';
@@ -68,7 +69,7 @@ export default function MakeClubModal({ trigger }: Props) {
   const flattenedCategories = flattenCategories(CATEGORY);
 
   // 달력 에러 메세지
-  const isSelectedDateBeforeToday = useIsDateBeforeToday({ date });
+  const isSelectedDateBeforeToday = isDateBeforeToday({ date });
   let dateErrorMsg = null;
   if (!date) {
     dateErrorMsg = ERROR_MESSAGE.date.required;
@@ -94,7 +95,7 @@ export default function MakeClubModal({ trigger }: Props) {
       </button>
     );
 
-  interface request {
+  interface Request {
     name: string;
     capacity: number;
     mainCategoryName: string;
@@ -121,7 +122,7 @@ export default function MakeClubModal({ trigger }: Props) {
       const date_part = date_str.split('T')[0];
       const newDatetimeStr = `${date_part}T${selectTime}:00.000Z`;
 
-      const request: request = {
+      const request: Request = {
         name: data.name,
         capacity: data.capacity,
         location: data.location,
@@ -133,9 +134,11 @@ export default function MakeClubModal({ trigger }: Props) {
       formData.append('request', JSON.stringify(request));
       formData.append('gatheringImage', data.gatheringImage);
 
+      // api 함수
       mutate(formData, {
         onSuccess: (data) => {
-          data.status === 201 && router.push('/detail');
+          const gatheringId = data.data.gatheringId.toString();
+          data.status === 201 && router.push(`/detail/${gatheringId}`);
         },
         onError: (error) => {
           console.error('Error:', error);

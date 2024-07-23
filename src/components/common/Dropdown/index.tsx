@@ -6,7 +6,7 @@ import IcChevronUpdown from '@/components/common/Dropdown/IcChevronUpdown';
 
 import { Button } from '@/components/ui/button';
 
-import useFormatDate from '@/hooks/useFormatDate';
+import formatDate from '@/lib/utils';
 
 const DROPDOWN_ERROR_MSG = {
   category: {
@@ -44,7 +44,7 @@ export default function Dropdown({
 
   const dropdownRef = useRef<HTMLDivElement>(null);
 
-  const formattedDate = useFormatDate({ date });
+  const formattedDate = formatDate({ date });
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);

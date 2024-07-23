@@ -10,6 +10,7 @@ export interface Gathering {
   gatheringImageUrl: string;
   createdAt: string;
   canceledAt: string | null;
+  hasReviewed: boolean;
 }
 
 export interface Participant {
@@ -23,4 +24,11 @@ export interface Account {
   nickname: string;
   profileImageUrl: string;
   joinedAt: string;
+}
+
+export interface GatheringsParams {
+  page: number;
+  size: number;
+  sortBy: 'dateTime' | 'participantCount';
+  sortOrder: 'asc' | 'desc';
 }
