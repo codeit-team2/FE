@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 import { instance } from '@/lib/axios';
 
 import { PostNickname, PostSendmail, PostSignin, PostSignup, PostVerify } from '@/types/auths';
@@ -33,6 +35,6 @@ export const postSignout = async () => {
 };
 
 export const postRefreshtoken = async () => {
-  const res = await instance.post('/auths/refreshtoken');
+  const res = await axios.post('/auths/refreshtoken');
   return res.data;
 };
