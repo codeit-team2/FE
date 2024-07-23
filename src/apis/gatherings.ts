@@ -46,12 +46,17 @@ export const getGatheringsJoined = async (value: GatheringsParams) => {
   return res.data;
 };
 
-// export const postGatheringsJoin = async (gatheringId: number, value) => {
-//   const res = await instance.post(`/gatherings/${gatheringId}/join`, value);
-//   return res.data;
-// };
+export const postGatheringsJoin = async (gatheringId: number) => {
+  const res = await instance.post(`/gatherings/${gatheringId}/join`);
+  return res.data;
+};
 
-// export const postGatheringsLeave = async (gatheringId: number, value) => {
-//   const res = await instance.post(`/gatherings/${gatheringId}/leave`, value);
-//   return res.data;
-// };
+export const postGatheringsLeave = async (gatheringId: number) => {
+  const res = await instance.post(`/gatherings/${gatheringId}/leave`);
+  return res.data;
+};
+
+export const deleteGatherings = async (gatheringId: number) => {
+  const res = await instance.delete(`/gatherings/${gatheringId}/cancel`);
+  return res.data;
+};
