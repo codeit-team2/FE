@@ -21,7 +21,6 @@ export default function My() {
 
   const { data: user } = useGetAccounts();
 
-
   return (
     <>
       <GNB />

@@ -13,12 +13,11 @@ import UserReview from '@/components/Review/UserReview';
 import mockData from '@/components/Review/reviewTestData.json';
 import { Button } from '@/components/ui/button';
 
-// import { CategoryReviews } from '@/types/testDataType';
-
-// const mockDataTyped: CategoryReviews = mockData;
-
 export default function Review() {
   const isReview = true;
+
+  const reviewData = mockData.reviewInfos;
+  const scoreData = mockData.scoreInfo;
 
   return (
     <>
@@ -41,7 +40,7 @@ export default function Review() {
           </div>
           <ChipTap />
           <div className="mt-24 w-full md:mt-32">
-            <StarRatingAverage />
+            <StarRatingAverage data={scoreData} />
           </div>
           <div className="my-24 mb-32 flex w-full max-w-[1010px] justify-end md:my-32">
             <Dropdown
@@ -53,7 +52,9 @@ export default function Review() {
           </div>
           {isReview ? (
             <div className="mb-40 flex flex-col gap-20 md:mb-50">
-              <UserReview mockData={mockData} />
+              {reviewData.map((data, index) => (
+                <UserReview key={index} data={data} />
+              ))}
             </div>
           ) : (
             <>
