@@ -131,7 +131,11 @@ const config = {
       },
       spacing: px0_400,
       minWidth: px0_400,
-      minHeight: px0_400,
+      minHeight: {
+        'px-0': '0',
+        'px-400': '400px',
+        mainLayout: 'calc(100vh - 296px)',
+      },
       width: px0_1000,
       height: px0_1000,
       fontFamily: {

@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
 
-import Club from './club';
-import Meeting from './meeting';
+import Joined from './joined';
+import Mine from './mine';
 import Review from './review';
 
 import Footer from '@/components/common/Footer';
 import GNB from '@/components/common/GNB';
 import MainLayout from '@/components/common/MainLayout';
 
-import Test from '@/components/Card/testData';
 import MyTap from '@/components/My/MyTab';
 import Profile from '@/components/My/Profile';
 
@@ -19,7 +18,9 @@ export default function My() {
   useCheckLogin();
 
   const [selectTab, setSelectTab] = useState('meeting');
+
   const { data: user } = useGetAccounts();
+
 
   return (
     <>
@@ -30,9 +31,9 @@ export default function My() {
           <div className="mb-27 mt-32 md:px-156">
             <MyTap setSelectTab={setSelectTab} />
           </div>
-          {selectTab === 'meeting' && <Meeting data={Test} />}
-          {selectTab === 'review' && <Review data={Test} />}
-          {selectTab === 'club' && <Club data={Test} />}
+          {selectTab === 'meeting' && <Joined />}
+          {selectTab === 'review' && <Review />}
+          {selectTab === 'club' && <Mine />}
         </div>
       </MainLayout>
       <Footer />

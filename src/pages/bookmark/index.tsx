@@ -1,3 +1,7 @@
+import { LOCATION } from '@/constants/dropdownItems';
+
+import { useEffect, useState } from 'react';
+
 import Banner from '@/components/common/Banner';
 import Dropdown from '@/components/common/Dropdown';
 import Footer from '@/components/common/Footer';
@@ -6,22 +10,54 @@ import MainLayout from '@/components/common/MainLayout';
 import Tap from '@/components/common/Tap';
 
 import Card from '@/components/Card';
-import Test from '@/components/Card/testData.js';
 import ChipTap from '@/components/ChipTap';
+import Loading from '@/components/Loading';
 import NotCard from '@/components/NotCard';
 
 import { useGetAccounts } from '@/hooks/useAccounts';
 import useCheckLogin from '@/hooks/useCheckLogin';
 import useFavorite from '@/hooks/useFavorite';
 
+import { Gathering } from '@/types/gathering';
+
 export default function Bookmark() {
-  // 빌드 에러로 테스트용 주석처리
-  // const TESTS = null;
+  const { isFavorite, clickFavorites, favorites } = useFavorite();
+  const [mainCategory, setMainCategory] = useState('운동');
+  const [subCategory, SetSubCategory] = useState('전체');
+  const [location, setLocation] = useState<string | null>(null);
 
   useCheckLogin();
 
   const { data: user } = useGetAccounts();
-  const { isFavorite, clickFavorites } = useFavorite();
+  const [trimmedFavorites, setTrimmedFavorites] = useState<Array<Gathering>>([]);
+  console.log('bookmarkTrimmedFavorites : ', trimmedFavorites);
+
+  const handleMainTapClick = (title: string) => {
+    setMainCategory(title);
+    setTrimmedFavorites(favorites.filter((data) => data.mainCategoryName === mainCategory));
+  };
+
+  const handleSubTapClick = (title: string) => {
+    SetSubCategory(title);
+  };
+
+  const handleLocationClick = (location: string | null) => {
+    setLocation(location);
+  };
+
+  useEffect(() => {
+    setTrimmedFavorites(favorites.filter((data) => data.mainCategoryName === mainCategory));
+  }, [favorites, mainCategory]);
+
+  useEffect(() => {
+    // mainCategory와 favorites가 변경될 때마다 trimmedFavorites를 업데이트
+    if (subCategory === '전체') {
+      SetSubCategory('전체');
+    } else {
+      setTrimmedFavorites(favorites.filter((data) => data.subCategoryName === subCategory));
+    }
+  }, [subCategory]);
+
 
   return (
     <>
@@ -29,16 +65,23 @@ export default function Bookmark() {
       <MainLayout>
         <Banner page="bookmark" nickname={user?.nickname} />
         <div className="mb-20 mt-32 md:mb-27">
-          <Tap />
+          <Tap handleMainTapClick={handleMainTapClick} mainCategory={mainCategory} />
         </div>
-        <ChipTap />
+        <ChipTap
+          mainCategory={mainCategory}
+          handleSubTapClick={handleSubTapClick}
+          subCategory={subCategory}
+        />
 
         <div className="mb-32 flex justify-between">
           <div className="flex gap-8 md:gap-12">
             <Dropdown
-              items={['중랑구', '광진구', '용산구', '을지로3가']}
+              items={LOCATION}
               icon="icons/ic-chevron-down.svg"
               itemTrigger="지역선택"
+              handleLocationClick={handleLocationClick}
+              mainCategory={mainCategory}
+              subCategory={subCategory}
             />
             <Dropdown icon="icons/ic-chevron-down.svg" itemTrigger="날짜선택" />
           </div>
@@ -50,9 +93,9 @@ export default function Bookmark() {
           />
         </div>
         <div className="flex flex-col gap-20">
-          {Test ? (
+          {trimmedFavorites ? (
             <>
-              {Test.map((data, index) => (
+              {trimmedFavorites.map((data, index) => (
                 <Card
                   key={index}
                   data={data}
@@ -60,14 +103,6 @@ export default function Bookmark() {
                   clickFavorites={clickFavorites}
                 />
               ))}
-              {/* 나중에 디자인 답변오면 수정 예정입니다. */}
-              {/* <div className="mb-16 mt-40 h-2 w-full bg-neutral-100" />
-              <button className="flex w-full items-center justify-center pb-50">
-                더 보기
-                <div className="relative h-24 w-24">
-                  <Image src="icons/ic-chevron-down.svg" alt="dropdown" fill />
-                </div>
-              </button> */}
               <div className="mb-50" />
             </>
           ) : (

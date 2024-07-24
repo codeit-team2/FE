@@ -9,7 +9,17 @@ export interface Gathering {
   capacity: number;
   gatheringImageUrl: string;
   createdAt: string;
-  canceledAt: string | null;
+  hasReviewed?: boolean;
+  isCreator?: boolean;
+  isJoiner?: boolean;
+}
+
+export interface GetGatheringsQuery {
+  mainCategoryName: string;
+  subCategoryName: string;
+  sortBy: string;
+  sortOrder: string;
+  size: string;
 }
 
 export interface Participant {
@@ -23,4 +33,11 @@ export interface Account {
   nickname: string;
   profileImageUrl: string;
   joinedAt: string;
+}
+
+export interface GatheringsParams {
+  page: number;
+  size: number;
+  sortBy: 'dateTime' | 'participantCount';
+  sortOrder: 'asc' | 'desc';
 }

@@ -6,7 +6,7 @@ import IcChevronUpdown from '@/components/common/Dropdown/IcChevronUpdown';
 
 import { Button } from '@/components/ui/button';
 
-import useFormatDate from '@/hooks/useFormatDate';
+import formatDate from '@/lib/utils';
 
 const DROPDOWN_ERROR_MSG = {
   category: {
@@ -23,8 +23,12 @@ interface DropdownProps {
   setItem?: React.Dispatch<SetStateAction<string | null>>;
   icon?: string;
   isUpDown?: boolean;
-  itemTrigger: string;
+  itemTrigger: string | null;
   isSubmitted?: boolean;
+  handleLocationClick?: (location: string | null) => void;
+  resetTrigger?: Object;
+  mainCategory?: string;
+  subCategory?: string;
 }
 
 export default function Dropdown({
@@ -34,6 +38,10 @@ export default function Dropdown({
   isUpDown,
   itemTrigger = 'Open',
   isSubmitted,
+  handleLocationClick,
+  mainCategory,
+  subCategory,
+  resetTrigger,
 }: DropdownProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [itemValue, setItemValue] = useState<string | null>(itemTrigger);
@@ -44,7 +52,7 @@ export default function Dropdown({
 
   const dropdownRef = useRef<HTMLDivElement>(null);
 
-  const formattedDate = useFormatDate({ date });
+  const formattedDate = formatDate({ date });
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
@@ -58,6 +66,9 @@ export default function Dropdown({
 
   const handleItemClick = (e: React.MouseEvent<HTMLDivElement>) => {
     const itemText = e.currentTarget?.textContent;
+    if (handleLocationClick) {
+      handleLocationClick(itemText);
+    }
     setIsOpen(false);
     setItemValue(itemText);
     setErrorMessage(null);
@@ -73,6 +84,10 @@ export default function Dropdown({
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, []);
+
+  useEffect(() => {
+    setItemValue(itemTrigger);
+  }, [mainCategory, subCategory]);
 
   return (
     <div ref={dropdownRef} className="relative z-10">

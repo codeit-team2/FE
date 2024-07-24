@@ -6,7 +6,7 @@ import Bookmark from '@/components/common/Bookmark';
 
 import InfoBadge from '@/components/Detail/InfoBadge';
 
-import useFormatDate from '@/hooks/useFormatDate';
+import formatDate from '@/lib/utils';
 
 import { Gathering } from '@/types/gatherings';
 
@@ -128,7 +128,7 @@ const userData = {
 export default function TitleCard({ data }: TitleCardProps) {
   const [isBookmarked, setIsBookmarked] = useState(false);
 
-  const formattedDate = useFormatDate({ date: data.dateTime });
+  const formattedDate = formatDate({ date: data.dateTime });
 
   const handleToggleBookmark = (newState: boolean) => {
     setIsBookmarked(newState);

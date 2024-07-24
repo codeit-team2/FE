@@ -3,32 +3,66 @@ import React, { useState } from 'react';
 import Bookmark from '../common/Bookmark';
 import { Button } from '../ui/button';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 
 import Description from '@/components/Card/Description';
 import Person from '@/components/Card/Person';
 import ProgressPercentage from '@/components/Card/ProgressPercentage';
 
-import { TestCardData } from '@/types/testDataType';
+import { Gathering } from '@/types/gathering';
 
 interface CardProps {
-  data: TestCardData;
-  clickFavorites: (item: string) => void;
-  isFavorite: (item: string) => boolean;
+  data: Gathering;
+  clickFavorites: (item: Gathering) => void;
+  isFavorite: (item: Gathering) => boolean;
 }
 
 export default function Card({ data, clickFavorites, isFavorite }: CardProps) {
-  const [isBookmarked, setIsBookmarked] = useState(isFavorite(data.category));
+  const minReached = data.participantCount >= 5;
+  const router = useRouter();
+  const favorite = isFavorite(data);
 
-  const handleToggleBookmark = (newState: boolean) => {
-    setIsBookmarked(newState);
-    clickFavorites(data.category);
+  // 지워도됨. 그냥 참고 -준성-
+  // const { gatheringId } = data;
+  // const { mutate: mutateGatherJoin, error: errorGatheringJoin, isError } = usePostGatheringsJoin();
+  // value is Authorization
+  // 임시값
+  // const value = 'test';
+  // // login값 미정님꺼 나오면 확인해서 넣기. 근데 Push는 어디로...? 로그인은 모달창인데..? 모달창을 띄워줘야하나?
+  // // + try catch문은 어디에 작성해야하지?
+  // const login = true;
+  // const handleGatheringsJoin = () => {
+  //   if (login) {
+  //     mutateGatherJoin( gatheringId );
+  //   } else {
+  //     console.log('Click!');
+  //   }
+  // };
+
+  const handleToggleBookmark = () => {
+    if (data) {
+      clickFavorites(data);
+    }
   };
 
   return (
     <div className="relative flex w-full max-w-screen-lg flex-col gap-16 rounded-lg bg-white p-8 md:h-230 md:flex-row md:gap-10 md:p-20 lg:gap-20">
       <div className="relative h-163 w-full md:h-190 md:w-373">
-        <Image src={data.imageUrl} alt={data.title} fill className="rounded-md object-cover" />
-        {data.confirmed && (
+        <Image
+          src={data.gatheringImageUrl}
+          alt={data.name}
+          fill
+          className="rounded-md object-cover"
+        />
+        {minReached && (
+          <Image
+            src={data.gatheringImageUrl}
+            alt={data.name}
+            fill
+            className="rounded-md object-cover"
+          />
+        )}
+        {minReached && (
           <div className="absolute flex h-36 w-81 items-center justify-center rounded-br-md rounded-tl-md bg-secondary-300 text-body-2M text-white">
             개설확정
           </div>
@@ -42,16 +76,17 @@ export default function Card({ data, clickFavorites, isFavorite }: CardProps) {
             <ProgressPercentage data={data} />
           </div>
           <Button
+            // onClick={handleGatheringsJoin}
             className="mb-2 h-42 w-full md:w-200 lg:w-288"
             variant={'secondary'}
-            disabled={data.member >= 20}
+            disabled={data.participantCount >= data.capacity}
           >
-            {data.member >= 20 ? '참여마감' : '참여하기'}
+            {data.participantCount >= data.capacity ? '참여마감' : '참여하기'}
           </Button>
         </div>
       </div>
       <div className="absolute right-30 top-30">
-        <Bookmark isBookmarked={isBookmarked} onToggleBookmark={handleToggleBookmark} />
+        <Bookmark favorite={favorite} handleToggleBookmark={handleToggleBookmark} />
       </div>
     </div>
   );
