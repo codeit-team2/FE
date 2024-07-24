@@ -23,7 +23,6 @@ interface CardProps {
 }
 
 export default function Card({ data, clickFavorites, isFavorite }: CardProps) {
-  // throw new Error();
   const minReached = data.participantCount >= 5;
   const router = useRouter();
   const favorite = isFavorite(data);
@@ -59,6 +58,14 @@ export default function Card({ data, clickFavorites, isFavorite }: CardProps) {
           fill
           className="rounded-md object-cover"
         />
+        {minReached && (
+          <Image
+            src={data.gatheringImageUrl}
+            alt={data.name}
+            fill
+            className="rounded-md object-cover"
+          />
+        )}
         {minReached && (
           <div className="absolute flex h-36 w-81 items-center justify-center rounded-br-md rounded-tl-md bg-secondary-300 text-body-2M text-white">
             개설확정

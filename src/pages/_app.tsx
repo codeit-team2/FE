@@ -2,8 +2,12 @@ import '@/styles/globals.css';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
+import { Suspense } from 'react';
+
 // import { ErrorBoundary } from 'react-error-boundary';
 import type { AppProps } from 'next/app';
+
+import Loading from '@/components/Loading';
 
 const queryClient = new QueryClient();
 
