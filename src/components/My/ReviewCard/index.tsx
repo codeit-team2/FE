@@ -43,8 +43,9 @@ export default function ReviewCard({ data }: Props) {
     };
 
     mutate(value, {
-      onSuccess: (data) => {
-        console.log(data);
+      onSuccess: () => {
+        alert('리뷰 삭제 완료');
+        window.location.reload();
       },
       onError: (error) => {
         console.log(error);
@@ -87,7 +88,7 @@ export default function ReviewCard({ data }: Props) {
               {formatDate({ date: item.createdAt })?.formattedDate} 작성
             </p>
           </div>
-          <div className="flex flex-row items-end items-center justify-end gap-8">
+          <div className="flex flex-row items-center justify-end gap-8">
             <ReviewModal type="modify" reviewId={item.reviewId} />
             <Button variant={'secondary'} onClick={() => handleReviewDeleteButton(item.reviewId)}>
               <Image src="/icons/ic-delete.svg" alt="delete" width={24} height={24} />

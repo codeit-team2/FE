@@ -53,11 +53,13 @@ export default function ReviewModal({ gatheringId, reviewId, type }: Props) {
 
       // api 함수
       postMutate(value, {
-        onSuccess: (data) => {
-          console.log(data);
+        onSuccess: () => {
+          window.location.reload();
         },
         onError: (error) => {
-          console.error('Error: ', error);
+          console.error('Error: ', error.message);
+          alert('에러 발생');
+          // alert(error.response.data.message);
         },
       });
     }
