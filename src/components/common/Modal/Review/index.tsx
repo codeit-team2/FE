@@ -16,8 +16,14 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog';
 
-export default function ReviewModal() {
-  const [rating, setRating] = useState(5);
+import { usePostReviews } from '@/hooks/useReviews';
+
+interface Props {
+  gatheringId: number;
+}
+
+export default function ReviewModal({ gatheringId }: Props) {
+  const [rating, setRating] = useState<number>(5);
 
   const form = useForm();
 
@@ -26,9 +32,27 @@ export default function ReviewModal() {
     register,
     formState: { isValid },
   } = form;
-  // 빌드 오류로 인한 안쓰는 코드 주석 처리
-  // const onSubmit: SubmitHandler<FieldValues> = (value: FieldValues) => {};
-  const onSubmit: SubmitHandler<FieldValues> = () => {};
+
+  // postReviews api
+  const { mutate } = usePostReviews();
+
+  const onSubmit: SubmitHandler<FieldValues> = (data) => {
+    const value = {
+      gatheringId,
+      score: rating,
+      comment: data.review,
+    };
+
+    // api 함수
+    mutate(value, {
+      onSuccess: (data) => {
+        console.log(data);
+      },
+      onError: (error) => {
+        console.error('Error: ', error);
+      },
+    });
+  };
 
   return (
     <Dialog>

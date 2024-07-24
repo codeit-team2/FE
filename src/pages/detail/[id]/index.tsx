@@ -1,6 +1,3 @@
-import { getGatherings } from '@/apis/gatherings';
-import { useQuery } from '@tanstack/react-query';
-
 import React from 'react';
 
 import Image from 'next/image';
@@ -14,16 +11,16 @@ import TitleCard from '@/components/Detail/TitleCard';
 import reviewData from '@/components/Detail/reviewData.json';
 import NotReview from '@/components/NotReview';
 
+import { useGatheringQuery } from '@/hooks/useGatherings';
+
 export default function Detail() {
   const isReview = true;
   const router = useRouter();
   const { id: gatheringId } = router.query;
 
-  const { data, isLoading, isError } = useQuery({
-    queryKey: ['gatherings', gatheringId],
-    queryFn: () => getGatherings(Number(gatheringId)),
-    enabled: router.isReady && !!gatheringId,
-  });
+  const queryId = Number(gatheringId);
+
+  const { data, isLoading, isError } = useGatheringQuery(queryId);
 
   if (!router.isReady) {
     return <div>Loading...</div>;
@@ -59,7 +56,7 @@ export default function Detail() {
             <NotReview />
           )}
         </div>
-        <FloatingBar data={data} />
+        <FloatingBar data={data} queryId={queryId} />
       </div>
     </>
   );

@@ -5,7 +5,7 @@ import Image from 'next/image';
 
 import { Button } from '@/components/ui/button';
 
-type ModalType = 'join' | 'leave';
+type ModalType = 'join' | 'leave' | 'cancel';
 
 interface CheckModalProps {
   modalType: ModalType;
@@ -52,6 +52,10 @@ export default function CheckModal({ modalType, isOpen, onClose, onConfirm }: Ch
       description = '참여 취소하시겠습니까?';
       buttonText = '확인';
       break;
+    case 'cancel':
+      title = '개설 취소하기';
+      description = '개설을 취소하시겠습니까?';
+      buttonText = '확인';
     default:
       break;
   }

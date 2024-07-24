@@ -1,6 +1,7 @@
 import { instance } from '@/lib/axios';
 
 import { Gathering } from '@/types/gathering';
+import { GatheringsParams } from '@/types/gatherings';
 
 // // export const getGatheringsList = async (value) => {
 // //   const res = await instance.get(
@@ -14,6 +15,7 @@ import { Gathering } from '@/types/gathering';
 //   const res = await instance.post('/gatherings', value);
 //   return res.data;
 // };
+
 
 // 전체에 대한 값은 어떻게 보내야하는지? 전체 안되고 특정 헬스, 러닝은 가능함.
 export const getGatherings = async (
@@ -30,6 +32,11 @@ export const getGatherings = async (
     params: { page, mainCategoryName, subCategoryName, sortBy, sortOrder, location, size },
     // params: { page },
   });
+  return res.data;
+};
+
+export const getDetailGatherings = async (gatheringId: number) => {
+  const res = await instance.get(`/gatherings/${gatheringId}`);
 
   return res.data;
 };
@@ -43,13 +50,39 @@ export const postGatherings = async (value: FormData) => {
   return res;
 };
 
+
 export const postGatheringsJoin = async (gatheringId: number, value: string) => {
   const res = await instance.post(`/gatherings/${gatheringId}/join`, value);
-  throw new Error('An error occurred!');
+  return res.data;
+};
+export const getGatheringsMine = async (value: GatheringsParams) => {
+  const { page, size, sortBy, sortOrder } = value;
+  const res = await instance.get(
+    `/gatherings/mine?page=${page}&size=${size}&sortBy=${sortBy}&sortOrder=${sortOrder}`,
+  );
+
   return res.data;
 };
 
-// export const postGatheringsLeave = async (gatheringId: number, value) => {
-//   const res = await instance.post(`/gatherings/${gatheringId}/leave`, value);
-//   return res.data;
-// };
+export const getGatheringsJoined = async (value: GatheringsParams) => {
+  const { page, size, sortBy, sortOrder } = value;
+  const res = await instance.get(
+    `/gatherings/joined?page=${page}&size=${size}&sortBy=${sortBy}&sortOrder=${sortOrder}`,
+  );
+  return res.data;
+};
+
+export const postGatheringsJoin = async (gatheringId: number) => {
+  const res = await instance.post(`/gatherings/${gatheringId}/join`);
+  return res.data;
+};
+
+export const postGatheringsLeave = async (gatheringId: number) => {
+  const res = await instance.post(`/gatherings/${gatheringId}/leave`);
+  return res.data;
+};
+
+export const deleteGatherings = async (gatheringId: number) => {
+  const res = await instance.delete(`/gatherings/${gatheringId}/cancel`);
+  return res.data;
+};
