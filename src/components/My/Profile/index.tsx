@@ -21,8 +21,8 @@ export default function Profile() {
       <div className="absolute right-24 top-24">
         <ProfileEditModal />
       </div>
-      <p className="mt-20 text-heading-2Sb text-white">{user.nickname}</p>
-      <p className="mt-4 text-body-1Sb text-white">{user.email}</p>
+      <p className="mt-20 text-heading-2Sb text-white">{user?.nickname}</p>
+      <p className="mt-4 text-body-1Sb text-white">{user?.email}</p>
     </div>
   );
 }
