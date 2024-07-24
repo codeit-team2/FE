@@ -24,7 +24,7 @@ export default function MyTap({ setSelectTab }: Props) {
     },
     {
       title: '내가 만든 모임',
-      icon: '/icons/ic-plus.svg',
+      icon: '/icons/ic-plus-primary.svg',
       iconWidth: 17,
       iconHeight: 18,
       id: 'club',

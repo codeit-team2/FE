@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import Banner from '@/components/common/Banner';
 import Dropdown from '@/components/common/Dropdown';
@@ -13,35 +13,54 @@ import UserReview from '@/components/Review/UserReview';
 import mockData from '@/components/Review/reviewTestData.json';
 import { Button } from '@/components/ui/button';
 
-// import { CategoryReviews } from '@/types/testDataType';
+// import { useGetReviewsAll } from '@/hooks/useReviews';
 
-// const mockDataTyped: CategoryReviews = mockData;
+// import { ReviewsParams } from '@/types/reviews';
 
 export default function Review() {
   const isReview = true;
+
+  const [mainCategory, setMainCategory] = useState<string>('운동');
+  const [subCategory, setSubCategory] = useState<string>('전체');
+
+  const handleMainTapClick = (title: string) => {
+    setMainCategory(title);
+  };
+
+  const handleSubTapClick = (title: string) => {
+    setSubCategory(title);
+  };
+
+  // const value: ReviewsParams = {
+  //   mainCategoryName: '운동',
+  //   subCategoryName: '러닝',
+  //   page: 0,
+  //   size: 10,
+  //   sortBy: 'score',
+  //   sortOrder: 'asc',
+  // };
+
+  // const { data } = useGetReviewsAll(value);
+
+  const reviewData = mockData.reviewInfos;
+  const scoreData = mockData.scoreInfo;
 
   return (
     <>
       <GNB />
       <div className="mx-auto flex min-h-screen w-full flex-col items-center bg-neutral-50 px-12 md:px-32">
         <div className="mx-auto mt-20 flex w-full max-w-[1010px] flex-col items-center md:mt-32">
-          <Banner
-            mainTitle={
-              <>
-                취ZONE 유저분들의
-                <br />
-                생생한 모임 활동 후기를 둘러보세요
-              </>
-            }
-            subTitle="모임을 선택하는데에 분명 도움이 될거에요"
-            variant="review"
-          />
+          <Banner page="review" />
           <div className="mb-20 mt-32 md:mb-27">
-            <Tap />
+            <Tap handleMainTapClick={handleMainTapClick} mainCategory={mainCategory} />
           </div>
-          <ChipTap />
+          <ChipTap
+            mainCategory={mainCategory}
+            handleSubTapClick={handleSubTapClick}
+            subCategory={subCategory}
+          />
           <div className="mt-24 w-full md:mt-32">
-            <StarRatingAverage />
+            <StarRatingAverage data={scoreData} />
           </div>
           <div className="my-24 mb-32 flex w-full max-w-[1010px] justify-end md:my-32">
             <Dropdown
@@ -53,7 +72,9 @@ export default function Review() {
           </div>
           {isReview ? (
             <div className="mb-40 flex flex-col gap-20 md:mb-50">
-              <UserReview mockData={mockData} />
+              {reviewData.map((data, index) => (
+                <UserReview key={index} data={data} />
+              ))}
             </div>
           ) : (
             <>

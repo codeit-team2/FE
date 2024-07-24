@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import Bookmark from '../common/Bookmark';
 import { Button } from '../ui/button';
@@ -9,7 +9,9 @@ import Description from '@/components/Card/Description';
 import Person from '@/components/Card/Person';
 import ProgressPercentage from '@/components/Card/ProgressPercentage';
 
-import { Gathering } from '@/types/gathering';
+import { usePostGatheringsJoin } from '@/hooks/useGatherings';
+
+import { Gathering } from '@/types/gatherings';
 
 interface CardProps {
   data: Gathering;
@@ -20,24 +22,23 @@ interface CardProps {
 export default function Card({ data, clickFavorites, isFavorite }: CardProps) {
   const minReached = data.participantCount >= 5;
   const router = useRouter();
+  const { id: gatheringId } = router.query;
+  const queryId = Number(gatheringId);
+
   const favorite = isFavorite(data);
 
-  // 지워도됨. 그냥 참고 -준성-
-  // const { gatheringId } = data;
-  // const { mutate: mutateGatherJoin, error: errorGatheringJoin, isError } = usePostGatheringsJoin();
-  // value is Authorization
-  // 임시값
-  // const value = 'test';
-  // // login값 미정님꺼 나오면 확인해서 넣기. 근데 Push는 어디로...? 로그인은 모달창인데..? 모달창을 띄워줘야하나?
-  // // + try catch문은 어디에 작성해야하지?
-  // const login = true;
-  // const handleGatheringsJoin = () => {
-  //   if (login) {
-  //     mutateGatherJoin( gatheringId );
-  //   } else {
-  //     console.log('Click!');
-  //   }
-  // };
+  const joinMutation = usePostGatheringsJoin({
+    onSuccess: (data) => {
+      console.log('참여하기 성공', data);
+    },
+    onError: (error) => {
+      console.error('참여하기 실패', error);
+    },
+  });
+
+  const handleJoin = () => {
+    joinMutation.mutate(queryId);
+  };
 
   const handleToggleBookmark = () => {
     if (data) {
@@ -76,7 +77,7 @@ export default function Card({ data, clickFavorites, isFavorite }: CardProps) {
             <ProgressPercentage data={data} />
           </div>
           <Button
-            // onClick={handleGatheringsJoin}
+            onClick={handleJoin}
             className="mb-2 h-42 w-full md:w-200 lg:w-288"
             variant={'secondary'}
             disabled={data.participantCount >= data.capacity}

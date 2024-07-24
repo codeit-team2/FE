@@ -1,3 +1,5 @@
+import { useQueryClient } from '@tanstack/react-query';
+
 import React from 'react';
 
 import Image from 'next/image';
@@ -11,6 +13,8 @@ import { Button } from '@/components/ui/button';
 
 import { isDateBeforeToday } from '@/lib/utils';
 
+import { useDeleteGatherings, usePostGatheringsLeave } from '@/hooks/useGatherings';
+
 import { Gathering } from '@/types/gatherings';
 
 interface Props {
@@ -21,12 +25,50 @@ interface Props {
 export default function MyCard({ data, type = 'default' }: Props) {
   const IsDateBeforeToday = isDateBeforeToday({ date: data.dateTime });
   const router = useRouter();
+  const queryClient = useQueryClient();
+
+  // 모임 취소하기
+  const deleteMutation = useDeleteGatherings({
+    onSuccess: (data) => {
+      console.log('개설 취소하기 성공', data);
+      alert('모임이 성공적으로 삭제됐습니다!');
+      router.push('/');
+    },
+    onError: (error) => {
+      console.error('개설 취소하기 실패', error);
+      alert('모임 삭제 실패');
+    },
+  });
+
+  const handleDeleteClick = () => {
+    console.log('handleDelete called with queryId:', data.gatheringId);
+    deleteMutation.mutate(data.gatheringId);
+  };
+
+  // 모임 참여 취소하기
+  const leaveMutation = usePostGatheringsLeave({
+    onSuccess: () => {
+      console.log('참여 취소하기 성공');
+      window.location.reload();
+      queryClient.invalidateQueries({
+        queryKey: ['gatherings', data.gatheringId],
+        refetchType: 'active',
+      });
+    },
+    onError: (error) => {
+      console.error('참여 취소하기 실패', error);
+    },
+  });
+
+  const handleLeaveClick = () => {
+    leaveMutation.mutate(data.gatheringId);
+  };
 
   return (
     <div className="relative flex w-full max-w-screen-lg flex-col gap-16 rounded-lg bg-white p-8 md:h-230 md:flex-row md:gap-10 md:p-20 lg:gap-20">
       <div
         className="relative h-163 w-full cursor-pointer md:h-190 md:w-373"
-        onClick={() => console.log(router.push(`/detail/${data.gatheringId}`))}
+        onClick={() => router.push(`/detail/${data.gatheringId}`)}
       >
         <Image src={data.gatheringImageUrl} alt={data.name} fill className="rounded-md" />
         {IsDateBeforeToday ? (
@@ -61,7 +103,7 @@ export default function MyCard({ data, type = 'default' }: Props) {
         {type === 'review' && (
           <div className="flex flex-row justify-end gap-16">
             <Person data={data} />
-            <Button className="w-186">후기 작성하기</Button>
+            <ReviewModal type="new" gatheringId={data.gatheringId} />
           </div>
         )}
 
@@ -71,7 +113,7 @@ export default function MyCard({ data, type = 'default' }: Props) {
             <Button className="w-186" variant={'secondary'}>
               모임 수정하기
             </Button>
-            <Button variant={'secondary'}>
+            <Button variant={'secondary'} onClick={() => handleDeleteClick()}>
               <Image src="/icons/ic-delete.svg" alt="delete" width={24} height={24} />
             </Button>
             <Button variant={'secondary'}>
@@ -84,9 +126,13 @@ export default function MyCard({ data, type = 'default' }: Props) {
           <div className="flex flex-row justify-end gap-16">
             <Person data={data} />
             {IsDateBeforeToday ? (
-              <ReviewModal gatheringId={data.gatheringId} />
+              <ReviewModal type="new" gatheringId={data.gatheringId} />
             ) : (
-              <Button className="mb-2 h-42 w-288" variant={'secondary'}>
+              <Button
+                className="mb-2 h-42 w-288"
+                variant={'secondary'}
+                onClick={() => handleLeaveClick()}
+              >
                 예약 취소하기
               </Button>
             )}
