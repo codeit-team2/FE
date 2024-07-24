@@ -4,9 +4,7 @@ import { DeleteReviews, PostReviews, PutReviews, ReviewsParams } from '@/types/r
 
 export const getReviewsMine = async (value: ReviewsParams) => {
   const { page, size, sortBy, sortOrder } = value;
-  const res = await instance.get(
-    `/reviews/mine?page=${page}&size=${size}&sortBy=${sortBy}&sortOrder=${sortOrder}`,
-  );
+  const res = await instance.get(`/reviews/mine`, { params: { page, size, sortBy, sortOrder } });
   return res.data;
 };
 

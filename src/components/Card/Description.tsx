@@ -15,7 +15,7 @@ export default function Description({ data }: Props) {
   return (
     <div
       className="mb-16 flex w-full cursor-pointer flex-col text-body-3Sb md:mb-4 md:text-body-2Sb"
-      onClick={() => console.log(router.push(`/detail/${data.gatheringId}`))}
+      onClick={() => router.push(`/detail/${data.gatheringId}`)}
     >
       <div className="flex gap-6">
         <p className="text-primary-300">{data.subCategoryName}</p>
