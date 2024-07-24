@@ -51,18 +51,15 @@ export const postGatherings = async (value: FormData) => {
 
 export const getGatheringsMine = async (value: GatheringsParams) => {
   const { page, size, sortBy, sortOrder } = value;
-  const res = await instance.get(
-    `/gatherings/mine?page=${page}&size=${size}&sortBy=${sortBy}&sortOrder=${sortOrder}`,
-  );
-
+  const res = await instance.get(`/gatherings/mine`, { params: { page, size, sortBy, sortOrder } });
   return res.data;
 };
 
 export const getGatheringsJoined = async (value: GatheringsParams) => {
   const { page, size, sortBy, sortOrder } = value;
-  const res = await instance.get(
-    `/gatherings/joined?page=${page}&size=${size}&sortBy=${sortBy}&sortOrder=${sortOrder}`,
-  );
+  const res = await instance.get(`/gatherings/joined`, {
+    params: { page, size, sortBy, sortOrder },
+  });
   return res.data;
 };
 

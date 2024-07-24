@@ -26,7 +26,7 @@ export default function MyCard({ data, type = 'default' }: Props) {
     <div className="relative flex w-full max-w-screen-lg flex-col gap-16 rounded-lg bg-white p-8 md:h-230 md:flex-row md:gap-10 md:p-20 lg:gap-20">
       <div
         className="relative h-163 w-full cursor-pointer md:h-190 md:w-373"
-        onClick={() => console.log(router.push(`/detail/${data.gatheringId}`))}
+        onClick={() => router.push(`/detail/${data.gatheringId}`)}
       >
         <Image src={data.gatheringImageUrl} alt={data.name} fill className="rounded-md" />
         {IsDateBeforeToday ? (
@@ -61,7 +61,7 @@ export default function MyCard({ data, type = 'default' }: Props) {
         {type === 'review' && (
           <div className="flex flex-row justify-end gap-16">
             <Person data={data} />
-            <Button className="w-186">후기 작성하기</Button>
+            <ReviewModal type="new" gatheringId={data.gatheringId} />
           </div>
         )}
 
@@ -84,7 +84,7 @@ export default function MyCard({ data, type = 'default' }: Props) {
           <div className="flex flex-row justify-end gap-16">
             <Person data={data} />
             {IsDateBeforeToday ? (
-              <ReviewModal gatheringId={data.gatheringId} />
+              <ReviewModal type="new" gatheringId={data.gatheringId} />
             ) : (
               <Button className="mb-2 h-42 w-288" variant={'secondary'}>
                 예약 취소하기
