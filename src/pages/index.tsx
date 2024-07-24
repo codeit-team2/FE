@@ -21,11 +21,12 @@ import NotCard from '@/components/NotCard';
 import useFavorite from '@/hooks/useFavorite';
 import { useGetGatherings } from '@/hooks/useGatherings';
 
-import { Gathering } from '@/types/gathering';
+import { Gathering } from '@/types/gatherings';
 
 export default function Main() {
-  const [sortBy, setSortBy] = useState<string>('dateTime');
-  const [sortOrder, setSortOrder] = useState<string>('asc');
+  // 에러대문에 setSortyBy, setSortOrder 삭제했습니다.
+  const [sortBy] = useState<string>('dateTime');
+  const [sortOrder] = useState<string>('asc');
   const [location, setLocation] = useState<string | null>(null);
 
   // bookmark도 mainCategory, subCategory두개 핸들러랑 같이 쓰는데 훅으로 만들수 있을것 같으니 시도해보기.
@@ -51,7 +52,6 @@ export default function Main() {
     isPending,
     fetchNextPage,
     hasNextPage,
-    isError,
   } = useGetGatherings(mainCategory, subCategory, sortBy, sortOrder, location);
 
   useEffect(() => {
