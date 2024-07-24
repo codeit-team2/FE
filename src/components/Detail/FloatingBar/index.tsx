@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import Image from 'next/image';
 
-import CheckModal from '@/components/common/Modal/Check';
+import DynamicModal from '@/components/common/Modal/Dynamic';
 import LoginRequired from '@/components/common/Modal/LoginRequired';
 
 import { Button } from '@/components/ui/button';
@@ -28,7 +28,6 @@ export default function FloatingBar({ data }: FloatingBarProps) {
     if (!isLoggedIn) {
       setShowLoginModal(true);
     } else {
-      setIsEntered((prevIsEntered) => !prevIsEntered);
     }
   };
 
@@ -81,11 +80,14 @@ export default function FloatingBar({ data }: FloatingBarProps) {
             >
               {isEntered ? '참여 취소하기' : '참여하기'}
             </Button>
-            <CheckModal
-              modalType={isEntered ? 'leave' : 'join'}
+            <DynamicModal
+              modalType="confirm"
+              title={isEntered ? '참여 취소하기' : '참여하기'}
+              description={isEntered ? '참여 취소하시겠습니까?' : '해당 모임에 참여하시겠습니까?'}
               isOpen={isDialogOpen}
               onClose={handleCloseDialog}
-              onConfirm={handleClick}
+              buttonText={isEntered ? '취소하기' : '참여하기'}
+              buttonOnClick={handleClick}
             />
           </>
         )}
