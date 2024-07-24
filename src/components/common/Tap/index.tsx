@@ -2,7 +2,12 @@ import React, { useEffect, useRef, useState } from 'react';
 
 import Image from 'next/image';
 
-export default function Tap() {
+interface TapProps {
+  handleMainTapClick: (title: string) => void;
+  mainCategory: string;
+}
+
+export default function Tap({ handleMainTapClick, mainCategory }: TapProps) {
   const titles = [
     { title: '운동', icon: '/icons/ic-fire.svg', iconWidth: 23, iconHeight: 24 },
     { title: '활동', icon: '/icons/ic-game.svg', iconWidth: 24, iconHeight: 20 },
@@ -14,13 +19,11 @@ export default function Tap() {
   const notSelectedFont =
     'md:text-heading-1M text-neutral-500 text-heading-2M hover:text-primary-300';
 
-  const [selectedIndex, setSelectedIndex] = useState<number>(0);
   const [indicatorStyle, setIndicatorStyle] = useState({ width: 0, left: 0 });
-
   const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
 
   const updateIndicator = () => {
-    const currentTab = tabRefs.current[selectedIndex];
+    const currentTab = tabRefs.current.find((tab) => tab?.textContent === mainCategory);
     if (currentTab) {
       const { offsetWidth, offsetLeft } = currentTab;
 
@@ -38,10 +41,10 @@ export default function Tap() {
     return () => {
       window.removeEventListener('resize', updateIndicator);
     };
-  }, [selectedIndex]);
+  }, [mainCategory]);
 
-  const handleTapChange = (index: number) => {
-    setSelectedIndex(index);
+  const handleTapChange = (title: string) => {
+    handleMainTapClick(title);
   };
 
   return (
@@ -49,8 +52,8 @@ export default function Tap() {
       {titles.map(({ title, icon, iconWidth, iconHeight }, index) => (
         <button
           key={index}
-          className={`${selectedIndex === index ? selectedFont : notSelectedFont} flex items-center gap-2`}
-          onClick={() => handleTapChange(index)}
+          className={`${mainCategory === title ? selectedFont : notSelectedFont} flex items-center gap-2`}
+          onClick={() => handleTapChange(title)}
           ref={(el) => {
             tabRefs.current[index] = el;
           }}
