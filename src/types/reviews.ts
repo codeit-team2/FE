@@ -41,9 +41,4 @@ interface PutReviewsValue {
 
 export interface DeleteReviews {
   reviewId: number;
-  value: DeleteReviewsValue;
-}
-
-interface DeleteReviewsValue {
-  email: string;
 }

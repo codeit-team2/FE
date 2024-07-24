@@ -61,7 +61,7 @@ export default function MyCard({ data, type = 'default' }: Props) {
         {type === 'review' && (
           <div className="flex flex-row justify-end gap-16">
             <Person data={data} />
-            <Button className="w-186">후기 작성하기</Button>
+            <ReviewModal type="new" gatheringId={data.gatheringId} />
           </div>
         )}
 

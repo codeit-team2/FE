@@ -20,10 +20,7 @@ export const putReviews = async ({ reviewId, value }: PutReviews) => {
   return res;
 };
 
-export const deleteReviews = async ({ reviewId, value }: DeleteReviews) => {
-  const config = {
-    data: value,
-  };
-  const res = await instance.delete(`/reviews/${reviewId}`, config);
+export const deleteReviews = async ({ reviewId }: DeleteReviews) => {
+  const res = await instance.delete(`/reviews/${reviewId}`);
   return res;
 };

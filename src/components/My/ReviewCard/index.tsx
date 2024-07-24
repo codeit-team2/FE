@@ -9,7 +9,6 @@ import { Button } from '@/components/ui/button';
 
 import formatDate from '@/lib/utils';
 
-import { useGetAccounts } from '@/hooks/useAccounts';
 import { useDeleteReviews } from '@/hooks/useReviews';
 
 import { Reviews } from '@/types/reviews';
@@ -37,15 +36,10 @@ export default function ReviewCard({ data }: Props) {
 
   const { mutate } = useDeleteReviews();
 
-  const { data: user } = useGetAccounts();
-
   // 리뷰 삭제 버튼
   const handleReviewDeleteButton = (reviewId: number) => {
     const value = {
       reviewId: reviewId,
-      value: {
-        email: user.email,
-      },
     };
 
     mutate(value, {
@@ -61,8 +55,6 @@ export default function ReviewCard({ data }: Props) {
   if (!data) {
     return <NotCard />;
   }
-
-  console.log(data);
 
   return data.length > 0 ? (
     data.map((item, index) => (
