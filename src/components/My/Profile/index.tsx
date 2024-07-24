@@ -10,7 +10,7 @@ export default function Profile() {
   const { data: user } = useGetAccounts();
 
   return (
-    <div className="relative mx-auto mt-68 flex h-176 w-336 max-w-screen-lg flex-col items-center justify-center rounded-lg bg-custom-profile-gradient lg:w-full">
+    <div className="relative mx-auto mt-68 flex h-176 w-336 max-w-screen-lg flex-col items-center justify-center rounded-lg bg-custom-profile-gradient shadow-banner lg:w-full">
       <Image
         src={user?.profileImageUrl ? user.profileImageUrl : '/icons/ic-profile.svg'}
         alt="profile"

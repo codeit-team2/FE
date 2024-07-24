@@ -1,4 +1,4 @@
 export interface PostAccounts {
-  profileImage: 'binary';
-  changeNickname: 'nickname';
+  profileImage: string;
+  changeNickname: string;
 }

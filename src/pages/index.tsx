@@ -67,16 +67,7 @@ export default function Main() {
       <GNB />
       <MainLayout>
         <div className="mx-auto max-w-screen-lg">
-          <Banner
-            mainTitle={
-              <>
-                취미를 함께할 동료를 찾고 있나요?
-                <br />
-                취ZONE에서 쉽고 빠르게 다채로운 취미 모임에 참여해보세요
-              </>
-            }
-            subTitle="운동부터 원데이클래스까지 든든하게 준비되어 있어요"
-          />
+          <Banner page="home" />
           <div className="mb-20 mt-32 md:mb-27">
             <Tap handleMainTapClick={handleMainTapClick} mainCategory={mainCategory} />
           </div>
