@@ -2,7 +2,7 @@ import React from 'react';
 
 import Image from 'next/image';
 
-import { Gathering } from '@/types/gathering';
+// import { Gathering } from '@/types/gatherings';
 
 interface BookmarkProps {
   favorite: boolean;

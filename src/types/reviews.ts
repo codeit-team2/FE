@@ -1,4 +1,6 @@
 export interface ReviewsParams {
+  mainCategoryName?: string;
+  subCategoryName?: string;
   page: number;
   size: number;
   sortBy: 'score';
@@ -12,7 +14,7 @@ export interface Reviews {
   createdAt: string;
   accountInfo: {
     nickname: string;
-    profileImageUrl: string;
+    profileImageUrl: string | null;
   };
   gatheringInfo: {
     gatheringId: number;
@@ -21,6 +23,20 @@ export interface Reviews {
     mainCategoryName: string;
     subCategoryName: string;
   };
+}
+
+export interface Scores {
+  averageScore: number;
+  scoreOneCount: number;
+  scoreTwoCount: number;
+  scoreThreeCount: number;
+  scoreFourCount: number;
+  scoreFiveCount: number;
+}
+
+export interface ReviewData {
+  scoreInfo: Scores;
+  reviewInfos: Reviews[];
 }
 
 export interface PostReviews {

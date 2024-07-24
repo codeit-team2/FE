@@ -1,7 +1,14 @@
-import { deleteReviews, getReviewsMine, postReviews, putReviews } from '@/apis/reviews';
+import { getReviewsAll, deleteReviews, getReviewsMine, postReviews, putReviews } from '@/apis/reviews';
 import { useMutation, useQuery } from '@tanstack/react-query';
 
 import { DeleteReviews, PostReviews, PutReviews, ReviewsParams } from '@/types/reviews';
+
+export const useGetReviewsAll = (value: ReviewsParams) => {
+  return useQuery({
+    queryKey: ['reviewsAll', value],
+    queryFn: () => getReviewsAll(value),
+  });
+};
 
 export const useGetReviewsMine = (value: ReviewsParams) => {
   return useQuery({
