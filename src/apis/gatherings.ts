@@ -16,7 +16,6 @@ import { GatheringsParams } from '@/types/gatherings';
 //   return res.data;
 // };
 
-
 // 전체에 대한 값은 어떻게 보내야하는지? 전체 안되고 특정 헬스, 러닝은 가능함.
 export const getGatherings = async (
   page: number,
@@ -50,11 +49,6 @@ export const postGatherings = async (value: FormData) => {
   return res;
 };
 
-
-export const postGatheringsJoin = async (gatheringId: number, value: string) => {
-  const res = await instance.post(`/gatherings/${gatheringId}/join`, value);
-  return res.data;
-};
 export const getGatheringsMine = async (value: GatheringsParams) => {
   const { page, size, sortBy, sortOrder } = value;
   const res = await instance.get(

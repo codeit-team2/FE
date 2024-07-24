@@ -1,5 +1,6 @@
 import {
   deleteGatherings,
+  getDetailGatherings,
   getGatherings,
   getGatheringsJoined,
   getGatheringsMine,
@@ -7,10 +8,10 @@ import {
   postGatheringsJoin,
   postGatheringsLeave,
 } from '@/apis/gatherings';
-import { UseMutationResult, useMutation, useQuery, postGatherings } from '@tanstack/react-query';
+import { UseMutationResult, useInfiniteQuery, useMutation, useQuery } from '@tanstack/react-query';
 
+// postGatherings ??
 import { GatheringsParams } from '@/types/gatherings';
-
 
 export const useGetGatherings = (
   mainCategoryName: string,
@@ -35,13 +36,6 @@ export const useGetGatherings = (
   });
 };
 
-export const usePostGatheringsJoin = () => {
-  return useMutation({
-    mutationFn: ({ gatheringId, value }: { value: string; gatheringId: number }) =>
-      postGatheringsJoin(gatheringId, value),
-  });
-};
-
 interface PostGatheringsResponse {
   success: boolean;
 }
@@ -60,7 +54,7 @@ export const usePostGatherings = () => {
 export const useGatheringQuery = (gatheringId: number) => {
   return useQuery({
     queryKey: ['gatherings', gatheringId],
-    queryFn: () => getGatherings(gatheringId),
+    queryFn: () => getDetailGatherings(gatheringId),
     enabled: !!gatheringId,
   });
 };
@@ -109,6 +103,5 @@ export const useGetGatheringsJoined = (value: GatheringsParams) => {
   return useQuery({
     queryKey: ['gatheringsJoined', value],
     queryFn: () => getGatheringsJoined(value),
-
   });
 };
