@@ -14,6 +14,14 @@ export interface Gathering {
   isJoiner?: boolean;
 }
 
+export interface GetGatheringsQuery {
+  mainCategoryName: string;
+  subCategoryName: string;
+  sortBy: string;
+  sortOrder: string;
+  size: string;
+}
+
 export interface Participant {
   gatheringId: number;
   accounts: Account[];

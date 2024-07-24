@@ -7,9 +7,40 @@ import {
   postGatheringsJoin,
   postGatheringsLeave,
 } from '@/apis/gatherings';
-import { UseMutationResult, useMutation, useQuery } from '@tanstack/react-query';
+import { UseMutationResult, useMutation, useQuery, postGatherings } from '@tanstack/react-query';
 
 import { GatheringsParams } from '@/types/gatherings';
+
+
+export const useGetGatherings = (
+  mainCategoryName: string,
+  subCategoryName: string,
+  sortBy: string,
+  sortOrder: string,
+  location: string | null,
+) => {
+  return useInfiniteQuery({
+    queryKey: ['Gatherings', mainCategoryName, subCategoryName, sortBy, sortOrder, location],
+    queryFn: ({ pageParam }) =>
+      getGatherings(pageParam, mainCategoryName, subCategoryName, sortBy, sortOrder, location),
+    initialPageParam: 0,
+    getNextPageParam: (lastPage, pages) => {
+      if (lastPage.length === 5 && lastPage.length !== 0) {
+        return pages.length;
+      } else {
+        return undefined;
+      }
+    },
+    retry: 0,
+  });
+};
+
+export const usePostGatheringsJoin = () => {
+  return useMutation({
+    mutationFn: ({ gatheringId, value }: { value: string; gatheringId: number }) =>
+      postGatheringsJoin(gatheringId, value),
+  });
+};
 
 interface PostGatheringsResponse {
   success: boolean;
@@ -78,5 +109,6 @@ export const useGetGatheringsJoined = (value: GatheringsParams) => {
   return useQuery({
     queryKey: ['gatheringsJoined', value],
     queryFn: () => getGatheringsJoined(value),
+
   });
 };

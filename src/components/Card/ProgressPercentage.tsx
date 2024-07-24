@@ -1,10 +1,10 @@
-import { TestCardData } from '@/types/testDataType';
+import { Gathering } from '@/types/gathering';
 
 interface ProgressPercentageProps {
-  data: TestCardData;
+  data: Pick<Gathering, 'participantCount' | 'capacity'>;
 }
 export default function ProgressPercentage({ data }: ProgressPercentageProps) {
-  const progressPercentage = (data.member / 20) * 100;
+  const progressPercentage = (data.participantCount / data.capacity) * 100;
 
   return (
     <div className="relative h-6 w-full rounded-full bg-gray-100">
