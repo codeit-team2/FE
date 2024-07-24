@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 
+import Profile from './profile';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -38,11 +39,7 @@ export default function GNB() {
               {likeItems ? <p className="text-blue-600">{likeItems}</p> : ''}
             </div>
             <div>
-              {user?.profileImageUrl ? (
-                <Image src={user.profileImageUrl} alt="프로필 사진" width={32} height={32} />
-              ) : (
-                <Image src="/icons/ic-profile.svg" alt="ic-profile" width={32} height={32} />
-              )}
+              <Profile profileImageUrl={user?.profileImageUrl} />
             </div>
           </>
         ) : (
