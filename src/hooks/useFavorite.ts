@@ -58,6 +58,6 @@ export default function useFavorite() {
   useEffect(() => {
     getFavorites();
   }, []);
-  console.log('favoritesHooks : ', favorites);
+  // console.log('favoritesHooks : ', favorites);
   return { clickFavorites, favorites, saveFavorites, isFavorite };
 }
