@@ -29,7 +29,7 @@ export default function Card({ data, clickFavorites, isFavorite }: CardProps) {
   const favorite = isFavorite(data);
   const { gatheringId } = data;
   const { mutate: mutateGatherJoin, error: errorGatheringJoin, isError } = usePostGatheringsJoin();
-  console.log(isError);
+
   // value is Authorization
   // 임시값
   const value = 'test';

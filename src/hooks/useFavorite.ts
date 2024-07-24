@@ -34,7 +34,6 @@ export default function useFavorite() {
     const storaged = localStorage.getItem(FAVORITES_KEY);
     if (storaged) {
       setFavorites(JSON.parse(storaged));
-      console.log(favorites);
     }
     // }, []);
   };
@@ -59,6 +58,6 @@ export default function useFavorite() {
   useEffect(() => {
     getFavorites();
   }, []);
-
+  console.log('favoritesHooks : ', favorites);
   return { clickFavorites, favorites, saveFavorites, isFavorite };
 }

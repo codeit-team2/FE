@@ -1,4 +1,6 @@
-import { useState } from 'react';
+import { LOCATION } from '@/constants/dropdownItems';
+
+import { useEffect, useState } from 'react';
 
 import Banner from '@/components/common/Banner';
 import Dropdown from '@/components/common/Dropdown';
@@ -14,19 +16,41 @@ import NotCard from '@/components/NotCard';
 
 import useFavorite from '@/hooks/useFavorite';
 
+import { Gathering } from '@/types/gathering';
+
 export default function Bookmark() {
+  const { isFavorite, clickFavorites, favorites } = useFavorite();
   const [mainCategory, setMainCategory] = useState('운동');
   const [subCategory, SetSubCategory] = useState('전체');
+  const [location, setLocation] = useState<string | null>(null);
+  const [trimmedFavorites, setTrimmedFavorites] = useState<Array<Gathering>>([]);
+  console.log('bookmarkTrimmedFavorites : ', trimmedFavorites);
 
-  const { isFavorite, clickFavorites, favorites } = useFavorite();
-
-  const handleChipTapChanger = (title: string) => {
+  const handleMainTapClick = (title: string) => {
     setMainCategory(title);
+    setTrimmedFavorites(favorites.filter((data) => data.mainCategoryName === mainCategory));
   };
 
-  const handleChipTapClick = (title: string) => {
+  const handleSubTapClick = (title: string) => {
     SetSubCategory(title);
   };
+
+  const handleLocationClick = (location: string | null) => {
+    setLocation(location);
+  };
+
+  useEffect(() => {
+    setTrimmedFavorites(favorites.filter((data) => data.mainCategoryName === mainCategory));
+  }, [favorites, mainCategory]);
+
+  useEffect(() => {
+    // mainCategory와 favorites가 변경될 때마다 trimmedFavorites를 업데이트
+    if (subCategory === '전체') {
+      SetSubCategory('전체');
+    } else {
+      setTrimmedFavorites(favorites.filter((data) => data.subCategoryName === subCategory));
+    }
+  }, [subCategory]);
 
   return (
     <>
@@ -38,16 +62,23 @@ export default function Bookmark() {
           subTitle="마감되기 전에 지금 바로 참여해보세요"
         />
         <div className="mb-20 mt-32 md:mb-27">
-          <Tap handleChipTapChanger={handleChipTapChanger} />
+          <Tap handleMainTapClick={handleMainTapClick} mainCategory={mainCategory} />
         </div>
-        <ChipTap mainCategory={mainCategory} handleChipTapClick={handleChipTapClick} />
+        <ChipTap
+          mainCategory={mainCategory}
+          handleSubTapClick={handleSubTapClick}
+          subCategory={subCategory}
+        />
 
         <div className="mb-32 flex justify-between">
           <div className="flex gap-8 md:gap-12">
             <Dropdown
-              items={['중랑구', '광진구', '용산구', '을지로3가']}
+              items={LOCATION}
               icon="icons/ic-chevron-down.svg"
               itemTrigger="지역선택"
+              handleLocationClick={handleLocationClick}
+              mainCategory={mainCategory}
+              subCategory={subCategory}
             />
             <Dropdown icon="icons/ic-chevron-down.svg" itemTrigger="날짜선택" />
           </div>
@@ -59,9 +90,9 @@ export default function Bookmark() {
           />
         </div>
         <div className="flex flex-col gap-20">
-          {favorites ? (
+          {trimmedFavorites ? (
             <>
-              {favorites.map((data, index) => (
+              {trimmedFavorites.map((data, index) => (
                 <Card
                   key={index}
                   data={data}

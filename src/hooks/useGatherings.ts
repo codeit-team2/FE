@@ -2,36 +2,21 @@ import { getGatherings, postGatheringsJoin } from '@/apis/gatherings';
 import { postGatherings } from '@/apis/gatherings';
 import { useInfiniteQuery, useMutation, useQuery } from '@tanstack/react-query';
 
-import { GetGatheringsQuery } from '@/types/gatherings';
-
-// export const useGetGathering = (
-//   pageParam: number = 0,
-//   size: string = '5',
-//   sortBy: string = 'date',
-//   sortOrder: string = 'asc',
-//   mainCategory: string = '활동',
-//   subCategory: string = '러닝',
-// ) => {
-//   return useQuery({
-//     queryKey: ['gatherings', pageParam, size, sortBy, sortOrder, mainCategory, subCategory],
-//     queryFn: () => getGatherings(pageParam, size, sortBy, sortOrder, mainCategory, subCategory),
-//   });
-// };
-
 // 이것들이 과연 훅인가? use가 들어갈만한 내용들인가?
 export const useGetGatherings = (
   mainCategoryName: string,
   subCategoryName: string,
   sortBy: string,
   sortOrder: string,
+  location: string | null,
 ) => {
   return useInfiniteQuery({
-    queryKey: ['Gatherings'],
-    queryFn: ({ pageParam }) => getGatherings(pageParam, mainCategoryName, subCategoryName),
+    queryKey: ['Gatherings', mainCategoryName, subCategoryName, sortBy, sortOrder, location],
+    queryFn: ({ pageParam }) =>
+      getGatherings(pageParam, mainCategoryName, subCategoryName, sortBy, sortOrder, location),
     initialPageParam: 0,
     getNextPageParam: (lastPage, pages) => {
-      if (lastPage.length === 6 && lastPage.length !== 0) {
-        console.log(pages.length);
+      if (lastPage.length === 5 && lastPage.length !== 0) {
         return pages.length;
       } else {
         return undefined;

@@ -1,7 +1,7 @@
 export interface Gathering {
   gatheringId: number;
   location: string;
-  mainCategory: string;
+  mainCategoryName: string;
   subCategoryName: string;
   name: string;
   dateTime: string;
