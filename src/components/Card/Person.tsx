@@ -1,6 +1,6 @@
 import Image from 'next/image';
 
-import { Gathering } from '@/types/gathering';
+import { Gathering } from '@/types/gatherings';
 
 interface PersonProps {
   data: Pick<Gathering, 'participantCount' | 'capacity'>;

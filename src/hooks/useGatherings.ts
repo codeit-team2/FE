@@ -13,6 +13,15 @@ import { UseMutationResult, useInfiniteQuery, useMutation, useQuery } from '@tan
 // postGatherings ??
 import { GatheringsParams } from '@/types/gatherings';
 
+interface PostGatheringsResponse {
+  success: boolean;
+}
+
+interface UseGatheringsArgs {
+  onSuccess?: (data: PostGatheringsResponse) => void;
+  onError?: (error: unknown) => void;
+}
+
 export const useGetGatherings = (
   mainCategoryName: string,
   subCategoryName: string,
@@ -35,15 +44,6 @@ export const useGetGatherings = (
     retry: 0,
   });
 };
-
-interface PostGatheringsResponse {
-  success: boolean;
-}
-
-interface UseGatheringsArgs {
-  onSuccess?: (data: PostGatheringsResponse) => void;
-  onError?: (error: unknown) => void;
-}
 
 export const usePostGatherings = () => {
   return useMutation({
