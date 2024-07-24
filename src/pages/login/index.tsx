@@ -1,47 +1,38 @@
 import { ERROR_MESSAGE, PLACEHOLDER } from '@/constants/formMessages';
 import { useQueryClient } from '@tanstack/react-query';
 
-import { Dispatch, SetStateAction, useEffect } from 'react';
+import { useEffect } from 'react';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 
 import { AxiosError } from 'axios';
 import { setCookie } from 'cookies-next';
 import { useRouter } from 'next/router';
 
+import Footer from '@/components/common/Footer';
+import GNB from '@/components/common/GNB';
 import Input from '@/components/common/Input';
 
 import { Button } from '@/components/ui/button';
-import { Dialog, DialogContent, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 
 import { usePostSignin } from '@/hooks/useAuths';
 import useIsMobile from '@/hooks/useIsMobile';
 
 import { ErrorResponse, PostSignin } from '@/types/auths';
 
-interface LoginModalProps {
-  isLoginModalOpen: boolean;
-  setIsLoginModalOpen: Dispatch<SetStateAction<boolean>>;
-  isSignupModalOpen: boolean;
-  setIsSignupModalOpen: Dispatch<SetStateAction<boolean>>;
-}
-
 const errorMessages: { [key: string]: string } = {
   PASSWORD_MISMATCH: '이메일 또는 비밀번호를 확인해 주세요',
   UNREGISTERED_ACCOUNT: '이메일 또는 비밀번호를 확인해 주세요',
 };
 
-export default function LoginModal({
-  isLoginModalOpen,
-  setIsLoginModalOpen,
-  isSignupModalOpen,
-  setIsSignupModalOpen,
-}: LoginModalProps) {
+export default function MobileLoginPage() {
   const router = useRouter();
   const isMobile = useIsMobile();
 
-  if (isLoginModalOpen && isMobile) {
-    router.push('/login');
-  }
+  useEffect(() => {
+    if (isMobile === false) {
+      router.push('/');
+    }
+  }, [isMobile, router]);
 
   const queryClient = useQueryClient();
 
@@ -52,7 +43,7 @@ export default function LoginModal({
         queryKey: ['user'],
         refetchType: 'active',
       });
-      setIsLoginModalOpen(false);
+      router.push('/');
     },
   });
 
@@ -80,21 +71,13 @@ export default function LoginModal({
 
   useEffect(() => {
     trigger();
-  }, [isLoginModalOpen]);
-
-  if (router.pathname === '/login') return;
+  }, []);
 
   return (
-    <Dialog open={isLoginModalOpen} onOpenChange={setIsLoginModalOpen}>
-      <DialogTrigger>
-        <div
-          className={`hover:text-body-1M hover:text-primary-300 ${isLoginModalOpen || isSignupModalOpen ? 'text-body-1Sb text-neutral-900' : 'text-body-1M text-neutral-500'}`}
-        >
-          로그인
-        </div>
-      </DialogTrigger>
-      <DialogContent className="top-0 max-h-[445px] translate-y-56 overflow-hidden px-20 pb-50 pt-32 md:top-[50%] md:w-520 md:translate-y-[-50%] md:px-40 md:pb-32">
-        <DialogTitle>로그인</DialogTitle>
+    <>
+      <GNB />
+      <div className="border-b-8 border-b-neutral-50 bg-white px-20 pb-50 pt-32">
+        <p className="mb-32 text-center text-heading-2Sb">로그인</p>
         <FormProvider {...form}>
           <form
             className="flex flex-col gap-50"
@@ -144,10 +127,7 @@ export default function LoginModal({
                 <span className="mr-6">취ZONE이 처음이신가요?</span>
                 <span
                   className="cursor-pointer text-primary-300 underline underline-offset-2"
-                  onClick={() => {
-                    setIsSignupModalOpen(true);
-                    setIsLoginModalOpen(false);
-                  }}
+                  onClick={() => router.push('/signup')}
                 >
                   회원가입
                 </span>
@@ -155,7 +135,8 @@ export default function LoginModal({
             </div>
           </form>
         </FormProvider>
-      </DialogContent>
-    </Dialog>
+      </div>
+      <Footer />
+    </>
   );
 }
