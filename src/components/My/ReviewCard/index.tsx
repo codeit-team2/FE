@@ -2,6 +2,8 @@ import React from 'react';
 
 import Image from 'next/image';
 
+import ReviewModal from '@/components/common/Modal/Review';
+
 import NotCard from '@/components/NotCard';
 import { Button } from '@/components/ui/button';
 
@@ -29,6 +31,11 @@ export default function ReviewCard({ data }: Props) {
     }
     return starArray;
   };
+
+  console.log(data);
+
+  // 리뷰 삭제 버튼
+  const handleReviewDeleteButton = () => {};
 
   if (!data) {
     return <NotCard />;
@@ -64,11 +71,9 @@ export default function ReviewCard({ data }: Props) {
             {formatDate({ date: item.createdAt })?.formattedDate} 작성
           </p>
         </div>
-        <div className="flex flex-row items-end justify-end gap-8">
-          <Button className="w-186" variant={'secondary'}>
-            후기 수정하기
-          </Button>
-          <Button variant={'secondary'}>
+        <div className="flex flex-row items-end items-center justify-end gap-8">
+          <ReviewModal type="modify" reviewId={item.reviewId} />
+          <Button variant={'secondary'} onClick={() => handleReviewDeleteButton()}>
             <Image src="/icons/ic-delete.svg" alt="delete" width={24} height={24} />
           </Button>
         </div>

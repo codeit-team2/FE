@@ -1,6 +1,6 @@
 import { ERROR_MESSAGE, PLACEHOLDER } from '@/constants/formMessages';
 
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { FieldValues, FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 
 import Image from 'next/image';
@@ -16,13 +16,17 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog';
 
-import { usePostReviews } from '@/hooks/useReviews';
+import { usePostReviews, usePutReviews } from '@/hooks/useReviews';
+
+import { PutReviews } from '@/types/reviews';
 
 interface Props {
-  gatheringId: number;
+  gatheringId?: number;
+  reviewId?: number;
+  type: 'new' | 'modify';
 }
 
-export default function ReviewModal({ gatheringId }: Props) {
+export default function ReviewModal({ gatheringId, reviewId, type }: Props) {
   const [rating, setRating] = useState<number>(5);
 
   const form = useForm();
@@ -34,31 +38,56 @@ export default function ReviewModal({ gatheringId }: Props) {
   } = form;
 
   // postReviews api
-  const { mutate } = usePostReviews();
+  const { mutate: postMutate } = usePostReviews();
+
+  // putReviews api
+  const { mutate: putMutate } = usePutReviews();
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
-    const value = {
-      gatheringId,
-      score: rating,
-      comment: data.review,
-    };
+    if (gatheringId) {
+      const value = {
+        gatheringId,
+        score: rating,
+        comment: data.review,
+      };
 
-    // api 함수
-    mutate(value, {
-      onSuccess: (data) => {
-        console.log(data);
-      },
-      onError: (error) => {
-        console.error('Error: ', error);
-      },
-    });
+      // api 함수
+      postMutate(value, {
+        onSuccess: (data) => {
+          console.log(data);
+        },
+        onError: (error) => {
+          console.error('Error: ', error);
+        },
+      });
+    }
+
+    if (reviewId) {
+      const value: PutReviews = {
+        reviewId: reviewId,
+        value: {
+          score: rating,
+          comment: data.review,
+        },
+      };
+
+      // api 함수
+      putMutate(value, {
+        onSuccess: (data) => {
+          console.log(data);
+        },
+        onError: (error) => {
+          console.error('Error: ', error);
+        },
+      });
+    }
   };
 
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button className="mb-2 h-42 w-288" variant="default">
-          후기 작성하기
+        <Button className="mb-2 h-42 w-288" variant={type === 'new' ? `default` : 'secondary'}>
+          {type === 'new' ? '후기 작성하기' : '후기 수정하기'}
         </Button>
       </DialogTrigger>
       <DialogOverlay className="bg-neutral-950/80 md:bg-transparent" />
