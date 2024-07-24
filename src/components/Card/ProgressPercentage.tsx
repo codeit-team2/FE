@@ -1,4 +1,4 @@
-import { Gathering } from '@/types/gathering';
+import { Gathering } from '@/types/gatherings';
 
 interface ProgressPercentageProps {
   data: Pick<Gathering, 'participantCount' | 'capacity'>;

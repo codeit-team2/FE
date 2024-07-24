@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import Banner from '@/components/common/Banner';
 import Dropdown from '@/components/common/Dropdown';
@@ -13,8 +13,34 @@ import UserReview from '@/components/Review/UserReview';
 import mockData from '@/components/Review/reviewTestData.json';
 import { Button } from '@/components/ui/button';
 
+// import { useGetReviewsAll } from '@/hooks/useReviews';
+
+// import { ReviewsParams } from '@/types/reviews';
+
 export default function Review() {
   const isReview = true;
+
+  const [mainCategory, setMainCategory] = useState<string>('운동');
+  const [subCategory, setSubCategory] = useState<string>('전체');
+
+  const handleMainTapClick = (title: string) => {
+    setMainCategory(title);
+  };
+
+  const handleSubTapClick = (title: string) => {
+    setSubCategory(title);
+  };
+
+  // const value: ReviewsParams = {
+  //   mainCategoryName: '운동',
+  //   subCategoryName: '러닝',
+  //   page: 0,
+  //   size: 10,
+  //   sortBy: 'score',
+  //   sortOrder: 'asc',
+  // };
+
+  // const { data } = useGetReviewsAll(value);
 
   const reviewData = mockData.reviewInfos;
   const scoreData = mockData.scoreInfo;
@@ -36,9 +62,13 @@ export default function Review() {
             variant="review"
           />
           <div className="mb-20 mt-32 md:mb-27">
-            <Tap />
+            <Tap handleMainTapClick={handleMainTapClick} mainCategory={mainCategory} />
           </div>
-          <ChipTap />
+          <ChipTap
+            mainCategory={mainCategory}
+            handleSubTapClick={handleSubTapClick}
+            subCategory={subCategory}
+          />
           <div className="mt-24 w-full md:mt-32">
             <StarRatingAverage data={scoreData} />
           </div>

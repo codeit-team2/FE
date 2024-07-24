@@ -1,7 +1,6 @@
 import { CATEGORY_TAP } from '@/constants/dropdownItems';
 
-import { useState } from 'react';
-
+// import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 
 interface ChipTapProps {

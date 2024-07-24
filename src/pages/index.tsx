@@ -21,7 +21,7 @@ import NotCard from '@/components/NotCard';
 import useFavorite from '@/hooks/useFavorite';
 import { useGetGatherings } from '@/hooks/useGatherings';
 
-import { Gathering } from '@/types/gathering';
+import { Gathering } from '@/types/gatherings';
 
 export default function Main() {
   const [sortBy, setSortBy] = useState<string>('dateTime');
