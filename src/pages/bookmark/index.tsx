@@ -30,7 +30,6 @@ export default function Bookmark() {
 
   const { data: user } = useGetAccounts();
   const [trimmedFavorites, setTrimmedFavorites] = useState<Array<Gathering>>([]);
-  console.log('bookmarkTrimmedFavorites : ', trimmedFavorites);
 
   const handleMainTapClick = (title: string) => {
     setMainCategory(title);
@@ -41,24 +40,43 @@ export default function Bookmark() {
     SetSubCategory(title);
   };
 
-  const handleLocationClick = (location: string | null) => {
-    setLocation(location);
+  const handleLocationClick = (region: string | null) => {
+    setLocation(region);
   };
 
+  // mainCategory(TapComponent)가 클릭되어 값이 바뀌면 favorites(localStorage)의 값을 mainCategory값으로 필터링
   useEffect(() => {
+    // subCategory('전체')는 전체로 바꿔줄만한 트리거가 보이지 않아 하드코딩
     setTrimmedFavorites(favorites.filter((data) => data.mainCategoryName === mainCategory));
+    SetSubCategory('전체');
   }, [favorites, mainCategory]);
 
+  // subCategory(ChipTapComponents)가 클릭되어 값이 바뀌면 favorites(localStorage)의 값을 subCategory값으로 필터링
   useEffect(() => {
-    // mainCategory와 favorites가 변경될 때마다 trimmedFavorites를 업데이트
+    // subCategory('전체')인 경우는 mainCategory의 값으로 필터링하여 전체를 보여줌
     if (subCategory === '전체') {
-      SetSubCategory('전체');
+      setTrimmedFavorites(favorites.filter((data) => data.mainCategoryName === mainCategory));
     } else {
       setTrimmedFavorites(favorites.filter((data) => data.subCategoryName === subCategory));
     }
   }, [subCategory]);
 
+  // location(지역구Dropdown)가 클릭되어 값이 바뀌면 favorites(localSotrage)의 값을 location값으로 필터링
+  useEffect(() => {
+    // firstFilter는 favorites에서 mainCategory와 같은 값을 가져옴
+    const firstFilter = favorites.filter((data) => data.mainCategoryName === mainCategory);
 
+    // subCategory('전체')인 경우는 firstFilter에서 location이 같은 값을 가져옴
+    if (subCategory === '전체') {
+      setTrimmedFavorites(firstFilter.filter((data) => data.location === location));
+    } else {
+      // secondFilter는 firstFilter에서 subCategory까지 값이 같은지 확인
+      const secondFilter = firstFilter.filter((data) => data.subCategoryName === subCategory);
+      // firstFilter로 mainCategory(TapComponent)의 값으로 필터링한 배열을 secondFilter 에서
+      // subCategory까지 값이 같은지 확인 한 후 해당 배열이 location과 값이 같은지 확인
+      setTrimmedFavorites(secondFilter.filter((data) => data.location === location));
+    }
+  }, [location]);
   return (
     <>
       <GNB />
