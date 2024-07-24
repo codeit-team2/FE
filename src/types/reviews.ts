@@ -38,3 +38,12 @@ interface PutReviewsValue {
   score: number;
   comment: string;
 }
+
+export interface DeleteReviews {
+  reviewId: number;
+  value: DeleteReviewsValue;
+}
+
+interface DeleteReviewsValue {
+  email: string;
+}
