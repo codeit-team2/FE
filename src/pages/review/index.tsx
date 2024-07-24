@@ -25,17 +25,7 @@ export default function Review() {
       <GNB />
       <div className="mx-auto flex min-h-screen w-full flex-col items-center bg-neutral-50 px-12 md:px-32">
         <div className="mx-auto mt-20 flex w-full max-w-[1010px] flex-col items-center md:mt-32">
-          <Banner
-            mainTitle={
-              <>
-                취ZONE 유저분들의
-                <br />
-                생생한 모임 활동 후기를 둘러보세요
-              </>
-            }
-            subTitle="모임을 선택하는데에 분명 도움이 될거에요"
-            variant="review"
-          />
+          <Banner page="review" />
           <div className="mb-20 mt-32 md:mb-27">
             <Tap />
           </div>
