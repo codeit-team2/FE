@@ -11,7 +11,6 @@ import MainLayout from '@/components/common/MainLayout';
 import MyTap from '@/components/My/MyTab';
 import Profile from '@/components/My/Profile';
 
-import { useGetAccounts } from '@/hooks/useAccounts';
 import useCheckLogin from '@/hooks/useCheckLogin';
 
 export default function My() {
@@ -26,7 +25,7 @@ export default function My() {
       <GNB />
       <MainLayout>
         <div className="mx-auto max-w-screen-lg">
-          <Profile nickname={user?.nickname} email={user?.email} />
+          <Profile />
           <div className="mb-27 mt-32 md:px-156">
             <MyTap setSelectTab={setSelectTab} />
           </div>
