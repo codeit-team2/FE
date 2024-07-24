@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 
 import MyCard from '@/components/My/MyCard';
 import NotCard from '@/components/NotCard';
@@ -10,11 +10,11 @@ interface Props {
 }
 
 export default function ReviewAvailable({ data }: Props) {
-  let isItem;
-  useEffect(() => {
-    // 리뷰가 등록된 아이템이 있으면 false, 리뷰 등록이 안 된 아이템이 있으면 true
-    data.map((item) => (item.hasReviewed ? (isItem = false) : (isItem = true)));
-  }, [data]);
+  const reviewRequiredItems = data.filter((gathering) => !gathering.hasReviewed);
 
-  return isItem ? data.map((item, i) => <MyCard key={i} data={item} type="review" />) : <NotCard />;
+  return reviewRequiredItems.length > 0 ? (
+    reviewRequiredItems.map((item, i) => <MyCard key={i} data={item} type="review" />)
+  ) : (
+    <NotCard />
+  );
 }

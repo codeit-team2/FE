@@ -6,7 +6,7 @@ import { getCookie } from 'cookies-next';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 
-import CheckModal from '@/components/common/Modal/Check';
+import DynamicModal from '@/components/common/Modal/Dynamic';
 import LoginRequired from '@/components/common/Modal/LoginRequired';
 
 import { Button } from '@/components/ui/button';
@@ -147,11 +147,14 @@ export default function FloatingBar({ data, queryId }: FloatingBarProps) {
             <Button className="w-286 md:w-392" onClick={handleOpenCancelDialog}>
               개설 취소하기
             </Button>
-            <CheckModal
-              modalType="cancel"
+            <DynamicModal
+              modalType="confirm"
+              title="개설 취소하기"
+              description="개설을 취소하시겠습니까?"
               isOpen={isCancelOpen}
               onClose={handleCloseCancelDialog}
-              onConfirm={handleDeleteClick}
+              buttonText="개설 취소하기"
+              buttonOnClick={handleDeleteClick}
             />
             <button onClick={handleCopyURL} className="h-42 w-42 rounded-sm bg-neutral-900 p-9">
               <div className="relative h-24 w-24">
@@ -168,11 +171,14 @@ export default function FloatingBar({ data, queryId }: FloatingBarProps) {
             >
               {isEntered ? '참여 취소하기' : '참여하기'}
             </Button>
-            <CheckModal
-              modalType={isEntered ? 'leave' : 'join'}
+            <DynamicModal
+              modalType="confirm"
+              title={isEntered ? '참여 취소하기' : '참여하기'}
+              description={isEntered ? '참여 취소하시겠습니까?' : '해당 모임에 참여하시겠습니까?'}
               isOpen={isDialogOpen}
               onClose={handleCloseDialog}
-              onConfirm={handleClick}
+              buttonText={isEntered ? '취소하기' : '참여하기'}
+              buttonOnClick={handleClick}
             />
           </>
         )}

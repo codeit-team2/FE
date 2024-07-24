@@ -44,3 +44,17 @@ export interface PostReviews {
   score: number;
   comment: string;
 }
+
+export interface PutReviews {
+  reviewId: number;
+  value: PutReviewsValue;
+}
+
+interface PutReviewsValue {
+  score: number;
+  comment: string;
+}
+
+export interface DeleteReviews {
+  reviewId: number;
+}
