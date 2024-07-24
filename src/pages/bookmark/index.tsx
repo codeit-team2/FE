@@ -10,21 +10,24 @@ import Test from '@/components/Card/testData.js';
 import ChipTap from '@/components/ChipTap';
 import NotCard from '@/components/NotCard';
 
+import { useGetAccounts } from '@/hooks/useAccounts';
+import useCheckLogin from '@/hooks/useCheckLogin';
 import useFavorite from '@/hooks/useFavorite';
 
 export default function Bookmark() {
   // 빌드 에러로 테스트용 주석처리
   // const TESTS = null;
+
+  useCheckLogin();
+
+  const { data: user } = useGetAccounts();
   const { isFavorite, clickFavorites } = useFavorite();
+
   return (
     <>
       <GNB />
       <MainLayout>
-        <Banner
-          mainTitle="[000(유저닉네임) or 유저]님이 찜한
-          취ZONE의 취미 모임이에요"
-          subTitle="마감되기 전에 지금 바로 참여해보세요"
-        />
+        <Banner page="bookmark" nickname={user?.nickname} />
         <div className="mb-20 mt-32 md:mb-27">
           <Tap />
         </div>
