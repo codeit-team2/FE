@@ -14,6 +14,8 @@ import ChipTap from '@/components/ChipTap';
 import Loading from '@/components/Loading';
 import NotCard from '@/components/NotCard';
 
+import { useGetAccounts } from '@/hooks/useAccounts';
+import useCheckLogin from '@/hooks/useCheckLogin';
 import useFavorite from '@/hooks/useFavorite';
 
 import { Gathering } from '@/types/gathering';
@@ -23,6 +25,10 @@ export default function Bookmark() {
   const [mainCategory, setMainCategory] = useState('운동');
   const [subCategory, SetSubCategory] = useState('전체');
   const [location, setLocation] = useState<string | null>(null);
+
+  useCheckLogin();
+
+  const { data: user } = useGetAccounts();
   const [trimmedFavorites, setTrimmedFavorites] = useState<Array<Gathering>>([]);
   console.log('bookmarkTrimmedFavorites : ', trimmedFavorites);
 
@@ -52,15 +58,12 @@ export default function Bookmark() {
     }
   }, [subCategory]);
 
+
   return (
     <>
       <GNB />
       <MainLayout>
-        <Banner
-          mainTitle="[000(유저닉네임) or 유저]님이 찜한
-          취ZONE의 취미 모임이에요"
-          subTitle="마감되기 전에 지금 바로 참여해보세요"
-        />
+        <Banner page="bookmark" nickname={user?.nickname} />
         <div className="mb-20 mt-32 md:mb-27">
           <Tap handleMainTapClick={handleMainTapClick} mainCategory={mainCategory} />
         </div>
