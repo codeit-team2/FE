@@ -1,57 +1,54 @@
 import React, { useMemo, useState } from 'react';
 
-import MyCard from '@/components/My/MyCard';
-import NotCard from '@/components/NotCard';
+import ReviewAvailable from './review-available';
+import ReviewComplete from './review-complete';
+
 import { Button } from '@/components/ui/button';
 
-import { TestCardData } from '@/types/testDataType';
+import { isDateBeforeToday } from '@/lib/utils';
 
-interface Props {
-  data: TestCardData[];
-}
+import { useGetGatheringsJoined } from '@/hooks/useGatherings';
 
-function isDateBeforeToday(date: string): boolean {
-  const compareDate = new Date(date);
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
-  return compareDate < today;
-}
+import { Gathering, GatheringsParams } from '@/types/gatherings';
 
-export default function Review({ data }: Props) {
-  const [clicked, setClicked] = useState(true);
+export default function Review() {
+  const [isReviewWritten, setIsReviewWritten] = useState(true);
 
+  // getGatheringsJoined api 호출
+  const value: GatheringsParams = {
+    page: 0, // 변수 수정
+    size: 5,
+    sortBy: 'dateTime',
+    sortOrder: 'asc',
+  };
+
+  const { data } = useGetGatheringsJoined(value);
   const filteredData = useMemo(() => {
     if (!data) return [];
 
-    return data.filter((item) => item.review === clicked && isDateBeforeToday(item.date));
-  }, [data, clicked]);
+    return data.filter((item: Gathering) => isDateBeforeToday({ date: item.dateTime }));
+  }, [data]);
 
   return (
     <div>
       <div className="mb-32 flex flex-row justify-center gap-8">
         <Button
-          variant={clicked === true ? 'secondary' : 'ghost'}
+          variant={isReviewWritten === true ? 'secondary' : 'ghost'}
           type="submit"
-          onClick={() => setClicked(true)}
+          onClick={() => setIsReviewWritten(true)}
         >
           작성 가능한 후기
         </Button>
         <Button
-          variant={clicked === false ? 'secondary' : 'ghost'}
+          variant={isReviewWritten === false ? 'secondary' : 'ghost'}
           type="submit"
-          onClick={() => setClicked(false)}
+          onClick={() => setIsReviewWritten(false)}
         >
           작성한 후기
         </Button>
       </div>
       <div className="flex flex-col gap-20 pb-50">
-        {filteredData.length > 0 ? (
-          filteredData.map((item, index) => (
-            <MyCard key={index} data={item} type={clicked ? 'default' : 'review'} />
-          ))
-        ) : (
-          <NotCard />
-        )}
+        {isReviewWritten ? <ReviewAvailable data={filteredData} /> : <ReviewComplete />}
       </div>
     </div>
   );

@@ -5,16 +5,29 @@ import Image from 'next/image';
 
 import { Button } from '@/components/ui/button';
 
-type ModalType = 'join' | 'leave';
-
-interface CheckModalProps {
-  modalType: ModalType;
+interface DynamicModalProps {
+  modalType: 'confirm' | 'prompt' | 'message';
+  title: string;
+  description: string;
   isOpen: boolean;
   onClose: () => void;
-  onConfirm?: () => void;
+  buttonText?: string;
+  buttonOnClick?: () => void;
+  secondaryButtonText?: string;
+  secondaryButtonOnClick?: () => void;
 }
 
-export default function CheckModal({ modalType, isOpen, onClose, onConfirm }: CheckModalProps) {
+export default function DynamicModal({
+  modalType,
+  title,
+  description,
+  isOpen,
+  onClose,
+  buttonText,
+  buttonOnClick,
+  secondaryButtonText,
+  secondaryButtonOnClick,
+}: DynamicModalProps) {
   const [portalRoot, setPortalRoot] = useState<HTMLElement | null>(null);
 
   useEffect(() => {
@@ -37,42 +50,16 @@ export default function CheckModal({ modalType, isOpen, onClose, onConfirm }: Ch
     return null;
   }
 
-  let title: string = '';
-  let description: string = '';
-  let buttonText: string = '';
-
-  switch (modalType) {
-    case 'join':
-      title = '참여하기';
-      description = '해당 모임에 참여하시겠습니까?';
-      buttonText = '확인';
-      break;
-    case 'leave':
-      title = '참여 취소하기';
-      description = '참여 취소하시겠습니까?';
-      buttonText = '확인';
-      break;
-    default:
-      break;
-  }
-
-  const handleClick = () => {
-    if (onConfirm) {
-      onConfirm();
-    }
-    onClose();
-  };
-
   const modalContent = (
     <div
-      className="fixed inset-0 z-50 flex h-full w-full items-center justify-center bg-neutral-950/80"
+      className="fixed inset-0 z-50 flex h-full w-full items-center justify-center bg-neutral-900/70"
       onClick={onClose}
     >
       <div
         className="flex h-272 w-320 items-center justify-center rounded-md bg-white px-20 py-32 shadow-lg md:w-520 md:px-32 md:py-40"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="relative flex w-280 flex-col items-center justify-between gap-20 md:w-440">
+        <div className="relative flex flex-col items-center justify-between gap-20 md:w-440">
           <button type="button" onClick={onClose} className="absolute right-0 top-0">
             <Image
               src={'/icons/ic-modal-close.svg'}
@@ -85,9 +72,25 @@ export default function CheckModal({ modalType, isOpen, onClose, onConfirm }: Ch
           <p className="flex h-84 items-center justify-center text-heading-2Sb text-neutral-900">
             {description}
           </p>
-          <Button onClick={handleClick} className="w-full text-body-1Sb">
-            {buttonText}
-          </Button>
+          {modalType === 'confirm' && (
+            <Button onClick={buttonOnClick} className="w-full">
+              {buttonText}
+            </Button>
+          )}
+          {modalType === 'prompt' && (
+            <div className="flex w-full gap-12">
+              <Button
+                variant="secondary"
+                onClick={secondaryButtonOnClick || onClose}
+                className="flex-1"
+              >
+                {secondaryButtonText}
+              </Button>
+              <Button onClick={buttonOnClick} className="flex-1">
+                {buttonText}
+              </Button>
+            </div>
+          )}
         </div>
       </div>
     </div>

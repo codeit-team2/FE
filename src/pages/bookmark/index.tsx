@@ -1,3 +1,7 @@
+import { LOCATION } from '@/constants/dropdownItems';
+
+import { useEffect, useState } from 'react';
+
 import Banner from '@/components/common/Banner';
 import Dropdown from '@/components/common/Dropdown';
 import Footer from '@/components/common/Footer';
@@ -6,36 +10,96 @@ import MainLayout from '@/components/common/MainLayout';
 import Tap from '@/components/common/Tap';
 
 import Card from '@/components/Card';
-import Test from '@/components/Card/testData.js';
 import ChipTap from '@/components/ChipTap';
+// import Loading from '@/components/Loading';
 import NotCard from '@/components/NotCard';
 
+import { useGetAccounts } from '@/hooks/useAccounts';
+import useCheckLogin from '@/hooks/useCheckLogin';
 import useFavorite from '@/hooks/useFavorite';
 
+import { Gathering } from '@/types/gatherings';
+
 export default function Bookmark() {
-  // 빌드 에러로 테스트용 주석처리
-  // const TESTS = null;
-  const { isFavorite, clickFavorites } = useFavorite();
+  const { isFavorite, clickFavorites, favorites } = useFavorite();
+  const [mainCategory, setMainCategory] = useState('운동');
+  const [subCategory, SetSubCategory] = useState('전체');
+  const [location, setLocation] = useState<string | null>(null);
+
+  useCheckLogin();
+
+  const { data: user } = useGetAccounts();
+  const [trimmedFavorites, setTrimmedFavorites] = useState<Array<Gathering>>([]);
+
+  const handleMainTapClick = (title: string) => {
+    setMainCategory(title);
+    setTrimmedFavorites(favorites.filter((data) => data.mainCategoryName === mainCategory));
+  };
+
+  const handleSubTapClick = (title: string) => {
+    SetSubCategory(title);
+  };
+
+  const handleLocationClick = (region: string | null) => {
+    setLocation(region);
+  };
+
+  // mainCategory(TapComponent)가 클릭되어 값이 바뀌면 favorites(localStorage)의 값을 mainCategory값으로 필터링
+  useEffect(() => {
+    // subCategory('전체')는 전체로 바꿔줄만한 트리거가 보이지 않아 하드코딩
+    setTrimmedFavorites(favorites.filter((data) => data.mainCategoryName === mainCategory));
+    SetSubCategory('전체');
+  }, [favorites, mainCategory]);
+
+  // subCategory(ChipTapComponents)가 클릭되어 값이 바뀌면 favorites(localStorage)의 값을 subCategory값으로 필터링
+  useEffect(() => {
+    // subCategory('전체')인 경우는 mainCategory의 값으로 필터링하여 전체를 보여줌
+    if (subCategory === '전체') {
+      setTrimmedFavorites(favorites.filter((data) => data.mainCategoryName === mainCategory));
+    } else {
+      setTrimmedFavorites(favorites.filter((data) => data.subCategoryName === subCategory));
+    }
+  }, [subCategory]);
+
+  // location(지역구Dropdown)가 클릭되어 값이 바뀌면 favorites(localSotrage)의 값을 location값으로 필터링
+  useEffect(() => {
+    // firstFilter는 favorites에서 mainCategory와 같은 값을 가져옴
+    const firstFilter = favorites.filter((data) => data.mainCategoryName === mainCategory);
+
+    // subCategory('전체')인 경우는 firstFilter에서 location이 같은 값을 가져옴
+    if (subCategory === '전체') {
+      setTrimmedFavorites(firstFilter.filter((data) => data.location === location));
+    } else {
+      // secondFilter는 firstFilter에서 subCategory까지 값이 같은지 확인
+      const secondFilter = firstFilter.filter((data) => data.subCategoryName === subCategory);
+      // firstFilter로 mainCategory(TapComponent)의 값으로 필터링한 배열을 secondFilter 에서
+      // subCategory까지 값이 같은지 확인 한 후 해당 배열이 location과 값이 같은지 확인
+      setTrimmedFavorites(secondFilter.filter((data) => data.location === location));
+    }
+  }, [location]);
   return (
     <>
       <GNB />
       <MainLayout>
-        <Banner
-          mainTitle="[000(유저닉네임) or 유저]님이 찜한
-          취ZONE의 취미 모임이에요"
-          subTitle="마감되기 전에 지금 바로 참여해보세요"
-        />
+        <Banner page="bookmark" nickname={user?.nickname} />
         <div className="mb-20 mt-32 md:mb-27">
-          <Tap />
+          <Tap handleMainTapClick={handleMainTapClick} mainCategory={mainCategory} />
         </div>
-        <ChipTap />
+        <ChipTap
+          mainCategory={mainCategory}
+          handleSubTapClick={handleSubTapClick}
+          subCategory={subCategory}
+        />
 
         <div className="mb-32 flex justify-between">
           <div className="flex gap-8 md:gap-12">
             <Dropdown
-              items={['중랑구', '광진구', '용산구', '을지로3가']}
+              items={LOCATION}
               icon="icons/ic-chevron-down.svg"
               itemTrigger="지역선택"
+              handleLocationClick={handleLocationClick}
+              mainCategory={mainCategory}
+              subCategory={subCategory}
             />
             <Dropdown icon="icons/ic-chevron-down.svg" itemTrigger="날짜선택" />
           </div>
@@ -47,9 +111,9 @@ export default function Bookmark() {
           />
         </div>
         <div className="flex flex-col gap-20">
-          {Test ? (
+          {trimmedFavorites ? (
             <>
-              {Test.map((data, index) => (
+              {trimmedFavorites.map((data, index) => (
                 <Card
                   key={index}
                   data={data}
@@ -57,14 +121,6 @@ export default function Bookmark() {
                   clickFavorites={clickFavorites}
                 />
               ))}
-              {/* 나중에 디자인 답변오면 수정 예정입니다. */}
-              {/* <div className="mb-16 mt-40 h-2 w-full bg-neutral-100" />
-              <button className="flex w-full items-center justify-center pb-50">
-                더 보기
-                <div className="relative h-24 w-24">
-                  <Image src="icons/ic-chevron-down.svg" alt="dropdown" fill />
-                </div>
-              </button> */}
               <div className="mb-50" />
             </>
           ) : (

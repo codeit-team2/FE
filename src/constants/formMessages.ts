@@ -12,7 +12,7 @@ export const ERROR_MESSAGE = {
     duplicate: '중복된 이메일입니다',
     register: '이메일 또는 비밀번호를 확인해 주세요',
   },
-  verifyCode: {
+  code: {
     required: '인증코드를 입력해 주세요',
     max: '숫자 6자만 입력해 주세요',
     valid: '숫자 6자만 입력해 주세요',
@@ -29,7 +29,7 @@ export const ERROR_MESSAGE = {
     min: '2자~50자 사이의 소감을 입력해 주세요',
     max: '2자~50자 사이의 소감을 입력해 주세요',
   },
-  thumbnail: {
+  gatheringImage: {
     required: '대표 이미지를 등록해주세요',
   },
   category: {
@@ -38,24 +38,33 @@ export const ERROR_MESSAGE = {
   location: {
     required: '지역을 선택해주세요',
   },
-  clubName: {
+  date: {
+    required: '날짜를 선택해 주세요',
+    invalidRange: '이미 지난 날짜는 선택할 수 없습니다',
+  },
+  time: {
+    required: '시간을 선택해 주세요',
+  },
+  name: {
     required: '클럽이름을 입력해주세요',
   },
-  headcount: {
+  capacity: {
     required: '인원수를 입력해주세요',
+    notANumber: '숫자만 입력해 주세요',
+    invalidRange: '5이상 20이하 숫자만 입력해주세요',
   },
 };
 
 export const PLACEHOLDER = {
   nickname: '닉네임을 입력해 주세요',
   email: '이메일을 입력해 주세요',
-  verifyCode: '인증코드를 입력해 주세요',
+  code: '인증코드를 입력해 주세요',
   password: '비밀번호를 입력해 주세요',
   passwordCheck: '비밀번호를 다시 한 번 입력해 주세요',
   category: '카테고리를 선택해 주세요',
   location: '지역을 선택해 주세요',
-  clubName: '30자 이내로 모임명을 입력해 주세요',
-  headcount: '5에서 20까지 숫자로만 입력해 주세요',
+  name: '30자 이내로 모임명을 입력해 주세요',
+  capacity: '5에서 20까지 숫자로만 입력해 주세요',
   review:
     '남겨주신 후기는 모임 운영 및 다른 회원 분들께 큰 도움이 됩니다 (띄어쓰기 포함 50자 이내)',
 };

@@ -16,6 +16,8 @@
   ],
   "rules": {
     "react/react-in-jsx-scope": "off",
+    "@typescript-eslint/no-explicit-any": "off", //타입 설정 후 지우기
     "react/jsx-filename-extension": [1, { "extensions": [".ts", ".tsx"] }]
-  }
+  },
+  "ignorePatterns": ["next.config.js", "next.config.mjs"]
 }

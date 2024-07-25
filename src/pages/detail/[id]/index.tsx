@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 
 import GNB from '@/components/common/GNB';
 
@@ -10,29 +11,40 @@ import TitleCard from '@/components/Detail/TitleCard';
 import reviewData from '@/components/Detail/reviewData.json';
 import NotReview from '@/components/NotReview';
 
-const titleData = {
-  gatheringId: 101,
-  location: '중랑구',
-  mainCategory: '운동',
-  subCategory: '러닝',
-  name: '나이트 러닝으로 중랑천 함께 뛰어요 초보 환영',
-  dateTime: '2024-07-18T17:00:00',
-  participantCount: 15,
-  capacity: 20,
-  gatheringImageUrl: '/images/러닝이미지.jpg',
-  createdAt: 'yyyy-mm-ddTHH:mm:ss',
-  canceledAt: 'yyyy-mm-ddTHH:mm:ss',
-};
+import useFavorite from '@/hooks/useFavorite';
+import { useGatheringQuery } from '@/hooks/useGatherings';
 
 export default function Detail() {
   const isReview = true;
+  const router = useRouter();
+  const { id: gatheringId } = router.query;
+
+  const { clickFavorites, isFavorite } = useFavorite();
+
+  const queryId = Number(gatheringId);
+
+  const { data, isLoading, isError } = useGatheringQuery(queryId);
+
+  if (!router.isReady) {
+    return <div>Loading...</div>;
+  }
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (isError) {
+    return <div>Error loading data</div>;
+  }
+
+  console.log(data);
 
   return (
     <>
       <GNB />
       <div className="mx-auto flex min-h-screen w-full flex-col items-center bg-neutral-50 px-12 md:px-32">
         <div className="flex w-full flex-col items-center pb-90 pt-32">
-          <TitleCard data={titleData} />
+          <TitleCard data={data} clickFavorites={clickFavorites} isFavorite={isFavorite} />
           <div className="mt-42 flex items-center gap-8 text-body-1Sb text-neutral-900 md:text-heading-2Sb">
             이용자들은 이 모임을 이렇게 느꼈어요!
             <Image src={'/icons/ic-message.svg'} alt="ic-message" width={24} height={24} />
@@ -47,7 +59,7 @@ export default function Detail() {
             <NotReview />
           )}
         </div>
-        <FloatingBar data={titleData} />
+        <FloatingBar data={data} queryId={queryId} />
       </div>
     </>
   );

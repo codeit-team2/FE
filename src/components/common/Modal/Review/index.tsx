@@ -1,6 +1,6 @@
 import { ERROR_MESSAGE, PLACEHOLDER } from '@/constants/formMessages';
 
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { FieldValues, FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 
 import Image from 'next/image';
@@ -16,8 +16,18 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog';
 
-export default function ReviewModal() {
-  const [rating, setRating] = useState(5);
+import { usePostReviews, usePutReviews } from '@/hooks/useReviews';
+
+import { PutReviews } from '@/types/reviews';
+
+interface Props {
+  gatheringId?: number;
+  reviewId?: number;
+  type: 'new' | 'modify';
+}
+
+export default function ReviewModal({ gatheringId, reviewId, type }: Props) {
+  const [rating, setRating] = useState<number>(5);
 
   const form = useForm();
 
@@ -26,15 +36,60 @@ export default function ReviewModal() {
     register,
     formState: { isValid },
   } = form;
-  // 빌드 오류로 인한 안쓰는 코드 주석 처리
-  // const onSubmit: SubmitHandler<FieldValues> = (value: FieldValues) => {};
-  const onSubmit: SubmitHandler<FieldValues> = () => {};
+
+  // postReviews api
+  const { mutate: postMutate } = usePostReviews();
+
+  // putReviews api
+  const { mutate: putMutate } = usePutReviews();
+
+  const onSubmit: SubmitHandler<FieldValues> = (data) => {
+    if (gatheringId) {
+      const value = {
+        gatheringId,
+        score: rating,
+        comment: data.review,
+      };
+
+      // api 함수
+      postMutate(value, {
+        onSuccess: () => {
+          window.location.reload();
+        },
+        onError: (error) => {
+          console.error('Error: ', error.message);
+          alert('에러 발생');
+          // alert(error.response.data.message);
+        },
+      });
+    }
+
+    if (reviewId) {
+      const value: PutReviews = {
+        reviewId: reviewId,
+        value: {
+          score: rating,
+          comment: data.review,
+        },
+      };
+
+      // api 함수
+      putMutate(value, {
+        onSuccess: (data) => {
+          console.log(data);
+        },
+        onError: (error) => {
+          console.error('Error: ', error);
+        },
+      });
+    }
+  };
 
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button className="mb-2 h-42 w-288" variant="default">
-          후기 작성하기
+        <Button className="mb-2 h-42 w-288" variant={type === 'new' ? `default` : 'secondary'}>
+          {type === 'new' ? '후기 작성하기' : '후기 수정하기'}
         </Button>
       </DialogTrigger>
       <DialogOverlay className="bg-neutral-950/80 md:bg-transparent" />

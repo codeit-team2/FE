@@ -1,48 +1,155 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
+import { deleteCookie } from 'cookies-next';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 import LoginModal from '@/components/common/Modal/Login';
 import SignupModal from '@/components/common/Modal/Signup';
 
+import { useGetAccounts } from '@/hooks/useAccounts';
+import useIsMobile from '@/hooks/useIsMobile';
+
 export default function GNB() {
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const [isSignupModalOpen, setIsSignupModalOpen] = useState(false);
+  const [isMobileClient, setIsMobileClient] = useState(false);
+  const [isOpenPopover, setIsOpenPopover] = useState(false);
+
+  const router = useRouter();
+  const { pathname } = router;
+
+  const isMobile = useIsMobile();
+
+  const profileButtonRef = useRef<HTMLButtonElement>(null);
+  const popoverRef = useRef<HTMLUListElement>(null);
 
   // api 연동하면서 수정필요
-  const isloginStatus = false;
   const likeItems = 10;
 
+  const { data: user } = useGetAccounts();
+
+  const handleTogglePopover = () => {
+    setIsOpenPopover((prev) => !prev);
+  };
+
+  const handleLogoutClick = () => {
+    deleteCookie('accessToken');
+    router.reload();
+  };
+
+  const handlePopoverClickOutside = (event: MouseEvent) => {
+    if (
+      profileButtonRef.current &&
+      !profileButtonRef.current.contains(event.target as Node) &&
+      popoverRef.current &&
+      !popoverRef.current.contains(event.target as Node)
+    ) {
+      setIsOpenPopover(false);
+    }
+  };
+
+  useEffect(() => {
+    setIsMobileClient(isMobile);
+  }, [isMobile]);
+
+  useEffect(() => {
+    document.addEventListener('mousedown', handlePopoverClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handlePopoverClickOutside);
+    };
+  }, []);
+
   return (
-    <div className="flex w-full flex-row justify-between px-20 py-16 shadow-sm md:px-32 md:py-16">
+    <div className="flex h-60 w-full flex-row justify-between px-20 shadow-sm md:px-32">
       <Link className="flex" href="/">
         <Image src="/icons/ic-logo.svg" alt="logo" priority={true} width={65} height={14} />
       </Link>
-      <div className="flex flex-row gap-12 md:gap-40">
-        <Link href="/" className="font-Pretendard text-base font-semibold">
-          모임 찾기
+      <div className="flex flex-row items-center gap-12 md:gap-40">
+        <Link
+          href="/"
+          className={`text-body-1M text-neutral-500 hover:text-body-1M hover:text-primary-300 ${pathname === '/' && 'text-body-1Sb text-neutral-900'}`}
+        >
+          모임찾기
         </Link>
-        <Link href="/" className="font-Pretendard text-base font-medium text-gray-500">
-          모든 리뷰
+        {user?.email && (
+          <div className="flex flex-row items-center gap-4">
+            <Link
+              href="/bookmark"
+              className={`text-body-1M text-neutral-500 hover:text-body-1M hover:text-primary-300 ${
+                pathname === '/bookmark' ? 'text-body-1Sb text-neutral-900' : ''
+              }`}
+            >
+              찜한모임
+            </Link>
+            {likeItems ? <p className="text-primary-300">{likeItems}</p> : ''}
+          </div>
+        )}
+        <Link
+          href="/review"
+          className={`text-body-1M text-neutral-500 hover:text-body-1M hover:text-primary-300 ${pathname === '/review' && 'text-body-1Sb text-neutral-900'}`}
+        >
+          활동후기
         </Link>
-        {isloginStatus ? (
-          <>
-            <div className="flex flex-row gap-4">
-              <Link href="/" className="font-Pretendard text-base font-medium text-gray-500">
-                찜한 모임
-              </Link>
-              {likeItems ? <p className="text-blue-600">{likeItems}</p> : ''}
-            </div>
-            <Image src="/icons/ic-profile.svg" alt="ic-profile" width={32} height={32} />
-          </>
+        {user?.email ? (
+          <div>
+            {user?.profileImageUrl ? (
+              <Image
+                className="aspect-square rounded-full border border-neutral-300"
+                src={user.profileImageUrl}
+                alt="프로필 사진"
+                width={32}
+                height={32}
+              />
+            ) : (
+              <div className="relative">
+                <button
+                  className={`block h-32 w-32 cursor-pointer bg-[url("/icons/ic-profile-gray.svg")] hover:bg-[url("/icons/ic-profile-blue.svg")] ${isOpenPopover && 'bg-[url("/icons/ic-profile-navy.svg")]'}`}
+                  ref={profileButtonRef}
+                  onClick={handleTogglePopover}
+                />
+                {isOpenPopover && (
+                  <ul
+                    ref={popoverRef}
+                    className="absolute right-0 top-[calc(100%+22px)] z-10 w-100 rounded-md bg-white shadow-lg"
+                  >
+                    <Link href="/my">
+                      <li className="mx-4 my-5 cursor-pointer rounded-full py-7 text-center text-body-2Sb hover:bg-primary-50">
+                        마이페이지
+                      </li>
+                    </Link>
+                    <li
+                      className="mx-4 my-5 cursor-pointer rounded-full py-7 text-center text-body-2Sb text-neutral-900 hover:bg-primary-50"
+                      onClick={handleLogoutClick}
+                    >
+                      로그아웃
+                    </li>
+                    <li className="mx-4 my-5 cursor-pointer rounded-full py-7 text-center text-body-2Sb text-neutral-900 hover:bg-primary-50">
+                      회원탈퇴
+                    </li>
+                  </ul>
+                )}
+              </div>
+            )}
+          </div>
         ) : (
-          <div className="font-Pretendard text-base font-medium text-gray-500">
-            <LoginModal
-              isLoginModalOpen={isLoginModalOpen}
-              setIsLoginModalOpen={setIsLoginModalOpen}
-              setIsSignupModalOpen={setIsSignupModalOpen}
-            />
+          <div>
+            {isMobileClient ? (
+              <Link
+                className={`text-body-1M text-neutral-500 hover:text-body-1M hover:text-primary-300 ${pathname === '/login' && 'text-body-1Sb text-neutral-900'}`}
+                href={'/login'}
+              >
+                로그인
+              </Link>
+            ) : (
+              <LoginModal
+                isLoginModalOpen={isLoginModalOpen}
+                setIsLoginModalOpen={setIsLoginModalOpen}
+                isSignupModalOpen={isSignupModalOpen}
+                setIsSignupModalOpen={setIsSignupModalOpen}
+              />
+            )}
             <SignupModal
               isSignupModalOpen={isSignupModalOpen}
               setIsSignupModalOpen={setIsSignupModalOpen}

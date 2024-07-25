@@ -4,7 +4,7 @@ import Image from 'next/image';
 
 import ProfileImageGroup from '@/components/Detail/ProfileImageGroup';
 
-import { Gathering, Participant } from '@/types/testDataType';
+import { Gathering, Participant } from '@/types/gatherings';
 
 interface InfoBadgeProps {
   data: Gathering;

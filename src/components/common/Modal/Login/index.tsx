@@ -1,44 +1,97 @@
 import { ERROR_MESSAGE, PLACEHOLDER } from '@/constants/formMessages';
+import { useQueryClient } from '@tanstack/react-query';
 
 import { Dispatch, SetStateAction, useEffect } from 'react';
-import { FieldValues, FormProvider, SubmitHandler, useForm } from 'react-hook-form';
+import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
+
+import { AxiosError } from 'axios';
+import { setCookie } from 'cookies-next';
+import { useRouter } from 'next/router';
 
 import Input from '@/components/common/Input';
 
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 
+import { usePostSignin } from '@/hooks/useAuths';
+import useIsMobile from '@/hooks/useIsMobile';
+
+import { ErrorResponse, PostSignin } from '@/types/auths';
+
 interface LoginModalProps {
   isLoginModalOpen: boolean;
   setIsLoginModalOpen: Dispatch<SetStateAction<boolean>>;
+  isSignupModalOpen: boolean;
   setIsSignupModalOpen: Dispatch<SetStateAction<boolean>>;
 }
+
+const errorMessages: { [key: string]: string } = {
+  PASSWORD_MISMATCH: '이메일 또는 비밀번호를 확인해 주세요',
+  UNREGISTERED_ACCOUNT: '이메일 또는 비밀번호를 확인해 주세요',
+};
 
 export default function LoginModal({
   isLoginModalOpen,
   setIsLoginModalOpen,
+  isSignupModalOpen,
   setIsSignupModalOpen,
 }: LoginModalProps) {
-  const form = useForm();
+  const router = useRouter();
+  const isMobile = useIsMobile();
+
+  if (isLoginModalOpen && isMobile) {
+    router.push('/login');
+  }
+
+  const queryClient = useQueryClient();
+
+  const { mutate: mutateSiginin, error: errorSiginin } = usePostSignin({
+    onSuccess: (data: { accessToken: string; tokenScheme: string }) => {
+      setCookie('accessToken', data.accessToken);
+      queryClient.invalidateQueries({
+        queryKey: ['user'],
+        refetchType: 'active',
+      });
+      setIsLoginModalOpen(false);
+    },
+  });
+
+  const axiosError = errorSiginin as AxiosError<ErrorResponse>;
+
+  const form = useForm<PostSignin>();
 
   const {
     handleSubmit,
     register,
     trigger,
+    setError,
     formState: { isValid },
   } = form;
 
-  // const onSubmit: SubmitHandler<FieldValues> = (value: FieldValues) => {}; 빌드 에러 때문에 주석 처리
-  const onSubmit: SubmitHandler<FieldValues> = () => {};
+  useEffect(() => {
+    if (axiosError?.response?.data.code) {
+      setError('email', { message: errorMessages[axiosError?.response?.data.code] });
+    }
+  }, [axiosError, setError]);
+
+  const onSubmit: SubmitHandler<PostSignin> = (value: PostSignin) => {
+    mutateSiginin(value);
+  };
 
   useEffect(() => {
     trigger();
-  }, [isLoginModalOpen, trigger]);
+  }, [isLoginModalOpen]);
+
+  if (router.pathname === '/login') return;
 
   return (
     <Dialog open={isLoginModalOpen} onOpenChange={setIsLoginModalOpen}>
       <DialogTrigger>
-        <div>로그인</div>
+        <div
+          className={`hover:text-body-1M hover:text-primary-300 ${isLoginModalOpen || isSignupModalOpen ? 'text-body-1Sb text-neutral-900' : 'text-body-1M text-neutral-500'}`}
+        >
+          로그인
+        </div>
       </DialogTrigger>
       <DialogContent className="top-0 max-h-[445px] translate-y-56 overflow-hidden px-20 pb-50 pt-32 md:top-[50%] md:w-520 md:translate-y-[-50%] md:px-40 md:pb-32">
         <DialogTitle>로그인</DialogTitle>
