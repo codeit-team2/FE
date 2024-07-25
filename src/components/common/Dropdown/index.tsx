@@ -43,6 +43,7 @@ export default function Dropdown({
   handleCalendarClick,
   mainCategory,
   subCategory,
+  // resetTrigger,
 }: DropdownProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [itemValue, setItemValue] = useState<string | null>(itemTrigger);
