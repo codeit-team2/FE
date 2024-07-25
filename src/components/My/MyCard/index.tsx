@@ -64,6 +64,8 @@ export default function MyCard({ data, type = 'default' }: Props) {
     leaveMutation.mutate(data.gatheringId);
   };
 
+  console.log(data);
+
   return (
     <div className="relative flex w-full max-w-screen-lg flex-col gap-16 rounded-lg bg-white p-8 md:h-230 md:flex-row md:gap-10 md:p-20 lg:gap-20">
       <div
@@ -85,18 +87,13 @@ export default function MyCard({ data, type = 'default' }: Props) {
             개설확정
           </div>
         )}
-        {IsDateBeforeToday &&
-          (type === 'club' ? (
-            <div className="absolute flex h-full w-full items-center justify-center rounded-md bg-neutral-900 text-white opacity-70">
-              이미 종료된 모임입니다
-            </div>
-          ) : (
-            <div className="absolute flex h-full w-full items-center justify-center rounded-md bg-neutral-900 text-white opacity-70">
-              이용하신 모임에 대해
-              <br />
-              후기를 남겨주세요
-            </div>
-          ))}
+        {IsDateBeforeToday && type !== 'club' && (
+          <div className="absolute flex h-full w-full items-center justify-center rounded-md bg-neutral-900 text-center text-white opacity-70">
+            이용하신 모임에 대해
+            <br />
+            후기를 남겨주세요
+          </div>
+        )}
       </div>
       <div className="flex grow flex-col justify-between">
         <Description data={data} />
@@ -108,7 +105,7 @@ export default function MyCard({ data, type = 'default' }: Props) {
         )}
 
         {type === 'club' && (
-          <div className="flex flex-row justify-end gap-16">
+          <div className="flex flex-row justify-end gap-8">
             <Person data={data} />
             <Button className="w-186" variant={'secondary'}>
               모임 수정하기
