@@ -7,14 +7,22 @@ export const getGatherings = async (
   page: number,
   mainCategoryName: string,
   subCategoryName: string,
-  sortBy: string = 'dateTime',
   sortOrder: string = 'asc',
   location: string | null,
+  dateTime: string | undefined,
   size: number = 5,
 ) => {
   // `/gatherings?mainCategoryName=${mainCategoryName}&subCategoryName=${subCategoryName}&page=${page}&size=${size}&sortBy=${sortBy}&sortOrder=${sortOrder}&location=${location}`,
   const res = await instance.get(`/gatherings?`, {
-    params: { page, mainCategoryName, subCategoryName, sortBy, sortOrder, location, size },
+    params: {
+      page,
+      mainCategoryName,
+      subCategoryName,
+      sortOrder,
+      location,
+      dateTime,
+      size,
+    },
     // params: { page },
   });
   return res.data;

@@ -1,6 +1,7 @@
 import { LOCATION } from '@/constants/dropdownItems';
 
 import { useEffect, useState } from 'react';
+import React from 'react';
 
 import Banner from '@/components/common/Banner';
 import Dropdown from '@/components/common/Dropdown';
@@ -11,37 +12,33 @@ import Tap from '@/components/common/Tap';
 
 import Card from '@/components/Card';
 import ChipTap from '@/components/ChipTap';
-import Loading from '@/components/Loading';
+
 import NotCard from '@/components/NotCard';
+
+import { formatDateToISO } from '@/lib/utils';
 
 import { useGetAccounts } from '@/hooks/useAccounts';
 import useCheckLogin from '@/hooks/useCheckLogin';
 import useFavorite from '@/hooks/useFavorite';
 
-import { Gathering } from '@/types/gathering';
+import { Gathering } from '@/types/gatherings';
 
 export default function Bookmark() {
   const { isFavorite, clickFavorites, favorites } = useFavorite();
+
+  // const [sortOrder, setSortOrder] = useState<string>('desc');
+  const [location, setLocation] = useState<string | null>(null);
+  const [dateTime, setDateTime] = React.useState<Date | undefined>();
   const [mainCategory, setMainCategory] = useState('운동');
   const [subCategory, SetSubCategory] = useState('전체');
-  const [location, setLocation] = useState<string | null>(null);
-
-  useCheckLogin();
+  const formattedDate = formatDateToISO(dateTime);
+  // useCheckLogin();
 
   const { data: user } = useGetAccounts();
   const [trimmedFavorites, setTrimmedFavorites] = useState<Array<Gathering>>([]);
 
   const handleMainTapClick = (title: string) => {
     setMainCategory(title);
-    setTrimmedFavorites(favorites.filter((data) => data.mainCategoryName === mainCategory));
-  };
-
-  const handleSubTapClick = (title: string) => {
-    SetSubCategory(title);
-  };
-
-  const handleLocationClick = (region: string | null) => {
-    setLocation(region);
   };
 
   // mainCategory(TapComponent)가 클릭되어 값이 바뀌면 favorites(localStorage)의 값을 mainCategory값으로 필터링
@@ -50,6 +47,10 @@ export default function Bookmark() {
     setTrimmedFavorites(favorites.filter((data) => data.mainCategoryName === mainCategory));
     SetSubCategory('전체');
   }, [favorites, mainCategory]);
+
+  const handleSubTapClick = (title: string) => {
+    SetSubCategory(title);
+  };
 
   // subCategory(ChipTapComponents)가 클릭되어 값이 바뀌면 favorites(localStorage)의 값을 subCategory값으로 필터링
   useEffect(() => {
@@ -60,6 +61,10 @@ export default function Bookmark() {
       setTrimmedFavorites(favorites.filter((data) => data.subCategoryName === subCategory));
     }
   }, [subCategory]);
+
+  const handleLocationClick = (region: string | null) => {
+    setLocation(region);
+  };
 
   // location(지역구Dropdown)가 클릭되어 값이 바뀌면 favorites(localSotrage)의 값을 location값으로 필터링
   useEffect(() => {
@@ -77,6 +82,48 @@ export default function Bookmark() {
       setTrimmedFavorites(secondFilter.filter((data) => data.location === location));
     }
   }, [location]);
+
+  const handleCalendarClick = (item?: Date) => {
+    setDateTime(item);
+    if (item !== dateTime) {
+      const firstFilter = favorites.filter((data) => data.mainCategoryName === mainCategory);
+      if (subCategory === '전체') {
+        setTrimmedFavorites(firstFilter);
+      } else {
+        setTrimmedFavorites(favorites.filter((data) => data.subCategoryName === subCategory));
+      }
+    }
+  };
+
+  useEffect(() => {
+    if (formattedDate) {
+      const filteredFavorites = trimmedFavorites.filter(
+        (date) => new Date(date.dateTime) <= new Date(formattedDate),
+      );
+      setTrimmedFavorites(filteredFavorites);
+    }
+  }, [formattedDate]);
+
+  const handleSortOrderClick = (item: string | null) => {
+    const firstFilter = trimmedFavorites.filter((date) => new Date(date.dateTime));
+
+    if (item === '오름차순') {
+      const sortedDatesAsc = firstFilter.sort(
+        (a, b) => new Date(b.dateTime).getTime() - new Date(a.dateTime).getTime(),
+      );
+      setTrimmedFavorites(sortedDatesAsc);
+    } else if (item === '내림차순') {
+      const sortedDatesDesc = firstFilter.sort(
+        (a, b) => new Date(a.dateTime).getTime() - new Date(b.dateTime).getTime(),
+      );
+      setTrimmedFavorites(sortedDatesDesc);
+    }
+  };
+
+  useEffect(() => {
+    setDateTime(undefined);
+  }, [mainCategory, subCategory]);
+
   return (
     <>
       <GNB />
@@ -101,13 +148,22 @@ export default function Bookmark() {
               mainCategory={mainCategory}
               subCategory={subCategory}
             />
-            <Dropdown icon="icons/ic-chevron-down.svg" itemTrigger="날짜선택" />
+            <Dropdown
+              icon="icons/ic-chevron-down.svg"
+              itemTrigger="날짜선택"
+              handleCalendarClick={handleCalendarClick}
+              mainCategory={mainCategory}
+              subCategory={subCategory}
+            />
           </div>
           <Dropdown
-            items={['마감임박', '참여 인원순']}
+            items={['오름차순', '내림차순']}
+            itemTrigger="오름차순"
             icon="/icons/ic-chevron-updown.svg"
-            itemTrigger="마감임박"
             isUpDown
+            mainCategory={mainCategory}
+            subCategory={subCategory}
+            handleLocationClick={handleSortOrderClick}
           />
         </div>
         <div className="flex flex-col gap-20">

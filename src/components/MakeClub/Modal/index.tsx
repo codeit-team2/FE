@@ -89,7 +89,7 @@ export default function MakeClubModal({ trigger, data }: Props) {
   }
 
   // trigger Button - '+' or '모임만들기' text
-  const triggerButton =
+ const triggerButton =
     (trigger === 'text' && <Button className="mb-50 hidden md:block">모임만들기</Button>) ||
     (trigger === 'plus' && (
       <button className="fixed bottom-32 right-32 z-20 cursor-pointer rounded-[40px] bg-primary-300 p-16">

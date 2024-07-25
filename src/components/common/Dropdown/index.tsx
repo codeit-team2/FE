@@ -26,6 +26,7 @@ interface DropdownProps {
   itemTrigger: string | null;
   isSubmitted?: boolean;
   handleLocationClick?: (location: string | null) => void;
+  handleCalendarClick?: (date?: Date) => void | undefined;
   resetTrigger?: Object;
   mainCategory?: string;
   subCategory?: string;
@@ -39,9 +40,10 @@ export default function Dropdown({
   itemTrigger = 'Open',
   isSubmitted,
   handleLocationClick,
+  handleCalendarClick,
   mainCategory,
   subCategory,
-  resetTrigger,
+  // resetTrigger,
 }: DropdownProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [itemValue, setItemValue] = useState<string | null>(itemTrigger);
@@ -75,6 +77,15 @@ export default function Dropdown({
     setItem && setItem(itemText);
   };
 
+  const handleDateClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const itemText = e.currentTarget.textContent;
+    setItemValue(itemText);
+
+    if (handleCalendarClick) {
+      handleCalendarClick(date);
+    }
+  };
+
   useEffect(() => {
     if (id) {
       setErrorMessage(DROPDOWN_ERROR_MSG[id].required);
@@ -87,6 +98,7 @@ export default function Dropdown({
 
   useEffect(() => {
     setItemValue(itemTrigger);
+    setDate(undefined);
   }, [mainCategory, subCategory]);
 
   return (
@@ -125,9 +137,9 @@ export default function Dropdown({
         ) : (
           <div className="absolute rounded-md border bg-white p-12">
             <Calendar date={date} setDate={setDate} />
-            <Button variant="secondary" className="mt-2 w-full">
+            <Button variant="secondary" className="mt-2 w-full" onClick={handleDateClick}>
               {formattedDate
-                ? `${formattedDate.formattedDate} (${formattedDate.formattedWeekday})`
+                ? `${formattedDate.formattedDate} ${formattedDate.formattedWeekday}`
                 : '날짜를 선택해주세요'}
             </Button>
           </div>
