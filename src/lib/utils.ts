@@ -37,7 +37,7 @@ interface FormattedDate {
 
 type DeadlineStatus = '오늘마감' | '내일마감' | '이번주마감' | '다음주마감' | '여유';
 
-export default function formatDate({ date }: FormatDateProps): FormattedDate | null {
+export function formatDate({ date }: FormatDateProps): FormattedDate | null {
   const formatDate = typeof date === 'string' ? new Date(date) : date;
   const now = new Date();
 

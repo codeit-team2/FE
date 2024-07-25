@@ -10,6 +10,7 @@ interface CustomDivProps {
   control: Control<FormValues>;
   itemTrigger: string;
   items: string[];
+  defaultValue?: string;
 }
 
 interface FormValues {
@@ -22,7 +23,13 @@ interface FormValues {
 
 // 모임 생성에서 사용하는 dropdown 입니다.
 // form과 연결하기 위해 기존 dropdown과 따로 만들었습니다.
-export default function DropdownInput({ id, control, itemTrigger, items }: CustomDivProps) {
+export default function DropdownInput({
+  id,
+  control,
+  itemTrigger,
+  items,
+  defaultValue,
+}: CustomDivProps) {
   const {
     formState: { errors, isSubmitted },
   } = useFormContext();
@@ -63,6 +70,7 @@ export default function DropdownInput({ id, control, itemTrigger, items }: Custo
   }, [errors[id]]);
 
   useEffect(() => {
+    defaultValue && setItemValue(defaultValue);
     document.addEventListener('mousedown', handleClickOutside);
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
@@ -73,7 +81,6 @@ export default function DropdownInput({ id, control, itemTrigger, items }: Custo
     <Controller
       name={id}
       control={control}
-      defaultValue=""
       render={({ field }) => (
         <div ref={dropdownRef} className="relative z-10">
           <button

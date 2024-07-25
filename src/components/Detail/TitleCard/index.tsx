@@ -6,7 +6,7 @@ import Bookmark from '@/components/common/Bookmark';
 
 import InfoBadge from '@/components/Detail/InfoBadge';
 
-import formatDate from '@/lib/utils';
+import { formatDate } from '@/lib/utils';
 
 import { Gathering } from '@/types/gatherings';
 

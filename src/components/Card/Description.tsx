@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
 
-import formatDate from '@/lib/utils';
+import { formatDate } from '@/lib/utils';
 
 import { Gathering } from '@/types/gatherings';
 

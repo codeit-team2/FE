@@ -6,7 +6,7 @@ import IcChevronUpdown from '@/components/common/Dropdown/IcChevronUpdown';
 
 import { Button } from '@/components/ui/button';
 
-import formatDate from '@/lib/utils';
+import { formatDate } from '@/lib/utils';
 
 const DROPDOWN_ERROR_MSG = {
   category: {

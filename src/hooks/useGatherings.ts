@@ -7,11 +7,12 @@ import {
   postGatherings,
   postGatheringsJoin,
   postGatheringsLeave,
+  putGatherings,
 } from '@/apis/gatherings';
 import { UseMutationResult, useInfiniteQuery, useMutation, useQuery } from '@tanstack/react-query';
 
 // postGatherings ??
-import { GatheringsParams } from '@/types/gatherings';
+import { GatheringsParams, PutGatherings } from '@/types/gatherings';
 
 interface PostGatheringsResponse {
   success: boolean;
@@ -48,6 +49,12 @@ export const useGetGatherings = (
 export const usePostGatherings = () => {
   return useMutation({
     mutationFn: (value: FormData) => postGatherings(value),
+  });
+};
+
+export const usePutGatherings = () => {
+  return useMutation({
+    mutationFn: (value: PutGatherings) => putGatherings(value),
   });
 };
 

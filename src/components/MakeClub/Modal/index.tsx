@@ -2,7 +2,7 @@ import { CATEGORY, LOCATION } from '@/constants/dropdownItems';
 import { ERROR_MESSAGE, PLACEHOLDER } from '@/constants/formMessages';
 import { amTime, pmTime } from '@/constants/timeItems';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FieldValues, FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 
 import DropdownInput from '../DropdownInput';
@@ -25,16 +25,20 @@ import {
 
 import { isDateBeforeToday } from '@/lib/utils';
 
-import { usePostGatherings } from '@/hooks/useGatherings';
+import { usePostGatherings, usePutGatherings } from '@/hooks/useGatherings';
+
+import { Gathering } from '@/types/gatherings';
 
 interface Props {
-  trigger: 'text' | 'plus';
+  trigger: 'text' | 'plus' | 'modify';
+  data?: Gathering;
 }
 
-export default function MakeClubModal({ trigger }: Props) {
+export default function MakeClubModal({ trigger, data }: Props) {
   const [selectTime, setSelectTime] = useState<string>();
   const [isSubmitCheck, setIsSubmitCheck] = useState(false);
   const [date, setDate] = React.useState<Date | undefined>();
+  const [gatheringId, setGatheringId] = useState<number>(0);
 
   interface FormValues {
     gatheringImage: File | null;
@@ -50,6 +54,7 @@ export default function MakeClubModal({ trigger }: Props) {
     control,
     handleSubmit,
     register,
+    setValue,
     formState: { isValid },
   } = form;
 
@@ -85,15 +90,19 @@ export default function MakeClubModal({ trigger }: Props) {
 
   // trigger Button - '+' or '모임만들기' text
   const triggerButton =
-    trigger === 'text' ? (
-      <Button className="mb-50 hidden md:block">모임만들기</Button>
-    ) : (
+    (trigger === 'text' && <Button className="mb-50 hidden md:block">모임만들기</Button>) ||
+    (trigger === 'plus' && (
       <button className="fixed bottom-32 right-32 z-20 cursor-pointer rounded-[40px] bg-primary-300 p-16">
         <div className="relative h-24 w-24">
           <Image src="/icons/ic-plus.svg" alt="ic-plus" fill />
         </div>
       </button>
-    );
+    )) ||
+    (trigger === 'modify' && (
+      <Button className="w-186" variant={'secondary'}>
+        모임 수정하기
+      </Button>
+    ));
 
   interface Request {
     name: string;
@@ -105,7 +114,8 @@ export default function MakeClubModal({ trigger }: Props) {
   }
 
   // react-query
-  const { mutate } = usePostGatherings();
+  const { mutate: postMutate } = usePostGatherings();
+  const { mutate: putMutate } = usePutGatherings();
 
   // 제출 버튼 클릭
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
@@ -134,16 +144,30 @@ export default function MakeClubModal({ trigger }: Props) {
       formData.append('request', JSON.stringify(request));
       formData.append('gatheringImage', data.gatheringImage);
 
+      const value = {
+        gatheringId: gatheringId,
+        value: formData,
+      };
+
       // api 함수
-      mutate(formData, {
-        onSuccess: (data) => {
-          const gatheringId = data.data.gatheringId.toString();
-          data.status === 201 && router.push(`/detail/${gatheringId}`);
-        },
-        onError: (error) => {
-          console.error('Error:', error);
-        },
-      });
+      trigger === 'modify'
+        ? putMutate(value, {
+            onSuccess: (data) => {
+              console.log('Success: ', data);
+            },
+            onError: (error) => {
+              console.error('Error:', error);
+            },
+          })
+        : postMutate(formData, {
+            onSuccess: (data) => {
+              const gatheringId = data.data.gatheringId.toString();
+              data.status === 201 && router.push(`/detail/${gatheringId}`);
+            },
+            onError: (error) => {
+              console.error('Error:', error);
+            },
+          });
     }
   };
 
@@ -155,12 +179,26 @@ export default function MakeClubModal({ trigger }: Props) {
     setIsSubmitCheck(true);
   };
 
+  // modify - 수정할 때 기존에 가지고 있던 값 불러오기
+  useEffect(() => {
+    if (trigger === 'modify' && data) {
+      setGatheringId(data.gatheringId);
+      setValue('name', data?.name);
+      setValue('capacity', data?.capacity);
+      setDate(new Date(data.dateTime));
+      setSelectTime(data.dateTime.substring(11, 16));
+    }
+  }, [trigger]);
+  const defaultCategory = data?.subCategoryName + ' · ' + data?.mainCategoryName;
+
   return (
     <Dialog>
       <DialogTrigger asChild>{triggerButton}</DialogTrigger>
       {isLogin ? (
         <DialogContent className="flex h-fit max-h-[729px] w-fit flex-col items-center gap-24 overflow-y-scroll px-40 py-32">
-          <DialogTitle className="w-440 text-center md:w-952">모임 만들기</DialogTitle>
+          <DialogTitle className="w-440 text-center md:w-952">
+            모임 만들기 {data?.gatheringId}
+          </DialogTitle>
           <FormProvider {...form}>
             <form
               className="flex h-full w-fit flex-col justify-between"
@@ -187,6 +225,7 @@ export default function MakeClubModal({ trigger }: Props) {
                         control={control}
                         itemTrigger={PLACEHOLDER.category}
                         items={flattenedCategories}
+                        defaultValue={data && defaultCategory}
                         {...register('category', {
                           required: ERROR_MESSAGE.category.required,
                         })}
@@ -199,6 +238,7 @@ export default function MakeClubModal({ trigger }: Props) {
                         control={control}
                         itemTrigger={PLACEHOLDER.location}
                         items={LOCATION}
+                        defaultValue={data && data?.location}
                         {...register('location', {
                           required: ERROR_MESSAGE.location.required,
                         })}
