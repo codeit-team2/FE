@@ -27,12 +27,9 @@ export default function ChipTap({ mainCategory, handleSubTapClick, subCategory }
         const { scrollWidth, clientWidth } = scrollContainerRef.current;
         const isScrollable = scrollWidth > clientWidth;
 
-        // 스크롤이 생기는 시점 확인
         if (isScrollable && !hasScroll) {
-          console.log('스크롤이 생겼습니다.');
           setHasScroll(true);
         } else if (!isScrollable && hasScroll) {
-          console.log('스크롤이 사라졌습니다.');
           setHasScroll(false);
         }
       }
@@ -57,7 +54,6 @@ export default function ChipTap({ mainCategory, handleSubTapClick, subCategory }
         className={`${hasScroll ? 'justify-start' : 'justify-center'} mb-8 flex gap-6 overflow-x-auto md:mb-16 md:gap-8`}
         ref={scrollContainerRef}
       >
-        {/* <span className="flex justify-start"> */}
         {SELECTED_TAP?.subcategories.map((data: string, index: number) => (
           <Button
             className={`px-20 ${data !== subCategory && 'hover:bg-neutral-100 hover:text-neutral-600'}`}
