@@ -21,8 +21,6 @@ interface FormValues {
   capacity: number;
 }
 
-// 모임 생성에서 사용하는 dropdown 입니다.
-// form과 연결하기 위해 기존 dropdown과 따로 만들었습니다.
 export default function DropdownInput({
   id,
   control,

@@ -154,6 +154,7 @@ export default function MakeClubModal({ trigger, data }: Props) {
         ? putMutate(value, {
             onSuccess: (data) => {
               console.log('Success: ', data);
+              window.location.reload();
             },
             onError: (error) => {
               console.error('Error:', error);
@@ -188,7 +189,7 @@ export default function MakeClubModal({ trigger, data }: Props) {
       setDate(new Date(data.dateTime));
       setSelectTime(data.dateTime.substring(11, 16));
     }
-  }, [trigger]);
+  }, [data, trigger, setValue]);
   const defaultCategory = data?.subCategoryName + ' · ' + data?.mainCategoryName;
 
   return (
@@ -196,9 +197,7 @@ export default function MakeClubModal({ trigger, data }: Props) {
       <DialogTrigger asChild>{triggerButton}</DialogTrigger>
       {isLogin ? (
         <DialogContent className="flex h-fit max-h-[729px] w-fit flex-col items-center gap-24 overflow-y-scroll px-40 py-32">
-          <DialogTitle className="w-440 text-center md:w-952">
-            모임 만들기 {data?.gatheringId}
-          </DialogTitle>
+          <DialogTitle className="w-440 text-center md:w-952">모임 만들기</DialogTitle>
           <FormProvider {...form}>
             <form
               className="flex h-full w-fit flex-col justify-between"
@@ -338,7 +337,7 @@ export default function MakeClubModal({ trigger, data }: Props) {
                   type="submit"
                   onClick={() => handleSubmitButton()}
                 >
-                  모임 만들기
+                  {trigger === 'modify' ? '모임 수정하기' : '모임 만들기'}
                 </Button>
               </div>
             </form>
