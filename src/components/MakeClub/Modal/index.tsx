@@ -88,13 +88,13 @@ export default function MakeClubModal({ trigger }: Props) {
     trigger === 'text' ? (
       <Button className="mb-50 hidden md:block">모임만들기</Button>
     ) : (
-      <button className="fixed bottom-32 right-32 z-20 cursor-pointer rounded-[40px] bg-primary-300 p-16">
+      <button className="fixed bottom-32 right-32 z-20 cursor-pointer rounded-[40px] bg-primary-300 p-16 shadow-lg">
         <div className="relative h-24 w-24">
           <Image src="/icons/ic-plus.svg" alt="ic-plus" fill />
         </div>
       </button>
     );
-
+  // box-shadow: 0px 16px 34px 0px rgba(25, 31, 40, 0.16);
   interface Request {
     name: string;
     capacity: number;
