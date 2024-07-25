@@ -31,7 +31,7 @@ export default function UserReview({ data }: UserReviewProps) {
         <Image
           src={`${data.gatheringInfo.gatheringImageUrl}`}
           alt={`{data.cardImage}`}
-          fill
+          layout="fill"
           className="rounded-md"
           objectFit="cover"
         />
@@ -61,10 +61,11 @@ export default function UserReview({ data }: UserReviewProps) {
                 src={
                   data.accountInfo.profileImageUrl
                     ? `${data.accountInfo.profileImageUrl}`
-                    : '/icons/ic-profile.svg'
+                    : '/icons/ic-profile-gray.svg'
                 }
                 alt="profileImage"
                 fill
+                objectFit="cover"
               />
             </div>
             <p className="text-neutral-700">{data.accountInfo.nickname}</p>

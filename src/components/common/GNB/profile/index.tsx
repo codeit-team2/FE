@@ -50,7 +50,7 @@ export default function Profile({ profileImageUrl }: Props) {
         {profileImageUrl ? (
           <Image src={profileImageUrl} alt="프로필 사진" width={32} height={32} />
         ) : (
-          <Image src="/icons/ic-profile.svg" alt="ic-profile" width={32} height={32} />
+          <Image src="/icons/ic-profile-gray.svg" alt="ic-profile" width={32} height={32} />
         )}
       </button>
       {isOpen && (
