@@ -11,14 +11,14 @@ import Tap from '@/components/common/Tap';
 
 import Card from '@/components/Card';
 import ChipTap from '@/components/ChipTap';
-import Loading from '@/components/Loading';
+// import Loading from '@/components/Loading';
 import NotCard from '@/components/NotCard';
 
 import { useGetAccounts } from '@/hooks/useAccounts';
 import useCheckLogin from '@/hooks/useCheckLogin';
 import useFavorite from '@/hooks/useFavorite';
 
-import { Gathering } from '@/types/gathering';
+import { Gathering } from '@/types/gatherings';
 
 export default function Bookmark() {
   const { isFavorite, clickFavorites, favorites } = useFavorite();

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import Image from 'next/image';
 
@@ -12,6 +12,8 @@ import { Gathering } from '@/types/gatherings';
 
 interface TitleCardProps {
   data: Gathering;
+  clickFavorites: (item: Gathering) => void;
+  isFavorite: (item: Gathering) => boolean;
 }
 
 const userData = {
@@ -125,13 +127,15 @@ const userData = {
   ],
 };
 
-export default function TitleCard({ data }: TitleCardProps) {
-  const [isBookmarked, setIsBookmarked] = useState(false);
+export default function TitleCard({ data, clickFavorites, isFavorite }: TitleCardProps) {
+  const favorite = isFavorite(data);
 
   const formattedDate = formatDate({ date: data.dateTime });
 
-  const handleToggleBookmark = (newState: boolean) => {
-    setIsBookmarked(newState);
+  const handleToggleBookmark = () => {
+    if (data) {
+      clickFavorites(data);
+    }
   };
 
   return (
@@ -172,7 +176,7 @@ export default function TitleCard({ data }: TitleCardProps) {
           </div>
         </div>
         <div className="absolute right-20 top-186 md:right-30 md:top-30">
-          <Bookmark isBookmarked={isBookmarked} onToggleBookmark={handleToggleBookmark} />
+          <Bookmark favorite={favorite} handleToggleBookmark={handleToggleBookmark} />
         </div>
       </div>
     </>
