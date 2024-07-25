@@ -4,9 +4,9 @@ import { DeleteReviews, PostReviews, PutReviews, ReviewsParams } from '@/types/r
 
 export const getReviewsAll = async (value: ReviewsParams) => {
   const { mainCategoryName, subCategoryName, page, size, sortBy, sortOrder } = value;
-  const res = await instance.get(
-    `/reviews?mainCategoryName=${mainCategoryName}&subCategoryName=${subCategoryName}&page=${page}&size=${size}&sortBy=${sortBy}&sortOrder=${sortOrder}`,
-  );
+  const res = await instance.get(`/reviews`, {
+    params: { mainCategoryName, subCategoryName, page, size, sortBy, sortOrder },
+  });
   return res.data;
 };
 
