@@ -1,8 +1,6 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
-import { instance } from '@/lib/axios';
-
-import { Gathering } from '@/types/gathering';
+import { Gathering } from '@/types/gatherings';
 
 const FAVORITES_KEY = 'favorites';
 

@@ -18,8 +18,6 @@ export default function My() {
 
   const [selectTab, setSelectTab] = useState('meeting');
 
-  const { data: user } = useGetAccounts();
-
   return (
     <>
       <GNB />

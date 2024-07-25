@@ -26,7 +26,7 @@ interface DropdownProps {
   itemTrigger: string | null;
   isSubmitted?: boolean;
   handleLocationClick?: (location: string | null) => void;
-  resetTrigger?: Object;
+  resetTrigger?: object;
   mainCategory?: string;
   subCategory?: string;
 }
@@ -41,7 +41,7 @@ export default function Dropdown({
   handleLocationClick,
   mainCategory,
   subCategory,
-  resetTrigger,
+  // resetTrigger,
 }: DropdownProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [itemValue, setItemValue] = useState<string | null>(itemTrigger);

@@ -1,4 +1,10 @@
-import { getReviewsAll, deleteReviews, getReviewsMine, postReviews, putReviews } from '@/apis/reviews';
+import {
+  deleteReviews,
+  getReviewsAll,
+  getReviewsMine,
+  postReviews,
+  putReviews,
+} from '@/apis/reviews';
 import { useMutation, useQuery } from '@tanstack/react-query';
 
 import { DeleteReviews, PostReviews, PutReviews, ReviewsParams } from '@/types/reviews';
