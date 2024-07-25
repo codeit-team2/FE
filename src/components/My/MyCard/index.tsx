@@ -9,6 +9,7 @@ import ReviewModal from '@/components/common/Modal/Review';
 
 import Description from '@/components/Card/Description';
 import Person from '@/components/Card/Person';
+import MakeClubModal from '@/components/MakeClub/Modal';
 import { Button } from '@/components/ui/button';
 
 import { isDateBeforeToday } from '@/lib/utils';
@@ -110,9 +111,7 @@ export default function MyCard({ data, type = 'default' }: Props) {
         {type === 'club' && (
           <div className="flex flex-row justify-end gap-16">
             <Person data={data} />
-            <Button className="w-186" variant={'secondary'}>
-              모임 수정하기
-            </Button>
+            <MakeClubModal trigger="modify" data={data} />
             <Button variant={'secondary'} onClick={() => handleDeleteClick()}>
               <Image src="/icons/ic-delete.svg" alt="delete" width={24} height={24} />
             </Button>
