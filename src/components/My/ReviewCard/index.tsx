@@ -7,7 +7,7 @@ import ReviewModal from '@/components/common/Modal/Review';
 import NotCard from '@/components/NotCard';
 import { Button } from '@/components/ui/button';
 
-import formatDate from '@/lib/utils';
+import { formatDate } from '@/lib/utils';
 
 import { useDeleteReviews } from '@/hooks/useReviews';
 
