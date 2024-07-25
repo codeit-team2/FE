@@ -4,12 +4,12 @@ import Link from 'next/link';
 export default function Footer() {
   return (
     <>
-      <footer className="flex h-240 flex-col justify-between gap-32 pl-20 pt-32 md:flex-row md:pl-32 md:pr-32 md:pt-40">
+      <footer className="flex h-443 flex-col gap-32 pl-20 pt-32 md:h-240 md:flex-row md:justify-between md:pl-32 md:pr-32 md:pt-40">
         <div className="logo, description">
           <div className="relative mb-8 h-28 w-66 md:mb-13">
             <Image src="/icons/ic-logo.svg" alt="logo" fill />
           </div>
-          <p className="text-heading-2Sb md:text-heading-1B">
+          <p className="pb-5 text-heading-2Sb md:pb-0 md:text-heading-1B">
             함께하면 더 좋은
             <br></br>
             다채로운 취미 모임 플랫폼

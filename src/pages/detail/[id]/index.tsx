@@ -3,6 +3,7 @@ import React from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 
+import Footer from '@/components/common/Footer';
 import GNB from '@/components/common/GNB';
 
 import FloatingBar from '@/components/Detail/FloatingBar';
@@ -60,6 +61,9 @@ export default function Detail() {
           )}
         </div>
         <FloatingBar data={data} queryId={queryId} />
+      </div>
+      <div className="mb-84">
+        <Footer />
       </div>
     </>
   );
