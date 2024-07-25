@@ -18,21 +18,21 @@ import Loading from '@/components/Loading';
 import MakeClubModal from '@/components/MakeClub/Modal';
 import NotCard from '@/components/NotCard';
 
+import { formatDateToISO } from '@/lib/utils';
+
 import useFavorite from '@/hooks/useFavorite';
 import { useGetGatherings } from '@/hooks/useGatherings';
 
 import { Gathering } from '@/types/gatherings';
 
 export default function Main() {
-  // 에러대문에 setSortyBy, setSortOrder 삭제했습니다.
-  const [sortBy] = useState<string>('dateTime');
-  const [sortOrder] = useState<string>('asc');
+  const [sortOrder, setSortOrder] = useState<string>('desc');
   const [location, setLocation] = useState<string | null>(null);
-
+  const [dateTime, setDateTime] = React.useState<Date | undefined>();
   // bookmark도 mainCategory, subCategory두개 핸들러랑 같이 쓰는데 훅으로 만들수 있을것 같으니 시도해보기.
   const [mainCategory, setMainCategory] = useState<string>('운동');
   const [subCategory, setSubCategory] = useState<string>('전체');
-
+  const formattedDate = formatDateToISO(dateTime);
   const { clickFavorites, isFavorite } = useFavorite();
 
   const handleMainTapClick = (title: string) => {
@@ -47,12 +47,23 @@ export default function Main() {
     setLocation(location);
   };
 
+  const handleCalendarClick = (Date?: Date) => {
+    setDateTime(Date);
+  };
+
+  const handleSortOrderClick = (item: string | null) => {
+    if (item === '오름차순') {
+      setSortOrder('desc');
+    } else if (item === '내림차순') {
+      setSortOrder('asc');
+    }
+  };
   const {
     data: postsData,
     isPending,
     fetchNextPage,
     hasNextPage,
-  } = useGetGatherings(mainCategory, subCategory, sortBy, sortOrder, location);
+  } = useGetGatherings(mainCategory, subCategory, sortOrder, location, formattedDate);
 
   useEffect(() => {
     setSubCategory('전체');
@@ -88,9 +99,18 @@ export default function Main() {
                 subCategory={subCategory}
                 // 이거 두개
               />
-              <Dropdown icon="icons/ic-chevron-down.svg" itemTrigger="날짜선택" />
+              <Dropdown
+                icon="icons/ic-chevron-down.svg"
+                itemTrigger="날짜선택"
+                handleCalendarClick={handleCalendarClick}
+              />
             </div>
-            <Dropdown items={['마감임박', '참여 인원순']} itemTrigger="마감임박" isUpDown />
+            <Dropdown
+              items={['오름차순', '내림차순']}
+              itemTrigger="오름차순"
+              isUpDown
+              handleLocationClick={handleSortOrderClick}
+            />
           </div>
           <MakeClubModal trigger="plus" />
           <div className="flex flex-col gap-20">
