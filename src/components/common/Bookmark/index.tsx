@@ -16,7 +16,7 @@ export default function Bookmark({ favorite, handleToggleBookmark }: BookmarkPro
         className={`relative transition-transform duration-300 ease-in ${!favorite ? '' : 'animate-pulseSmall'}`}
       >
         <div
-          className={`flex h-40 w-40 items-center justify-center rounded-full border-2 md:h-48 md:w-48 ${!favorite ? 'border-neutral-100 bg-neutral-50' : 'border-secondary-100 bg-secondary-100'}`}
+          className={`flex h-40 w-40 items-center justify-center rounded-full border-2 md:h-48 md:w-48 ${!favorite ? 'border-neutral-100 bg-neutral-50' : 'animate-fadeIn border-secondary-100 bg-secondary-100'}`}
         >
           <div className="relative h-18 w-20 transition-all duration-300 ease-in md:h-22 md:w-24">
             <Image src="/icons/ic-heart-off.svg" alt="찜 버튼 하트 (꺼짐)" layout="fill" />
