@@ -1,5 +1,13 @@
-import { getReviewsAll, deleteReviews, getReviewsMine, postReviews, putReviews } from '@/apis/reviews';
+import {
+  deleteReviews,
+  getReviewsAll,
+  getReviewsMine,
+  postReviews,
+  putReviews,
+} from '@/apis/reviews';
 import { useMutation, useQuery } from '@tanstack/react-query';
+
+import { AxiosError } from 'axios';
 
 import { DeleteReviews, PostReviews, PutReviews, ReviewsParams } from '@/types/reviews';
 
@@ -18,13 +26,13 @@ export const useGetReviewsMine = (value: ReviewsParams) => {
 };
 
 export const usePostReviews = () => {
-  return useMutation({
+  return useMutation<PostReviews, AxiosError, PostReviews>({
     mutationFn: (value: PostReviews) => postReviews(value),
   });
 };
 
 export const usePutReviews = () => {
-  return useMutation({
+  return useMutation<PutReviews, AxiosError, PutReviews>({
     mutationFn: (value: PutReviews) => putReviews(value),
   });
 };
