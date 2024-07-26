@@ -92,10 +92,12 @@ export default function FloatingBar({ data, queryId }: FloatingBarProps) {
     } else {
       handleJoin();
     }
+    setDialogOpen(false);
   };
 
   const handleDeleteClick = () => {
     handleDelete();
+    setCancelOpen(false);
   };
 
   const handleCopyURL = async () => {

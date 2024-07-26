@@ -146,7 +146,7 @@ export default function TitleCard({ data, clickFavorites, isFavorite }: TitleCar
             src={data.gatheringImageUrl}
             alt={data.name}
             fill
-            objectFit="cover"
+            objectFit="contain"
             className="rounded-t-lg md:rounded-bl-lg md:rounded-tl-lg md:rounded-tr-none"
           />
         </div>
