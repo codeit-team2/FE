@@ -129,7 +129,7 @@ export default function MyCard({ data, type = 'default' }: Props) {
           <div className="flex flex-row justify-end gap-16">
             <Person data={data} />
             {IsDateBeforeToday ? (
-              <ReviewModal type="new" gatheringId={data.gatheringId} />
+              !data.hasReviewed && <ReviewModal type="new" gatheringId={data.gatheringId} />
             ) : (
               <Button
                 className="mb-2 h-42 w-288"
