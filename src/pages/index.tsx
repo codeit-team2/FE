@@ -88,7 +88,7 @@ export default function Main() {
             subCategory={subCategory}
           />
 
-          <div className="mb-32 flex justify-between">
+          <div className="mb-24 flex justify-between md:mb-32">
             <div className="flex gap-8 md:gap-12">
               <Dropdown
                 items={LOCATION}
