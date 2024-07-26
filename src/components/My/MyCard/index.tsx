@@ -69,10 +69,16 @@ export default function MyCard({ data, type = 'default' }: Props) {
   return (
     <div className="relative flex w-full max-w-screen-lg flex-col gap-16 rounded-lg bg-white p-8 md:h-230 md:flex-row md:gap-10 md:p-20 lg:gap-20">
       <div
-        className="relative h-163 w-full cursor-pointer md:h-190 md:w-373"
+        className="relative h-163 w-full cursor-pointer rounded-lg bg-neutral-50 md:h-190 md:w-373"
         onClick={() => router.push(`/detail/${data.gatheringId}`)}
       >
-        <Image src={data.gatheringImageUrl} alt={data.name} fill className="rounded-md" />
+        <Image
+          src={data.gatheringImageUrl}
+          alt={data.name}
+          fill
+          objectFit="contain"
+          className="rounded-md"
+        />
         {IsDateBeforeToday ? (
           <div className="absolute z-20 flex h-36 w-81 items-center justify-center rounded-br-md rounded-tl-md bg-neutral-700 text-body-2M text-white">
             이용완료
