@@ -3,6 +3,7 @@ import React from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 
+import Footer from '@/components/common/Footer';
 import GNB from '@/components/common/GNB';
 
 import FloatingBar from '@/components/Detail/FloatingBar';
@@ -43,9 +44,9 @@ export default function Detail() {
     <>
       <GNB />
       <div className="mx-auto flex min-h-screen w-full flex-col items-center bg-neutral-50 px-12 md:px-32">
-        <div className="flex w-full flex-col items-center pb-90 pt-32">
+        <div className="flex w-full flex-col items-center pb-90 pt-20 md:pt-32">
           <TitleCard data={data} clickFavorites={clickFavorites} isFavorite={isFavorite} />
-          <div className="mt-42 flex items-center gap-8 text-body-1Sb text-neutral-900 md:text-heading-2Sb">
+          <div className="mt-32 flex items-center gap-8 text-body-1Sb text-neutral-900 md:mt-40 md:text-heading-2Sb">
             이용자들은 이 모임을 이렇게 느꼈어요!
             <Image src={'/icons/ic-message.svg'} alt="ic-message" width={24} height={24} />
           </div>
@@ -60,6 +61,9 @@ export default function Detail() {
           )}
         </div>
         <FloatingBar data={data} queryId={queryId} />
+      </div>
+      <div className="mb-84">
+        <Footer />
       </div>
     </>
   );
