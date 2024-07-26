@@ -1,15 +1,15 @@
 import React, { useEffect, useRef, useState } from 'react';
 
 import { deleteCookie } from 'cookies-next';
-
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
+import DynamicModal from '@/components/common/Modal/Dynamic';
 import LoginModal from '@/components/common/Modal/Login';
 import SignupModal from '@/components/common/Modal/Signup';
 
-import { useGetAccounts } from '@/hooks/useAccounts';
+import { useDeleteAccounts, useGetAccounts } from '@/hooks/useAccounts';
 import useIsMobile from '@/hooks/useIsMobile';
 
 export default function GNB() {
@@ -17,17 +17,18 @@ export default function GNB() {
   const [isSignupModalOpen, setIsSignupModalOpen] = useState(false);
   const [isMobileClient, setIsMobileClient] = useState(false);
   const [isOpenPopover, setIsOpenPopover] = useState(false);
+  const [isDeleteAccountsModalOpen, setIsDeleteAccountsModalOpen] = useState<boolean>(false);
 
   const router = useRouter();
   const { pathname } = router;
 
   const isMobile = useIsMobile();
 
-  const profileButtonRef = useRef<HTMLButtonElement>(null);
+  const profileButtonRef = useRef<HTMLDivElement>(null);
   const popoverRef = useRef<HTMLUListElement>(null);
 
   // api 연동하면서 수정필요
-  const likeItems = 10;
+  const likeItems = 0;
 
   const { data: user } = useGetAccounts();
 
@@ -38,6 +39,29 @@ export default function GNB() {
   const handleLogoutClick = () => {
     deleteCookie('accessToken');
     router.reload();
+  };
+
+  const { mutate: mutateDeleteAccounts } = useDeleteAccounts({
+    onSuccess: () => {
+      deleteCookie('accessToken');
+      deleteCookie('refreshToken');
+      router.reload();
+    },
+    onError: (err) => {
+      console.log(err);
+    },
+  });
+
+  const handleDeleteAccountsClick = () => {
+    setIsDeleteAccountsModalOpen(true);
+  };
+
+  const handleDeleteAccountsModalClose = () => {
+    setIsDeleteAccountsModalOpen(false);
+  };
+
+  const handleDeleteAccountsModalClick = () => {
+    mutateDeleteAccounts();
   };
 
   const handlePopoverClickOutside = (event: MouseEvent) => {
@@ -94,45 +118,58 @@ export default function GNB() {
           활동후기
         </Link>
         {user?.email ? (
-          <div>
-            {user?.profileImageUrl ? (
-              <Image
-                className="aspect-square rounded-full border border-neutral-300"
-                src={user.profileImageUrl}
-                alt="프로필 사진"
-                width={32}
-                height={32}
-              />
-            ) : (
-              <div className="relative">
-                <button
-                  className={`block h-32 w-32 cursor-pointer bg-[url("/icons/ic-profile-gray.svg")] hover:bg-[url("/icons/ic-profile-blue.svg")] ${isOpenPopover && 'bg-[url("/icons/ic-profile-navy.svg")]'}`}
-                  ref={profileButtonRef}
-                  onClick={handleTogglePopover}
+          <div className="relative cursor-pointer">
+            <div ref={profileButtonRef} onClick={handleTogglePopover}>
+              {user?.profileImageUrl ? (
+                <Image
+                  className="aspect-square rounded-full border border-neutral-300"
+                  src={user.profileImageUrl}
+                  alt="프로필 사진"
+                  width={32}
+                  height={32}
                 />
-                {isOpenPopover && (
-                  <ul
-                    ref={popoverRef}
-                    className="absolute right-0 top-[calc(100%+22px)] z-10 w-100 rounded-md bg-white shadow-lg"
+              ) : (
+                <div>
+                  <button
+                    className={`block h-32 w-32 cursor-pointer bg-[url("/icons/ic-profile-gray.svg")] hover:bg-[url("/icons/ic-profile-blue.svg")] ${isOpenPopover && 'bg-[url("/icons/ic-profile-navy.svg")]'}`}
+                  />
+                </div>
+              )}
+              {isOpenPopover && (
+                <ul
+                  ref={popoverRef}
+                  className="absolute right-0 top-[calc(100%+22px)] z-10 w-100 rounded-md bg-white shadow-lg"
+                >
+                  <Link href="/my">
+                    <li className="mx-4 my-5 cursor-pointer rounded-full py-7 text-center text-body-2Sb hover:bg-primary-50">
+                      마이페이지
+                    </li>
+                  </Link>
+                  <li
+                    className="mx-4 my-5 cursor-pointer rounded-full py-7 text-center text-body-2Sb text-neutral-900 hover:bg-primary-50"
+                    onClick={handleLogoutClick}
                   >
-                    <Link href="/my">
-                      <li className="mx-4 my-5 cursor-pointer rounded-full py-7 text-center text-body-2Sb hover:bg-primary-50">
-                        마이페이지
-                      </li>
-                    </Link>
-                    <li
-                      className="mx-4 my-5 cursor-pointer rounded-full py-7 text-center text-body-2Sb text-neutral-900 hover:bg-primary-50"
-                      onClick={handleLogoutClick}
-                    >
-                      로그아웃
-                    </li>
-                    <li className="mx-4 my-5 cursor-pointer rounded-full py-7 text-center text-body-2Sb text-neutral-900 hover:bg-primary-50">
-                      회원탈퇴
-                    </li>
-                  </ul>
-                )}
-              </div>
-            )}
+                    로그아웃
+                  </li>
+                  <li
+                    className="mx-4 my-5 cursor-pointer rounded-full py-7 text-center text-body-2Sb text-neutral-900 hover:bg-primary-50"
+                    onClick={handleDeleteAccountsClick}
+                  >
+                    회원탈퇴
+                  </li>
+                </ul>
+              )}
+              <DynamicModal
+                modalType="prompt"
+                title="회원 탈퇴"
+                description="탈퇴하시겠습니까?"
+                isOpen={isDeleteAccountsModalOpen}
+                onClose={handleDeleteAccountsModalClose}
+                buttonText="탈퇴하기"
+                buttonOnClick={handleDeleteAccountsModalClick}
+                secondaryButtonText="취소"
+              />
+            </div>
           </div>
         ) : (
           <div>
