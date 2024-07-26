@@ -1,4 +1,12 @@
 export interface PostAccounts {
   profileImage: string;
-  changeNickname: string;
+  request: {
+    changeNickname: string;
+  };
+}
+
+export interface GetAccounts {
+  email: string;
+  nickname: string;
+  profileImageUrl: string;
 }
