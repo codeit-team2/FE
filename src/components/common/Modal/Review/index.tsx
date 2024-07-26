@@ -58,7 +58,7 @@ export default function ReviewModal({ gatheringId, reviewId, type }: Props) {
         },
         onError: (error) => {
           console.error('Error: ', error.message);
-          alert('에러 발생');
+          alert('이미 리뷰를 작성한 모임입니다.');
           // alert(error.response.data.message);
         },
       });
