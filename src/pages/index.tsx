@@ -134,7 +134,7 @@ export default function Main() {
                 ))}
                 {hasNextPage && (
                   <>
-                    <div className="mb-16 mt-40 h-2 w-full bg-neutral-100" />
+                    <div className="mb-0 mt-12 h-2 w-full bg-neutral-100 md:mb-16 md:mt-40" />
                     <button
                       className="flex w-full items-center justify-center"
                       onClick={() => fetchNextPage()}
