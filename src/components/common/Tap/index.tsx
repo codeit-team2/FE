@@ -67,7 +67,7 @@ export default function Tap({ handleMainTapClick, mainCategory }: TapProps) {
         </button>
       ))}
       <span
-        className="absolute bottom-0 h-2 rounded-full bg-black transition-all duration-300"
+        className="absolute !bottom-[-2px] h-2 rounded-full bg-neutral-900 transition-all duration-300"
         style={{
           width: indicatorStyle.width,
           left: indicatorStyle.left,
