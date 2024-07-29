@@ -33,14 +33,14 @@ export default function Review() {
     <div>
       <div className="mb-32 flex flex-row justify-center gap-8">
         <Button
-          variant={isReviewWritten === true ? 'secondary' : 'ghost'}
+          variant={isReviewWritten === true ? 'secondary' : 'chip'}
           type="submit"
           onClick={() => setIsReviewWritten(true)}
         >
           작성 가능한 후기
         </Button>
         <Button
-          variant={isReviewWritten === false ? 'secondary' : 'ghost'}
+          variant={isReviewWritten === false ? 'secondary' : 'chip'}
           type="submit"
           onClick={() => setIsReviewWritten(false)}
         >

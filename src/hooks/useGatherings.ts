@@ -7,11 +7,12 @@ import {
   postGatherings,
   postGatheringsJoin,
   postGatheringsLeave,
+  putGatherings,
 } from '@/apis/gatherings';
 import { UseMutationResult, useInfiniteQuery, useMutation, useQuery } from '@tanstack/react-query';
 
 // postGatherings ??
-import { GatheringsParams } from '@/types/gatherings';
+import { GatheringsParams, PutGatherings } from '@/types/gatherings';
 
 interface PostGatheringsResponse {
   success: boolean;
@@ -25,14 +26,14 @@ interface UseGatheringsArgs {
 export const useGetGatherings = (
   mainCategoryName: string,
   subCategoryName: string,
-  sortBy: string,
   sortOrder: string,
   location: string | null,
+  dateTime?: string | undefined,
 ) => {
   return useInfiniteQuery({
-    queryKey: ['Gatherings', mainCategoryName, subCategoryName, sortBy, sortOrder, location],
+    queryKey: ['Gatherings', mainCategoryName, subCategoryName, sortOrder, location, dateTime],
     queryFn: ({ pageParam }) =>
-      getGatherings(pageParam, mainCategoryName, subCategoryName, sortBy, sortOrder, location),
+      getGatherings(pageParam, mainCategoryName, subCategoryName, sortOrder, location, dateTime),
     initialPageParam: 0,
     getNextPageParam: (lastPage, pages) => {
       if (lastPage.length === 5 && lastPage.length !== 0) {
@@ -48,6 +49,12 @@ export const useGetGatherings = (
 export const usePostGatherings = () => {
   return useMutation({
     mutationFn: (value: FormData) => postGatherings(value),
+  });
+};
+
+export const usePutGatherings = () => {
+  return useMutation({
+    mutationFn: (value: PutGatherings) => putGatherings(value),
   });
 };
 

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import Image from 'next/image';
 
@@ -6,12 +6,14 @@ import Bookmark from '@/components/common/Bookmark';
 
 import InfoBadge from '@/components/Detail/InfoBadge';
 
-import formatDate from '@/lib/utils';
+import { formatDate } from '@/lib/utils';
 
 import { Gathering } from '@/types/gatherings';
 
 interface TitleCardProps {
   data: Gathering;
+  clickFavorites: (item: Gathering) => void;
+  isFavorite: (item: Gathering) => boolean;
 }
 
 const userData = {
@@ -125,24 +127,26 @@ const userData = {
   ],
 };
 
-export default function TitleCard({ data }: TitleCardProps) {
-  const [isBookmarked, setIsBookmarked] = useState(false);
+export default function TitleCard({ data, clickFavorites, isFavorite }: TitleCardProps) {
+  const favorite = isFavorite(data);
 
   const formattedDate = formatDate({ date: data.dateTime });
 
-  const handleToggleBookmark = (newState: boolean) => {
-    setIsBookmarked(newState);
+  const handleToggleBookmark = () => {
+    if (data) {
+      clickFavorites(data);
+    }
   };
 
   return (
     <>
       <div className="relative flex h-400 w-full max-w-[1010px] flex-col rounded-lg bg-neutral-900 md:h-253 md:flex-row">
-        <div className="relative h-170 w-full md:h-253 md:w-495">
+        <div className="relative h-170 w-full rounded-l-lg bg-neutral-100 md:h-253 md:w-495">
           <Image
             src={data.gatheringImageUrl}
             alt={data.name}
             fill
-            objectFit="cover"
+            objectFit="contain"
             className="rounded-t-lg md:rounded-bl-lg md:rounded-tl-lg md:rounded-tr-none"
           />
         </div>
@@ -172,7 +176,7 @@ export default function TitleCard({ data }: TitleCardProps) {
           </div>
         </div>
         <div className="absolute right-20 top-186 md:right-30 md:top-30">
-          <Bookmark isBookmarked={isBookmarked} onToggleBookmark={handleToggleBookmark} />
+          <Bookmark favorite={favorite} handleToggleBookmark={handleToggleBookmark} />
         </div>
       </div>
     </>

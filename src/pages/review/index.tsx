@@ -10,18 +10,20 @@ import ChipTap from '@/components/ChipTap';
 import NotReview from '@/components/NotReview';
 import StarRatingAverage from '@/components/Review/StarRatingAverage';
 import UserReview from '@/components/Review/UserReview';
-import mockData from '@/components/Review/reviewTestData.json';
+// import mockData from '@/components/Review/reviewTestData.json';
 import { Button } from '@/components/ui/button';
 
-// import { useGetReviewsAll } from '@/hooks/useReviews';
+import { useGetReviewsAll } from '@/hooks/useReviews';
 
-// import { ReviewsParams } from '@/types/reviews';
+import { Reviews, ReviewsParams } from '@/types/reviews';
 
 export default function Review() {
   const isReview = true;
 
   const [mainCategory, setMainCategory] = useState<string>('운동');
   const [subCategory, setSubCategory] = useState<string>('전체');
+
+  // const [sortOrder, setSortOrder] = useState<string>('asc');
 
   const handleMainTapClick = (title: string) => {
     setMainCategory(title);
@@ -31,19 +33,28 @@ export default function Review() {
     setSubCategory(title);
   };
 
-  // const value: ReviewsParams = {
-  //   mainCategoryName: '운동',
-  //   subCategoryName: '러닝',
-  //   page: 0,
-  //   size: 10,
-  //   sortBy: 'score',
-  //   sortOrder: 'asc',
-  // };
+  const value: ReviewsParams = {
+    mainCategoryName: mainCategory,
+    subCategoryName: subCategory,
+    page: 0,
+    size: 10,
+    sortBy: 'score',
+    sortOrder: 'asc',
+  };
 
-  // const { data } = useGetReviewsAll(value);
+  const { data: allReviewData } = useGetReviewsAll(value);
 
-  const reviewData = mockData.reviewInfos;
-  const scoreData = mockData.scoreInfo;
+  console.log(allReviewData);
+
+  const reviewData = allReviewData?.reviewInfos || [];
+  const scoreData = allReviewData?.scoreInfo || {
+    averageScore: 0,
+    scoreOneCount: 0,
+    scoreTwoCount: 0,
+    scoreThreeCount: 0,
+    scoreFourCount: 0,
+    scoreFiveCount: 0,
+  };
 
   return (
     <>
@@ -62,7 +73,7 @@ export default function Review() {
           <div className="mt-24 w-full md:mt-32">
             <StarRatingAverage data={scoreData} />
           </div>
-          <div className="my-24 mb-32 flex w-full max-w-[1010px] justify-end md:my-32">
+          <div className="my-24 mb-32 flex w-full max-w-[1010px] justify-end md:my-20">
             <Dropdown
               items={['최신순', '별점순']}
               icon="/icons/ic-chevron-updown.svg"
@@ -71,8 +82,8 @@ export default function Review() {
             />
           </div>
           {isReview ? (
-            <div className="mb-40 flex flex-col gap-20 md:mb-50">
-              {reviewData.map((data, index) => (
+            <div className="mb-40 flex w-full flex-col gap-20 md:mb-50">
+              {reviewData.map((data: Reviews, index: number) => (
                 <UserReview key={index} data={data} />
               ))}
             </div>

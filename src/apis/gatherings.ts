@@ -1,20 +1,28 @@
 import { instance } from '@/lib/axios';
 
-import { GatheringsParams } from '@/types/gatherings';
+import { GatheringsParams, PutGatherings } from '@/types/gatherings';
 
 // 전체에 대한 값은 어떻게 보내야하는지? 전체 안되고 특정 헬스, 러닝은 가능함.
 export const getGatherings = async (
   page: number,
   mainCategoryName: string,
   subCategoryName: string,
-  sortBy: string = 'dateTime',
   sortOrder: string = 'asc',
   location: string | null,
+  dateTime: string | undefined,
   size: number = 5,
 ) => {
   // `/gatherings?mainCategoryName=${mainCategoryName}&subCategoryName=${subCategoryName}&page=${page}&size=${size}&sortBy=${sortBy}&sortOrder=${sortOrder}&location=${location}`,
   const res = await instance.get(`/gatherings?`, {
-    params: { page, mainCategoryName, subCategoryName, sortBy, sortOrder, location, size },
+    params: {
+      page,
+      mainCategoryName,
+      subCategoryName,
+      sortOrder,
+      location,
+      dateTime,
+      size,
+    },
     // params: { page },
   });
   return res.data;
@@ -26,7 +34,16 @@ export const getDetailGatherings = async (gatheringId: number) => {
 };
 
 export const postGatherings = async (value: FormData) => {
-  const res = await instance.post('/gatherings', value);
+  const res = await instance.post('/gatherings', value, {
+    headers: { 'Content-Type': 'multipart/form-data' },
+  });
+  return res;
+};
+
+export const putGatherings = async ({ gatheringId, value }: PutGatherings) => {
+  const res = await instance.put(`/gatherings/${gatheringId}`, value, {
+    headers: { 'Content-Type': 'multipart/form-data' },
+  });
   return res;
 };
 

@@ -4,7 +4,7 @@ import axios from 'axios';
 import { deleteCookie, getCookie, setCookie } from 'cookies-next';
 
 export const instance = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_BASE_URL,
+  baseURL: 'https://hobbyzone.p-e.kr',
   headers: {
     'Content-Type': 'application/json',
   },
