@@ -9,42 +9,51 @@ import {
 } from '@/apis/auths';
 import { useMutation } from '@tanstack/react-query';
 
-import { PostNickname, PostSendmail, PostSignin, PostSignup, PostVerify } from '@/types/auths';
+import { AxiosError } from 'axios';
 
-// any 타입 추후 변경
-export const usePostSignup = ({ onSuccess, onError }: any) =>
-  useMutation({
+import {
+  NicknameOnSuccessAndonErrorType,
+  OnSuccessAndonErrorType,
+  PostNickname,
+  PostSendmail,
+  PostSignin,
+  PostSignup,
+  PostVerify,
+  SigninOnSuccessAndonErrorType,
+} from '@/types/auths';
+
+export const usePostSignup = ({ onSuccess, onError }: OnSuccessAndonErrorType) =>
+  useMutation<PostSignup, AxiosError, PostSignup>({
     mutationFn: (value: PostSignup) => postSignup(value),
     onSuccess: onSuccess,
     onError: onError,
   });
 
-export const usePostSendmail = ({ onSuccess, onError }: any) =>
-  useMutation({
+export const usePostSendmail = ({ onSuccess, onError }: OnSuccessAndonErrorType) =>
+  useMutation<PostSendmail, AxiosError, PostSendmail>({
     mutationFn: (value: PostSendmail) => postSendmail(value),
     onSuccess: onSuccess,
     onError: onError,
   });
 
-export const usePostVerify = ({ onSuccess, onError }: any) =>
-  useMutation({
+export const usePostVerify = ({ onSuccess, onError }: OnSuccessAndonErrorType) =>
+  useMutation<PostVerify, AxiosError, PostVerify>({
     mutationFn: (value: PostVerify) => postVerify(value),
     onSuccess: onSuccess,
     onError: onError,
   });
 
-export const usePostNickname = ({ onSuccess }: any) => {
-  return useMutation({
+export const usePostNickname = ({ onSuccess }: NicknameOnSuccessAndonErrorType) => {
+  return useMutation<PostNickname, AxiosError, PostNickname>({
     mutationFn: (value: PostNickname) => postNickname(value),
     onSuccess: onSuccess,
   });
 };
 
-export const usePostSignin = ({ onSuccess, onError }: any) =>
-  useMutation({
+export const usePostSignin = ({ onSuccess }: SigninOnSuccessAndonErrorType) =>
+  useMutation<PostSignin, AxiosError, PostSignin>({
     mutationFn: (value: PostSignin) => postSignin(value),
     onSuccess: onSuccess,
-    onError: onError,
   });
 
 export const usePostSignout = () =>

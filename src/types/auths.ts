@@ -1,3 +1,5 @@
+import { AxiosError } from 'axios';
+
 export interface PostSignup {
   email: string;
   password: string;
@@ -25,4 +27,17 @@ export interface PostSignin {
 export interface ErrorResponse {
   code: string;
   message: string;
+}
+
+export interface OnSuccessAndonErrorType {
+  onSuccess: (data: string) => void;
+  onError: (error: AxiosError) => void;
+}
+
+export interface NicknameOnSuccessAndonErrorType {
+  onSuccess: (data: { isDuplicate: boolean }) => void;
+}
+
+export interface SigninOnSuccessAndonErrorType {
+  onSuccess: (data: { accessToken: string; tokenScheme: string }) => void;
 }

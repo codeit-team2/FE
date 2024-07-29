@@ -1,3 +1,5 @@
+import { AxiosError } from 'axios';
+
 export interface ReviewsParams {
   mainCategoryName?: string;
   subCategoryName?: string;
@@ -57,4 +59,9 @@ interface PutReviewsValue {
 
 export interface DeleteReviews {
   reviewId: number;
+}
+
+export interface OnSuccessAndonErrorType {
+  onSuccess: (data: string) => void;
+  onError: (error: AxiosError) => void;
 }
