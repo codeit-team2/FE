@@ -35,13 +35,6 @@ export interface Account {
   joinedAt: string;
 }
 
-export interface GatheringsParams {
-  page: number;
-  size: number;
-  sortBy: 'dateTime' | 'participantCount';
-  sortOrder: 'asc' | 'desc';
-}
-
 export interface PutGatherings {
   gatheringId: number;
   value: FormData;
