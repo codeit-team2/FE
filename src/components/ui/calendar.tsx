@@ -1,8 +1,6 @@
 import * as React from 'react';
 import { DayPicker } from 'react-day-picker';
 
-import { ChevronLeft, ChevronRight } from 'lucide-react';
-
 import { LeftArrow } from '@/components/common/Calendar/LeftArrow';
 import { RightArrow } from '@/components/common/Calendar/RightArrow';
 
@@ -37,8 +35,7 @@ function UiCalendar({ className, classNames, showOutsideDays = true, ...props }:
           buttonVariants({ variant: 'ghost' }),
           'h-28 w-28 bg-transparent p-0 opacity-50 hover:opacity-100',
         ),
-        // 이 부분 previous 왼쪽 어레이컴포넌트
-        // next 오른쪽 어레이컴포넌트
+
         nav_button_previous: 'absolute right-20 w-32 h-32',
         nav_button_next: 'absolute right-0 w-32 h-32 ',
         table: 'w-full border-collapse space-y-28',
@@ -62,10 +59,7 @@ function UiCalendar({ className, classNames, showOutsideDays = true, ...props }:
         ...classNames,
       }}
       components={{
-        // 빌드 에러로 안쓰는 props주석 처리
-        // IconLeft: ({ ...props }) => <ChevronLeft className="h-28 w-28" />,
         IconLeft: () => <LeftArrow />,
-        // IconRight: ({ ...props }) => <ChevronRight className="h-28 w-28" />,
         IconRight: () => <RightArrow />,
       }}
       {...props}

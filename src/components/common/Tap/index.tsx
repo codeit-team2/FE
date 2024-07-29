@@ -66,7 +66,6 @@ export default function Tap({ handleMainTapClick, mainCategory }: TapProps) {
           </div>
         </button>
       ))}
-      {/* bottom-0 나중에 설명듣고 수정 어느 부분이 디자인과 상이한지 잘 모르겠음 */}
       <span
         className="absolute !bottom-[-2px] h-2 rounded-full bg-neutral-900 transition-all duration-300"
         style={{
