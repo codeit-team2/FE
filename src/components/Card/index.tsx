@@ -71,7 +71,7 @@ export default function Card({ data, clickFavorites, isFavorite }: CardProps) {
           </div>
         )}
       </div>
-      <div className="relative flex grow flex-col items-start justify-between text-gray-600">
+      <div className="relative mx-12 flex grow flex-col items-start justify-between text-gray-600 md:mx-0">
         <Description data={data} />
         <div className="mb-11 flex w-full items-center justify-center gap-8 md:gap-16">
           <div className="flex w-full items-center gap-16">

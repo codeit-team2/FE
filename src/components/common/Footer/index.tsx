@@ -16,7 +16,7 @@ export default function Footer() {
           </p>
         </div>
         <div data-display="mobileSize" className="flex md:gap-70 lg:gap-107">
-          <div className="flex flex-col gap-29 text-body-2M text-neutral-500">
+          <div className="flex flex-col gap-29 text-body-3Sb text-neutral-500 md:text-body-2M">
             <p>
               서비스 소개
               <br></br>
@@ -26,7 +26,7 @@ export default function Footer() {
             </p>
             <p>@ hobbyzone All rights reserved</p>
           </div>
-          <div className="text-body-2M text-neutral-500">
+          <div className="text-body-3Sb text-neutral-500 md:text-body-2M">
             <p>서울시 코드고 협업로 2길 2</p>
             <p> +82-2-2222-2222</p>
             <p> hobbyzone@gmail.com</p>
