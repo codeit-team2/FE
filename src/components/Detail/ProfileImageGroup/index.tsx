@@ -4,7 +4,7 @@ import Image from 'next/image';
 
 import useIsMobile from '@/hooks/useIsMobile';
 
-import { Account } from '@/types/testDataType';
+import { Account } from '@/types/gatherings';
 
 interface ProfileImageGroupProps {
   usersProfile: Account[];
@@ -23,6 +23,12 @@ export default function ProfileImageGroup({ usersProfile }: ProfileImageGroupPro
     return null;
   }
 
+  const getImageUrl = (url: string | null) => {
+    return !url || url === 'https://codeit-bucket.s3.ap-northeast-2.amazonaws.com/null'
+      ? '/icons/ic-profile-gray.svg'
+      : url;
+  };
+
   return (
     <>
       {usersProfile.slice(0, profileSize).map((user, index) => (
@@ -34,7 +40,7 @@ export default function ProfileImageGroup({ usersProfile }: ProfileImageGroupPro
           }}
         >
           <Image
-            src={user.profileImageUrl}
+            src={getImageUrl(user.profileImageUrl)}
             alt={`profile-${index}`}
             fill
             objectFit="cover"

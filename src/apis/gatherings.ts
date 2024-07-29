@@ -75,3 +75,11 @@ export const deleteGatherings = async (gatheringId: number) => {
   const res = await instance.delete(`/gatherings/${gatheringId}/cancel`);
   return res.data;
 };
+
+export const getGatheringsParticipant = async (gatheringId: number, value: GatheringsParams) => {
+  const { page, size, sortBy, sortOrder } = value;
+  const res = await instance.get(`/gatherings/${gatheringId}/participants`, {
+    params: { page, size, sortBy, sortOrder },
+  });
+  return res.data;
+};
