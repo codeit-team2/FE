@@ -3,7 +3,7 @@ import { DayPicker } from 'react-day-picker';
 
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
-import { LeftArrow } from '@/components/common/Calendar/Leftarrow';
+import { LeftArrow } from '@/components/common/Calendar/LeftArrow';
 import { RightArrow } from '@/components/common/Calendar/RightArrow';
 
 import { buttonVariants } from '@/components/ui/button';
@@ -30,8 +30,8 @@ function UiCalendar({ className, classNames, showOutsideDays = true, ...props }:
       classNames={{
         months: 'flex flex-col sm:flex-row space-y-16 sm:space-x-16 sm:space-y-0',
         month: 'space-y-16',
-        caption: 'flex justify-center pt-4 relative items-center',
-        caption_label: 'text-sm font-medium',
+        caption: 'flex justify-start pt-4 relative items-center',
+        caption_label: 'text-heading-2Sb',
         nav: 'space-x-4 flex items-center',
         nav_button: cn(
           buttonVariants({ variant: 'ghost' }),
@@ -39,8 +39,8 @@ function UiCalendar({ className, classNames, showOutsideDays = true, ...props }:
         ),
         // 이 부분 previous 왼쪽 어레이컴포넌트
         // next 오른쪽 어레이컴포넌트
-        nav_button_previous: 'absolute right-50',
-        nav_button_next: 'absolute right-0',
+        nav_button_previous: 'absolute right-20 w-32 h-32',
+        nav_button_next: 'absolute right-0 w-32 h-32 ',
         table: 'w-full border-collapse space-y-28',
         head_row: 'flex bg-neutral-50 rounded-[99px] py-[10px]',
         head_cell: 'text-muted-foreground rounded-md w-36 font-normal text-[0.8rem]',
