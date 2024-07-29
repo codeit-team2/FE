@@ -12,13 +12,12 @@ import Tap from '@/components/common/Tap';
 
 import Card from '@/components/Card';
 import ChipTap from '@/components/ChipTap';
-
 import NotCard from '@/components/NotCard';
 
 import { formatDateToISO } from '@/lib/utils';
 
 import { useGetAccounts } from '@/hooks/useAccounts';
-import useCheckLogin from '@/hooks/useCheckLogin';
+// import useCheckLogin from '@/hooks/useCheckLogin';
 import useFavorite from '@/hooks/useFavorite';
 
 import { Gathering } from '@/types/gatherings';
