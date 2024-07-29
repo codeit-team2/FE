@@ -57,8 +57,6 @@ export default function Detail() {
     return <div>Error loading data</div>;
   }
 
-  console.log(reviewData);
-
   return (
     <>
       <GNB />

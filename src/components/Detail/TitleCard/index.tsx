@@ -18,8 +18,6 @@ interface TitleCardProps {
   isFavorite: (item: Gathering) => boolean;
   queryId: number;
 }
-
-// const userData = {
 //   gatheringId: 101,
 //   accounts: [
 //     {
@@ -149,8 +147,6 @@ export default function TitleCard({ data, clickFavorites, isFavorite, queryId }:
       clickFavorites(data);
     }
   };
-
-  console.log(participantData);
 
   return (
     <>
