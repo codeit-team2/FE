@@ -33,8 +33,8 @@ export default function ReviewCard({ data }: ReviewCardProps) {
           {data.comment}
         </p>
       </div>
-      <div className="flex items-center gap-8 pt-14">
-        <div className="relative h-32 w-32 overflow-hidden rounded-full">
+      <div className="flex items-center gap-8 pt-20">
+        <div className="relative h-24 w-24 overflow-hidden rounded-full">
           <Image src={'/images/profileimage.jpeg'} alt="profileImage" fill />
         </div>
         <p className="text-body-2M text-neutral-600">{data.nickname}</p>

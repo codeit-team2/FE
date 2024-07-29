@@ -259,6 +259,10 @@ const config = {
           '50%': { transform: 'scale(0.8)' },
           '100%': { transform: 'scale(1)' },
         },
+        fadeIn: {
+          '0%': { opacity: '0' },
+          '100%': { opacity: '1' },
+        },
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
@@ -266,6 +270,7 @@ const config = {
         halfTurn: 'halfTurn 300ms linear forwards',
         fillHeart: 'fillHeart 300ms ease-in-out',
         pulseSmall: 'pulseSmall 300ms ease-in-out',
+        fadeIn: 'fadeIn 300ms ease-in-out',
       },
     },
   },

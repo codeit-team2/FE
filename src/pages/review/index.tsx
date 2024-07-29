@@ -73,7 +73,7 @@ export default function Review() {
           <div className="mt-24 w-full md:mt-32">
             <StarRatingAverage data={scoreData} />
           </div>
-          <div className="my-24 mb-32 flex w-full max-w-[1010px] justify-end md:my-32">
+          <div className="my-24 mb-32 flex w-full max-w-[1010px] justify-end md:my-20">
             <Dropdown
               items={['최신순', '별점순']}
               icon="/icons/ic-chevron-updown.svg"
@@ -82,7 +82,7 @@ export default function Review() {
             />
           </div>
           {isReview ? (
-            <div className="mb-40 flex flex-col gap-20 md:mb-50">
+            <div className="mb-40 flex w-full flex-col gap-20 md:mb-50">
               {reviewData.map((data: Reviews, index: number) => (
                 <UserReview key={index} data={data} />
               ))}

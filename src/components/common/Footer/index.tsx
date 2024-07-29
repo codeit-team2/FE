@@ -9,7 +9,7 @@ export default function Footer() {
           <div className="relative mb-8 h-28 w-66 md:mb-13">
             <Image src="/icons/ic-logo.svg" alt="logo" fill />
           </div>
-          <p className="text-heading-2Sb md:text-heading-1B">
+          <p className="pb-5 text-heading-2Sb md:pb-0 md:text-heading-1B">
             함께하면 더 좋은
             <br></br>
             다채로운 취미 모임 플랫폼

@@ -41,3 +41,8 @@ export interface GatheringsParams {
   sortBy: 'dateTime' | 'participantCount';
   sortOrder: 'asc' | 'desc';
 }
+
+export interface PutGatherings {
+  gatheringId: number;
+  value: FormData;
+}
