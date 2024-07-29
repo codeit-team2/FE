@@ -46,6 +46,26 @@ export const useGetGatherings = (
   });
 };
 
+export const useGetGatheringsJoined = (
+  size: number,
+  sortBy: 'dateTime',
+  sortOrder: 'asc' | 'desc',
+) => {
+  return useInfiniteQuery({
+    queryKey: ['gatheringsJoined', size, sortBy, sortOrder],
+    queryFn: ({ pageParam }) => getGatheringsJoined(pageParam, size, sortBy, sortOrder),
+    initialPageParam: 0,
+    getNextPageParam: (lastPage, pages) => {
+      if (lastPage.length === 5 && lastPage.length !== 0) {
+        return pages.length;
+      } else {
+        return undefined;
+      }
+    },
+    retry: 0,
+  });
+};
+
 export const usePostGatherings = () => {
   return useMutation({
     mutationFn: (value: FormData) => postGatherings(value),
@@ -106,9 +126,9 @@ export const useGetGatheringsMine = (value: GatheringsParams) => {
   });
 };
 
-export const useGetGatheringsJoined = (value: GatheringsParams) => {
-  return useQuery({
-    queryKey: ['gatheringsJoined', value],
-    queryFn: () => getGatheringsJoined(value),
-  });
-};
+// export const useGetGatheringsJoined = (value: GatheringsParams) => {
+//   return useQuery({
+//     queryKey: ['gatheringsJoined', value],
+//     queryFn: () => getGatheringsJoined(value),
+//   });
+// };

@@ -65,8 +65,6 @@ export default function MyCard({ data, type = 'default' }: Props) {
     leaveMutation.mutate(data.gatheringId);
   };
 
-  console.log(data);
-
   return (
     <div className="relative flex w-full max-w-screen-lg flex-col gap-16 rounded-lg bg-white p-8 md:h-230 md:flex-row md:gap-10 md:p-20 lg:gap-20">
       <div

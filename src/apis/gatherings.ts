@@ -53,8 +53,12 @@ export const getGatheringsMine = async (value: GatheringsParams) => {
   return res.data;
 };
 
-export const getGatheringsJoined = async (value: GatheringsParams) => {
-  const { page, size, sortBy, sortOrder } = value;
+export const getGatheringsJoined = async (
+  page: number,
+  size: number,
+  sortBy: 'dateTime',
+  sortOrder: 'asc' | 'desc',
+) => {
   const res = await instance.get(`/gatherings/joined`, {
     params: { page, size, sortBy, sortOrder },
   });
