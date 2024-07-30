@@ -1,6 +1,7 @@
 import {
   deleteReviews,
   getReviewsAll,
+  getReviewsAllV2,
   getReviewsMine,
   postReviews,
   putReviews,
@@ -15,7 +16,7 @@ export const useGetReviewsAll = (
   mainCategoryName: string,
   subCategoryName: string,
   size: number,
-  sortBy: 'joinedAt',
+  sortBy: 'score',
   sortOrder: 'asc' | 'desc',
 ) => {
   return useInfiniteQuery({
@@ -31,6 +32,13 @@ export const useGetReviewsAll = (
     },
     retry: 0,
     initialPageParam: 0,
+  });
+};
+
+export const useGetReviewsAllV2 = (value: ReviewsParams) => {
+  return useQuery({
+    queryKey: ['reviewsAll', value],
+    queryFn: () => getReviewsAllV2(value),
   });
 };
 

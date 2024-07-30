@@ -7,9 +7,17 @@ export const getReviewsAll = async (
   mainCategoryName: string,
   subCategoryName: string,
   size: number,
-  sortBy: 'joinedAt',
+  sortBy: 'score',
   sortOrder: 'asc' | 'desc',
 ) => {
+  const res = await instance.get(`/reviews`, {
+    params: { mainCategoryName, subCategoryName, page, size, sortBy, sortOrder },
+  });
+  return res.data;
+};
+
+export const getReviewsAllV2 = async (value: ReviewsParams) => {
+  const { mainCategoryName, subCategoryName, page, size, sortBy, sortOrder } = value;
   const res = await instance.get(`/reviews`, {
     params: { mainCategoryName, subCategoryName, page, size, sortBy, sortOrder },
   });

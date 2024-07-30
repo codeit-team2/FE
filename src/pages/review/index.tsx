@@ -38,10 +38,10 @@ export default function Review() {
     isPending,
     fetchNextPage,
     hasNextPage,
-  } = useGetReviewsAll(mainCategory, subCategory, size, sortBy, sortOrder);
+  } = useGetReviewsAll(mainCategory, subCategory, 5, 'score', 'asc');
 
-  const reviewData = allReviewData?.reviewInfos || [];
-  const scoreData = allReviewData?.scoreInfo || {
+  const reviewData = allReviewData?.pages.flatMap((page) => page.reviewInfos) || [];
+  const scoreData = allReviewData?.pages[0]?.scoreInfo || {
     averageScore: 0,
     scoreOneCount: 0,
     scoreTwoCount: 0,
@@ -49,6 +49,8 @@ export default function Review() {
     scoreFourCount: 0,
     scoreFiveCount: 0,
   };
+
+  console.log(allReviewData);
 
   return (
     <>
