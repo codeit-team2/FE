@@ -181,6 +181,8 @@ export default function SignupModal({
   const { mutate: mutateSubmit } = usePostSignup();
 
   const onSubmit: SubmitHandler<SignupValue> = (value: SignupValue) => {
+    if (!isValidated.agree) return;
+
     const validateFields = () => {
       if (!isValidated.nickname) {
         setSuccessMessages((prev) => ({ ...prev, nickname: '' }));
@@ -209,6 +211,10 @@ export default function SignupModal({
         },
         onError: (error: AxiosError) => {
           const parsedErrorCode = JSON.parse(error.request.response);
+          setSuccessMessages((prev) => ({
+            ...prev,
+            [submitErrorMessages[parsedErrorCode.code].name]: '',
+          }));
           setError(submitErrorMessages[parsedErrorCode.code].name, {
             message: submitErrorMessages[parsedErrorCode.code].message,
           });
