@@ -11,7 +11,6 @@ import NotReview from '@/components/NotReview';
 import StarRatingAverage from '@/components/Review/StarRatingAverage';
 import UserReview from '@/components/Review/UserReview';
 
-// import mockData from '@/components/Review/reviewTestData.json';
 import { useGetReviewsAll } from '@/hooks/useReviews';
 
 import { Reviews, ReviewsParams } from '@/types/reviews';
@@ -21,8 +20,6 @@ export default function Review() {
 
   const [mainCategory, setMainCategory] = useState<string>('운동');
   const [subCategory, setSubCategory] = useState<string>('전체');
-
-  // const [sortOrder, setSortOrder] = useState<string>('asc');
 
   const handleMainTapClick = (title: string) => {
     setMainCategory(title);
