@@ -9,6 +9,7 @@ import ReviewModal from '@/components/common/Modal/Review';
 
 import Description from '@/components/Card/Description';
 import Person from '@/components/Card/Person';
+import MakeClubModal from '@/components/MakeClub/Modal';
 import { Button } from '@/components/ui/button';
 
 import { isDateBeforeToday } from '@/lib/utils';
@@ -67,10 +68,16 @@ export default function MyCard({ data, type = 'default' }: Props) {
   return (
     <div className="relative flex w-full max-w-screen-lg flex-col gap-16 rounded-lg bg-white p-8 md:h-230 md:flex-row md:gap-10 md:p-20 lg:gap-20">
       <div
-        className="relative h-163 w-full cursor-pointer md:h-190 md:w-373"
+        className="relative h-163 w-full cursor-pointer rounded-lg bg-neutral-50 md:h-190 md:w-373"
         onClick={() => router.push(`/detail/${data.gatheringId}`)}
       >
-        <Image src={data.gatheringImageUrl} alt={data.name} fill className="rounded-md" />
+        <Image
+          src={data.gatheringImageUrl}
+          alt={data.name}
+          fill
+          objectFit="contain"
+          className="rounded-md"
+        />
         {IsDateBeforeToday ? (
           <div className="absolute z-20 flex h-36 w-81 items-center justify-center rounded-br-md rounded-tl-md bg-neutral-700 text-body-2M text-white">
             이용완료
@@ -85,18 +92,13 @@ export default function MyCard({ data, type = 'default' }: Props) {
             개설확정
           </div>
         )}
-        {IsDateBeforeToday &&
-          (type === 'club' ? (
-            <div className="absolute flex h-full w-full items-center justify-center rounded-md bg-neutral-900 text-white opacity-70">
-              이미 종료된 모임입니다
-            </div>
-          ) : (
-            <div className="absolute flex h-full w-full items-center justify-center rounded-md bg-neutral-900 text-white opacity-70">
-              이용하신 모임에 대해
-              <br />
-              후기를 남겨주세요
-            </div>
-          ))}
+        {IsDateBeforeToday && type !== 'club' && (
+          <div className="absolute flex h-full w-full items-center justify-center rounded-md bg-neutral-900 text-center text-white opacity-70">
+            이용하신 모임에 대해
+            <br />
+            후기를 남겨주세요
+          </div>
+        )}
       </div>
       <div className="flex grow flex-col justify-between">
         <Description data={data} />
@@ -108,11 +110,9 @@ export default function MyCard({ data, type = 'default' }: Props) {
         )}
 
         {type === 'club' && (
-          <div className="flex flex-row justify-end gap-16">
+          <div className="flex flex-row justify-end gap-8">
             <Person data={data} />
-            <Button className="w-186" variant={'secondary'}>
-              모임 수정하기
-            </Button>
+            <MakeClubModal trigger="modify" data={data} />
             <Button variant={'secondary'} onClick={() => handleDeleteClick()}>
               <Image src="/icons/ic-delete.svg" alt="delete" width={24} height={24} />
             </Button>
@@ -126,7 +126,7 @@ export default function MyCard({ data, type = 'default' }: Props) {
           <div className="flex flex-row justify-end gap-16">
             <Person data={data} />
             {IsDateBeforeToday ? (
-              <ReviewModal type="new" gatheringId={data.gatheringId} />
+              !data.hasReviewed && <ReviewModal type="new" gatheringId={data.gatheringId} />
             ) : (
               <Button
                 className="mb-2 h-42 w-288"

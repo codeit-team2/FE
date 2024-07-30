@@ -6,7 +6,7 @@ import IcChevronUpdown from '@/components/common/Dropdown/IcChevronUpdown';
 
 import { Button } from '@/components/ui/button';
 
-import formatDate from '@/lib/utils';
+import { formatDate } from '@/lib/utils';
 
 const DROPDOWN_ERROR_MSG = {
   category: {
@@ -26,6 +26,7 @@ interface DropdownProps {
   itemTrigger: string | null;
   isSubmitted?: boolean;
   handleLocationClick?: (location: string | null) => void;
+  handleCalendarClick?: (date?: Date) => void | undefined;
   resetTrigger?: object;
   mainCategory?: string;
   subCategory?: string;
@@ -39,6 +40,7 @@ export default function Dropdown({
   itemTrigger = 'Open',
   isSubmitted,
   handleLocationClick,
+  handleCalendarClick,
   mainCategory,
   subCategory,
   // resetTrigger,
@@ -75,6 +77,15 @@ export default function Dropdown({
     setItem && setItem(itemText);
   };
 
+  const handleDateClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const itemText = e.currentTarget.textContent;
+    setItemValue(itemText);
+
+    if (handleCalendarClick) {
+      handleCalendarClick(date);
+    }
+  };
+
   useEffect(() => {
     if (id) {
       setErrorMessage(DROPDOWN_ERROR_MSG[id].required);
@@ -87,6 +98,7 @@ export default function Dropdown({
 
   useEffect(() => {
     setItemValue(itemTrigger);
+    setDate(undefined);
   }, [mainCategory, subCategory]);
 
   return (
@@ -116,7 +128,7 @@ export default function Dropdown({
               <div
                 key={index}
                 onClick={handleItemClick}
-                className="flex w-full cursor-pointer items-center justify-center px-10 py-12 hover:rounded-full hover:bg-primary-50"
+                className="flex w-full cursor-pointer items-center justify-center px-10 py-12 hover:rounded-full hover:bg-primary-50 active:bg-primary-100"
               >
                 {item}
               </div>
@@ -125,9 +137,9 @@ export default function Dropdown({
         ) : (
           <div className="absolute rounded-md border bg-white p-12">
             <Calendar date={date} setDate={setDate} />
-            <Button variant="secondary" className="mt-2 w-full">
+            <Button variant="secondary" className="mt-2 w-full" onClick={handleDateClick}>
               {formattedDate
-                ? `${formattedDate.formattedDate} (${formattedDate.formattedWeekday})`
+                ? `${formattedDate.formattedDate} ${formattedDate.formattedWeekday}`
                 : '날짜를 선택해주세요'}
             </Button>
           </div>

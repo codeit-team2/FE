@@ -17,12 +17,7 @@ export default function StarRatingAverage({ data }: StarRatingAverageProps) {
     data.scoreOneCount,
   ];
 
-  const totalReviews =
-    data.scoreOneCount +
-    data.scoreTwoCount +
-    data.scoreThreeCount +
-    data.scoreFourCount +
-    data.scoreFiveCount;
+  const totalReviews = scoresCount.reduce((total, score) => total + score, 0);
 
   const renderStars = () => {
     const starArray = [];
@@ -53,7 +48,7 @@ export default function StarRatingAverage({ data }: StarRatingAverageProps) {
       </div>
       <div className="flex w-full max-w-299 flex-col gap-7">
         {scoresCount.map((score, index) => {
-          const progressPercentage = (score / totalReviews) * 100;
+          const progressPercentage = totalReviews ? (score / totalReviews) * 100 : 0;
 
           return (
             <div key={index} className="text-body-2Sb">

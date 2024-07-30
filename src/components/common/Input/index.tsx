@@ -7,6 +7,7 @@ interface InputProps {
   type: 'text' | 'password';
   id: string;
   placeholder: string;
+  defaultValue?: string;
   maxLength?: number;
   isDisabled?: boolean;
   successMessage?: string;
@@ -18,6 +19,7 @@ function Input(
     type,
     id,
     placeholder,
+    defaultValue,
     maxLength,
     isDisabled,
     successMessage,
@@ -60,10 +62,11 @@ function Input(
     <div className="relative w-full">
       <div className="relative">
         <input
-          className={`h-42 w-full rounded-sm bg-neutral-50 py-10 pl-20 text-body-1M text-neutral-900 caret-primary-300 outline-none placeholder:text-neutral-400 ${type === 'password' ? 'pr-66' : 'pr-36'} ${errors[id] && isSubmitted && 'border border-secondary-300'} ${isDisabled && 'bg-neutral-100 text-neutral-400'}`}
+          className={`h-42 w-full rounded-sm bg-neutral-50 py-10 pl-20 text-body-1M text-neutral-900 caret-primary-300 outline-none placeholder:text-neutral-400 placeholder-shown:text-ellipsis ${type === 'password' ? 'pr-66' : 'pr-36'} ${errors[id] && isSubmitted && 'border border-secondary-300'} ${isDisabled && 'bg-neutral-100 text-neutral-400'}`}
           type={typeState}
           id={id}
           placeholder={placeholder}
+          defaultValue={defaultValue}
           maxLength={maxLength}
           disabled={isDisabled}
           ref={ref}

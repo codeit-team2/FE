@@ -4,19 +4,19 @@ import Link from 'next/link';
 export default function Footer() {
   return (
     <>
-      <footer className="flex h-240 flex-col justify-between gap-32 pl-20 pt-32 md:flex-row md:pl-32 md:pr-32 md:pt-40">
+      <footer className="flex h-443 flex-col gap-32 pl-20 pt-32 md:h-240 md:flex-row md:justify-between md:pl-32 md:pr-32 md:pt-40">
         <div className="logo, description">
           <div className="relative mb-8 h-28 w-66 md:mb-13">
             <Image src="/icons/ic-logo.svg" alt="logo" fill />
           </div>
-          <p className="text-heading-2Sb md:text-heading-1B">
+          <p className="pb-5 text-heading-2Sb md:pb-0 md:text-heading-1B">
             함께하면 더 좋은
             <br></br>
             다채로운 취미 모임 플랫폼
           </p>
         </div>
         <div data-display="mobileSize" className="flex md:gap-70 lg:gap-107">
-          <div className="flex flex-col gap-29 text-body-2M text-neutral-500">
+          <div className="flex flex-col gap-29 text-body-3Sb text-neutral-500 md:text-body-2M">
             <p>
               서비스 소개
               <br></br>
@@ -26,7 +26,7 @@ export default function Footer() {
             </p>
             <p>@ hobbyzone All rights reserved</p>
           </div>
-          <div className="text-body-2M text-neutral-500">
+          <div className="text-body-3Sb text-neutral-500 md:text-body-2M">
             <p>서울시 코드고 협업로 2길 2</p>
             <p> +82-2-2222-2222</p>
             <p> hobbyzone@gmail.com</p>

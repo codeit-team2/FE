@@ -9,38 +9,33 @@ import { isDateBeforeToday } from '@/lib/utils';
 
 import { useGetGatheringsJoined } from '@/hooks/useGatherings';
 
-import { Gathering, GatheringsParams } from '@/types/gatherings';
+import { Gathering } from '@/types/gatherings';
 
 export default function Review() {
   const [isReviewWritten, setIsReviewWritten] = useState(true);
 
   // getGatheringsJoined api 호출
-  const value: GatheringsParams = {
-    page: 0, // 변수 수정
-    size: 5,
-    sortBy: 'dateTime',
-    sortOrder: 'asc',
-  };
 
-  const { data } = useGetGatheringsJoined(value);
+  const { data } = useGetGatheringsJoined(5, 'dateTime', 'asc');
   const filteredData = useMemo(() => {
     if (!data) return [];
-
-    return data.filter((item: Gathering) => isDateBeforeToday({ date: item.dateTime }));
+    return data.pages
+      .flat()
+      .filter((item: Gathering) => isDateBeforeToday({ date: item.dateTime }));
   }, [data]);
 
   return (
     <div>
       <div className="mb-32 flex flex-row justify-center gap-8">
         <Button
-          variant={isReviewWritten === true ? 'secondary' : 'ghost'}
+          variant={isReviewWritten === true ? 'secondary' : 'chip'}
           type="submit"
           onClick={() => setIsReviewWritten(true)}
         >
           작성 가능한 후기
         </Button>
         <Button
-          variant={isReviewWritten === false ? 'secondary' : 'ghost'}
+          variant={isReviewWritten === false ? 'secondary' : 'chip'}
           type="submit"
           onClick={() => setIsReviewWritten(false)}
         >

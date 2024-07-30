@@ -17,6 +17,10 @@ export interface PostNickname {
   nickname: string;
 }
 
+export interface ResponsePostNickname {
+  isDuplicate: boolean;
+}
+
 export interface PostSignin {
   email: string;
   password: string;

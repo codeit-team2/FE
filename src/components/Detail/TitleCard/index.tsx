@@ -6,128 +6,29 @@ import Bookmark from '@/components/common/Bookmark';
 
 import InfoBadge from '@/components/Detail/InfoBadge';
 
-import formatDate from '@/lib/utils';
+import { formatDate } from '@/lib/utils';
 
-import { Gathering } from '@/types/gatherings';
+import { useGetGatheringsParticipant } from '@/hooks/useGatherings';
+
+import { Gathering, GatheringsParams } from '@/types/gatherings';
 
 interface TitleCardProps {
   data: Gathering;
   clickFavorites: (item: Gathering) => void;
   isFavorite: (item: Gathering) => boolean;
+  queryId: number;
 }
 
-const userData = {
-  gatheringId: 101,
-  accounts: [
-    {
-      accountId: 1,
-      email: 'abc1@email.com',
-      nickname: '러닝왕1',
-      profileImageUrl: '/images/profileImage1.jpeg',
-      joinedAt: '2024-07-16T12:00:00',
-    },
-    {
-      accountId: 2,
-      email: 'abc2@email.com',
-      nickname: '러닝왕2',
-      profileImageUrl: '/images/profileImage1.jpeg',
-      joinedAt: '2024-07-16T12:00:01',
-    },
-    {
-      accountId: 3,
-      email: 'abc3@email.com',
-      nickname: '러닝왕3',
-      profileImageUrl: '/images/profileImage1.jpeg',
-      joinedAt: '2024-07-16T12:00:02',
-    },
-    {
-      accountId: 4,
-      email: 'abc4@email.com',
-      nickname: '러닝왕4',
-      profileImageUrl: '/images/profileImage1.jpeg',
-      joinedAt: '2024-07-16T12:00:03',
-    },
-    {
-      accountId: 5,
-      email: 'abc5@email.com',
-      nickname: '러닝왕5',
-      profileImageUrl: '/images/profileImage1.jpeg',
-      joinedAt: '2024-07-16T12:00:04',
-    },
-    {
-      accountId: 6,
-      email: 'abc6@email.com',
-      nickname: '러닝왕6',
-      profileImageUrl: '/images/profileImage1.jpeg',
-      joinedAt: '2024-07-16T12:00:05',
-    },
-    {
-      accountId: 7,
-      email: 'abc7@email.com',
-      nickname: '러닝왕7',
-      profileImageUrl: '/images/profileImage1.jpeg',
-      joinedAt: '2024-07-16T12:00:06',
-    },
-    {
-      accountId: 8,
-      email: 'abc8@email.com',
-      nickname: '러닝왕8',
-      profileImageUrl: '/images/profileImage1.jpeg',
-      joinedAt: '2024-07-16T12:00:07',
-    },
-    {
-      accountId: 9,
-      email: 'abc9@email.com',
-      nickname: '러닝왕9',
-      profileImageUrl: '/images/profileImage1.jpeg',
-      joinedAt: '2024-07-16T12:00:08',
-    },
-    {
-      accountId: 10,
-      email: 'abc10@email.com',
-      nickname: '러닝왕10',
-      profileImageUrl: '/images/profileImage1.jpeg0',
-      joinedAt: '2024-07-16T12:00:09',
-    },
-    {
-      accountId: 11,
-      email: 'abc11@email.com',
-      nickname: '러닝왕11',
-      profileImageUrl: '/images/profileImage1.jpeg',
-      joinedAt: '2024-07-16T12:00:10',
-    },
-    {
-      accountId: 12,
-      email: 'abc12@email.com',
-      nickname: '러닝왕12',
-      profileImageUrl: '/images/profileImage1.jpeg',
-      joinedAt: '2024-07-16T12:00:11',
-    },
-    {
-      accountId: 13,
-      email: 'abc13@email.com',
-      nickname: '러닝왕13',
-      profileImageUrl: '/images/profileImage1.jpeg',
-      joinedAt: '2024-07-16T12:00:12',
-    },
-    {
-      accountId: 14,
-      email: 'abc14@email.com',
-      nickname: '러닝왕14',
-      profileImageUrl: '/images/profileImage1.jpeg',
-      joinedAt: '2024-07-16T12:00:13',
-    },
-    {
-      accountId: 15,
-      email: 'abc15@email.com',
-      nickname: '러닝왕15',
-      profileImageUrl: '/images/profileImage1.jpeg',
-      joinedAt: '2024-07-16T12:00:14',
-    },
-  ],
-};
+export default function TitleCard({ data, clickFavorites, isFavorite, queryId }: TitleCardProps) {
+  const value: GatheringsParams = {
+    page: 0,
+    size: 20,
+    sortBy: 'joinedAt',
+    sortOrder: 'asc',
+  };
 
-export default function TitleCard({ data, clickFavorites, isFavorite }: TitleCardProps) {
+  const { data: participantData } = useGetGatheringsParticipant(queryId, value);
+
   const favorite = isFavorite(data);
 
   const formattedDate = formatDate({ date: data.dateTime });
@@ -141,12 +42,12 @@ export default function TitleCard({ data, clickFavorites, isFavorite }: TitleCar
   return (
     <>
       <div className="relative flex h-400 w-full max-w-[1010px] flex-col rounded-lg bg-neutral-900 md:h-253 md:flex-row">
-        <div className="relative h-170 w-full md:h-253 md:w-495">
+        <div className="relative h-170 w-full rounded-l-lg bg-neutral-100 md:h-253 md:w-495">
           <Image
             src={data.gatheringImageUrl}
             alt={data.name}
             fill
-            objectFit="cover"
+            objectFit="contain"
             className="rounded-t-lg md:rounded-bl-lg md:rounded-tl-lg md:rounded-tr-none"
           />
         </div>
@@ -172,7 +73,7 @@ export default function TitleCard({ data, clickFavorites, isFavorite }: TitleCar
             </div>
           </div>
           <div className="mx-10 mt-16 md:mx-20 md:mt-12">
-            <InfoBadge userData={userData} data={data} />
+            <InfoBadge userData={participantData} data={data} />
           </div>
         </div>
         <div className="absolute right-20 top-186 md:right-30 md:top-30">

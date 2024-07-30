@@ -9,42 +9,41 @@ import {
 } from '@/apis/auths';
 import { useMutation } from '@tanstack/react-query';
 
-import { PostNickname, PostSendmail, PostSignin, PostSignup, PostVerify } from '@/types/auths';
+import { AxiosError } from 'axios';
 
-// any 타입 추후 변경
-export const usePostSignup = ({ onSuccess, onError }: any) =>
-  useMutation({
+import {
+  PostNickname,
+  PostSendmail,
+  PostSignin,
+  PostSignup,
+  PostVerify,
+  ResponsePostNickname,
+} from '@/types/auths';
+
+export const usePostSignup = () =>
+  useMutation<PostSignup, AxiosError, PostSignup>({
     mutationFn: (value: PostSignup) => postSignup(value),
-    onSuccess: onSuccess,
-    onError: onError,
   });
 
-export const usePostSendmail = ({ onSuccess, onError }: any) =>
-  useMutation({
+export const usePostSendmail = () =>
+  useMutation<string, AxiosError, PostSendmail>({
     mutationFn: (value: PostSendmail) => postSendmail(value),
-    onSuccess: onSuccess,
-    onError: onError,
   });
 
-export const usePostVerify = ({ onSuccess, onError }: any) =>
-  useMutation({
+export const usePostVerify = () =>
+  useMutation<string, AxiosError, PostVerify>({
     mutationFn: (value: PostVerify) => postVerify(value),
-    onSuccess: onSuccess,
-    onError: onError,
   });
 
-export const usePostNickname = ({ onSuccess }: any) => {
-  return useMutation({
+export const usePostNickname = () => {
+  return useMutation<ResponsePostNickname, AxiosError, PostNickname>({
     mutationFn: (value: PostNickname) => postNickname(value),
-    onSuccess: onSuccess,
   });
 };
 
-export const usePostSignin = ({ onSuccess, onError }: any) =>
+export const usePostSignin = () =>
   useMutation({
     mutationFn: (value: PostSignin) => postSignin(value),
-    onSuccess: onSuccess,
-    onError: onError,
   });
 
 export const usePostSignout = () =>

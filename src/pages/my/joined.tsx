@@ -1,41 +1,41 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 
+import Loading from '@/components/Loading';
+import GatheringReviewCard from '@/components/My/GatheringReviewCard';
 import MyCard from '@/components/My/MyCard';
 import NotCard from '@/components/NotCard';
 
+import { isDateBeforeToday } from '@/lib/utils';
+
 import { useGetGatheringsJoined } from '@/hooks/useGatherings';
 
-import { Gathering, GatheringsParams } from '@/types/gatherings';
+import { Gathering } from '@/types/gatherings';
 
 export default function Joined() {
-  const [page, setPage] = useState<number>(0);
-  const [cardItems, setCardItems] = useState<Gathering[]>([]);
-
-  // getGatheringsJoined api 호출
-  const value: GatheringsParams = {
-    page: page,
-    size: 5,
-    sortBy: 'dateTime',
-    sortOrder: 'asc',
-  };
-
-  const { data } = useGetGatheringsJoined(value);
-  useEffect(() => {
-    data && setCardItems((prev) => [...prev, ...data]);
-  }, [data]);
+  const {
+    data: gatheringsData,
+    isPending,
+    fetchNextPage,
+    hasNextPage,
+  } = useGetGatheringsJoined(5, 'dateTime', 'asc');
 
   return (
     <div>
       <div className="flex flex-col gap-20 pb-50">
-        {cardItems.length > 0 ? (
-          <>
-            {cardItems.map((data, index) => (
-              <MyCard key={index} data={data} />
-            ))}
-            <button onClick={() => setPage(page + 1)}>더보기</button>
-          </>
+        {gatheringsData ? (
+          gatheringsData.pages.map((datas) =>
+            datas.map(
+              (data: Gathering, index: number) =>
+                isDateBeforeToday({ date: data.dateTime }) && data.hasReviewed ? (
+                  <GatheringReviewCard key={index} gatheringId={data.gatheringId} />
+                ) : (
+                  <MyCard key={index} data={data} />
+                ),
+              hasNextPage && <button onClick={() => fetchNextPage()}>더보기</button>,
+            ),
+          )
         ) : (
-          <NotCard />
+          <>{isPending ? <Loading width="300" height="300" /> : <NotCard type="join" />}</>
         )}
       </div>
     </div>

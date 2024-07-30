@@ -3,6 +3,7 @@ import { ERROR_MESSAGE, PLACEHOLDER } from '@/constants/formMessages';
 import React, { useState } from 'react';
 import { FieldValues, FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 
+import { AxiosError } from 'axios';
 import Image from 'next/image';
 
 import Textarea from '@/components/common/Textarea';
@@ -56,9 +57,9 @@ export default function ReviewModal({ gatheringId, reviewId, type }: Props) {
         onSuccess: () => {
           window.location.reload();
         },
-        onError: (error) => {
+        onError: (error: AxiosError) => {
           console.error('Error: ', error.message);
-          alert('에러 발생');
+          alert('이미 리뷰를 작성한 모임입니다.');
           // alert(error.response.data.message);
         },
       });
@@ -78,7 +79,7 @@ export default function ReviewModal({ gatheringId, reviewId, type }: Props) {
         onSuccess: (data) => {
           console.log(data);
         },
-        onError: (error) => {
+        onError: (error: AxiosError) => {
           console.error('Error: ', error);
         },
       });
@@ -92,7 +93,7 @@ export default function ReviewModal({ gatheringId, reviewId, type }: Props) {
           {type === 'new' ? '후기 작성하기' : '후기 수정하기'}
         </Button>
       </DialogTrigger>
-      <DialogOverlay className="bg-neutral-950/80 md:bg-transparent" />
+      <DialogOverlay className="bg-neutral-900/70 md:bg-transparent" />
       <DialogContent className="max-h-[480px] w-320 rounded-md px-20 py-32 md:max-h-[440px] md:w-520 md:px-40 md:py-32">
         <DialogTitle>후기 작성하기</DialogTitle>
         <FormProvider {...form}>

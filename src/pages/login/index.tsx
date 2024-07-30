@@ -36,16 +36,7 @@ export default function MobileLoginPage() {
 
   const queryClient = useQueryClient();
 
-  const { mutate: mutateSiginin, error: errorSiginin } = usePostSignin({
-    onSuccess: (data: { accessToken: string; tokenScheme: string }) => {
-      setCookie('accessToken', data.accessToken);
-      queryClient.invalidateQueries({
-        queryKey: ['user'],
-        refetchType: 'active',
-      });
-      router.push('/');
-    },
-  });
+  const { mutate: mutateSiginin, error: errorSiginin } = usePostSignin();
 
   const axiosError = errorSiginin as AxiosError<ErrorResponse>;
 
@@ -66,7 +57,16 @@ export default function MobileLoginPage() {
   }, [axiosError, setError]);
 
   const onSubmit: SubmitHandler<PostSignin> = (value: PostSignin) => {
-    mutateSiginin(value);
+    mutateSiginin(value, {
+      onSuccess: (data: { accessToken: string; tokenScheme: string }) => {
+        setCookie('accessToken', data.accessToken);
+        queryClient.invalidateQueries({
+          queryKey: ['user'],
+          refetchType: 'active',
+        });
+        router.push('/');
+      },
+    });
   };
 
   useEffect(() => {

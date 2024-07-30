@@ -1,5 +1,7 @@
 import { CATEGORY_TAP } from '@/constants/dropdownItems';
 
+import { useEffect, useRef, useState } from 'react';
+
 // import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 
@@ -10,17 +12,48 @@ interface ChipTapProps {
 }
 
 export default function ChipTap({ mainCategory, handleSubTapClick, subCategory }: ChipTapProps) {
-  // const [selectedIndex, setSelectedIndex] = useState<number>(0);
+  const scrollContainerRef = useRef(null);
+  const [hasScroll, setHasScroll] = useState(false);
 
   const SELECTED_TAP = CATEGORY_TAP.find((item) => item.title === mainCategory);
-  // 데이터 연동시 필요한 탭이름은 title 꺼내서 사용
+
   const handleMoveToDetailTap = (data: string) => {
     handleSubTapClick(data);
   };
 
+  useEffect(() => {
+    const handleResize = () => {
+      if (scrollContainerRef.current) {
+        const { scrollWidth, clientWidth } = scrollContainerRef.current;
+        const isScrollable = scrollWidth > clientWidth;
+
+        if (isScrollable && !hasScroll) {
+          setHasScroll(true);
+        } else if (!isScrollable && hasScroll) {
+          setHasScroll(false);
+        }
+      }
+    };
+
+    const resizeObserver = new ResizeObserver(handleResize);
+    if (scrollContainerRef.current) {
+      resizeObserver.observe(scrollContainerRef.current);
+    }
+
+    // 컴포넌트 언마운트 시 ResizeObserver 해제
+    return () => {
+      if (scrollContainerRef.current) {
+        resizeObserver.unobserve(scrollContainerRef.current);
+      }
+    };
+  }, [hasScroll]);
+
   return (
     <>
-      <div className="mb-8 flex w-full justify-center gap-6 overflow-x-auto md:mb-16 md:gap-8">
+      <div
+        className={`${hasScroll ? 'justify-start' : 'justify-center'} mb-8 flex gap-6 overflow-x-auto scrollbar-none md:mb-16 md:gap-8`}
+        ref={scrollContainerRef}
+      >
         {SELECTED_TAP?.subcategories.map((data: string, index: number) => (
           <Button
             className={`px-20 ${data !== subCategory && 'hover:bg-neutral-100 hover:text-neutral-600'}`}
@@ -32,6 +65,7 @@ export default function ChipTap({ mainCategory, handleSubTapClick, subCategory }
             {data}
           </Button>
         ))}
+        {/* </span> */}
       </div>
     </>
   );

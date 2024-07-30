@@ -16,6 +16,8 @@ export default function InfoBadge({ userData, data }: InfoBadgeProps) {
   const minReached = data.participantCount >= 5;
   const maxReached = data.participantCount >= data.capacity;
 
+  const participantData = userData?.participantInfos || [];
+
   return (
     <div className="flex h-102 w-full flex-col rounded-md bg-neutral-700 p-12 md:w-475">
       <div className="flex items-center justify-between">
@@ -29,7 +31,7 @@ export default function InfoBadge({ userData, data }: InfoBadgeProps) {
             </div>
           </div>
           <div className="flex">
-            <ProfileImageGroup usersProfile={userData.accounts} />
+            <ProfileImageGroup usersProfile={participantData} />
           </div>
         </div>
         {minReached && (
@@ -46,27 +48,29 @@ export default function InfoBadge({ userData, data }: InfoBadgeProps) {
           />
         </div>
       </div>
-      <div className="flex items-center justify-between text-body-3Sb text-neutral-300">
+      <div className="flex items-center justify-between text-body-3M text-neutral-300 md:text-body-3Sb">
         <div
-          className={`flex items-center justify-center gap-7 ${minReached ? 'text-primary-200' : ''}`}
+          className={`flex items-center justify-center gap-1 md:gap-7 ${minReached ? 'text-primary-200' : ''}`}
         >
-          <Image
-            src={minReached ? '/icons/ic-checkbox-on.svg' : '/icons/ic-checkbox-off.svg'}
-            alt="check"
-            width={24}
-            height={24}
-          />
+          <div className="relative h-20 w-20 md:h-24 md:w-24">
+            <Image
+              src={minReached ? '/icons/ic-checkbox-on.svg' : '/icons/ic-checkbox-off.svg'}
+              alt="check"
+              fill
+            />
+          </div>
           모임 개설 최소 인원 · 5명
         </div>
         <div
-          className={`flex items-center justify-center gap-7 ${maxReached ? 'text-primary-200' : ''}`}
+          className={`flex items-center justify-center gap-1 md:gap-7 ${maxReached ? 'text-primary-200' : ''}`}
         >
-          <Image
-            src={maxReached ? '/icons/ic-checkbox-on.svg' : '/icons/ic-checkbox-off.svg'}
-            alt="check"
-            width={24}
-            height={24}
-          />
+          <div className="relative h-20 w-20 md:h-24 md:w-24">
+            <Image
+              src={maxReached ? '/icons/ic-checkbox-on.svg' : '/icons/ic-checkbox-off.svg'}
+              alt="check"
+              fill
+            />
+          </div>
           모임 참여 최대 인원 · {data.capacity}명
         </div>
       </div>
