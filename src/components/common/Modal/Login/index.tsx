@@ -45,16 +45,7 @@ export default function LoginModal({
 
   const queryClient = useQueryClient();
 
-  const { mutate: mutateSiginin, error: errorSiginin } = usePostSignin({
-    onSuccess: (data: { accessToken: string; tokenScheme: string }) => {
-      setCookie('accessToken', data.accessToken);
-      queryClient.invalidateQueries({
-        queryKey: ['user'],
-        refetchType: 'active',
-      });
-      setIsLoginModalOpen(false);
-    },
-  });
+  const { mutate: mutateSiginin, error: errorSiginin } = usePostSignin();
 
   const axiosError = errorSiginin as AxiosError<ErrorResponse>;
 
@@ -74,8 +65,17 @@ export default function LoginModal({
     }
   }, [axiosError, setError]);
 
-  const onSubmit: SubmitHandler<PostSignin> = (value: PostSignin) => {
-    mutateSiginin(value);
+  const onSubmit: SubmitHandler<PostSignin> = async (value: PostSignin) => {
+    mutateSiginin(value, {
+      onSuccess: (data: { accessToken: string; tokenScheme: string }) => {
+        setCookie('accessToken', data.accessToken);
+        queryClient.invalidateQueries({
+          queryKey: ['user'],
+          refetchType: 'active',
+        });
+        setIsLoginModalOpen(false);
+      },
+    });
   };
 
   useEffect(() => {

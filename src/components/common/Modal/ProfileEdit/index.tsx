@@ -41,19 +41,25 @@ export default function ProfileEditModal({ user }: ProfileEditModalProps) {
 
   const { handleSubmit, register, getFieldState, trigger, watch, setValue } = form;
 
-  const { mutate: mutateNicknameDuplicate } = usePostNickname({
-    onSuccess: (data: { isDuplicate: boolean }) => {
-      if (!data.isDuplicate) {
-        setNicknameState((prev) => ({ ...prev, successMessage: '사용 가능한 닉네임입니다' }));
-        setNicknameState((prev) => ({ ...prev, validated: true }));
-      } else {
-        setNicknameState((prev) => ({ ...prev, errorMessage: ERROR_MESSAGE.nickname.duplicate }));
-      }
-    },
-  });
+  const { mutate: mutateNicknameDuplicate } = usePostNickname();
 
   const handleNicknameDuplicate = () => {
-    mutateNicknameDuplicate({ nickname: watch('nickname') });
+    mutateNicknameDuplicate(
+      { nickname: watch('nickname') },
+      {
+        onSuccess: (data: { isDuplicate: boolean }) => {
+          if (!data.isDuplicate) {
+            setNicknameState((prev) => ({ ...prev, successMessage: '사용 가능한 닉네임입니다' }));
+            setNicknameState((prev) => ({ ...prev, validated: true }));
+          } else {
+            setNicknameState((prev) => ({
+              ...prev,
+              errorMessage: ERROR_MESSAGE.nickname.duplicate,
+            }));
+          }
+        },
+      },
+    );
   };
 
   const handleImageChange = (value: React.ChangeEvent<HTMLInputElement>) => {
@@ -73,19 +79,7 @@ export default function ProfileEditModal({ user }: ProfileEditModalProps) {
 
   const queryClient = useQueryClient();
 
-  const { mutate: mutateAccounts } = usePostAccounts({
-    onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: ['user'],
-        refetchType: 'active',
-      });
-      setIsModalOpen(false);
-    },
-    onError: (error: AxiosError) => {
-      const parsedErrorCode = JSON.parse(error.request.response);
-      setNicknameState((prev) => ({ ...prev, errorMessage: parsedErrorCode.message }));
-    },
-  });
+  const { mutate: mutateAccounts } = usePostAccounts();
 
   const onSubmit: SubmitHandler<FieldValues> = (value) => {
     const formData = new FormData();
@@ -97,7 +91,19 @@ export default function ProfileEditModal({ user }: ProfileEditModalProps) {
     formData.append('profileImage', value.profileImage);
     formData.append('request', JSON.stringify(request));
 
-    mutateAccounts(formData);
+    mutateAccounts(formData, {
+      onSuccess: () => {
+        queryClient.invalidateQueries({
+          queryKey: ['user'],
+          refetchType: 'active',
+        });
+        setIsModalOpen(false);
+      },
+      onError: (error: AxiosError) => {
+        const parsedErrorCode = JSON.parse(error.request.response);
+        setNicknameState((prev) => ({ ...prev, errorMessage: parsedErrorCode.message }));
+      },
+    });
   };
 
   useEffect(() => {
@@ -195,7 +201,7 @@ export default function ProfileEditModal({ user }: ProfileEditModalProps) {
                   />
                   <Button
                     type="button"
-                    className="w-130 flex-shrink-0"
+                    className="w-130 flex-shrink-0 leading-none"
                     variant="secondary"
                     disabled={
                       getFieldState('nickname').invalid ||
