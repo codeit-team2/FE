@@ -201,7 +201,7 @@ export default function ProfileEditModal({ user }: ProfileEditModalProps) {
                   />
                   <Button
                     type="button"
-                    className="w-130 flex-shrink-0 leading-none"
+                    className="w-130 flex-shrink-0"
                     variant="secondary"
                     disabled={
                       getFieldState('nickname').invalid ||
