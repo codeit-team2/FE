@@ -54,7 +54,7 @@ export default function ReviewCard({ data }: Props) {
   };
 
   if (!data) {
-    return <NotCard />;
+    return <NotCard type="default" />;
   }
 
   return (

@@ -10,9 +10,8 @@ import ChipTap from '@/components/ChipTap';
 import NotReview from '@/components/NotReview';
 import StarRatingAverage from '@/components/Review/StarRatingAverage';
 import UserReview from '@/components/Review/UserReview';
-// import mockData from '@/components/Review/reviewTestData.json';
-import { Button } from '@/components/ui/button';
 
+// import mockData from '@/components/Review/reviewTestData.json';
 import { useGetReviewsAll } from '@/hooks/useReviews';
 
 import { Reviews, ReviewsParams } from '@/types/reviews';
@@ -79,7 +78,7 @@ export default function Review() {
               isUpDown
             />
           </div>
-          {isReview ? (
+          {!isReview ? (
             <div className="mb-40 flex w-full flex-col gap-20 md:mb-50">
               {reviewData.map((data: Reviews, index: number) => (
                 <UserReview key={index} data={data} />
@@ -88,13 +87,13 @@ export default function Review() {
           ) : (
             <>
               <NotReview
+                type="find"
                 text={
                   <>
                     <span className="text-primary-300">모임 찾기</span>에서 모임에 참여해보세요
                   </>
                 }
               />
-              <Button className="mb-40 mt-32 w-full max-w-[1008px] md:mb-50">모임찾기</Button>
             </>
           )}
         </div>

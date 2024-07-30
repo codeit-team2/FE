@@ -1,7 +1,7 @@
 import React from 'react';
 
 import ReviewCard from '@/components/My/ReviewCard';
-import NotCard from '@/components/NotCard';
+import NotReview from '@/components/NotReview';
 
 import { useGetReviewsMine } from '@/hooks/useReviews';
 
@@ -18,9 +18,9 @@ export default function ReviewComplete() {
 
   const { data: reviewsDatas } = useGetReviewsMine(value);
 
-  return reviewsDatas ? (
+  return reviewsDatas && reviewsDatas.length > 0 ? (
     reviewsDatas.map((data: Reviews, index: number) => <ReviewCard key={index} data={data} />)
   ) : (
-    <NotCard />
+    <NotReview type="reviewComplete" />
   );
 }

@@ -28,7 +28,7 @@ export default function Mine() {
           )),
         )
       ) : (
-        <>{isPending ? <Loading width="300" height="300" /> : <NotCard />}</>
+        <>{isPending ? <Loading width="300" height="300" /> : <NotCard type="mine" />}</>
       )}
       {hasNextPage && <button onClick={() => fetchNextPage()}>더보기</button>}
     </div>

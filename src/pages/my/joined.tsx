@@ -35,7 +35,7 @@ export default function Joined() {
             ),
           )
         ) : (
-          <>{isPending ? <Loading width="300" height="300" /> : <NotCard />}</>
+          <>{isPending ? <Loading width="300" height="300" /> : <NotCard type="join" />}</>
         )}
       </div>
     </div>
