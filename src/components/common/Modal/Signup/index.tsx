@@ -114,73 +114,71 @@ export default function SignupModal({
     formState: { isValid },
   } = form;
 
-  const { mutate: mutateNicknameDuplicate } = usePostNickname({
-    onSuccess: (data: { isDuplicate: boolean }) => {
-      if (!data.isDuplicate) {
-        setSuccessMessages((prev) => ({ ...prev, nickname: '사용 가능한 닉네임입니다' }));
-        setIsValidated((prev) => ({ ...prev, nickname: true }));
-      } else {
-        setErrorMessages((prev) => ({ ...prev, nickname: ERROR_MESSAGE.nickname.duplicate }));
-      }
-    },
-  });
+  const { mutate: mutateNicknameDuplicate } = usePostNickname();
 
   const handleNicknameDuplicate = () => {
-    mutateNicknameDuplicate({ nickname: watch('nickname') });
+    mutateNicknameDuplicate(
+      { nickname: watch('nickname') },
+      {
+        onSuccess: (data: { isDuplicate: boolean }) => {
+          if (!data.isDuplicate) {
+            setSuccessMessages((prev) => ({ ...prev, nickname: '사용 가능한 닉네임입니다' }));
+            setIsValidated((prev) => ({ ...prev, nickname: true }));
+          } else {
+            setErrorMessages((prev) => ({ ...prev, nickname: ERROR_MESSAGE.nickname.duplicate }));
+          }
+        },
+      },
+    );
   };
 
-  const { mutate: mutateSendmail } = usePostSendmail({
-    onSuccess: (data: string) => {
-      if (data === '') {
-        setSuccessMessages((prev) => ({ ...prev, email: '인증코드 전송에 성공했습니다' }));
-      }
-    },
-    onError: (error: AxiosError) => {
-      setSuccessMessages((prev) => ({ ...prev, email: '' }));
-      const parsedErrorCode = JSON.parse(error.request.response);
-      setErrorMessages((prev) => ({ ...prev, email: errorMessages[parsedErrorCode.code] }));
-    },
-  });
+  const { mutate: mutateSendmail } = usePostSendmail();
 
   const handleSendmail = () => {
-    mutateSendmail({ email: watch('email') });
+    mutateSendmail(
+      { email: watch('email') },
+      {
+        onSuccess: (data: string) => {
+          if (data === '') {
+            setSuccessMessages((prev) => ({ ...prev, email: '인증코드 전송에 성공했습니다' }));
+          }
+        },
+        onError: (error: AxiosError) => {
+          setSuccessMessages((prev) => ({ ...prev, email: '' }));
+          const parsedErrorCode = JSON.parse(error.request.response);
+          setErrorMessages((prev) => ({ ...prev, email: errorMessages[parsedErrorCode.code] }));
+        },
+      },
+    );
   };
 
-  const { mutate: mutateVerify } = usePostVerify({
-    onSuccess: (data: string) => {
-      if (data === '') {
-        setSuccessMessages((prev) => ({ ...prev, code: '인증코드가 일치합니다' }));
-        setErrorMessages((prev) => ({ ...prev, email: '' }));
-        setIsValidated((prev) => ({ ...prev, verify: true }));
-      }
-    },
-    onError: (error: AxiosError) => {
-      setSuccessMessages((prev) => ({ ...prev, code: '' }));
-      const parsedErrorCode = JSON.parse(error.request.response);
-      setErrorMessages((prev) => ({ ...prev, code: errorMessages[parsedErrorCode.code] }));
-    },
-  });
+  const { mutate: mutateVerify } = usePostVerify();
 
   const handleVerify = () => {
-    mutateVerify({ email: watch('email'), code: watch('code') });
+    mutateVerify(
+      { email: watch('email'), code: watch('code') },
+      {
+        onSuccess: (data: string) => {
+          if (data === '') {
+            setSuccessMessages((prev) => ({ ...prev, code: '인증코드가 일치합니다' }));
+            setErrorMessages((prev) => ({ ...prev, email: '' }));
+            setIsValidated((prev) => ({ ...prev, verify: true }));
+          }
+        },
+        onError: (error: AxiosError) => {
+          setSuccessMessages((prev) => ({ ...prev, code: '' }));
+          const parsedErrorCode = JSON.parse(error.request.response);
+          setErrorMessages((prev) => ({ ...prev, code: errorMessages[parsedErrorCode.code] }));
+        },
+      },
+    );
   };
 
   const handleSubmitModalClose = () => {
     setIsSubmitModalOpen(false);
   };
 
-  const { mutate: mutateSubmit } = usePostSignup({
-    onSuccess: () => {
-      setIsSignupModalOpen(false);
-      setIsSubmitModalOpen(true);
-    },
-    onError: (error: AxiosError) => {
-      const parsedErrorCode = JSON.parse(error.request.response);
-      setError(submitErrorMessages[parsedErrorCode.code].name, {
-        message: submitErrorMessages[parsedErrorCode.code].message,
-      });
-    },
-  });
+  const { mutate: mutateSubmit } = usePostSignup();
 
   const onSubmit: SubmitHandler<SignupValue> = (value: SignupValue) => {
     const validateFields = () => {
@@ -204,7 +202,18 @@ export default function SignupModal({
         password: value.password,
       };
 
-      mutateSubmit(values);
+      mutateSubmit(values, {
+        onSuccess: () => {
+          setIsSignupModalOpen(false);
+          setIsSubmitModalOpen(true);
+        },
+        onError: (error: AxiosError) => {
+          const parsedErrorCode = JSON.parse(error.request.response);
+          setError(submitErrorMessages[parsedErrorCode.code].name, {
+            message: submitErrorMessages[parsedErrorCode.code].message,
+          });
+        },
+      });
     }
   };
 

@@ -12,13 +12,12 @@ import Tap from '@/components/common/Tap';
 
 import Card from '@/components/Card';
 import ChipTap from '@/components/ChipTap';
-
 import NotCard from '@/components/NotCard';
 
 import { formatDateToISO } from '@/lib/utils';
 
 import { useGetAccounts } from '@/hooks/useAccounts';
-import useCheckLogin from '@/hooks/useCheckLogin';
+// import useCheckLogin from '@/hooks/useCheckLogin';
 import useFavorite from '@/hooks/useFavorite';
 
 import { Gathering } from '@/types/gatherings';
@@ -167,7 +166,7 @@ export default function Bookmark() {
           />
         </div>
         <div className="flex flex-col gap-20">
-          {trimmedFavorites ? (
+          {trimmedFavorites.length > 0 ? (
             <>
               {trimmedFavorites.map((data, index) => (
                 <Card
@@ -180,7 +179,7 @@ export default function Bookmark() {
               <div className="mb-50" />
             </>
           ) : (
-            <NotCard findClub="모임 찾기" />
+            <NotCard type="bookmark" />
           )}
         </div>
       </MainLayout>

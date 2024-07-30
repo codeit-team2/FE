@@ -5,7 +5,6 @@ import { AxiosError } from 'axios';
 import { getCookie } from 'cookies-next';
 
 import { PostAccounts } from '@/types/accounts';
-import { OnSuccessAndonErrorType } from '@/types/auths';
 
 export const useGetAccounts = () =>
   useQuery({
@@ -14,17 +13,13 @@ export const useGetAccounts = () =>
     enabled: !!getCookie('accessToken'),
   });
 
-export const usePostAccounts = ({ onSuccess, onError }: OnSuccessAndonErrorType) => {
-  return useMutation<PostAccounts, AxiosError, FormData>({
+export const usePostAccounts = () => {
+  return useMutation<PostAccounts, AxiosError, any>({
     mutationFn: (value: PostAccounts) => postAccounts(value),
-    onSuccess: onSuccess,
-    onError: onError,
   });
 };
 
-export const useDeleteAccounts = ({ onSuccess, onError }: OnSuccessAndonErrorType) =>
-  useMutation({
+export const useDeleteAccounts = () =>
+  useMutation<string, AxiosError, null>({
     mutationFn: () => deleteAccounts(),
-    onSuccess: onSuccess,
-    onError: onError,
   });

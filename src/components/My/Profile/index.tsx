@@ -16,7 +16,7 @@ export default function Profile() {
         alt="profile"
         width={102}
         height={102}
-        className="absolute left-2/4 top-0 aspect-square -translate-x-1/2 -translate-y-1/2 rounded-[50%] border-4 border-primary-300"
+        className="absolute left-2/4 top-24 aspect-square -translate-x-1/2 -translate-y-1/2 rounded-[50%] border-4 border-primary-300"
       />
       <div className="absolute right-24 top-24">
         <ProfileEditModal user={user} />

@@ -13,7 +13,7 @@ export default function MyTap({ setSelectTab }: Props) {
       icon: '/icons/ic-club.svg',
       iconWidth: 23,
       iconHeight: 24,
-      id: 'meeting',
+      id: 'joined',
     },
     {
       title: '나의 후기',
@@ -27,7 +27,7 @@ export default function MyTap({ setSelectTab }: Props) {
       icon: '/icons/ic-plus-primary.svg',
       iconWidth: 17,
       iconHeight: 18,
-      id: 'club',
+      id: 'mine',
     },
   ];
 

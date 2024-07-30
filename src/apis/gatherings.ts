@@ -12,7 +12,6 @@ export const getGatherings = async (
   dateTime: string | undefined,
   size: number = 5,
 ) => {
-  // `/gatherings?mainCategoryName=${mainCategoryName}&subCategoryName=${subCategoryName}&page=${page}&size=${size}&sortBy=${sortBy}&sortOrder=${sortOrder}&location=${location}`,
   const res = await instance.get(`/gatherings?`, {
     params: {
       page,
@@ -23,7 +22,6 @@ export const getGatherings = async (
       dateTime,
       size,
     },
-    // params: { page },
   });
   return res.data;
 };
@@ -47,14 +45,22 @@ export const putGatherings = async ({ gatheringId, value }: PutGatherings) => {
   return res;
 };
 
-export const getGatheringsMine = async (value: GatheringsParams) => {
-  const { page, size, sortBy, sortOrder } = value;
+export const getGatheringsMine = async (
+  page: number,
+  size: number,
+  sortBy: 'dateTime',
+  sortOrder: 'asc' | 'desc',
+) => {
   const res = await instance.get(`/gatherings/mine`, { params: { page, size, sortBy, sortOrder } });
   return res.data;
 };
 
-export const getGatheringsJoined = async (value: GatheringsParams) => {
-  const { page, size, sortBy, sortOrder } = value;
+export const getGatheringsJoined = async (
+  page: number,
+  size: number,
+  sortBy: 'dateTime',
+  sortOrder: 'asc' | 'desc',
+) => {
   const res = await instance.get(`/gatherings/joined`, {
     params: { page, size, sortBy, sortOrder },
   });
@@ -73,5 +79,13 @@ export const postGatheringsLeave = async (gatheringId: number) => {
 
 export const deleteGatherings = async (gatheringId: number) => {
   const res = await instance.delete(`/gatherings/${gatheringId}/cancel`);
+  return res.data;
+};
+
+export const getGatheringsParticipant = async (gatheringId: number, value: GatheringsParams) => {
+  const { page, size, sortBy, sortOrder } = value;
+  const res = await instance.get(`/gatherings/${gatheringId}/participants`, {
+    params: { page, size, sortBy, sortOrder },
+  });
   return res.data;
 };

@@ -41,16 +41,7 @@ export default function GNB() {
     router.reload();
   };
 
-  const { mutate: mutateDeleteAccounts } = useDeleteAccounts({
-    onSuccess: () => {
-      deleteCookie('accessToken');
-      deleteCookie('refreshToken');
-      router.reload();
-    },
-    onError: (err) => {
-      console.log(err);
-    },
-  });
+  const { mutate: mutateDeleteAccounts } = useDeleteAccounts();
 
   const handleDeleteAccountsClick = () => {
     setIsDeleteAccountsModalOpen(true);
@@ -61,7 +52,16 @@ export default function GNB() {
   };
 
   const handleDeleteAccountsModalClick = () => {
-    mutateDeleteAccounts();
+    mutateDeleteAccounts(null, {
+      onSuccess: () => {
+        deleteCookie('accessToken');
+        deleteCookie('refreshToken');
+        router.reload();
+      },
+      onError: (err) => {
+        console.log(err);
+      },
+    });
   };
 
   const handlePopoverClickOutside = (event: MouseEvent) => {
