@@ -1,5 +1,6 @@
 import {
   deleteReviews,
+  getGatheringReview,
   getReviewsAll,
   getReviewsMine,
   postReviews,
@@ -22,6 +23,13 @@ export const useGetReviewsMine = (value: ReviewsParams) => {
   return useQuery({
     queryKey: ['reviewsMine', value],
     queryFn: () => getReviewsMine(value),
+  });
+};
+
+export const useGaetGatheringReview = (gatheringId: number) => {
+  return useQuery({
+    queryKey: ['gatheringReview', gatheringId],
+    queryFn: () => getGatheringReview(gatheringId),
   });
 };
 

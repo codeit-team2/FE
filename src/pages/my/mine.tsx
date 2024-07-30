@@ -24,13 +24,13 @@ export default function Mine() {
           datas.map((data: Gathering, index: number) => (
             <>
               <MyCard key={index} data={data} type="default" />
-              {hasNextPage && <button onClick={() => fetchNextPage()}>더보기</button>}
             </>
           )),
         )
       ) : (
         <>{isPending ? <Loading width="300" height="300" /> : <NotCard />}</>
       )}
+      {hasNextPage && <button onClick={() => fetchNextPage()}>더보기</button>}
     </div>
   );
 }

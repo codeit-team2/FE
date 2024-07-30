@@ -16,6 +16,11 @@ export const getReviewsMine = async (value: ReviewsParams) => {
   return res.data;
 };
 
+export const getGatheringReview = async (gatheringId: number) => {
+  const res = await instance.get(`/reviews/gatheirngs/${gatheringId}`);
+  return res.data;
+};
+
 export const postReviews = async (value: PostReviews) => {
   const res = await instance.post(`/reviews`, value);
   return res;
