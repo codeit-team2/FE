@@ -44,8 +44,6 @@ export default function Review() {
 
   const { data: allReviewData } = useGetReviewsAll(value);
 
-  console.log(allReviewData);
-
   const reviewData = allReviewData?.reviewInfos || [];
   const scoreData = allReviewData?.scoreInfo || {
     averageScore: 0,

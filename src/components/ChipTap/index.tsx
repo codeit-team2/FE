@@ -51,7 +51,7 @@ export default function ChipTap({ mainCategory, handleSubTapClick, subCategory }
   return (
     <>
       <div
-        className={`${hasScroll ? 'justify-start' : 'justify-center'} mb-8 flex gap-6 overflow-x-auto md:mb-16 md:gap-8`}
+        className={`${hasScroll ? 'justify-start' : 'justify-center'} mb-8 flex gap-6 overflow-x-auto scrollbar-none md:mb-16 md:gap-8`}
         ref={scrollContainerRef}
       >
         {SELECTED_TAP?.subcategories.map((data: string, index: number) => (

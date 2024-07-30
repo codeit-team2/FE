@@ -89,20 +89,23 @@ export default function MakeClubModal({ trigger, data }: Props) {
   }
 
   // trigger Button - '+' or '모임만들기' text
- const triggerButton =
-    (trigger === 'text' && <Button className="mb-50 hidden md:block">모임만들기</Button>) ||
-    (trigger === 'plus' && (
-      <button className="fixed bottom-32 right-32 z-20 cursor-pointer rounded-[40px] bg-primary-300 p-16">
-        <div className="relative h-24 w-24">
-          <Image src="/icons/ic-plus.svg" alt="ic-plus" fill />
-        </div>
-      </button>
-    )) ||
-    (trigger === 'modify' && (
-      <Button className="w-186" variant={'secondary'}>
-        모임 수정하기
-      </Button>
-    ));
+  const triggerButton =
+    trigger === 'text' ? (
+      <Button className="mb-50 hidden md:block">모임만들기</Button>
+    ) : (
+      (
+        <button className="fixed bottom-40 right-[50%] z-20 translate-x-2/4 cursor-pointer rounded-[40px] bg-primary-300 p-16 shadow-lg md:right-32 md:translate-x-0">
+          <div className="relative h-24 w-24">
+            <Image src="/icons/ic-plus.svg" alt="ic-plus" fill />
+          </div>
+        </button>
+      ) ||
+      (trigger === 'modify' && (
+        <Button className="w-186" variant={'secondary'}>
+          모임 수정하기
+        </Button>
+      ))
+    );
 
   interface Request {
     name: string;

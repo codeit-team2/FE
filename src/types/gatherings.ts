@@ -24,15 +24,22 @@ export interface GetGatheringsQuery {
 
 export interface Participant {
   gatheringId: number;
-  accounts: Account[];
+  participantInfos: Account[];
 }
 
 export interface Account {
   accountId: number;
-  email: string;
+  email: string | null;
   nickname: string;
   profileImageUrl: string;
   joinedAt: string;
+}
+
+export interface GatheringsParams {
+  page: number;
+  size: number;
+  sortBy: 'dateTime' | 'participantCount' | 'joinedAt';
+  sortOrder: 'asc' | 'desc';
 }
 
 export interface PutGatherings {

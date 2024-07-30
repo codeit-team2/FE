@@ -4,6 +4,7 @@ import {
   getGatherings,
   getGatheringsJoined,
   getGatheringsMine,
+  getGatheringsParticipant,
   postGatherings,
   postGatheringsJoin,
   postGatheringsLeave,
@@ -136,5 +137,12 @@ export const useGetGatheringsJoined = (
       }
     },
     retry: 0,
+  });
+};
+
+export const useGetGatheringsParticipant = (gatheringId: number, value: GatheringsParams) => {
+  return useQuery({
+    queryKey: ['gatheringsParticipant', gatheringId, value],
+    queryFn: () => getGatheringsParticipant(gatheringId, value),
   });
 };

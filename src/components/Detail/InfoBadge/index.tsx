@@ -16,6 +16,8 @@ export default function InfoBadge({ userData, data }: InfoBadgeProps) {
   const minReached = data.participantCount >= 5;
   const maxReached = data.participantCount >= data.capacity;
 
+  const participantData = userData?.participantInfos || [];
+
   return (
     <div className="flex h-102 w-full flex-col rounded-md bg-neutral-700 p-12 md:w-475">
       <div className="flex items-center justify-between">
@@ -29,7 +31,7 @@ export default function InfoBadge({ userData, data }: InfoBadgeProps) {
             </div>
           </div>
           <div className="flex">
-            <ProfileImageGroup usersProfile={userData.accounts} />
+            <ProfileImageGroup usersProfile={participantData} />
           </div>
         </div>
         {minReached && (
