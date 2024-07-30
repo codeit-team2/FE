@@ -83,14 +83,7 @@ export default function Review() {
             </div>
           ) : (
             <>
-              <NotReview
-                type="find"
-                text={
-                  <>
-                    <span className="text-primary-300">모임 찾기</span>에서 모임에 참여해보세요
-                  </>
-                }
-              />
+              <NotReview type="find" />
             </>
           )}
         </div>
