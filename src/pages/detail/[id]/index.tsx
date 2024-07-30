@@ -13,7 +13,7 @@ import NotReview from '@/components/NotReview';
 
 import useFavorite from '@/hooks/useFavorite';
 import { useGatheringQuery } from '@/hooks/useGatherings';
-import { useGetReviewsAll } from '@/hooks/useReviews';
+import { useGetReviewsAllV2 } from '@/hooks/useReviews';
 
 import { Reviews, ReviewsParams } from '@/types/reviews';
 
@@ -46,7 +46,7 @@ export default function Detail() {
     };
   }
 
-  const { data: allReviewData } = useGetReviewsAll(value);
+  const { data: allReviewData } = useGetReviewsAllV2(value);
   const reviewData = allReviewData?.reviewInfos || [];
 
   if (!router.isReady || isLoading) {
@@ -79,7 +79,7 @@ export default function Detail() {
               ))}
             </div>
           ) : (
-            <NotReview />
+            <NotReview type="detailReview" />
           )}
         </div>
         <FloatingBar data={data} queryId={queryId} />

@@ -76,7 +76,7 @@ export default function ReviewModal({ gatheringId, reviewId, type }: Props) {
 
       // api 함수
       putMutate(value, {
-        onSuccess: (data: string) => {
+        onSuccess: (data) => {
           console.log(data);
         },
         onError: (error: AxiosError) => {

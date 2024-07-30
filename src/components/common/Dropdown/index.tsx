@@ -27,7 +27,7 @@ interface DropdownProps {
   isSubmitted?: boolean;
   handleLocationClick?: (location: string | null) => void;
   handleCalendarClick?: (date?: Date) => void | undefined;
-  resetTrigger?: Object;
+  resetTrigger?: object;
   mainCategory?: string;
   subCategory?: string;
 }

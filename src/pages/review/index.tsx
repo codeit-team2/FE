@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 
+import Image from 'next/image';
+
 import Banner from '@/components/common/Banner';
 import Dropdown from '@/components/common/Dropdown';
 import Footer from '@/components/common/Footer';
@@ -7,23 +9,18 @@ import GNB from '@/components/common/GNB';
 import Tap from '@/components/common/Tap';
 
 import ChipTap from '@/components/ChipTap';
+import Loading from '@/components/Loading';
 import NotReview from '@/components/NotReview';
 import StarRatingAverage from '@/components/Review/StarRatingAverage';
 import UserReview from '@/components/Review/UserReview';
-// import mockData from '@/components/Review/reviewTestData.json';
-import { Button } from '@/components/ui/button';
 
 import { useGetReviewsAll } from '@/hooks/useReviews';
 
-import { Reviews, ReviewsParams } from '@/types/reviews';
+import { Reviews } from '@/types/reviews';
 
 export default function Review() {
-  const isReview = true;
-
   const [mainCategory, setMainCategory] = useState<string>('운동');
   const [subCategory, setSubCategory] = useState<string>('전체');
-
-  // const [sortOrder, setSortOrder] = useState<string>('asc');
 
   const handleMainTapClick = (title: string) => {
     setMainCategory(title);
@@ -33,19 +30,15 @@ export default function Review() {
     setSubCategory(title);
   };
 
-  const value: ReviewsParams = {
-    mainCategoryName: mainCategory,
-    subCategoryName: subCategory,
-    page: 0,
-    size: 10,
-    sortBy: 'score',
-    sortOrder: 'asc',
-  };
+  const {
+    data: allReviewData,
+    isPending,
+    fetchNextPage,
+    hasNextPage,
+  } = useGetReviewsAll(mainCategory, subCategory, 5, 'score', 'asc');
 
-  const { data: allReviewData } = useGetReviewsAll(value);
-
-  const reviewData = allReviewData?.reviewInfos || [];
-  const scoreData = allReviewData?.scoreInfo || {
+  const reviewData = allReviewData?.pages.flatMap((page) => page.reviewInfos) || [];
+  const scoreData = allReviewData?.pages[0]?.scoreInfo || {
     averageScore: 0,
     scoreOneCount: 0,
     scoreTwoCount: 0,
@@ -53,6 +46,8 @@ export default function Review() {
     scoreFourCount: 0,
     scoreFiveCount: 0,
   };
+
+  console.log(allReviewData);
 
   return (
     <>
@@ -79,22 +74,37 @@ export default function Review() {
               isUpDown
             />
           </div>
-          {isReview ? (
-            <div className="mb-40 flex w-full flex-col gap-20 md:mb-50">
-              {reviewData.map((data: Reviews, index: number) => (
-                <UserReview key={index} data={data} />
-              ))}
-            </div>
+          {allReviewData ? (
+            <>
+              <div className="mb-40 flex w-full flex-col gap-20 md:mb-50">
+                {reviewData.map((data: Reviews, index: number) => (
+                  <UserReview key={index} data={data} />
+                ))}
+              </div>
+              {hasNextPage && (
+                <>
+                  <div className="mb-0 mt-12 h-2 w-full bg-neutral-100 md:mb-16 md:mt-40" />
+                  <button
+                    className="flex w-full items-center justify-center"
+                    onClick={() => fetchNextPage()}
+                  >
+                    더 보기
+                    <div className="relative h-24 w-24">
+                      <Image src="icons/ic-chevron-down.svg" alt="dropdown" fill />
+                    </div>
+                  </button>
+                </>
+              )}
+            </>
           ) : (
             <>
-              <NotReview
-                text={
-                  <>
-                    <span className="text-primary-300">모임 찾기</span>에서 모임에 참여해보세요
-                  </>
-                }
-              />
-              <Button className="mb-40 mt-32 w-full max-w-[1008px] md:mb-50">모임찾기</Button>
+              {isPending ? (
+                <Loading width="300" height="300" />
+              ) : (
+                <>
+                  <NotReview type="find" />
+                </>
+              )}
             </>
           )}
         </div>

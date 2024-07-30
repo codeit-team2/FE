@@ -148,7 +148,7 @@ export default function Main() {
                 )}
               </>
             ) : (
-              <>{isPending ? <Loading width="300" height="300" /> : <NotCard />}</>
+              <>{isPending ? <Loading width="300" height="300" /> : <NotCard type="default" />}</>
             )}
           </div>
         </div>
