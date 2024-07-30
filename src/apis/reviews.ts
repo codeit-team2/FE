@@ -2,7 +2,21 @@ import { instance } from '@/lib/axios';
 
 import { DeleteReviews, PostReviews, PutReviews, ReviewsParams } from '@/types/reviews';
 
-export const getReviewsAll = async (value: ReviewsParams) => {
+export const getReviewsAll = async (
+  page: number,
+  mainCategoryName: string,
+  subCategoryName: string,
+  size: number,
+  sortBy: 'score',
+  sortOrder: 'asc' | 'desc',
+) => {
+  const res = await instance.get(`/reviews`, {
+    params: { mainCategoryName, subCategoryName, page, size, sortBy, sortOrder },
+  });
+  return res.data;
+};
+
+export const getReviewsAllV2 = async (value: ReviewsParams) => {
   const { mainCategoryName, subCategoryName, page, size, sortBy, sortOrder } = value;
   const res = await instance.get(`/reviews`, {
     params: { mainCategoryName, subCategoryName, page, size, sortBy, sortOrder },
