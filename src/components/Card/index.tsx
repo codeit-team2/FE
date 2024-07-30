@@ -1,9 +1,9 @@
+// import { useQueryClient } from '@tanstack/react-query';
 import React from 'react';
 
 import Bookmark from '../common/Bookmark';
 import { Button } from '../ui/button';
 import Image from 'next/image';
-import { useRouter } from 'next/router';
 
 import Description from '@/components/Card/Description';
 import Person from '@/components/Card/Person';
@@ -21,15 +21,13 @@ interface CardProps {
 
 export default function Card({ data, clickFavorites, isFavorite }: CardProps) {
   const minReached = data.participantCount >= 5;
-  const router = useRouter();
-  const { id: gatheringId } = router.query;
-  const queryId = Number(gatheringId);
-
   const favorite = isFavorite(data);
+  // const queryClient = useQueryClient();
 
   const joinMutation = usePostGatheringsJoin({
-    onSuccess: (data) => {
-      console.log('참여하기 성공', data);
+    onSuccess: () => {
+      console.log('참여하기 성공');
+      // queryClient.invalidateQueries({ queryKey: ['gatherings'] }); 데이터 리패치 필요
     },
     onError: (error) => {
       console.error('참여하기 실패', error);
@@ -37,7 +35,11 @@ export default function Card({ data, clickFavorites, isFavorite }: CardProps) {
   });
 
   const handleJoin = () => {
-    joinMutation.mutate(queryId);
+    if (data.gatheringId) {
+      joinMutation.mutate(data.gatheringId);
+    } else {
+      console.error('Invalid gathering ID');
+    }
   };
 
   const handleToggleBookmark = () => {

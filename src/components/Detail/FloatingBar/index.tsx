@@ -17,7 +17,7 @@ import {
   usePostGatheringsLeave,
 } from '@/hooks/useGatherings';
 
-import { Gathering } from '@/types/gatherings';
+import { Gathering, GatheringsParams } from '@/types/gatherings';
 
 interface FloatingBarProps {
   data: Gathering;
@@ -36,6 +36,13 @@ export default function FloatingBar({ data, queryId }: FloatingBarProps) {
   const [isDialogOpen, setDialogOpen] = useState<boolean>(false);
   const [isCancelOpen, setCancelOpen] = useState<boolean>(false);
 
+  const value: GatheringsParams = {
+    page: 0,
+    size: 20,
+    sortBy: 'joinedAt',
+    sortOrder: 'asc',
+  };
+
   const joinMutation = usePostGatheringsJoin({
     onSuccess: (data) => {
       console.log('참여하기 성공', data);
@@ -43,6 +50,7 @@ export default function FloatingBar({ data, queryId }: FloatingBarProps) {
         queryKey: ['gatherings', queryId],
         refetchType: 'active',
       });
+      queryClient.invalidateQueries({ queryKey: ['gatheringsParticipant', queryId, value] });
     },
     onError: (error) => {
       console.error('참여하기 실패', error);
@@ -56,6 +64,7 @@ export default function FloatingBar({ data, queryId }: FloatingBarProps) {
         queryKey: ['gatherings', queryId],
         refetchType: 'active',
       });
+      queryClient.invalidateQueries({ queryKey: ['gatheringsParticipant', queryId, value] });
     },
     onError: (error) => {
       console.error('참여 취소하기 실패', error);

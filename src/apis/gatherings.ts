@@ -1,6 +1,6 @@
 import { instance } from '@/lib/axios';
 
-import { PutGatherings } from '@/types/gatherings';
+import { GatheringsParams, PutGatherings } from '@/types/gatherings';
 
 // 전체에 대한 값은 어떻게 보내야하는지? 전체 안되고 특정 헬스, 러닝은 가능함.
 export const getGatherings = async (
@@ -12,7 +12,6 @@ export const getGatherings = async (
   dateTime: string | undefined,
   size: number = 5,
 ) => {
-  // `/gatherings?mainCategoryName=${mainCategoryName}&subCategoryName=${subCategoryName}&page=${page}&size=${size}&sortBy=${sortBy}&sortOrder=${sortOrder}&location=${location}`,
   const res = await instance.get(`/gatherings?`, {
     params: {
       page,
@@ -23,7 +22,6 @@ export const getGatherings = async (
       dateTime,
       size,
     },
-    // params: { page },
   });
   return res.data;
 };
