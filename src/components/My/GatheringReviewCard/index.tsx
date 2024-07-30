@@ -4,20 +4,22 @@ import Image from 'next/image';
 
 import ReviewModal from '@/components/common/Modal/Review';
 
-import NotCard from '@/components/NotCard';
 import { Button } from '@/components/ui/button';
 
 import { formatDate } from '@/lib/utils';
 
-import { useDeleteReviews } from '@/hooks/useReviews';
-
-import { Reviews } from '@/types/reviews';
+import { useDeleteReviews, useGetGatheringReview } from '@/hooks/useReviews';
 
 interface Props {
-  data: Reviews;
+  gatheringId: number;
 }
 
-export default function ReviewCard({ data }: Props) {
+export default function GatheringReviewCard({ gatheringId }: Props) {
+  console.log(gatheringId);
+
+  const { data } = useGetGatheringReview(gatheringId);
+  console.log(data);
+
   const renderStars = (score: number) => {
     const starArray = [];
     for (let i = 0; i < 5; i++) {
@@ -52,10 +54,6 @@ export default function ReviewCard({ data }: Props) {
       },
     });
   };
-
-  if (!data) {
-    return <NotCard />;
-  }
 
   return (
     <div className="relative flex w-full max-w-screen-lg flex-col gap-16 rounded-lg bg-white p-8 md:h-230 md:flex-row md:gap-10 md:p-20 lg:gap-20">

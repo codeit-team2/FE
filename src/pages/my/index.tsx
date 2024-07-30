@@ -16,7 +16,7 @@ import useCheckLogin from '@/hooks/useCheckLogin';
 export default function My() {
   useCheckLogin();
 
-  const [selectTab, setSelectTab] = useState('meeting');
+  const [selectTab, setSelectTab] = useState('joined');
 
   return (
     <>
@@ -27,9 +27,9 @@ export default function My() {
           <div className="mb-27 mt-32 md:px-156">
             <MyTap setSelectTab={setSelectTab} />
           </div>
-          {selectTab === 'meeting' && <Joined />}
+          {selectTab === 'joined' && <Joined />}
           {selectTab === 'review' && <Review />}
-          {selectTab === 'club' && <Mine />}
+          {selectTab === 'mine' && <Mine />}
         </div>
       </MainLayout>
       <Footer />

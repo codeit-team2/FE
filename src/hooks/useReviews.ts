@@ -26,7 +26,7 @@ export const useGetReviewsMine = (value: ReviewsParams) => {
   });
 };
 
-export const useGaetGatheringReview = (gatheringId: number) => {
+export const useGetGatheringReview = (gatheringId: number) => {
   return useQuery({
     queryKey: ['gatheringReview', gatheringId],
     queryFn: () => getGatheringReview(gatheringId),
