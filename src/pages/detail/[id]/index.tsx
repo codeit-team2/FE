@@ -79,7 +79,7 @@ export default function Detail() {
               ))}
             </div>
           ) : (
-            <NotReview />
+            <NotReview type="detailReview" />
           )}
         </div>
         <FloatingBar data={data} queryId={queryId} />
