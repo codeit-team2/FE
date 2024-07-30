@@ -1,11 +1,11 @@
 import React from 'react';
 
 import ReviewCard from '@/components/My/ReviewCard';
-import NotCard from '@/components/NotCard';
+import NotReview from '@/components/NotReview';
 
 import { useGetReviewsMine } from '@/hooks/useReviews';
 
-import { ReviewsParams } from '@/types/reviews';
+import { Reviews, ReviewsParams } from '@/types/reviews';
 
 export default function ReviewComplete() {
   // getReviewsMine api 호출
@@ -16,7 +16,11 @@ export default function ReviewComplete() {
     sortOrder: 'asc',
   };
 
-  const { data } = useGetReviewsMine(value);
+  const { data: reviewsDatas } = useGetReviewsMine(value);
 
-  return data ? <ReviewCard data={data} /> : <NotCard />;
+  return reviewsDatas && reviewsDatas.length > 0 ? (
+    reviewsDatas.map((data: Reviews, index: number) => <ReviewCard key={index} data={data} />)
+  ) : (
+    <NotReview type="reviewComplete" />
+  );
 }

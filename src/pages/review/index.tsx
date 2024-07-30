@@ -13,7 +13,6 @@ import Loading from '@/components/Loading';
 import NotReview from '@/components/NotReview';
 import StarRatingAverage from '@/components/Review/StarRatingAverage';
 import UserReview from '@/components/Review/UserReview';
-import { Button } from '@/components/ui/button';
 
 import { useGetReviewsAll } from '@/hooks/useReviews';
 
@@ -22,8 +21,6 @@ import { Reviews } from '@/types/reviews';
 export default function Review() {
   const [mainCategory, setMainCategory] = useState<string>('운동');
   const [subCategory, setSubCategory] = useState<string>('전체');
-
-  // const [sortOrder, setSortOrder] = useState<string>('asc');
 
   const handleMainTapClick = (title: string) => {
     setMainCategory(title);
@@ -105,14 +102,7 @@ export default function Review() {
                 <Loading width="300" height="300" />
               ) : (
                 <>
-                  <NotReview
-                    text={
-                      <>
-                        <span className="text-primary-300">모임 찾기</span>에서 모임에 참여해보세요
-                      </>
-                    }
-                  />
-                  <Button className="mb-40 mt-32 w-full max-w-[1008px] md:mb-50">모임찾기</Button>
+                  <NotReview type="find" />
                 </>
               )}
             </>
