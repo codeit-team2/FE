@@ -13,7 +13,7 @@ import {
 import { UseMutationResult, useInfiniteQuery, useMutation, useQuery } from '@tanstack/react-query';
 
 // postGatherings ??
-import { PutGatherings } from '@/types/gatherings';
+import { GatheringsParams, PutGatherings } from '@/types/gatherings';
 
 interface PostGatheringsResponse {
   success: boolean;
