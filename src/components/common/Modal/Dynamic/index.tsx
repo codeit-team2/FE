@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
 
 import Image from 'next/image';
@@ -56,10 +56,10 @@ export default function DynamicModal({
       onClick={onClose}
     >
       <div
-        className="flex h-272 w-320 items-center justify-center rounded-md bg-white px-20 py-32 shadow-lg md:w-520 md:px-32 md:py-40"
+        className="flex h-272 w-320 items-center justify-center rounded-md bg-white px-20 py-32 shadow-lg md:w-520 md:px-40"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="relative flex flex-col items-center justify-between gap-20 md:w-440">
+        <div className="relative flex h-full w-full flex-col items-center justify-between gap-24">
           <button type="button" onClick={onClose} className="absolute right-0 top-0">
             <Image
               src={'/icons/ic-modal-close.svg'}
@@ -68,8 +68,8 @@ export default function DynamicModal({
               height={32}
             />
           </button>
-          <h2 className="text-heading-1Sb text-neutral-900">{title}</h2>
-          <p className="flex h-84 items-center justify-center text-heading-2Sb text-neutral-900">
+          <h2 className="text-heading-2Sb text-neutral-900 md:text-heading-1Sb">{title}</h2>
+          <p className="flex h-full min-h-84 items-center justify-center text-heading-2Sb text-neutral-900">
             {description}
           </p>
           {modalType === 'confirm' && (
@@ -78,7 +78,7 @@ export default function DynamicModal({
             </Button>
           )}
           {modalType === 'prompt' && (
-            <div className="flex w-full gap-12">
+            <div className="flex w-full gap-8 md:gap-12">
               <Button
                 variant="secondary"
                 onClick={secondaryButtonOnClick || onClose}

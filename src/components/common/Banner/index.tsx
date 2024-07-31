@@ -17,7 +17,7 @@ const bannerContents = {
     alt: '웃는 얼굴 사진',
   },
   bookmark: {
-    mainTitle: (nickname: string) => `${nickname}님이 찜한 모임이에요`,
+    mainTitle: '찜한 모임이에요',
     subTitle: '마감되기 전에 지금 바로 참여해보세요!',
     leftText: '내 마음 속에 저장',
     rightText: '취ZONE에 저장',
@@ -38,7 +38,11 @@ export default function Banner({ page, nickname = '' }: BannerProps) {
   const content = bannerContents[page];
 
   const mainTitle =
-    typeof content.mainTitle === 'function' ? content.mainTitle(nickname) : content.mainTitle;
+    page === 'bookmark'
+      ? nickname
+        ? `${nickname}님이 찜한 모임이에요`
+        : content.mainTitle
+      : content.mainTitle;
 
   return (
     <div className="flex h-224 w-full flex-col-reverse items-center justify-between rounded-lg bg-custom-profile-gradient px-16 pb-34 pt-28 text-white shadow-banner md:px-80 lg:h-200 lg:flex-row lg:pb-0 lg:pt-0">

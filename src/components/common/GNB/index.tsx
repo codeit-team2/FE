@@ -1,15 +1,15 @@
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import { deleteCookie } from 'cookies-next';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
-import DynamicModal from '@/components/common/Modal/Dynamic';
 import LoginModal from '@/components/common/Modal/Login';
 import SignupModal from '@/components/common/Modal/Signup';
 
-import { useDeleteAccounts, useGetAccounts } from '@/hooks/useAccounts';
+import { useGetAccounts } from '@/hooks/useAccounts';
+import useFavorite from '@/hooks/useFavorite';
 import useIsMobile from '@/hooks/useIsMobile';
 
 export default function GNB() {
@@ -17,7 +17,6 @@ export default function GNB() {
   const [isSignupModalOpen, setIsSignupModalOpen] = useState(false);
   const [isMobileClient, setIsMobileClient] = useState(false);
   const [isOpenPopover, setIsOpenPopover] = useState(false);
-  const [isDeleteAccountsModalOpen, setIsDeleteAccountsModalOpen] = useState<boolean>(false);
 
   const router = useRouter();
   const { pathname } = router;
@@ -27,8 +26,7 @@ export default function GNB() {
   const profileButtonRef = useRef<HTMLDivElement>(null);
   const popoverRef = useRef<HTMLUListElement>(null);
 
-  // api 연동하면서 수정필요
-  const likeItems = 0;
+  const { favorites } = useFavorite();
 
   const { data: user } = useGetAccounts();
 
@@ -39,29 +37,6 @@ export default function GNB() {
   const handleLogoutClick = () => {
     deleteCookie('accessToken');
     router.reload();
-  };
-
-  const { mutate: mutateDeleteAccounts } = useDeleteAccounts();
-
-  const handleDeleteAccountsClick = () => {
-    setIsDeleteAccountsModalOpen(true);
-  };
-
-  const handleDeleteAccountsModalClose = () => {
-    setIsDeleteAccountsModalOpen(false);
-  };
-
-  const handleDeleteAccountsModalClick = () => {
-    mutateDeleteAccounts(null, {
-      onSuccess: () => {
-        deleteCookie('accessToken');
-        deleteCookie('refreshToken');
-        router.reload();
-      },
-      onError: (err) => {
-        console.log(err);
-      },
-    });
   };
 
   const handlePopoverClickOutside = (event: MouseEvent) => {
@@ -98,19 +73,17 @@ export default function GNB() {
         >
           모임찾기
         </Link>
-        {user?.email && (
-          <div className="flex flex-row items-center gap-4">
-            <Link
-              href="/bookmark"
-              className={`text-body-1M text-neutral-500 hover:text-body-1M hover:text-primary-300 ${
-                pathname === '/bookmark' ? 'text-body-1Sb text-neutral-900' : ''
-              }`}
-            >
-              찜한모임
-            </Link>
-            {likeItems ? <p className="text-primary-300">{likeItems}</p> : ''}
-          </div>
-        )}
+        <div className="flex flex-row items-center gap-4">
+          <Link
+            href="/bookmark"
+            className={`text-body-1M text-neutral-500 hover:text-body-1M hover:text-primary-300 ${
+              pathname === '/bookmark' ? 'text-body-1Sb text-neutral-900' : ''
+            }`}
+          >
+            찜한모임
+          </Link>
+          {favorites.length ? <p className="text-primary-300">{favorites.length}</p> : ''}
+        </div>
         <Link
           href="/review"
           className={`text-body-1M text-neutral-500 hover:text-body-1M hover:text-primary-300 ${pathname === '/review' && 'text-body-1Sb text-neutral-900'}`}
@@ -151,24 +124,8 @@ export default function GNB() {
                   >
                     로그아웃
                   </li>
-                  <li
-                    className="mx-4 my-5 cursor-pointer rounded-full py-7 text-center text-body-2Sb text-neutral-900 hover:bg-primary-50"
-                    onClick={handleDeleteAccountsClick}
-                  >
-                    회원탈퇴
-                  </li>
                 </ul>
               )}
-              <DynamicModal
-                modalType="prompt"
-                title="회원 탈퇴"
-                description="탈퇴하시겠습니까?"
-                isOpen={isDeleteAccountsModalOpen}
-                onClose={handleDeleteAccountsModalClose}
-                buttonText="탈퇴하기"
-                buttonOnClick={handleDeleteAccountsModalClick}
-                secondaryButtonText="취소"
-              />
             </div>
           </div>
         ) : (
