@@ -1,5 +1,6 @@
 import React from 'react';
 
+import Loading from '@/components/Loading';
 import ReviewCard from '@/components/My/ReviewCard';
 import NotReview from '@/components/NotReview';
 
@@ -16,11 +17,11 @@ export default function ReviewComplete() {
     sortOrder: 'asc',
   };
 
-  const { data: reviewsDatas } = useGetReviewsMine(value);
+  const { data: reviewsDatas, isPending } = useGetReviewsMine(value);
 
   return reviewsDatas && reviewsDatas.length > 0 ? (
     reviewsDatas.map((data: Reviews, index: number) => <ReviewCard key={index} data={data} />)
   ) : (
-    <NotReview type="reviewComplete" />
+    <>{isPending ? <Loading width="300" height="300" /> : <NotReview type="reviewComplete" />}</>
   );
 }
