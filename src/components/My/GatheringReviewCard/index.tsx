@@ -55,7 +55,7 @@ export default function GatheringReviewCard({ gatheringId }: Props) {
   return (
     data && (
       <div className="relative flex w-full max-w-screen-lg flex-col gap-16 rounded-lg border-2 border-white bg-white p-8 hover:border-neutral-100 hover:shadow-sm active:bg-neutral-50 md:h-230 md:flex-row md:gap-10 md:p-20 lg:gap-20">
-        <div className="relative h-163 w-full md:h-190 md:w-373">
+        <div className="relative h-163 w-full cursor-pointer rounded-lg bg-neutral-50 md:h-190 md:w-373">
           <Image
             src={data.gatheringInfo.gatheringImageUrl}
             alt={data.accountInfo.nickname}

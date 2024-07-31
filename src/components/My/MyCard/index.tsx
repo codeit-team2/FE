@@ -106,7 +106,7 @@ export default function MyCard({ data, type = 'default' }: Props) {
           <div className="absolute flex h-full w-full items-center justify-center rounded-md bg-neutral-900 text-center text-white opacity-70">
             이용하신 모임에 대해
             <br />
-            후기를 남겨주세요
+            후기를 남겨주세요!
           </div>
         )}
       </div>
