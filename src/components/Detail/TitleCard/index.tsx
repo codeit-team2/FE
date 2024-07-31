@@ -42,7 +42,7 @@ export default function TitleCard({ data, clickFavorites, isFavorite, queryId }:
   return (
     <>
       <div className="relative flex h-400 w-full max-w-[1010px] flex-col rounded-lg bg-neutral-900 md:h-253 md:flex-row">
-        <div className="relative h-170 w-full rounded-t-lg bg-neutral-100 md:h-253 md:w-495 md:rounded-l-lg md:rounded-tr-none">
+        <div className="relative h-170 w-full overflow-hidden rounded-t-lg bg-neutral-100 md:h-253 md:w-495 md:rounded-l-lg md:rounded-tr-none">
           <Image src={data.gatheringImageUrl} alt={data.name} fill objectFit="contain" />
         </div>
         <div>
