@@ -12,7 +12,7 @@ export default function Person({ data }: PersonProps) {
       {data.participantCount > 5 ? (
         <div className="flex items-center gap-2">
           <Image src="/icons/ic-person-blue.svg" alt="ic-person-blue" width={24} height={24} />
-          <div className="mr-8 text-body-2Sb text-primary-300">
+          <div className="text-body-2Sb text-primary-300">
             {data.participantCount}/{data.capacity}
           </div>
         </div>
@@ -20,7 +20,7 @@ export default function Person({ data }: PersonProps) {
         <div className="flex items-center gap-2">
           <Image src="/icons/ic-person-gray.svg" alt="ic-person-gray" width={24} height={24} />
 
-          <div className="mr-8 text-body-2Sb text-neutral-500">
+          <div className="text-body-2Sb text-neutral-500">
             {data.participantCount}/{data.capacity}
           </div>
         </div>

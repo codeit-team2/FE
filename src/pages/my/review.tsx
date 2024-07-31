@@ -16,7 +16,7 @@ export default function Review() {
 
   // getGatheringsJoined api 호출
 
-  const { data } = useGetGatheringsJoined(5, 'dateTime', 'asc');
+  const { data, isPending } = useGetGatheringsJoined(5, 'dateTime', 'asc');
   const filteredData = useMemo(() => {
     if (!data) return [];
     return data.pages
@@ -43,7 +43,11 @@ export default function Review() {
         </Button>
       </div>
       <div className="flex flex-col gap-20 pb-50">
-        {isReviewWritten ? <ReviewAvailable data={filteredData} /> : <ReviewComplete />}
+        {isReviewWritten ? (
+          <ReviewAvailable data={filteredData} isPending={isPending} />
+        ) : (
+          <ReviewComplete />
+        )}
       </div>
     </div>
   );
