@@ -46,6 +46,16 @@ export default function MyCard({ data, type = 'default' }: Props) {
     deleteMutation.mutate(data.gatheringId);
   };
 
+  const handleCopyURL = async () => {
+    const url = window.location.href;
+    try {
+      await navigator.clipboard.writeText(url);
+      alert('링크가 복사되었습니다.😆');
+    } catch (err) {
+      console.error('링크 복사에 실패했습니다.🥲', err);
+    }
+  };
+
   // 모임 참여 취소하기
   const leaveMutation = usePostGatheringsLeave({
     onSuccess: () => {
@@ -66,7 +76,7 @@ export default function MyCard({ data, type = 'default' }: Props) {
   };
 
   return (
-    <div className="relative flex w-full max-w-screen-lg flex-col gap-16 rounded-lg bg-white p-8 hover:border-2 hover:shadow-sm active:bg-neutral-50 md:h-230 md:flex-row md:gap-10 md:p-20 lg:gap-20">
+    <div className="relative flex w-full max-w-screen-lg flex-col gap-16 rounded-lg border-2 border-white bg-white p-8 hover:border-2 hover:border-neutral-100 hover:shadow-sm active:bg-neutral-50 md:h-230 md:flex-row md:gap-10 md:p-20 lg:gap-20">
       <div
         className="relative h-163 w-full cursor-pointer rounded-lg bg-neutral-50 md:h-190 md:w-373"
         onClick={() => router.push(`/detail/${data.gatheringId}`)}
@@ -116,7 +126,7 @@ export default function MyCard({ data, type = 'default' }: Props) {
             <Button variant={'secondary'} onClick={() => handleDeleteClick()}>
               <Image src="/icons/ic-delete.svg" alt="delete" width={24} height={24} />
             </Button>
-            <Button variant={'secondary'}>
+            <Button variant={'secondary'} onClick={() => handleCopyURL()}>
               <Image src="/icons/ic-share.svg" alt="share" width={24} height={24} />
             </Button>
           </div>
