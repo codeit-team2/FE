@@ -5,6 +5,7 @@ import React from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 
+import DeleteButton from '@/components/common/DeleteButton';
 import ReviewModal from '@/components/common/Modal/Review';
 
 import Description from '@/components/Card/Description';
@@ -14,7 +15,7 @@ import { Button } from '@/components/ui/button';
 
 import { isDateBeforeToday } from '@/lib/utils';
 
-import { useDeleteGatherings, usePostGatheringsLeave } from '@/hooks/useGatherings';
+import { usePostGatheringsLeave } from '@/hooks/useGatherings';
 
 import { Gathering } from '@/types/gatherings';
 
@@ -27,24 +28,6 @@ export default function MyCard({ data, type = 'default' }: Props) {
   const IsDateBeforeToday = isDateBeforeToday({ date: data.dateTime });
   const router = useRouter();
   const queryClient = useQueryClient();
-
-  // 모임 취소하기
-  const deleteMutation = useDeleteGatherings({
-    onSuccess: (data) => {
-      console.log('개설 취소하기 성공', data);
-      alert('모임이 성공적으로 삭제됐습니다!');
-      router.push('/');
-    },
-    onError: (error) => {
-      console.error('개설 취소하기 실패', error);
-      alert('모임 삭제 실패');
-    },
-  });
-
-  const handleDeleteClick = () => {
-    console.log('handleDelete called with queryId:', data.gatheringId);
-    deleteMutation.mutate(data.gatheringId);
-  };
 
   const handleCopyURL = async () => {
     const url = window.location.href;
@@ -60,7 +43,7 @@ export default function MyCard({ data, type = 'default' }: Props) {
   const leaveMutation = usePostGatheringsLeave({
     onSuccess: () => {
       console.log('참여 취소하기 성공');
-      window.location.reload();
+      router.reload();
       queryClient.invalidateQueries({
         queryKey: ['gatherings', data.gatheringId],
         refetchType: 'active',
@@ -123,9 +106,7 @@ export default function MyCard({ data, type = 'default' }: Props) {
           <div className="flex flex-row justify-end gap-8">
             <Person data={data} />
             <MakeClubModal trigger="modify" data={data} />
-            <Button variant={'secondary'} onClick={() => handleDeleteClick()}>
-              <Image src="/icons/ic-delete.svg" alt="delete" width={24} height={24} />
-            </Button>
+            <DeleteButton gatheringId={data.gatheringId} type="mine" />
             <Button variant={'secondary'} onClick={() => handleCopyURL()}>
               <Image src="/icons/ic-share.svg" alt="share" width={24} height={24} />
             </Button>
