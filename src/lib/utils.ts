@@ -36,7 +36,7 @@ interface FormattedDate {
   deadline: string;
 }
 
-type DeadlineStatus = '오늘마감' | '내일마감' | '이번주마감' | '다음주마감' | '여유';
+type DeadlineStatus = '마감' | '오늘마감' | '내일마감' | '이번주마감' | '다음주마감' | '여유';
 
 export function formatDate({ date }: FormatDateProps): FormattedDate | null {
   const formatDate = typeof date === 'string' ? new Date(date) : date;
@@ -68,6 +68,7 @@ export function formatDate({ date }: FormatDateProps): FormattedDate | null {
     const nextWeek = new Date(endOfWeek);
     nextWeek.setDate(endOfWeek.getDate() + 7);
 
+    if (targetDate < today) return '마감';
     if (targetDate <= today) return '오늘마감';
     if (targetDate <= tomorrow) return '내일마감';
     if (targetDate <= endOfWeek) return '이번주마감';
