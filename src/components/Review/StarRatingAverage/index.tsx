@@ -60,7 +60,7 @@ export default function StarRatingAverage({ data }: StarRatingAverageProps) {
                     style={{ width: `${progressPercentage}%` }}
                   />
                 </div>
-                <p>{score}</p>
+                <p className="text-neutral-400">{score}</p>
               </div>
             </div>
           );
