@@ -105,22 +105,22 @@ export default function Card({ data, clickFavorites, isFavorite }: CardProps) {
           <LoginRequired onClose={handleCloseLoginModal} />
         </>
       )}
-      <div className="relative flex w-full max-w-screen-lg flex-col gap-16 rounded-lg bg-white p-8 hover:border-2 hover:border-neutral-100 active:bg-neutral-50 md:h-230 md:flex-row md:gap-10 md:p-20 lg:gap-20">
+      <div className="relative flex w-full max-w-screen-lg flex-col gap-16 rounded-lg border-2 border-white bg-white p-8 hover:border-neutral-100 hover:shadow-sm active:bg-neutral-50 md:h-230 md:flex-row md:gap-10 md:p-20 lg:gap-20">
         <div className="relative h-163 w-full rounded-lg bg-neutral-50 md:h-190 md:w-373">
           <Image
             src={data.gatheringImageUrl}
             alt={data.name}
-            objectFit="contain"
+            sizes="100%"
             fill
-            className="rounded-md object-cover"
+            className="rounded-md object-contain"
           />
           {minReached && (
             <Image
               src={data.gatheringImageUrl}
               alt={data.name}
-              objectFit="contain"
+              sizes="100%"
               fill
-              className="rounded-md object-cover"
+              className="rounded-md object-contain"
             />
           )}
           {minReached && (
