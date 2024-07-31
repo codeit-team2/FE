@@ -35,7 +35,7 @@ export default function LoginRequired({ onClose }: LoginRequiredProps) {
             로그인하러 가기
           </Button>
           <button className="absolute right-0 top-0" onClick={onClose}>
-            <Image src={'/icons/ic-close.svg'} alt="closeicon" width={32} height={32} />
+            <Image src={'/icons/ic-close-button.svg'} alt="closeicon" width={34} height={34} />
           </button>
         </div>
       </div>
