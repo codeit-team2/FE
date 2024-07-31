@@ -66,7 +66,7 @@ export default function Review() {
         <div className="mt-24 w-full md:mt-32">
           <StarRatingAverage data={scoreData} />
         </div>
-        <div className="my-24 mb-32 flex w-full max-w-[1010px] justify-end md:mb-0 md:mt-20">
+        <div className="my-22 flex w-full max-w-[1010px] justify-end md:my-30">
           <Dropdown
             items={['최신순', '별점순']}
             icon="/icons/ic-chevron-updown.svg"
