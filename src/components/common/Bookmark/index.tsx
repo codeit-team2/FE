@@ -7,11 +7,16 @@ import Image from 'next/image';
 interface BookmarkProps {
   favorite: boolean;
   handleToggleBookmark: () => void;
+  freshDataFiltering?: boolean;
 }
 
-export default function Bookmark({ favorite, handleToggleBookmark }: BookmarkProps) {
+export default function Bookmark({
+  favorite,
+  handleToggleBookmark,
+  freshDataFiltering,
+}: BookmarkProps) {
   return (
-    <button type="button" onClick={handleToggleBookmark}>
+    <button type="button" onClick={handleToggleBookmark} disabled={!freshDataFiltering}>
       <div
         className={`relative transition-transform duration-300 ease-in ${!favorite ? '' : 'animate-pulseSmall'}`}
       >
