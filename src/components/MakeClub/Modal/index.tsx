@@ -5,7 +5,6 @@ import { amTime, pmTime } from '@/constants/timeItems';
 import React, { useEffect, useState } from 'react';
 import { FieldValues, FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 
-import DropdownInput from '../DropdownInput';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 
@@ -13,6 +12,7 @@ import Calendar from '@/components/common/Calendar';
 import Input from '@/components/common/Input';
 import LoginRequired from '@/components/common/Modal/LoginRequired';
 
+import DropdownInput from '@/components/MakeClub/DropdownInput';
 import FileInput from '@/components/MakeClub/FileInput';
 import { Button } from '@/components/ui/button';
 import {
@@ -26,6 +26,8 @@ import {
 import { isDateBeforeToday } from '@/lib/utils';
 
 import { usePostGatherings, usePutGatherings } from '@/hooks/useGatherings';
+import useScrollbarAndScrollState from '@/hooks/useIsScrollbarVisible';
+import useIsTablet from '@/hooks/useIsTablet';
 
 import { Gathering } from '@/types/gatherings';
 
@@ -35,10 +37,24 @@ interface Props {
 }
 
 export default function MakeClubModal({ trigger, data }: Props) {
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [selectTime, setSelectTime] = useState<string>();
   const [isSubmitCheck, setIsSubmitCheck] = useState(false);
   const [date, setDate] = React.useState<Date | undefined>();
   const [gatheringId, setGatheringId] = useState<number>(0);
+
+  const [scrollRef, isScrollbarVisible] = useScrollbarAndScrollState<HTMLDivElement>(true);
+
+  const router = useRouter();
+  const isTablet = useIsTablet();
+
+  useEffect(() => {
+    if (isModalOpen && isTablet) {
+      router.push('/make-club');
+    }
+  }, [isTablet, router, isModalOpen]);
+
+  console.log(isScrollbarVisible);
 
   interface FormValues {
     gatheringImage: File | null;
@@ -57,8 +73,6 @@ export default function MakeClubModal({ trigger, data }: Props) {
     setValue,
     formState: { isValid },
   } = form;
-
-  const router = useRouter();
 
   // category 객체 -> 배열
   const flattenCategories = (categoryObj: object) => {
@@ -193,18 +207,21 @@ export default function MakeClubModal({ trigger, data }: Props) {
   const defaultCategory = data?.subCategoryName + ' · ' + data?.mainCategoryName;
 
   return (
-    <Dialog>
+    <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
       <DialogTrigger asChild>{triggerButton}</DialogTrigger>
       {isLogin ? (
-        <DialogContent className="scrollbar-none flex h-fit max-h-[729px] w-fit flex-col items-center gap-24 overflow-y-scroll px-40 py-32">
+        <DialogContent className="flex h-[calc(100%-56px)] max-h-[732px] w-fit flex-col items-center gap-24 px-0 py-32">
           <DialogTitle className="w-440 text-center md:w-952">모임 만들기</DialogTitle>
           <FormProvider {...form}>
             <form
-              className="flex h-full w-fit flex-col justify-between gap-24"
+              className="flex h-full w-fit flex-col justify-between gap-24 overflow-hidden"
               autoComplete="off"
               onSubmit={handleSubmit(onSubmit)}
             >
-              <div className="flex w-fit flex-col justify-center sm:flex-row">
+              <div
+                className={`scroll flex h-full w-fit flex-col justify-center overflow-y-auto px-20 sm:flex-row md:px-40 ${isScrollbarVisible && 'md:pr-20'}`}
+                ref={scrollRef}
+              >
                 <div className="flex w-fit flex-col gap-24">
                   <div>
                     <DialogDescription>대표 이미지</DialogDescription>
@@ -331,7 +348,7 @@ export default function MakeClubModal({ trigger, data }: Props) {
                   </div>
                 </div>
               </div>
-              <div className="flex justify-center">
+              <div className="flex justify-center px-20 md:px-40">
                 <Button
                   className={`w-full ${!isValid && 'cursor-default bg-neutral-400 !text-neutral-100 hover:!text-neutral-100'}`}
                   type="submit"
