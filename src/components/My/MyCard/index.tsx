@@ -84,9 +84,9 @@ export default function MyCard({ data, type = 'default' }: Props) {
         <Image
           src={data.gatheringImageUrl}
           alt={data.name}
+          sizes="100%"
           fill
-          objectFit="contain"
-          className="rounded-md"
+          className="rounded-md object-contain"
         />
         {IsDateBeforeToday ? (
           <div className="absolute z-20 flex h-36 w-81 items-center justify-center rounded-br-md rounded-tl-md bg-neutral-700 text-body-2M text-white">
