@@ -60,7 +60,7 @@ export default function Detail() {
   return (
     <>
       <GNB />
-      <div className="mx-auto flex min-h-[calc(100vh-300px)] w-full flex-col items-center bg-neutral-50 px-12 md:px-32">
+      <div className="mx-auto flex min-h-[calc(100vh-372px)] w-full flex-col items-center bg-neutral-50 px-12 md:px-32">
         <div className="flex w-full flex-col items-center pb-90 pt-20 md:pt-32">
           <TitleCard
             data={data}
