@@ -22,11 +22,11 @@ export default function InfoBadge({ userData, data }: InfoBadgeProps) {
     <div className="flex h-102 w-full flex-col rounded-md bg-neutral-700 p-12 md:w-475">
       <div className="flex items-center justify-between">
         <div className="flex items-center justify-center gap-6">
-          <div className="flex h-32 w-74 items-center gap-2 rounded-sm bg-primary-50 px-8 py-4 md:w-82">
+          <div className="flex h-32 w-74 items-center rounded-sm bg-primary-50 px-8 py-4 md:w-82">
             <div className="relative h-24 w-24">
               <Image src={'/icons/ic-person-blue.svg'} alt="ic-person" fill />
             </div>
-            <div className="text-body-2Sb text-primary-300">
+            <div className="flex w-40 justify-center text-body-2Sb text-primary-300">
               {data.participantCount}/{data.capacity}
             </div>
           </div>
