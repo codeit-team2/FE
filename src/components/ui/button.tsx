@@ -15,10 +15,9 @@ const buttonVariants = cva(
         ghost: 'hover:bg-accent hover:text-accent-foreground',
         secondary:
           'bg-neutral-900 !text-white hover:!text-neutral-500 disabled:bg-neutral-400 disabled:!text-neutral-100',
-        chip: 'border-2 border-neutral-100 bg-white !text-neutral-500 disabled:bg-neutral-50 disabled:!text-neutral-200 disabled:border-neutral-50',
+        chip: 'border-2 border-neutral-100 bg-white !text-neutral-500 disabled:bg-neutral-50 disabled:!text-neutral-200 disabled:border-neutral-50 hover:border-neutral-100 hover:bg-neutral-100 hover:!text-neutral-600',
         outline:
           'border border-primary bg-white text-primary hover:border-primary hover:text-primary-hover disabled:bg-white disabled:border-gray-400 disabled:text-gray-400',
-        // end: 'bg-neutral-900 !text-white hover:!text-neutral-500 disabled:bg-neutral-400 disabled:!text-neutral-100'
       },
       size: {
         default: 'h-42 rounded-sm p-10 text-body-1Sb leading-none',

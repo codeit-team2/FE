@@ -64,10 +64,10 @@ export default function FileInput({ id, control }: Props) {
       defaultValue={null}
       render={({ field: { onChange } }) => (
         <div className="relative flex flex-row gap-8">
-          <div className="relative">
+          <div className="relative w-full">
             <input
               type="file"
-              className="block rounded-sm bg-neutral-50 px-12 py-10 file:hidden"
+              className="block w-full rounded-sm bg-neutral-50 px-12 py-10 file:hidden"
               ref={fileInput}
               onChange={(e) => handleFileChange(e, onChange)}
             />
@@ -83,11 +83,16 @@ export default function FileInput({ id, control }: Props) {
               )}
             </div>
           </div>
-          <Button variant="chip" selected={true} onClick={() => handleButtonClick()} type="button">
-            파일 찾기
+          <Button
+            className="w-130 flex-shrink-0"
+            variant="secondary"
+            onClick={() => handleButtonClick()}
+            type="button"
+          >
+            파일찾기
           </Button>
           {errorMessage && isSubmitted && (
-            <p className="absolute -bottom-20 mt-6 text-body-2Sb text-secondary-300">
+            <p className="absolute top-[100%] mt-6 text-body-2Sb text-secondary-300">
               {ERROR_MESSAGE.gatheringImage.required}
             </p>
           )}
