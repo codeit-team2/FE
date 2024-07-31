@@ -64,17 +64,32 @@ export default function Banner({ page, nickname = '' }: BannerProps) {
         <div
           className={`relative h-90 w-90 translate-x-14 opacity-40 lg:h-140 lg:w-140 lg:translate-x-40 ${page === 'bookmark' && 'rotate-[15deg]'} ${page === 'review' && 'translate-x-6 lg:translate-x-29'}`}
         >
-          <Image src={bannerContents[page].image} alt={bannerContents[page].alt} fill />
+          <Image
+            src={bannerContents[page].image}
+            alt={bannerContents[page].alt}
+            sizes="100%"
+            fill
+          />
         </div>
         <div
           className={`relative h-90 w-90 lg:h-140 lg:w-140 lg:translate-x-20 ${page === 'bookmark' && 'rotate-[15deg]'}`}
         >
-          <Image src={bannerContents[page].image} alt={bannerContents[page].alt} fill />
+          <Image
+            src={bannerContents[page].image}
+            alt={bannerContents[page].alt}
+            sizes="100%"
+            fill
+          />
         </div>
         <div
           className={`relative h-90 w-90 -translate-x-14 opacity-40 lg:h-140 lg:w-140 lg:translate-x-4 ${page === 'bookmark' && 'rotate-[15deg]'} ${page === 'review' && '-translate-x-6 lg:translate-x-9'}`}
         >
-          <Image src={bannerContents[page].image} alt={bannerContents[page].alt} fill />
+          <Image
+            src={bannerContents[page].image}
+            alt={bannerContents[page].alt}
+            sizes="100%"
+            fill
+          />
         </div>
       </div>
     </div>
