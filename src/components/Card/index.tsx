@@ -14,7 +14,7 @@ import Description from '@/components/Card/Description';
 import Person from '@/components/Card/Person';
 import ProgressPercentage from '@/components/Card/ProgressPercentage';
 
-import { usePostGatheringsJoin, usePostGatheringsLeave } from '@/hooks/useGatherings';
+import { usePostGatheringsJoin } from '@/hooks/useGatherings';
 
 import { Gathering } from '@/types/gatherings';
 
@@ -54,29 +54,13 @@ export default function Card({ data, clickFavorites, isFavorite }: CardProps) {
     },
   });
 
-  const leaveMutation = usePostGatheringsLeave({
-    onSuccess: (data) => {
-      console.log('참여 취소하기 성공', data);
-      queryClient.invalidateQueries({ queryKey: ['gatherings'] });
-    },
-    onError: (error) => {
-      console.error('참여 취소하기 실패', error);
-    },
-  });
-
   const handleJoin = () => {
     joinMutation.mutate(data.gatheringId);
   };
 
-  const handleLeave = () => {
-    leaveMutation.mutate(data.gatheringId);
-  };
-
   const handleClick = () => {
     console.log('handleClick called. isEntered:', isEntered);
-    if (isEntered) {
-      handleLeave();
-    } else {
+    if (!isEntered) {
       handleJoin();
     }
     setDialogOpen(false);
@@ -113,15 +97,13 @@ export default function Card({ data, clickFavorites, isFavorite }: CardProps) {
           <LoginRequired onClose={handleCloseLoginModal} />
         </>
       )}
-      <div className="relative flex w-full max-w-screen-lg flex-col gap-16 rounded-lg bg-white p-8 hover:border-2 hover:border-neutral-100 active:bg-neutral-50 md:h-230 md:flex-row md:gap-10 md:p-20 lg:gap-20">
-        <div
-          className="relative h-163 w-full rounded-lg bg-neutral-50 md:h-190 md:w-373"
-          onClick={() => router.push(`/detail/${data.gatheringId}`)}
-        >
+
+      <div className="relative flex w-full max-w-screen-lg flex-col gap-16 rounded-lg border-2 border-white bg-white p-8 hover:border-neutral-100 hover:shadow-sm active:bg-neutral-50 md:h-230 md:flex-row md:gap-10 md:p-20 lg:gap-20">
+        <div className="relative h-163 w-full rounded-lg bg-neutral-50 md:h-190 md:w-373">
           <Image
             src={data.gatheringImageUrl}
             alt={data.name}
-            objectFit="contain"
+            sizes="100%"
             fill
             className="cursor-pointer rounded-md object-cover"
           />
@@ -152,17 +134,19 @@ export default function Card({ data, clickFavorites, isFavorite }: CardProps) {
                 variant={'secondary'}
                 disabled={(!isEntered && maxReached) || !freshDataFiltering}
               >
-                {maxReached ? '참여마감' : isEntered ? '참여 취소하기' : '참여하기'}
+                {maxReached ? '참여마감' : isEntered ? '참여 중' : '참여하기'}
               </Button>
-              <DynamicModal
-                modalType="confirm"
-                title={isEntered ? '참여 취소하기' : '참여하기'}
-                description={isEntered ? '참여 취소하시겠습니까?' : '해당 모임에 참여하시겠습니까?'}
-                isOpen={isDialogOpen}
-                onClose={handleCloseDialog}
-                buttonText={isEntered ? '취소하기' : '참여하기'}
-                buttonOnClick={handleClick}
-              />
+              {!isEntered && (
+                <DynamicModal
+                  modalType="confirm"
+                  title="참여하기"
+                  description="해당 모임에 참여하시겠습니까?"
+                  isOpen={isDialogOpen}
+                  onClose={handleCloseDialog}
+                  buttonText="참여하기"
+                  buttonOnClick={handleClick}
+                />
+              )}
             </>
           </div>
         </div>

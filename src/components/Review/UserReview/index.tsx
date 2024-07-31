@@ -31,7 +31,7 @@ export default function UserReview({ data }: UserReviewProps) {
         <Image
           src={`${data.gatheringInfo.gatheringImageUrl}`}
           alt={`{data.cardImage}`}
-          layout="fill"
+          fill
           className="rounded-md"
           objectFit="cover"
         />

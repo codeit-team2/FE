@@ -66,7 +66,7 @@ export default function MyTap({ setSelectTab }: Props) {
   };
 
   return (
-    <div className="relative flex w-full items-center justify-center gap-32 overflow-x-scroll text-nowrap">
+    <div className="scrollbar-none relative flex w-full items-center justify-center gap-32 overflow-x-scroll text-nowrap">
       {titles.map(({ title, icon, iconWidth, iconHeight, id }, index) => (
         <button
           key={index}
