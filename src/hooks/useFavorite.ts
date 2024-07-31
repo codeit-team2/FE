@@ -15,7 +15,7 @@ export default function useFavorite() {
 
   // 찜 목록 로컬 스토리지에 추가/제거
   const clickFavorites = (item: Gathering) => {
-    if (!favorites.includes(item)) {
+    if (!favorites.map((f) => f.gatheringId).includes(item.gatheringId)) {
       const newFavorite = [...favorites, item];
       saveFavorites(newFavorite);
     } else {
@@ -27,13 +27,11 @@ export default function useFavorite() {
   };
 
   // 찜 목록 가져오기
-  // const getFavorites = useCallback(() => {
   const getFavorites = () => {
     const storaged = localStorage.getItem(FAVORITES_KEY);
     if (storaged) {
       setFavorites(JSON.parse(storaged));
     }
-    // }, []);
   };
 
   // 찜 여부 확인 함수
@@ -56,5 +54,6 @@ export default function useFavorite() {
   useEffect(() => {
     getFavorites();
   }, []);
+
   return { clickFavorites, favorites, saveFavorites, isFavorite };
 }
