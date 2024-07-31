@@ -21,7 +21,7 @@ const buttonVariants = cva(
         // end: 'bg-neutral-900 !text-white hover:!text-neutral-500 disabled:bg-neutral-400 disabled:!text-neutral-100'
       },
       size: {
-        default: 'h-42 rounded-sm p-10 text-body-1Sb',
+        default: 'h-42 rounded-sm p-10 text-body-1Sb leading-none',
         chip: 'h-42 rounded-sm py-10 px-20 text-body-1M',
       },
       selected: {

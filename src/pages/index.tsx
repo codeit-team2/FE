@@ -58,6 +58,7 @@ export default function Main() {
       setSortOrder('asc');
     }
   };
+
   const {
     data: postsData,
     isPending,

@@ -23,7 +23,7 @@ export default function Mine() {
         gatheringsData.pages.map((datas) =>
           datas.map((data: Gathering, index: number) => (
             <>
-              <MyCard key={index} data={data} type="default" />
+              <MyCard key={index} data={data} type="club" />
             </>
           )),
         )

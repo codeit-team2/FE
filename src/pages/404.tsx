@@ -3,6 +3,7 @@ import React from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 
+import Footer from '@/components/common/Footer';
 import GNB from '@/components/common/GNB';
 import MainLayout from '@/components/common/MainLayout';
 
@@ -16,7 +17,7 @@ export default function NotFound() {
     <>
       <GNB />
       <MainLayout>
-        <div className="flex h-screen flex-col items-center justify-center gap-16 md:gap-22">
+        <div className="flex h-[calc(100vh-200px)] flex-col items-center justify-center gap-16 sm:h-[calc(100vh-400px)] md:gap-22">
           <div className="relative h-100 w-100 md:h-150 md:w-150">
             <Image src="/icons/ic-warning-cloud.svg" alt="cloud" fill />
           </div>
@@ -36,7 +37,7 @@ export default function NotFound() {
               잠시 후 다시 이용 부탁드립니다
             </p>
           )}
-          <div className="flex w-full flex-row gap-8 sm:gap-12">
+          <div className="mt-32 flex w-full flex-row gap-8 sm:gap-12">
             <Button onClick={() => router.back()} variant={'secondary'} className="w-1/2">
               이전
             </Button>
@@ -46,6 +47,7 @@ export default function NotFound() {
           </div>
         </div>
       </MainLayout>
+      <Footer />
     </>
   );
 }
