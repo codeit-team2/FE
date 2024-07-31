@@ -15,7 +15,7 @@ export default function useFavorite() {
 
   // 찜 목록 로컬 스토리지에 추가/제거
   const clickFavorites = (item: Gathering) => {
-    if (!favorites.map((f) => f.gatheringId).includes(item.gatheringId)) {
+    if (!favorites.map((favorite) => favorite.gatheringId).includes(item.gatheringId)) {
       const newFavorite = [...favorites, item];
       saveFavorites(newFavorite);
     } else {
@@ -36,7 +36,7 @@ export default function useFavorite() {
 
   // 찜 여부 확인 함수
   const isFavorite = (item: Gathering) => {
-    return favorites.map((f) => f.gatheringId).includes(item.gatheringId);
+    return favorites.map((favorite) => favorite.gatheringId).includes(item.gatheringId);
   };
 
   // 서버에 찜 목록 저장 (로그인 후)
