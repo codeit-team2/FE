@@ -69,7 +69,11 @@ export default function Dropdown({
   const handleItemClick = (e: React.MouseEvent<HTMLDivElement>) => {
     const itemText = e.currentTarget?.textContent;
     if (handleLocationClick) {
-      handleLocationClick(itemText);
+      if (itemText === '전체') {
+        handleLocationClick(null);
+      } else {
+        handleLocationClick(itemText);
+      }
     }
     setIsOpen(false);
     setItemValue(itemText);
@@ -105,7 +109,7 @@ export default function Dropdown({
     <div ref={dropdownRef} className="relative z-10">
       <button
         onClick={toggleDropdown}
-        className={`${isSelectedValue && '!text-black'} relative flex w-full items-center justify-between truncate rounded-sm bg-neutral-50 px-12 py-10 text-body-2M text-neutral-400 hover:text-primary-300 md:text-body-1M`}
+        className={`${isSelectedValue && '!text-black'} ${itemTrigger === '지역선택' && 'w-97'} relative flex w-full items-center justify-between truncate rounded-sm bg-neutral-50 px-12 py-10 text-body-2M text-neutral-400 hover:text-primary-300 md:text-body-1M`}
         type="button"
       >
         {itemValue}
@@ -123,7 +127,15 @@ export default function Dropdown({
       {/* 이후 고정 값 나오면 변경작업 */}
       {isOpen ? (
         items && items.length > 0 ? (
-          <div className="absolute z-10 max-h-176 w-full overflow-y-scroll rounded-md bg-white px-4 py-5 text-body-2Sb shadow-lg scrollbar-none">
+          <div className="absolute z-10 max-h-176 w-full overflow-y-scroll rounded-md bg-white px-4 py-5 text-body-2Sb shadow-lg">
+            {itemTrigger === '지역선택' && (
+              <div
+                className="flex w-full cursor-pointer items-center justify-center px-10 py-12 hover:rounded-full hover:bg-primary-50 active:bg-primary-100"
+                onClick={handleItemClick}
+              >
+                전체
+              </div>
+            )}
             {items.map((item, index) => (
               <div
                 key={index}
