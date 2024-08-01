@@ -41,7 +41,7 @@ export default function GatheringReviewCard({ gatheringId }: Props) {
             alt={data.accountInfo.nickname}
             sizes="100%"
             fill
-            className="rounded-md object-contain"
+            className="rounded-md"
           />
           <div className="absolute z-20 flex h-36 w-81 items-center justify-center rounded-br-md rounded-tl-md bg-neutral-700 text-body-2M text-white">
             이용완료
