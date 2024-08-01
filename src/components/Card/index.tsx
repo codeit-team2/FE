@@ -56,10 +56,6 @@ export default function Card({ data, clickFavorites, isFavorite }: CardProps) {
     setDialogOpen(false);
   };
 
-  const handleCloseLoginModal = () => {
-    setShowLoginModal(false);
-  };
-
   const handleOpenDialog = () => {
     const accessToken = getCookie('accessToken');
     if (!accessToken) {
@@ -83,8 +79,7 @@ export default function Card({ data, clickFavorites, isFavorite }: CardProps) {
     <>
       {showLoginModal && (
         <>
-          <div className="fixed inset-0 z-40 bg-neutral-900 opacity-70"></div>
-          <LoginRequired onClose={handleCloseLoginModal} />
+          <LoginRequired isModalOpen={showLoginModal} setIsModalOpen={setShowLoginModal} />
         </>
       )}
       <div className="relative flex w-full max-w-screen-lg flex-col gap-16 rounded-lg border-2 border-white bg-white p-8 hover:border-neutral-100 hover:shadow-sm active:bg-neutral-50 md:h-230 md:flex-row md:gap-10 md:p-20 lg:gap-20">
