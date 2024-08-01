@@ -109,7 +109,7 @@ export default function Dropdown({
     <div ref={dropdownRef} className="relative z-10">
       <button
         onClick={toggleDropdown}
-        className={`${isSelectedValue && '!text-black'} ${itemTrigger === '지역선택' && 'w-97'} relative flex w-full items-center justify-between truncate rounded-sm bg-neutral-50 px-12 py-10 text-body-2M text-neutral-400 hover:text-primary-300 md:text-body-1M`}
+        className={`${isSelectedValue && '!text-black'} ${itemTrigger === '지역선택' && 'w-97'} relative flex items-center justify-between truncate rounded-sm bg-neutral-50 px-12 py-10 text-body-2M text-neutral-400 hover:text-primary-300 md:text-body-1M`}
         type="button"
       >
         {itemValue}
