@@ -64,7 +64,7 @@ export default function Main() {
   };
 
   const {
-    data: postsData,
+    data: CardData,
     isPending,
     fetchNextPage,
     hasNextPage,
@@ -119,9 +119,9 @@ export default function Main() {
           </div>
           {isLogin && <MakeClubModal trigger="plus" />}
           <div className="flex flex-col gap-20">
-            {postsData ? (
+            {CardData && CardData?.pages[0].length > 0 ? (
               <>
-                {postsData.pages.map((datas: Array<Gathering>, i: number) => (
+                {CardData.pages.map((datas: Array<Gathering>, i: number) => (
                   <React.Fragment key={i}>
                     {datas.map((data: Gathering, index: number) => {
                       return (
@@ -153,6 +153,7 @@ export default function Main() {
                 )}
               </>
             ) : (
+              // <NotCard type="default" />
               <>{isPending ? <Loading width="300" height="300" /> : <NotCard type="default" />}</>
             )}
           </div>

@@ -24,6 +24,7 @@ import {
 
 import { isDateBeforeToday } from '@/lib/utils';
 
+import useCheckLogin from '@/hooks/useCheckLogin';
 import { usePostGatherings, usePutGatherings } from '@/hooks/useGatherings';
 import useScrollbarAndScrollState from '@/hooks/useIsScrollbarVisible';
 import useIsTablet from '@/hooks/useIsTablet';
@@ -165,7 +166,7 @@ export default function MakeClubModal({ trigger, data }: Props) {
         ? putMutate(value, {
             onSuccess: (data) => {
               console.log('Success: ', data);
-              window.location.reload();
+              router.reload();
             },
             onError: (error) => {
               console.error('Error:', error);
@@ -182,6 +183,9 @@ export default function MakeClubModal({ trigger, data }: Props) {
           });
     }
   };
+
+  // login 상태 확인하는 과정 추가 필요
+  const isLogin = useCheckLogin();
 
   // 제출버튼 클릭 여부 (제출과 상관 없이 단순 버튼 클릭 여부)
   const handleSubmitButton = () => {
@@ -203,154 +207,172 @@ export default function MakeClubModal({ trigger, data }: Props) {
   return (
     <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
       <DialogTrigger asChild>{triggerButton}</DialogTrigger>
-      <DialogContent className="flex h-[calc(100%-56px)] max-h-[732px] w-fit flex-col items-center gap-24 px-0 py-32">
-        <DialogTitle className="w-440 text-center md:w-952">모임 만들기</DialogTitle>
-        <FormProvider {...form}>
-          <form
-            className="flex h-full w-fit flex-col justify-between gap-24 overflow-hidden"
-            autoComplete="off"
-            onSubmit={handleSubmit(onSubmit)}
-          >
-            <div
-              className={`scroll flex h-full w-fit flex-col justify-center overflow-y-auto px-20 sm:flex-row md:px-40 ${isScrollbarVisible && 'md:pr-20'}`}
-              ref={scrollRef}
+      {isLogin ? (
+        <DialogContent className="flex h-[calc(100%-56px)] max-h-[732px] w-fit flex-col items-center gap-24 px-0 py-32">
+          <DialogTitle className="w-440 text-center md:w-952">모임 만들기</DialogTitle>
+          <FormProvider {...form}>
+            <form
+              className="flex h-full w-fit flex-col justify-between gap-24 overflow-hidden"
+              autoComplete="off"
+              onSubmit={handleSubmit(onSubmit)}
             >
-              <div className="flex w-fit flex-col gap-24">
-                <div>
-                  <DialogDescription>대표 이미지</DialogDescription>
-                  <FileInput
-                    id="gatheringImage"
-                    control={control}
-                    {...register('gatheringImage', {
-                      required: ERROR_MESSAGE.gatheringImage.required,
-                    })}
-                  />
-                </div>
-                <div className="flex flex-row gap-12">
-                  <div className="relative w-3/6">
-                    <DialogDescription>카테고리</DialogDescription>
-                    <DropdownInput
-                      id="category"
-                      control={control}
-                      itemTrigger={PLACEHOLDER.category}
-                      items={flattenedCategories}
-                      defaultValue={data && defaultCategory}
-                      {...register('category', {
-                        required: ERROR_MESSAGE.category.required,
-                      })}
-                    />
-                  </div>
-                  <div className="relative w-3/6">
-                    <DialogDescription>지역</DialogDescription>
-                    <DropdownInput
-                      id="location"
-                      control={control}
-                      itemTrigger={PLACEHOLDER.location}
-                      items={LOCATION}
-                      defaultValue={data && data?.location}
-                      {...register('location', {
-                        required: ERROR_MESSAGE.location.required,
-                      })}
-                    />
-                  </div>
-                </div>
-                <div>
-                  <DialogDescription>날짜</DialogDescription>
-                  <div
-                    className={`mx-auto w-full rounded-md border ${dateErrorMsg && isSubmitCheck && 'border-secondary-300'}`}
-                  >
-                    <Calendar date={date} setDate={setDate} />
-                  </div>
-                  {dateErrorMsg && isSubmitCheck && (
-                    <p className="mt-6 text-body-2Sb text-secondary-300">{dateErrorMsg}</p>
-                  )}
-                </div>
-              </div>
-              <div className="mx-32 my-12 border-l"></div>
-              <div className="flex w-fit flex-col gap-40">
-                <div className="w-440">
-                  <DialogDescription>오전</DialogDescription>
-                  <div className="flex gap-4">
-                    {amTime.map((time, i) => (
-                      <Button
-                        variant="chip"
-                        size="chip"
-                        className={`${timeErrorMsg && isSubmitCheck && `border border-secondary-300`}`}
-                        key={i}
-                        selected={selectTime === time}
-                        onClick={() => setSelectTime(time)}
-                        type="button"
-                      >
-                        {time}
-                      </Button>
-                    ))}
-                  </div>
-                </div>
-                <div className="w-440">
-                  <DialogDescription>오후</DialogDescription>
-                  <div className="flex flex-wrap gap-4">
-                    {pmTime.map((time, i) => (
-                      <Button
-                        variant="chip"
-                        size="chip"
-                        className={`${timeErrorMsg && isSubmitCheck && `border border-secondary-300`}`}
-                        key={i}
-                        selected={selectTime === time}
-                        onClick={() => setSelectTime(time)}
-                        type="button"
-                      >
-                        {time}
-                      </Button>
-                    ))}
-                  </div>
-                  {isSubmitCheck && timeErrorMsg && (
-                    <p className="mt-6 text-body-2Sb text-secondary-300">{timeErrorMsg}</p>
-                  )}
-                </div>
-                <div>
-                  <DialogDescription>모임명</DialogDescription>
-                  <Input
-                    type="text"
-                    id="name"
-                    placeholder={PLACEHOLDER.name}
-                    maxLength={30}
-                    {...register('name', {
-                      required: ERROR_MESSAGE.name.required,
-                    })}
-                  />
-                </div>
-                <div>
-                  <DialogDescription>모임 정원</DialogDescription>
-                  <Input
-                    type="text"
-                    id="capacity"
-                    placeholder={PLACEHOLDER.capacity}
-                    maxLength={20}
-                    {...register('capacity', {
-                      required: ERROR_MESSAGE.capacity.required,
-                      validate: {
-                        isNumber: (value) => !isNaN(value) || ERROR_MESSAGE.capacity.notANumber,
-                        isInRange: (value) => {
-                          return (value >= 5 && value <= 20) || ERROR_MESSAGE.capacity.invalidRange;
-                        },
-                      },
-                    })}
-                  />
-                </div>
-              </div>
-            </div>
-            <div className="flex justify-center px-20 md:px-40">
-              <Button
-                className={`w-full ${!isValid && 'cursor-default bg-neutral-400 !text-neutral-100 hover:!text-neutral-100'}`}
-                type="submit"
-                onClick={() => handleSubmitButton()}
+              <div
+                className={`scroll flex h-full w-fit flex-col justify-center overflow-y-auto px-20 sm:flex-row md:px-40 ${isScrollbarVisible && 'md:pr-20'}`}
+                ref={scrollRef}
               >
-                {trigger === 'modify' ? '모임 수정하기' : '모임 만들기'}
-              </Button>
-            </div>
-          </form>
-        </FormProvider>
-      </DialogContent>
+                <div className="flex w-fit flex-col gap-24">
+                  <div>
+                    <DialogDescription>대표 이미지</DialogDescription>
+                    <FileInput
+                      id="gatheringImage"
+                      control={control}
+                      {...register('gatheringImage', {
+                        required: ERROR_MESSAGE.gatheringImage.required,
+                      })}
+                    />
+                  </div>
+                  <div className="flex flex-row gap-12">
+                    <div className="relative w-3/6">
+                      <DialogDescription>카테고리</DialogDescription>
+                      <DropdownInput
+                        id="category"
+                        control={control}
+                        itemTrigger={PLACEHOLDER.category}
+                        items={flattenedCategories}
+                        defaultValue={data && defaultCategory}
+                        {...register('category', {
+                          required: ERROR_MESSAGE.category.required,
+                        })}
+                      />
+                    </div>
+                    <div className="relative w-3/6">
+                      <DialogDescription>지역</DialogDescription>
+                      <DropdownInput
+                        id="location"
+                        control={control}
+                        itemTrigger={PLACEHOLDER.location}
+                        items={LOCATION}
+                        defaultValue={data && data?.location}
+                        {...register('location', {
+                          required: ERROR_MESSAGE.location.required,
+                        })}
+                      />
+                    </div>
+                  </div>
+                  <div>
+                    <DialogDescription>날짜</DialogDescription>
+                    <div
+                      className={`mx-auto w-full rounded-md border ${dateErrorMsg && isSubmitCheck && 'border-secondary-300'}`}
+                    >
+                      <Calendar date={date} setDate={setDate} />
+                    </div>
+                    {dateErrorMsg && isSubmitCheck && (
+                      <p className="mt-6 text-body-2Sb text-secondary-300">{dateErrorMsg}</p>
+                    )}
+                  </div>
+                </div>
+                <div className="mx-32 my-12 border-l"></div>
+                <div className="flex w-fit flex-col gap-40">
+                  <div className="w-440">
+                    <DialogDescription>오전</DialogDescription>
+                    <div className="flex gap-4">
+                      {amTime.map((time, i) => (
+                        <Button
+                          variant="chip"
+                          size="chip"
+                          className={`w-80 ${timeErrorMsg && isSubmitCheck && `w-80 border border-secondary-300`}`}
+                          key={i}
+                          selected={selectTime === time}
+                          onClick={() => setSelectTime(time)}
+                          type="button"
+                        >
+                          {time}
+                        </Button>
+                      ))}
+                    </div>
+                  </div>
+                  <div className="w-440">
+                    <DialogDescription>오후</DialogDescription>
+                    <div className="flex flex-wrap gap-4">
+                      {pmTime.map((time, i) => (
+                        <Button
+                          variant="chip"
+                          size="chip"
+                          className={`w-80 ${timeErrorMsg && isSubmitCheck && `w-80 border border-secondary-300`}`}
+                          key={i}
+                          selected={selectTime === time}
+                          onClick={() => setSelectTime(time)}
+                          type="button"
+                        >
+                          {time}
+                        </Button>
+                      ))}
+                    </div>
+                    {isSubmitCheck && timeErrorMsg && (
+                      <p className="mt-6 text-body-2Sb text-secondary-300">{timeErrorMsg}</p>
+                    )}
+                  </div>
+                  <div>
+                    <DialogDescription>모임명</DialogDescription>
+                    <Input
+                      type="text"
+                      id="name"
+                      placeholder={PLACEHOLDER.name}
+                      maxLength={30}
+                      {...register('name', {
+                        required: ERROR_MESSAGE.name.required,
+                      })}
+                    />
+                  </div>
+                  <div>
+                    <DialogDescription>모임 정원</DialogDescription>
+                    <Input
+                      type="text"
+                      id="capacity"
+                      placeholder={PLACEHOLDER.capacity}
+                      maxLength={20}
+                      {...register('capacity', {
+                        required: ERROR_MESSAGE.capacity.required,
+                        validate: {
+                          isNumber: (value) => !isNaN(value) || ERROR_MESSAGE.capacity.notANumber,
+                          isInRange: (value) => {
+                            return (
+                              (value >= 5 && value <= 20) || ERROR_MESSAGE.capacity.invalidRange
+                            );
+                          },
+                        },
+                      })}
+                    />
+                  </div>
+                </div>
+              </div>
+              <div className="flex justify-center px-20 md:px-40">
+                <Button
+                  className={`w-full ${!isValid && 'cursor-default bg-neutral-400 !text-neutral-100 hover:!text-neutral-100'}`}
+                  type="submit"
+                  onClick={() => handleSubmitButton()}
+                >
+                  {trigger === 'modify' ? '모임 수정하기' : '모임 만들기'}
+                </Button>
+              </div>
+            </form>
+          </FormProvider>
+        </DialogContent>
+      ) : (
+        <DialogContent className="flex h-252 w-320 flex-col items-center justify-center rounded-md bg-white p-20 md:h-332 md:w-520 md:px-40 md:py-32">
+          <div className="relative h-100 w-100 md:h-150 md:w-150">
+            <Image src={'/images/login.png'} alt="login-required" fill />
+          </div>
+          <p className="text-body-1Sb text-neutral-900 md:text-heading-2Sb">로그인이 필요해요</p>
+          <Button
+            variant={'secondary'}
+            className="w-280 text-body-1Sb md:w-440"
+            onClick={() => router.reload()}
+          >
+            로그인하러 가기
+          </Button>
+        </DialogContent>
+      )}
     </Dialog>
   );
 }

@@ -36,7 +36,7 @@ export default function NotCard({ type }: NotcardProps) {
           <span className="text-primary-300">모임 찾기</span>에서 하트를 눌러 마음에 드는 모임을
           찜해보세요
         </p>
-        <Button className="mb-50 hidden md:block" onClick={handleMoveRouting}>
+        <Button className="mb-50 w-full" onClick={handleMoveRouting}>
           모임 찾기
         </Button>
       </>
@@ -58,7 +58,7 @@ export default function NotCard({ type }: NotcardProps) {
           <br></br>
           <span className="text-primary-300">모임 찾기</span>에서 모임에 참여해 보세요
         </p>
-        <Button className="mb-50 hidden md:block" onClick={handleMoveRouting}>
+        <Button className="mb-50 w-full" onClick={handleMoveRouting}>
           모임 찾기
         </Button>
       </>

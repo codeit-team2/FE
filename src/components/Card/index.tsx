@@ -24,6 +24,13 @@ interface CardProps {
 }
 
 export default function Card({ data, clickFavorites, isFavorite }: CardProps) {
+  const today = new Date();
+  // const filteredData = CardData?.pages.map((page) =>
+  //   page.filter((data) => new Date(data.dateTime) <= today),
+  // );
+  // console.log('filterData : ', filteredData);
+  const freshDataFiltering = new Date(data.dateTime) >= today;
+
   const minReached = data.participantCount >= 5;
   const favorite = isFavorite(data);
   const queryClient = useQueryClient();
@@ -82,6 +89,7 @@ export default function Card({ data, clickFavorites, isFavorite }: CardProps) {
           <LoginRequired isModalOpen={showLoginModal} setIsModalOpen={setShowLoginModal} />
         </>
       )}
+
       <div className="relative flex w-full max-w-screen-lg flex-col gap-16 rounded-lg border-2 border-white bg-white p-8 hover:border-neutral-100 hover:shadow-sm active:bg-neutral-50 md:h-230 md:flex-row md:gap-10 md:p-20 lg:gap-20">
         <div className="relative h-163 w-full rounded-lg bg-neutral-50 md:h-190 md:w-373">
           <Image
@@ -89,16 +97,14 @@ export default function Card({ data, clickFavorites, isFavorite }: CardProps) {
             alt={data.name}
             sizes="100%"
             fill
-            className="rounded-md object-contain"
+            className="cursor-pointer rounded-md object-cover"
           />
-          {minReached && (
-            <Image
-              src={data.gatheringImageUrl}
-              alt={data.name}
-              sizes="100%"
-              fill
-              className="rounded-md object-contain"
-            />
+          {!freshDataFiltering && (
+            <div className="absolute flex h-full w-full cursor-pointer items-center justify-center rounded-md bg-neutral-900 text-center text-white opacity-70">
+              종료된 모임이에요!
+              <br />
+              다음기회에 만나요!
+            </div>
           )}
           {minReached && (
             <div className="absolute flex h-36 w-81 items-center justify-center rounded-br-md rounded-tl-md bg-secondary-300 text-body-2M text-white">
@@ -118,7 +124,7 @@ export default function Card({ data, clickFavorites, isFavorite }: CardProps) {
                 className="mb-2 h-42 w-full md:w-200 lg:w-288"
                 onClick={handleOpenDialog}
                 variant={'secondary'}
-                disabled={!isEntered && maxReached}
+                disabled={(!isEntered && maxReached) || !freshDataFiltering}
               >
                 {maxReached ? '참여마감' : isEntered ? '참여 중' : '참여하기'}
               </Button>
@@ -137,7 +143,11 @@ export default function Card({ data, clickFavorites, isFavorite }: CardProps) {
           </div>
         </div>
         <div className="absolute right-30 top-30">
-          <Bookmark favorite={favorite} handleToggleBookmark={handleToggleBookmark} />
+          <Bookmark
+            favorite={favorite}
+            handleToggleBookmark={handleToggleBookmark}
+            freshDataFiltering={freshDataFiltering}
+          />
         </div>
       </div>
     </>

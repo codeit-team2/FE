@@ -67,7 +67,7 @@ export default function NotReview({ type }: NotReviewProps) {
           <Image src={'/images/none-review.png'} alt="none-review" width={220} height={123} />
         </div>
       </div>
-      <div className="flex flex-col items-center">{innerText[type]}</div>
+      <div className="flex w-full flex-col items-center">{innerText[type]}</div>
     </div>
   );
 }

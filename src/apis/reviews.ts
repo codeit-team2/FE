@@ -1,6 +1,6 @@
 import { instance } from '@/lib/axios';
 
-import { DeleteReviews, PostReviews, PutReviews, ReviewsParams } from '@/types/reviews';
+import { PostReviews, PutReviews, ReviewsParams } from '@/types/reviews';
 
 export const getReviewsAll = async (
   page: number,
@@ -45,7 +45,7 @@ export const putReviews = async ({ reviewId, value }: PutReviews): Promise<PutRe
   return res;
 };
 
-export const deleteReviews = async ({ reviewId }: DeleteReviews) => {
+export const deleteReviews = async (reviewId: number) => {
   const res = await instance.delete(`/reviews/${reviewId}`);
-  return res;
+  return res.data;
 };
