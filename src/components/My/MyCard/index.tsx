@@ -69,7 +69,7 @@ export default function MyCard({ data, type = 'default' }: Props) {
           alt={data.name}
           sizes="100%"
           fill
-          className="rounded-md object-contain"
+          className="rounded-md"
         />
         {IsDateBeforeToday ? (
           <div className="absolute z-20 flex h-36 w-81 items-center justify-center rounded-br-md rounded-tl-md bg-neutral-700 text-body-2M text-white">

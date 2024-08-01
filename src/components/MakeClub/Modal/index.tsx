@@ -10,7 +10,6 @@ import { useRouter } from 'next/router';
 
 import Calendar from '@/components/common/Calendar';
 import Input from '@/components/common/Input';
-import LoginRequired from '@/components/common/Modal/LoginRequired';
 
 import DropdownInput from '@/components/MakeClub/DropdownInput';
 import FileInput from '@/components/MakeClub/FileInput';
@@ -25,6 +24,7 @@ import {
 
 import { isDateBeforeToday } from '@/lib/utils';
 
+import useCheckLogin from '@/hooks/useCheckLogin';
 import { usePostGatherings, usePutGatherings } from '@/hooks/useGatherings';
 import useScrollbarAndScrollState from '@/hooks/useIsScrollbarVisible';
 import useIsTablet from '@/hooks/useIsTablet';
@@ -53,8 +53,6 @@ export default function MakeClubModal({ trigger, data }: Props) {
       router.push('/make-club');
     }
   }, [isTablet, router, isModalOpen]);
-
-  console.log(isScrollbarVisible);
 
   interface FormValues {
     gatheringImage: File | null;
@@ -187,7 +185,7 @@ export default function MakeClubModal({ trigger, data }: Props) {
   };
 
   // login 상태 확인하는 과정 추가 필요
-  const isLogin = true;
+  const isLogin = useCheckLogin();
 
   // 제출버튼 클릭 여부 (제출과 상관 없이 단순 버튼 클릭 여부)
   const handleSubmitButton = () => {
@@ -211,8 +209,8 @@ export default function MakeClubModal({ trigger, data }: Props) {
       <DialogTrigger asChild>{triggerButton}</DialogTrigger>
       {isLogin ? (
         <DialogContent className="flex h-[calc(100%-56px)] max-h-[732px] w-fit flex-col items-center gap-24 px-0 py-32">
-          <DialogTitle className="w-440 text-center md:w-952">모임 만들기</DialogTitle>
           <FormProvider {...form}>
+            <DialogTitle className="w-440 text-center md:w-952">모임 만들기</DialogTitle>
             <form
               className="flex h-full w-fit flex-col justify-between gap-24 overflow-hidden"
               autoComplete="off"
@@ -282,7 +280,7 @@ export default function MakeClubModal({ trigger, data }: Props) {
                         <Button
                           variant="chip"
                           size="chip"
-                          className={`${timeErrorMsg && isSubmitCheck && `border border-secondary-300`}`}
+                          className={`w-80 ${timeErrorMsg && isSubmitCheck && `w-80 border border-secondary-300`}`}
                           key={i}
                           selected={selectTime === time}
                           onClick={() => setSelectTime(time)}
@@ -300,7 +298,7 @@ export default function MakeClubModal({ trigger, data }: Props) {
                         <Button
                           variant="chip"
                           size="chip"
-                          className={`${timeErrorMsg && isSubmitCheck && `border border-secondary-300`}`}
+                          className={`w-80 ${timeErrorMsg && isSubmitCheck && `w-80 border border-secondary-300`}`}
                           key={i}
                           selected={selectTime === time}
                           onClick={() => setSelectTime(time)}
@@ -361,8 +359,18 @@ export default function MakeClubModal({ trigger, data }: Props) {
           </FormProvider>
         </DialogContent>
       ) : (
-        <DialogContent className="w-0">
-          <LoginRequired />
+        <DialogContent className="flex h-252 w-320 flex-col items-center justify-center rounded-md bg-white p-20 md:h-332 md:w-520 md:px-40 md:py-32">
+          <div className="relative h-100 w-100 md:h-150 md:w-150">
+            <Image src={'/images/login.png'} alt="login-required" fill />
+          </div>
+          <p className="text-body-1Sb text-neutral-900 md:text-heading-2Sb">로그인이 필요해요</p>
+          <Button
+            variant={'secondary'}
+            className="w-280 text-body-1Sb md:w-440"
+            onClick={() => router.reload()}
+          >
+            로그인하러 가기
+          </Button>
         </DialogContent>
       )}
     </Dialog>
