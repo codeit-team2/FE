@@ -1,6 +1,8 @@
+import { useAuth } from '@/context/AuthProvider';
+
 import { useEffect, useRef, useState } from 'react';
 
-import { deleteCookie } from 'cookies-next';
+import { deleteCookie, getCookie } from 'cookies-next';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -17,6 +19,14 @@ export default function GNB() {
   const [isSignupModalOpen, setIsSignupModalOpen] = useState(false);
   const [isMobileClient, setIsMobileClient] = useState(false);
   const [isOpenPopover, setIsOpenPopover] = useState(false);
+
+  const { setIsLogin } = useAuth();
+
+  if (!getCookie('accessToken')) {
+    setIsLogin(false);
+  } else {
+    setIsLogin(true);
+  }
 
   const router = useRouter();
   const { pathname } = router;
