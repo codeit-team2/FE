@@ -21,7 +21,7 @@ const buttonVariants = cva(
       },
       size: {
         default: 'h-42 rounded-sm p-10 text-body-1Sb leading-none',
-        chip: 'h-42 rounded-sm py-10 px-20 text-body-1M',
+        chip: 'h-42 rounded-sm py-10 px-20 text-body-1M leading-none',
       },
       selected: {
         true: 'bg-neutral-900 !text-white border-neutral-900',
