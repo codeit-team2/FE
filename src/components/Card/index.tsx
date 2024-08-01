@@ -8,7 +8,6 @@ import LoginRequired from '../common/Modal/LoginRequired';
 import { Button } from '../ui/button';
 import { getCookie } from 'cookies-next';
 import Image from 'next/image';
-import { useRouter } from 'next/router';
 
 import Description from '@/components/Card/Description';
 import Person from '@/components/Card/Person';
@@ -41,8 +40,6 @@ export default function Card({ data, clickFavorites, isFavorite }: CardProps) {
 
   const [showLoginModal, setShowLoginModal] = useState<boolean>(false);
   const [isDialogOpen, setDialogOpen] = useState<boolean>(false);
-
-  const router = useRouter();
 
   const joinMutation = usePostGatheringsJoin({
     onSuccess: (data) => {
