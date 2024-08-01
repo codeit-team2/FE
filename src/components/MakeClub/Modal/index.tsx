@@ -281,7 +281,7 @@ export default function MakeClubModal({ trigger, data }: Props) {
                       {amTime.map((time, i) => (
                         <Button
                           variant="chip"
-                          size="chip"
+                          size="smallChip"
                           className={`${timeErrorMsg && isSubmitCheck && `border border-secondary-300`}`}
                           key={i}
                           selected={selectTime === time}
@@ -299,7 +299,7 @@ export default function MakeClubModal({ trigger, data }: Props) {
                       {pmTime.map((time, i) => (
                         <Button
                           variant="chip"
-                          size="chip"
+                          size="smallChip"
                           className={`${timeErrorMsg && isSubmitCheck && `border border-secondary-300`}`}
                           key={i}
                           selected={selectTime === time}
