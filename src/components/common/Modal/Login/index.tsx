@@ -1,4 +1,5 @@
 import { ERROR_MESSAGE, PLACEHOLDER } from '@/constants/formMessages';
+import { useAuth } from '@/context/AuthProvider';
 import { useQueryClient } from '@tanstack/react-query';
 
 import { Dispatch, SetStateAction, useEffect } from 'react';
@@ -43,6 +44,8 @@ export default function LoginModal({
     router.push('/login');
   }
 
+  const { setIsLogin } = useAuth();
+
   const queryClient = useQueryClient();
 
   const { mutate: mutateSiginin, error: errorSiginin } = usePostSignin();
@@ -73,6 +76,7 @@ export default function LoginModal({
           queryKey: ['user'],
           refetchType: 'active',
         });
+        setIsLogin(true);
         setIsLoginModalOpen(false);
       },
     });
