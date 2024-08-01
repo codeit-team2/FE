@@ -109,7 +109,7 @@ export default function DropdownInput({
                 <div
                   key={index}
                   onClick={() => handleItemClick(item, field.onChange)}
-                  className="flex w-full cursor-pointer items-center justify-center px-10 py-12 hover:rounded-full hover:bg-primary-50"
+                  className="flex w-full cursor-pointer items-center justify-center px-10 py-12 hover:rounded-full hover:bg-primary-50 active:bg-primary-100"
                 >
                   {item}
                 </div>
