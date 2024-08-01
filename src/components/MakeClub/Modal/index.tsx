@@ -10,7 +10,6 @@ import { useRouter } from 'next/router';
 
 import Calendar from '@/components/common/Calendar';
 import Input from '@/components/common/Input';
-import LoginRequired from '@/components/common/Modal/LoginRequired';
 
 import DropdownInput from '@/components/MakeClub/DropdownInput';
 import FileInput from '@/components/MakeClub/FileInput';
@@ -53,8 +52,6 @@ export default function MakeClubModal({ trigger, data }: Props) {
       router.push('/make-club');
     }
   }, [isTablet, router, isModalOpen]);
-
-  console.log(isScrollbarVisible);
 
   interface FormValues {
     gatheringImage: File | null;
@@ -186,9 +183,6 @@ export default function MakeClubModal({ trigger, data }: Props) {
     }
   };
 
-  // login 상태 확인하는 과정 추가 필요
-  const isLogin = true;
-
   // 제출버튼 클릭 여부 (제출과 상관 없이 단순 버튼 클릭 여부)
   const handleSubmitButton = () => {
     setIsSubmitCheck(true);
@@ -209,162 +203,154 @@ export default function MakeClubModal({ trigger, data }: Props) {
   return (
     <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
       <DialogTrigger asChild>{triggerButton}</DialogTrigger>
-      {isLogin ? (
-        <DialogContent className="flex h-[calc(100%-56px)] max-h-[732px] w-fit flex-col items-center gap-24 px-0 py-32">
-          <DialogTitle className="w-440 text-center md:w-952">모임 만들기</DialogTitle>
-          <FormProvider {...form}>
-            <form
-              className="flex h-full w-fit flex-col justify-between gap-24 overflow-hidden"
-              autoComplete="off"
-              onSubmit={handleSubmit(onSubmit)}
+      <DialogContent className="flex h-[calc(100%-56px)] max-h-[732px] w-fit flex-col items-center gap-24 px-0 py-32">
+        <DialogTitle className="w-440 text-center md:w-952">모임 만들기</DialogTitle>
+        <FormProvider {...form}>
+          <form
+            className="flex h-full w-fit flex-col justify-between gap-24 overflow-hidden"
+            autoComplete="off"
+            onSubmit={handleSubmit(onSubmit)}
+          >
+            <div
+              className={`scroll flex h-full w-fit flex-col justify-center overflow-y-auto px-20 sm:flex-row md:px-40 ${isScrollbarVisible && 'md:pr-20'}`}
+              ref={scrollRef}
             >
-              <div
-                className={`scroll flex h-full w-fit flex-col justify-center overflow-y-auto px-20 sm:flex-row md:px-40 ${isScrollbarVisible && 'md:pr-20'}`}
-                ref={scrollRef}
-              >
-                <div className="flex w-fit flex-col gap-24">
-                  <div>
-                    <DialogDescription>대표 이미지</DialogDescription>
-                    <FileInput
-                      id="gatheringImage"
+              <div className="flex w-fit flex-col gap-24">
+                <div>
+                  <DialogDescription>대표 이미지</DialogDescription>
+                  <FileInput
+                    id="gatheringImage"
+                    control={control}
+                    {...register('gatheringImage', {
+                      required: ERROR_MESSAGE.gatheringImage.required,
+                    })}
+                  />
+                </div>
+                <div className="flex flex-row gap-12">
+                  <div className="relative w-3/6">
+                    <DialogDescription>카테고리</DialogDescription>
+                    <DropdownInput
+                      id="category"
                       control={control}
-                      {...register('gatheringImage', {
-                        required: ERROR_MESSAGE.gatheringImage.required,
+                      itemTrigger={PLACEHOLDER.category}
+                      items={flattenedCategories}
+                      defaultValue={data && defaultCategory}
+                      {...register('category', {
+                        required: ERROR_MESSAGE.category.required,
                       })}
                     />
                   </div>
-                  <div className="flex flex-row gap-12">
-                    <div className="relative w-3/6">
-                      <DialogDescription>카테고리</DialogDescription>
-                      <DropdownInput
-                        id="category"
-                        control={control}
-                        itemTrigger={PLACEHOLDER.category}
-                        items={flattenedCategories}
-                        defaultValue={data && defaultCategory}
-                        {...register('category', {
-                          required: ERROR_MESSAGE.category.required,
-                        })}
-                      />
-                    </div>
-                    <div className="relative w-3/6">
-                      <DialogDescription>지역</DialogDescription>
-                      <DropdownInput
-                        id="location"
-                        control={control}
-                        itemTrigger={PLACEHOLDER.location}
-                        items={LOCATION}
-                        defaultValue={data && data?.location}
-                        {...register('location', {
-                          required: ERROR_MESSAGE.location.required,
-                        })}
-                      />
-                    </div>
-                  </div>
-                  <div>
-                    <DialogDescription>날짜</DialogDescription>
-                    <div
-                      className={`mx-auto w-full rounded-md border ${dateErrorMsg && isSubmitCheck && 'border-secondary-300'}`}
-                    >
-                      <Calendar date={date} setDate={setDate} />
-                    </div>
-                    {dateErrorMsg && isSubmitCheck && (
-                      <p className="mt-6 text-body-2Sb text-secondary-300">{dateErrorMsg}</p>
-                    )}
+                  <div className="relative w-3/6">
+                    <DialogDescription>지역</DialogDescription>
+                    <DropdownInput
+                      id="location"
+                      control={control}
+                      itemTrigger={PLACEHOLDER.location}
+                      items={LOCATION}
+                      defaultValue={data && data?.location}
+                      {...register('location', {
+                        required: ERROR_MESSAGE.location.required,
+                      })}
+                    />
                   </div>
                 </div>
-                <div className="mx-32 my-12 border-l"></div>
-                <div className="flex w-fit flex-col gap-40">
-                  <div className="w-440">
-                    <DialogDescription>오전</DialogDescription>
-                    <div className="flex gap-4">
-                      {amTime.map((time, i) => (
-                        <Button
-                          variant="chip"
-                          size="chip"
-                          className={`${timeErrorMsg && isSubmitCheck && `border border-secondary-300`}`}
-                          key={i}
-                          selected={selectTime === time}
-                          onClick={() => setSelectTime(time)}
-                          type="button"
-                        >
-                          {time}
-                        </Button>
-                      ))}
-                    </div>
+                <div>
+                  <DialogDescription>날짜</DialogDescription>
+                  <div
+                    className={`mx-auto w-full rounded-md border ${dateErrorMsg && isSubmitCheck && 'border-secondary-300'}`}
+                  >
+                    <Calendar date={date} setDate={setDate} />
                   </div>
-                  <div className="w-440">
-                    <DialogDescription>오후</DialogDescription>
-                    <div className="flex flex-wrap gap-4">
-                      {pmTime.map((time, i) => (
-                        <Button
-                          variant="chip"
-                          size="chip"
-                          className={`${timeErrorMsg && isSubmitCheck && `border border-secondary-300`}`}
-                          key={i}
-                          selected={selectTime === time}
-                          onClick={() => setSelectTime(time)}
-                          type="button"
-                        >
-                          {time}
-                        </Button>
-                      ))}
-                    </div>
-                    {isSubmitCheck && timeErrorMsg && (
-                      <p className="mt-6 text-body-2Sb text-secondary-300">{timeErrorMsg}</p>
-                    )}
+                  {dateErrorMsg && isSubmitCheck && (
+                    <p className="mt-6 text-body-2Sb text-secondary-300">{dateErrorMsg}</p>
+                  )}
+                </div>
+              </div>
+              <div className="mx-32 my-12 border-l"></div>
+              <div className="flex w-fit flex-col gap-40">
+                <div className="w-440">
+                  <DialogDescription>오전</DialogDescription>
+                  <div className="flex gap-4">
+                    {amTime.map((time, i) => (
+                      <Button
+                        variant="chip"
+                        size="chip"
+                        className={`${timeErrorMsg && isSubmitCheck && `border border-secondary-300`}`}
+                        key={i}
+                        selected={selectTime === time}
+                        onClick={() => setSelectTime(time)}
+                        type="button"
+                      >
+                        {time}
+                      </Button>
+                    ))}
                   </div>
-                  <div>
-                    <DialogDescription>모임명</DialogDescription>
-                    <Input
-                      type="text"
-                      id="name"
-                      placeholder={PLACEHOLDER.name}
-                      maxLength={30}
-                      {...register('name', {
-                        required: ERROR_MESSAGE.name.required,
-                      })}
-                    />
+                </div>
+                <div className="w-440">
+                  <DialogDescription>오후</DialogDescription>
+                  <div className="flex flex-wrap gap-4">
+                    {pmTime.map((time, i) => (
+                      <Button
+                        variant="chip"
+                        size="chip"
+                        className={`${timeErrorMsg && isSubmitCheck && `border border-secondary-300`}`}
+                        key={i}
+                        selected={selectTime === time}
+                        onClick={() => setSelectTime(time)}
+                        type="button"
+                      >
+                        {time}
+                      </Button>
+                    ))}
                   </div>
-                  <div>
-                    <DialogDescription>모임 정원</DialogDescription>
-                    <Input
-                      type="text"
-                      id="capacity"
-                      placeholder={PLACEHOLDER.capacity}
-                      maxLength={20}
-                      {...register('capacity', {
-                        required: ERROR_MESSAGE.capacity.required,
-                        validate: {
-                          isNumber: (value) => !isNaN(value) || ERROR_MESSAGE.capacity.notANumber,
-                          isInRange: (value) => {
-                            return (
-                              (value >= 5 && value <= 20) || ERROR_MESSAGE.capacity.invalidRange
-                            );
-                          },
+                  {isSubmitCheck && timeErrorMsg && (
+                    <p className="mt-6 text-body-2Sb text-secondary-300">{timeErrorMsg}</p>
+                  )}
+                </div>
+                <div>
+                  <DialogDescription>모임명</DialogDescription>
+                  <Input
+                    type="text"
+                    id="name"
+                    placeholder={PLACEHOLDER.name}
+                    maxLength={30}
+                    {...register('name', {
+                      required: ERROR_MESSAGE.name.required,
+                    })}
+                  />
+                </div>
+                <div>
+                  <DialogDescription>모임 정원</DialogDescription>
+                  <Input
+                    type="text"
+                    id="capacity"
+                    placeholder={PLACEHOLDER.capacity}
+                    maxLength={20}
+                    {...register('capacity', {
+                      required: ERROR_MESSAGE.capacity.required,
+                      validate: {
+                        isNumber: (value) => !isNaN(value) || ERROR_MESSAGE.capacity.notANumber,
+                        isInRange: (value) => {
+                          return (value >= 5 && value <= 20) || ERROR_MESSAGE.capacity.invalidRange;
                         },
-                      })}
-                    />
-                  </div>
+                      },
+                    })}
+                  />
                 </div>
               </div>
-              <div className="flex justify-center px-20 md:px-40">
-                <Button
-                  className={`w-full ${!isValid && 'cursor-default bg-neutral-400 !text-neutral-100 hover:!text-neutral-100'}`}
-                  type="submit"
-                  onClick={() => handleSubmitButton()}
-                >
-                  {trigger === 'modify' ? '모임 수정하기' : '모임 만들기'}
-                </Button>
-              </div>
-            </form>
-          </FormProvider>
-        </DialogContent>
-      ) : (
-        <DialogContent className="w-0">
-          <LoginRequired />
-        </DialogContent>
-      )}
+            </div>
+            <div className="flex justify-center px-20 md:px-40">
+              <Button
+                className={`w-full ${!isValid && 'cursor-default bg-neutral-400 !text-neutral-100 hover:!text-neutral-100'}`}
+                type="submit"
+                onClick={() => handleSubmitButton()}
+              >
+                {trigger === 'modify' ? '모임 수정하기' : '모임 만들기'}
+              </Button>
+            </div>
+          </form>
+        </FormProvider>
+      </DialogContent>
     </Dialog>
   );
 }
