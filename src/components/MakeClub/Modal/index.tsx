@@ -1,6 +1,7 @@
 import { CATEGORY, LOCATION } from '@/constants/dropdownItems';
 import { ERROR_MESSAGE, PLACEHOLDER } from '@/constants/formMessages';
 import { amTime, pmTime } from '@/constants/timeItems';
+import { useAuth } from '@/context/AuthProvider';
 
 import React, { useEffect, useState } from 'react';
 import { FieldValues, FormProvider, SubmitHandler, useForm } from 'react-hook-form';
@@ -24,7 +25,6 @@ import {
 
 import { isDateBeforeToday } from '@/lib/utils';
 
-import useCheckLogin from '@/hooks/useCheckLogin';
 import { usePostGatherings, usePutGatherings } from '@/hooks/useGatherings';
 import useScrollbarAndScrollState from '@/hooks/useIsScrollbarVisible';
 import useIsTablet from '@/hooks/useIsTablet';
@@ -185,7 +185,7 @@ export default function MakeClubModal({ trigger, data }: Props) {
   };
 
   // login 상태 확인하는 과정 추가 필요
-  const isLogin = useCheckLogin();
+  const { isLogin } = useAuth();
 
   // 제출버튼 클릭 여부 (제출과 상관 없이 단순 버튼 클릭 여부)
   const handleSubmitButton = () => {
