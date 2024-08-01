@@ -5,6 +5,7 @@ import React from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 
+import DeleteButton from '@/components/common/DeleteButton';
 import ReviewModal from '@/components/common/Modal/Review';
 
 import Description from '@/components/Card/Description';
@@ -14,7 +15,7 @@ import { Button } from '@/components/ui/button';
 
 import { isDateBeforeToday } from '@/lib/utils';
 
-import { useDeleteGatherings, usePostGatheringsLeave } from '@/hooks/useGatherings';
+import { usePostGatheringsLeave } from '@/hooks/useGatherings';
 
 import { Gathering } from '@/types/gatherings';
 
@@ -28,29 +29,21 @@ export default function MyCard({ data, type = 'default' }: Props) {
   const router = useRouter();
   const queryClient = useQueryClient();
 
-  // 모임 취소하기
-  const deleteMutation = useDeleteGatherings({
-    onSuccess: (data) => {
-      console.log('개설 취소하기 성공', data);
-      alert('모임이 성공적으로 삭제됐습니다!');
-      router.push('/');
-    },
-    onError: (error) => {
-      console.error('개설 취소하기 실패', error);
-      alert('모임 삭제 실패');
-    },
-  });
-
-  const handleDeleteClick = () => {
-    console.log('handleDelete called with queryId:', data.gatheringId);
-    deleteMutation.mutate(data.gatheringId);
+  const handleCopyURL = async () => {
+    const url = window.location.href;
+    try {
+      await navigator.clipboard.writeText(url);
+      alert('링크가 복사되었습니다.😆');
+    } catch (err) {
+      console.error('링크 복사에 실패했습니다.🥲', err);
+    }
   };
 
   // 모임 참여 취소하기
   const leaveMutation = usePostGatheringsLeave({
     onSuccess: () => {
       console.log('참여 취소하기 성공');
-      window.location.reload();
+      router.reload();
       queryClient.invalidateQueries({
         queryKey: ['gatherings', data.gatheringId],
         refetchType: 'active',
@@ -66,7 +59,7 @@ export default function MyCard({ data, type = 'default' }: Props) {
   };
 
   return (
-    <div className="relative flex w-full max-w-screen-lg flex-col gap-16 rounded-lg bg-white p-8 hover:border-2 hover:shadow-sm active:bg-neutral-50 md:h-230 md:flex-row md:gap-10 md:p-20 lg:gap-20">
+    <div className="relative flex w-full max-w-screen-lg flex-col gap-16 rounded-lg border-2 border-white bg-white p-8 hover:border-2 hover:border-neutral-100 hover:shadow-sm active:bg-neutral-50 md:h-230 md:flex-row md:gap-10 md:p-20 lg:gap-20">
       <div
         className="relative h-163 w-full cursor-pointer rounded-lg bg-neutral-50 md:h-190 md:w-373"
         onClick={() => router.push(`/detail/${data.gatheringId}`)}
@@ -74,9 +67,9 @@ export default function MyCard({ data, type = 'default' }: Props) {
         <Image
           src={data.gatheringImageUrl}
           alt={data.name}
+          sizes="100%"
           fill
-          objectFit="contain"
-          className="rounded-md"
+          className="rounded-md object-contain"
         />
         {IsDateBeforeToday ? (
           <div className="absolute z-20 flex h-36 w-81 items-center justify-center rounded-br-md rounded-tl-md bg-neutral-700 text-body-2M text-white">
@@ -96,7 +89,7 @@ export default function MyCard({ data, type = 'default' }: Props) {
           <div className="absolute flex h-full w-full items-center justify-center rounded-md bg-neutral-900 text-center text-white opacity-70">
             이용하신 모임에 대해
             <br />
-            후기를 남겨주세요
+            후기를 남겨주세요!
           </div>
         )}
       </div>
@@ -113,10 +106,8 @@ export default function MyCard({ data, type = 'default' }: Props) {
           <div className="flex flex-row justify-end gap-8">
             <Person data={data} />
             <MakeClubModal trigger="modify" data={data} />
-            <Button variant={'secondary'} onClick={() => handleDeleteClick()}>
-              <Image src="/icons/ic-delete.svg" alt="delete" width={24} height={24} />
-            </Button>
-            <Button variant={'secondary'}>
+            <DeleteButton gatheringId={data.gatheringId} type="mine" />
+            <Button variant={'secondary'} onClick={() => handleCopyURL()}>
               <Image src="/icons/ic-share.svg" alt="share" width={24} height={24} />
             </Button>
           </div>

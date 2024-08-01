@@ -45,7 +45,7 @@ export default function Banner({ page, nickname = '' }: BannerProps) {
       : content.mainTitle;
 
   return (
-    <div className="flex h-224 w-full flex-col-reverse items-center justify-between rounded-lg bg-custom-profile-gradient px-16 pb-34 pt-28 text-white shadow-banner md:px-80 lg:h-200 lg:flex-row lg:pb-0 lg:pt-0">
+    <div className="flex h-224 w-full max-w-[1010px] flex-col-reverse items-center justify-between rounded-lg bg-custom-profile-gradient px-16 pb-34 pt-28 text-white shadow-banner md:px-80 lg:h-200 lg:flex-row lg:pb-0 lg:pt-0">
       <div>
         <p className="mb-4 text-center text-[28px] font-bold leading-[140%] -tracking-[0.56px] lg:mb-8 lg:text-left lg:text-[36px] lg:-tracking-[0.72px]">
           {mainTitle}
@@ -64,17 +64,32 @@ export default function Banner({ page, nickname = '' }: BannerProps) {
         <div
           className={`relative h-90 w-90 translate-x-14 opacity-40 lg:h-140 lg:w-140 lg:translate-x-40 ${page === 'bookmark' && 'rotate-[15deg]'} ${page === 'review' && 'translate-x-6 lg:translate-x-29'}`}
         >
-          <Image src={bannerContents[page].image} alt={bannerContents[page].alt} fill />
+          <Image
+            src={bannerContents[page].image}
+            alt={bannerContents[page].alt}
+            sizes="100%"
+            fill
+          />
         </div>
         <div
           className={`relative h-90 w-90 lg:h-140 lg:w-140 lg:translate-x-20 ${page === 'bookmark' && 'rotate-[15deg]'}`}
         >
-          <Image src={bannerContents[page].image} alt={bannerContents[page].alt} fill />
+          <Image
+            src={bannerContents[page].image}
+            alt={bannerContents[page].alt}
+            sizes="100%"
+            fill
+          />
         </div>
         <div
           className={`relative h-90 w-90 -translate-x-14 opacity-40 lg:h-140 lg:w-140 lg:translate-x-4 ${page === 'bookmark' && 'rotate-[15deg]'} ${page === 'review' && '-translate-x-6 lg:translate-x-9'}`}
         >
-          <Image src={bannerContents[page].image} alt={bannerContents[page].alt} fill />
+          <Image
+            src={bannerContents[page].image}
+            alt={bannerContents[page].alt}
+            sizes="100%"
+            fill
+          />
         </div>
       </div>
     </div>

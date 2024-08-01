@@ -31,8 +31,9 @@ export default function MyTap({ setSelectTab }: Props) {
     },
   ];
 
-  const selectedFont = 'text-heading-1M';
-  const notSelectedFont = 'text-heading-1M text-neutral-500';
+  const selectedFont = 'md:text-heading-1M text-heading-2M';
+  const notSelectedFont =
+    'md:text-heading-1M text-neutral-500 text-heading-2M hover:text-primary-300';
 
   const [selectedIndex, setSelectedIndex] = useState<number>(0);
   const [indicatorStyle, setIndicatorStyle] = useState({ width: 0, left: 0 });
@@ -66,7 +67,7 @@ export default function MyTap({ setSelectTab }: Props) {
   };
 
   return (
-    <div className="relative flex w-full items-center justify-center gap-32 overflow-x-scroll text-nowrap">
+    <div className="relative flex w-full items-center justify-center gap-12 md:gap-32">
       {titles.map(({ title, icon, iconWidth, iconHeight, id }, index) => (
         <button
           key={index}
@@ -85,7 +86,7 @@ export default function MyTap({ setSelectTab }: Props) {
         </button>
       ))}
       <span
-        className="absolute bottom-0 h-1 rounded-full bg-black transition-all duration-300"
+        className="absolute !bottom-[-2px] h-2 rounded-full bg-neutral-900 transition-all duration-300"
         style={{
           width: indicatorStyle.width,
           left: indicatorStyle.left,

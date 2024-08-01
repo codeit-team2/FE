@@ -5,6 +5,7 @@ import { FieldValues, FormProvider, SubmitHandler, useForm } from 'react-hook-fo
 
 import { AxiosError } from 'axios';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 
 import Textarea from '@/components/common/Textarea';
 
@@ -29,6 +30,8 @@ interface Props {
 
 export default function ReviewModal({ gatheringId, reviewId, type }: Props) {
   const [rating, setRating] = useState<number>(5);
+
+  const router = useRouter();
 
   const form = useForm();
 
@@ -55,7 +58,7 @@ export default function ReviewModal({ gatheringId, reviewId, type }: Props) {
       // api 함수
       postMutate(value, {
         onSuccess: () => {
-          window.location.reload();
+          router.reload();
         },
         onError: (error: AxiosError) => {
           console.error('Error: ', error.message);

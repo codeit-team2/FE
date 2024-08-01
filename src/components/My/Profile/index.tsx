@@ -32,7 +32,7 @@ export default function Profile() {
         type="button"
         onClick={handleDeleteAccountsClick}
       >
-        <span className='h-24 w-24 bg-[url("/icons/ic-setting.svg")] bg-[length:22px] bg-center bg-no-repeat group-active:bg-[url("/icons/ic-setting-gray.svg")]'></span>
+        <span className='h-24 w-24 bg-[url("/icons/ic-person-delete.svg")] bg-[length:24px] bg-center bg-no-repeat group-active:bg-[url("/icons/ic-person-delete-gray.svg")]'></span>
       </button>
       <WithdrawModal
         isModalOpen={isDeleteAccountsModalOpen}

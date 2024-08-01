@@ -6,6 +6,7 @@ import Banner from '@/components/common/Banner';
 import Dropdown from '@/components/common/Dropdown';
 import Footer from '@/components/common/Footer';
 import GNB from '@/components/common/GNB';
+import MainLayout from '@/components/common/MainLayout';
 import Tap from '@/components/common/Tap';
 
 import ChipTap from '@/components/ChipTap';
@@ -52,63 +53,55 @@ export default function Review() {
   return (
     <>
       <GNB />
-      <div className="mx-auto flex min-h-screen w-full flex-col items-center bg-neutral-50 px-12 md:px-32">
-        <div className="mx-auto mt-20 flex w-full max-w-[1010px] flex-col items-center md:mt-32">
-          <Banner page="review" />
-          <div className="mb-20 mt-32 md:mb-27">
-            <Tap handleMainTapClick={handleMainTapClick} mainCategory={mainCategory} />
-          </div>
-          <ChipTap
-            mainCategory={mainCategory}
-            handleSubTapClick={handleSubTapClick}
-            subCategory={subCategory}
-          />
-          <div className="mt-24 w-full md:mt-32">
-            <StarRatingAverage data={scoreData} />
-          </div>
-          <div className="my-24 mb-32 flex w-full max-w-[1010px] justify-end md:my-20">
-            <Dropdown
-              items={['최신순', '별점순']}
-              icon="/icons/ic-chevron-updown.svg"
-              itemTrigger="최신순"
-              isUpDown
-            />
-          </div>
-          {allReviewData ? (
-            <>
-              <div className="mb-40 flex w-full flex-col gap-20 md:mb-50">
-                {reviewData.map((data: Reviews, index: number) => (
-                  <UserReview key={index} data={data} />
-                ))}
-              </div>
-              {hasNextPage && (
-                <>
-                  <div className="mb-0 mt-12 h-2 w-full bg-neutral-100 md:mb-16 md:mt-40" />
-                  <button
-                    className="flex w-full items-center justify-center"
-                    onClick={() => fetchNextPage()}
-                  >
-                    더 보기
-                    <div className="relative h-24 w-24">
-                      <Image src="icons/ic-chevron-down.svg" alt="dropdown" fill />
-                    </div>
-                  </button>
-                </>
-              )}
-            </>
-          ) : (
-            <>
-              {isPending ? (
-                <Loading width="300" height="300" />
-              ) : (
-                <>
-                  <NotReview type="find" />
-                </>
-              )}
-            </>
-          )}
+      <MainLayout>
+        <Banner page="review" />
+        <div className="mb-20 mt-32 md:mb-27">
+          <Tap handleMainTapClick={handleMainTapClick} mainCategory={mainCategory} />
         </div>
-      </div>
+        <ChipTap
+          mainCategory={mainCategory}
+          handleSubTapClick={handleSubTapClick}
+          subCategory={subCategory}
+        />
+        <div className="mt-24 w-full md:mt-32">
+          <StarRatingAverage data={scoreData} />
+        </div>
+        <div className="my-22 flex w-full max-w-[1010px] justify-end md:my-30">
+          <Dropdown
+            items={['최신순', '별점순']}
+            icon="/icons/ic-chevron-updown.svg"
+            itemTrigger="최신순"
+            isUpDown
+          />
+        </div>
+        {isPending ? (
+          <Loading width="300" height="300" />
+        ) : reviewData.length > 0 ? (
+          <>
+            <div className="mb-40 flex w-full flex-col gap-20 md:mb-50">
+              {reviewData.map((data: Reviews, index: number) => (
+                <UserReview key={index} data={data} />
+              ))}
+            </div>
+            {hasNextPage && (
+              <>
+                <div className="mb-0 mt-12 h-2 w-full bg-neutral-100 md:mb-16 md:mt-40" />
+                <button
+                  className="flex w-full items-center justify-center"
+                  onClick={() => fetchNextPage()}
+                >
+                  더 보기
+                  <div className="relative h-24 w-24">
+                    <Image src="icons/ic-chevron-down.svg" alt="dropdown" fill />
+                  </div>
+                </button>
+              </>
+            )}
+          </>
+        ) : (
+          <NotReview type="find" />
+        )}
+      </MainLayout>
       <Footer />
     </>
   );

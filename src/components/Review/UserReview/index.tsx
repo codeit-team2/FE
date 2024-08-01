@@ -25,20 +25,23 @@ export default function UserReview({ data }: UserReviewProps) {
     return starArray;
   };
 
+  const formattedDate = new Date(data.createdAt).toLocaleDateString();
+  const cleanDate = formattedDate.replace(/\.$/, '');
+
   return (
     <div className="mx-auto flex h-351 w-full max-w-[1010px] flex-col gap-16 rounded-lg bg-white px-8 pb-20 pt-8 md:h-230 md:flex-row md:gap-20 md:p-20">
       <div className="relative h-163 w-full md:h-190 md:w-373">
         <Image
           src={`${data.gatheringInfo.gatheringImageUrl}`}
           alt={`{data.cardImage}`}
-          layout="fill"
+          fill
           className="rounded-md"
           objectFit="cover"
         />
       </div>
-      <div className="flex w-full flex-col justify-between px-10 md:mx-0 md:w-1/2">
+      <div className="flex w-full flex-col justify-between p-10 md:mx-0 md:w-1/2">
         <div>
-          <div className="flex">{renderStars(data.score)}</div>
+          <div className="mb-6 flex">{renderStars(data.score)}</div>
           <div
             className="text-body-1S mb-36 h-44 truncate text-ellipsis whitespace-normal md:h-56 md:text-heading-2M"
             style={{
@@ -70,7 +73,7 @@ export default function UserReview({ data }: UserReviewProps) {
             </div>
             <p className="text-neutral-700">{data.accountInfo.nickname}</p>
             <div className="h-16 w-1 rounded-full bg-neutral-200"></div>
-            <p>{new Date(data.createdAt).toLocaleDateString()}</p>
+            <p>{cleanDate}</p>
           </div>
         </div>
       </div>

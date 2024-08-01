@@ -3,14 +3,14 @@ import { useEffect, useRef, useState } from 'react';
 function useScrollbarAndScrollState<T extends HTMLElement>(
   isModalOpen?: boolean,
 ): [React.RefObject<T>, boolean, boolean] {
-  const ref = useRef<T>(null);
+  const scrollRef = useRef<T>(null);
   const [isScrollbarVisible, setIsScrollbarVisible] = useState(false);
   const [isScrolling, setIsScrolling] = useState(false);
 
   let scrollTimeout: NodeJS.Timeout | null = null;
 
   const checkScroll = () => {
-    const element = ref.current;
+    const element = scrollRef.current;
     if (element) {
       const hasVerticalScrollbar = element.scrollHeight > element.clientHeight;
       const hasHorizontalScrollbar = element.scrollWidth > element.clientWidth;
@@ -31,7 +31,7 @@ function useScrollbarAndScrollState<T extends HTMLElement>(
   };
 
   useEffect(() => {
-    const element = ref.current;
+    const element = scrollRef.current;
 
     const handleCheckScroll = () => {
       requestAnimationFrame(() => {
@@ -58,9 +58,9 @@ function useScrollbarAndScrollState<T extends HTMLElement>(
         clearTimeout(scrollTimeout);
       }
     };
-  }, [isModalOpen, ref.current]);
+  }, [isModalOpen, scrollRef.current]);
 
-  return [ref, isScrollbarVisible, isScrolling];
+  return [scrollRef, isScrollbarVisible, isScrolling];
 }
 
 export default useScrollbarAndScrollState;

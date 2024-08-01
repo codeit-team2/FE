@@ -7,11 +7,20 @@ import {
   postReviews,
   putReviews,
 } from '@/apis/reviews';
-import { useInfiniteQuery, useMutation, useQuery } from '@tanstack/react-query';
+import { UseMutationResult, useInfiniteQuery, useMutation, useQuery } from '@tanstack/react-query';
 
 import { AxiosError } from 'axios';
 
-import { DeleteReviews, PostReviews, PutReviews, ReviewsParams } from '@/types/reviews';
+import { PostReviews, PutReviews, ReviewsParams } from '@/types/reviews';
+
+interface PostReviewsResponse {
+  success: boolean;
+}
+
+interface UseReviewsArgs {
+  onSuccess: (data: PostReviewsResponse) => void;
+  onError: (error: unknown) => void;
+}
 
 export const useGetReviewsAll = (
   mainCategoryName: string,
@@ -69,8 +78,13 @@ export const usePutReviews = () => {
   });
 };
 
-export const useDeleteReviews = () => {
-  return useMutation({
-    mutationFn: (value: DeleteReviews) => deleteReviews(value),
+export const useDeleteReviews = ({
+  onSuccess,
+  onError,
+}: UseReviewsArgs): UseMutationResult<PostReviewsResponse, unknown, number, unknown> => {
+  return useMutation<PostReviewsResponse, unknown, number>({
+    mutationFn: (reviewId: number) => deleteReviews(reviewId),
+    onSuccess: onSuccess,
+    onError: onError,
   });
 };

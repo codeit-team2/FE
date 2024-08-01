@@ -56,7 +56,7 @@ export default function ChipTap({ mainCategory, handleSubTapClick, subCategory }
       >
         {SELECTED_TAP?.subcategories.map((data: string, index: number) => (
           <Button
-            className={`px-20 ${data !== subCategory && 'hover:bg-neutral-100 hover:text-neutral-600'}`}
+            className="px-20"
             key={index}
             variant="chip"
             onClick={() => handleMoveToDetailTap(data)}

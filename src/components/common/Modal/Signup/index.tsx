@@ -90,7 +90,7 @@ export default function SignupModal({
   });
   const [isSubmitModalOpen, setIsSubmitModalOpen] = useState<boolean>(false);
 
-  const [ref, isScrollbarVisible, isScrolling] =
+  const [scrollRef, isScrollbarVisible, isScrolling] =
     useScrollbarAndScrollState<HTMLDivElement>(isSignupModalOpen);
 
   const router = useRouter();
@@ -240,7 +240,7 @@ export default function SignupModal({
             >
               <div
                 className={`scroll h-full overflow-y-auto px-20 md:px-40 ${isScrollbarVisible && 'md:pr-20'}`}
-                ref={ref}
+                ref={scrollRef}
               >
                 <div className="flex h-full flex-col gap-50">
                   <div>
