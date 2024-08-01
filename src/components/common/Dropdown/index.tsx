@@ -127,7 +127,7 @@ export default function Dropdown({
       {/* 이후 고정 값 나오면 변경작업 */}
       {isOpen ? (
         items && items.length > 0 ? (
-          <div className="absolute z-10 max-h-176 w-full overflow-y-scroll rounded-md bg-white px-4 py-5 text-body-2Sb shadow-lg">
+          <div className="absolute z-10 max-h-176 w-full overflow-y-scroll rounded-md bg-white px-4 py-5 text-body-2Sb shadow-lg scrollbar-none">
             {itemTrigger === '지역선택' && (
               <div
                 className="flex w-full cursor-pointer items-center justify-center px-10 py-12 hover:rounded-full hover:bg-primary-50 active:bg-primary-100"
