@@ -16,7 +16,7 @@ export default function Joined() {
     isPending,
     fetchNextPage,
     hasNextPage,
-  } = useGetGatheringsJoined(3, 'dateTime', 'asc');
+  } = useGetGatheringsJoined(5, 'dateTime', 'asc');
 
   return (
     <div>
