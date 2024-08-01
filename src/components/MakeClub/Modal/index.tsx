@@ -168,7 +168,7 @@ export default function MakeClubModal({ trigger, data }: Props) {
         ? putMutate(value, {
             onSuccess: (data) => {
               console.log('Success: ', data);
-              window.location.reload();
+              router.reload();
             },
             onError: (error) => {
               console.error('Error:', error);

@@ -2,13 +2,12 @@ import React from 'react';
 
 import Image from 'next/image';
 
+import DeleteButton from '@/components/common/DeleteButton';
 import ReviewModal from '@/components/common/Modal/Review';
-
-import { Button } from '@/components/ui/button';
 
 import { formatDate } from '@/lib/utils';
 
-import { useDeleteReviews, useGetGatheringReview } from '@/hooks/useReviews';
+import { useGetGatheringReview } from '@/hooks/useReviews';
 
 interface Props {
   gatheringId: number;
@@ -33,29 +32,10 @@ export default function GatheringReviewCard({ gatheringId }: Props) {
     return starArray;
   };
 
-  const { mutate } = useDeleteReviews();
-
-  // 리뷰 삭제 버튼
-  const handleReviewDeleteButton = (reviewId: number) => {
-    const value = {
-      reviewId: reviewId,
-    };
-
-    mutate(value, {
-      onSuccess: () => {
-        alert('리뷰 삭제 완료');
-        window.location.reload();
-      },
-      onError: (error) => {
-        console.log(error);
-      },
-    });
-  };
-
   return (
     data && (
       <div className="relative flex w-full max-w-screen-lg flex-col gap-16 rounded-lg border-2 border-white bg-white p-8 hover:border-neutral-100 hover:shadow-sm active:bg-neutral-50 md:h-230 md:flex-row md:gap-10 md:p-20 lg:gap-20">
-        <div className="relative h-163 w-full md:h-190 md:w-373">
+        <div className="relative h-163 w-full cursor-pointer rounded-lg bg-neutral-50 md:h-190 md:w-373">
           <Image
             src={data.gatheringInfo.gatheringImageUrl}
             alt={data.accountInfo.nickname}
@@ -83,9 +63,7 @@ export default function GatheringReviewCard({ gatheringId }: Props) {
           </div>
           <div className="flex flex-row items-center justify-end gap-8">
             <ReviewModal type="modify" reviewId={data.reviewId} />
-            <Button variant={'secondary'} onClick={() => handleReviewDeleteButton(data.reviewId)}>
-              <Image src="/icons/ic-delete.svg" alt="delete" width={24} height={24} />
-            </Button>
+            <DeleteButton reviewId={data.reviewId} type="review" />
           </div>
         </div>
       </div>
