@@ -27,7 +27,7 @@ export const useGetReviewsAll = (
   subCategoryName: string,
   size: number,
   sortBy: 'score',
-  sortOrder: 'asc' | 'desc',
+  sortOrder: string,
 ) => {
   return useInfiniteQuery({
     queryKey: ['reviewsAll', mainCategoryName, subCategoryName, size, sortBy, sortOrder],
