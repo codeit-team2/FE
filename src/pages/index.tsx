@@ -1,4 +1,5 @@
 import { LOCATION } from '@/constants/dropdownItems';
+import { useAuth } from '@/context/AuthProvider';
 
 import { useEffect, useState } from 'react';
 import React from 'react';
@@ -33,6 +34,9 @@ export default function Main() {
   const [mainCategory, setMainCategory] = useState<string>('운동');
   const [subCategory, setSubCategory] = useState<string>('전체');
   const formattedDate = formatDateToISO(dateTime);
+
+  const { isLogin } = useAuth();
+
   const { clickFavorites, isFavorite } = useFavorite();
 
   const handleMainTapClick = (title: string) => {
@@ -113,7 +117,7 @@ export default function Main() {
               handleLocationClick={handleSortOrderClick}
             />
           </div>
-          <MakeClubModal trigger="plus" />
+          {isLogin && <MakeClubModal trigger="plus" />}
           <div className="flex flex-col gap-20">
             {postsData ? (
               <>
