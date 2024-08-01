@@ -45,7 +45,6 @@ export default function MobileLoginPage() {
   const {
     handleSubmit,
     register,
-    trigger,
     setError,
     formState: { isValid },
   } = form;
@@ -68,10 +67,6 @@ export default function MobileLoginPage() {
       },
     });
   };
-
-  useEffect(() => {
-    trigger();
-  }, []);
 
   return (
     <>

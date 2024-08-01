@@ -90,7 +90,7 @@ export default function SignupModal({
   });
   const [isSubmitModalOpen, setIsSubmitModalOpen] = useState<boolean>(false);
 
-  const [scrollRef, isScrollbarVisible, isScrolling] =
+  const [scrollRef, isScrollbarVisible] =
     useScrollbarAndScrollState<HTMLDivElement>(isSignupModalOpen);
 
   const router = useRouter();
@@ -223,10 +223,6 @@ export default function SignupModal({
     }
   };
 
-  useEffect(() => {
-    trigger();
-  }, [isSignupModalOpen, trigger]);
-
   return (
     <>
       <Dialog open={isSignupModalOpen} onOpenChange={setIsSignupModalOpen}>
@@ -236,13 +232,13 @@ export default function SignupModal({
             <form
               autoComplete="off"
               onSubmit={handleSubmit(onSubmit)}
-              className={`z-50 h-full overflow-hidden ${isScrolling && "before:absolute before:z-[999] before:h-20 before:w-full before:-translate-y-2 before:bg-gradient-to-t before:from-transparent before:to-white before:content-[''] after:absolute after:z-[999] after:h-20 after:w-full after:-translate-y-19 after:bg-gradient-to-t after:from-white after:to-transparent after:content-['']"}`}
+              className={`z-50 h-full overflow-hidden ${isScrollbarVisible && "before:absolute before:z-[999] before:h-20 before:w-full before:-translate-y-2 before:bg-gradient-to-t before:from-transparent before:to-white before:content-[''] after:absolute after:z-[999] after:h-20 after:w-full after:-translate-y-19 after:bg-gradient-to-t after:from-white after:to-transparent after:content-['']"}`}
             >
               <div
                 className={`scroll h-full overflow-y-auto px-20 md:px-40 ${isScrollbarVisible && 'md:pr-20'}`}
                 ref={scrollRef}
               >
-                <div className="flex h-full flex-col gap-50">
+                <div className="flex h-full flex-col gap-50 pt-8">
                   <div>
                     <label className="mb-6 block text-body-2Sb" htmlFor="nickname">
                       닉네임
@@ -430,7 +426,7 @@ export default function SignupModal({
                       />
                     </div>
                   </div>
-                  <div>
+                  <div className="pb-8">
                     <div className="flex items-center gap-6">
                       <button
                         type="button"
