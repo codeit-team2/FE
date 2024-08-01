@@ -20,6 +20,8 @@ interface TitleCardProps {
 }
 
 export default function TitleCard({ data, clickFavorites, isFavorite, queryId }: TitleCardProps) {
+  const today = new Date();
+  const freshDataFiltering = new Date(data.dateTime) >= today;
   const value: GatheringsParams = {
     page: 0,
     size: 20,
@@ -71,7 +73,11 @@ export default function TitleCard({ data, clickFavorites, isFavorite, queryId }:
           </div>
         </div>
         <div className="absolute right-20 top-186 md:right-30 md:top-30">
-          <Bookmark favorite={favorite} handleToggleBookmark={handleToggleBookmark} />
+          <Bookmark
+            favorite={favorite}
+            handleToggleBookmark={handleToggleBookmark}
+            freshDataFiltering={freshDataFiltering}
+          />
         </div>
       </div>
     </>
