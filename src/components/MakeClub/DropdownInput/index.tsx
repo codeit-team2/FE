@@ -80,14 +80,14 @@ export default function DropdownInput({
       name={id}
       control={control}
       render={({ field }) => (
-        <div ref={dropdownRef} className="relative z-10">
+        <div ref={dropdownRef} className="relative z-10 w-full">
           <button
             type="button"
             {...field}
             onClick={() => toggleDropdown()}
-            className={`${isSelectedValue && '!text-black'} relative flex w-full items-center justify-between truncate rounded-sm bg-neutral-50 px-12 py-10 text-body-2M text-neutral-400 hover:text-primary-300 md:text-body-1M`}
+            className={`${isSelectedValue && '!text-black'} relative flex h-48 w-full items-center justify-between truncate rounded-sm bg-neutral-50 px-12 py-10 text-body-1M text-neutral-400 hover:text-primary-300`}
           >
-            {itemValue}
+            <span className="overflow-hidden text-ellipsis whitespace-nowrap">{itemValue}</span>
             <div className="flex flex-row">
               {inputIcon.icon && (
                 <Image
@@ -117,7 +117,7 @@ export default function DropdownInput({
             </div>
           ) : null}
           {errorMessage && isSubmitted && (
-            <p className="absolute text-body-2Sb text-secondary-300">{errorMessage}</p>
+            <p className="absolute mt-6 text-body-2Sb text-secondary-300">{errorMessage}</p>
           )}
         </div>
       )}
