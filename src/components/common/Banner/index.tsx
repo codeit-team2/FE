@@ -45,7 +45,7 @@ export default function Banner({ page, nickname = '' }: BannerProps) {
       : content.mainTitle;
 
   return (
-    <div className="flex h-224 w-full flex-col-reverse items-center justify-between rounded-lg bg-custom-profile-gradient px-16 pb-34 pt-28 text-white shadow-banner md:px-80 lg:h-200 lg:flex-row lg:pb-0 lg:pt-0">
+    <div className="flex h-224 w-full max-w-[1010px] flex-col-reverse items-center justify-between rounded-lg bg-custom-profile-gradient px-16 pb-34 pt-28 text-white shadow-banner md:px-80 lg:h-200 lg:flex-row lg:pb-0 lg:pt-0">
       <div>
         <p className="mb-4 text-center text-[28px] font-bold leading-[140%] -tracking-[0.56px] lg:mb-8 lg:text-left lg:text-[36px] lg:-tracking-[0.72px]">
           {mainTitle}
