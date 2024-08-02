@@ -109,7 +109,9 @@ export default function Review() {
             )}
           </>
         ) : (
-          <NotReview type="find" />
+          <div className="pt-70">
+            <NotReview type="find" />
+          </div>
         )}
       </MainLayout>
       <Footer />

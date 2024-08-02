@@ -58,7 +58,7 @@ export default function NotReview({ type }: NotReviewProps) {
   };
 
   return (
-    <div className="flex w-full flex-col items-center gap-20 pt-72">
+    <div className="flex w-full flex-col items-center gap-20">
       <div className="flex gap-12">
         <div className="w-full md:w-auto">
           <Image src={'/images/none-review.png'} alt="none-review" width={220} height={123} />
