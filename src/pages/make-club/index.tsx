@@ -20,7 +20,6 @@ import { isDateBeforeToday } from '@/lib/utils';
 
 import useCheckLogin from '@/hooks/useCheckLogin';
 import { usePostGatherings, usePutGatherings } from '@/hooks/useGatherings';
-import useScrollbarAndScrollState from '@/hooks/useIsScrollbarVisible';
 import useIsTablet from '@/hooks/useIsTablet';
 
 import { Gathering } from '@/types/gatherings';
@@ -36,9 +35,7 @@ export default function MobileMakeClubPage({ trigger, data }: Props) {
   const [date, setDate] = React.useState<Date | undefined>();
   const [gatheringId, setGatheringId] = useState<number>(0);
 
-  useCheckLogin();
-
-  const [scrollRef, isScrollbarVisible] = useScrollbarAndScrollState<HTMLDivElement>(true);
+  const loginRequiredModal = useCheckLogin();
 
   const router = useRouter();
   const isTablet = useIsTablet();
@@ -48,8 +45,6 @@ export default function MobileMakeClubPage({ trigger, data }: Props) {
       router.push('/');
     }
   }, [isTablet, router]);
-
-  console.log(isScrollbarVisible);
 
   interface FormValues {
     gatheringImage: File | null;
@@ -188,6 +183,7 @@ export default function MobileMakeClubPage({ trigger, data }: Props) {
   return (
     <>
       <GNB />
+      {loginRequiredModal}
       <div className="border-b-8 border-b-neutral-50 px-20 pb-50 pt-32">
         <p className="mb-32 text-center text-heading-2Sb">모임 만들기</p>
         <FormProvider {...form}>
@@ -196,7 +192,7 @@ export default function MobileMakeClubPage({ trigger, data }: Props) {
             autoComplete="off"
             onSubmit={handleSubmit(onSubmit)}
           >
-            <div className="flex h-full w-full flex-col" ref={scrollRef}>
+            <div className="flex h-full w-full flex-col">
               <div className="mb-32 flex flex-1 flex-col gap-50">
                 <div>
                   <label className="mb-6 block text-body-2Sb" htmlFor="nickname">

@@ -16,6 +16,7 @@ export function isDateBeforeToday({ date }: IsDateBeforeTodayProps) {
   }
   const compareDate = typeof date === 'string' ? new Date(date) : date;
   const today = new Date();
+  today.setHours(0, 0, 0, 0);
 
   // 오늘 날짜와 비교, 오늘 이전이면 true 아니면 false
   if (compareDate < today) {
@@ -58,21 +59,24 @@ export function formatDate({ date }: FormatDateProps): FormattedDate | null {
   };
 
   const getDeadlineStatus = (targetDate: Date): DeadlineStatus => {
-    const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-    const tomorrow = new Date(today);
-    tomorrow.setDate(today.getDate() + 1);
+    // 오늘 자정과 내일 자정을 기준으로 비교
+    const todayMidnight = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    const tomorrowMidnight = new Date(todayMidnight);
+    tomorrowMidnight.setDate(todayMidnight.getDate() + 1);
 
-    const endOfWeek = new Date(today);
-    endOfWeek.setDate(today.getDate() + (7 - today.getDay()));
+    const endOfWeek = new Date(todayMidnight);
+    endOfWeek.setDate(todayMidnight.getDate() + (7 - todayMidnight.getDay()));
 
     const nextWeek = new Date(endOfWeek);
     nextWeek.setDate(endOfWeek.getDate() + 7);
 
-    if (targetDate < today) return '마감';
-    if (targetDate <= today) return '오늘마감';
-    if (targetDate <= tomorrow) return '내일마감';
-    if (targetDate <= endOfWeek) return '이번주마감';
-    if (targetDate <= nextWeek) return '다음주마감';
+    // 현재 시간 기준으로 비교
+    if (targetDate < todayMidnight) return '마감';
+    if (targetDate < now) return '마감';
+    if (targetDate < tomorrowMidnight) return '오늘마감';
+    if (targetDate < new Date(tomorrowMidnight.getTime() + 24 * 60 * 60 * 1000)) return '내일마감';
+    if (targetDate < endOfWeek) return '이번주마감';
+    if (targetDate < nextWeek) return '다음주마감';
 
     return '여유';
   };

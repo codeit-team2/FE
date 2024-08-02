@@ -32,6 +32,7 @@ function Input(
     getFieldState,
     setValue,
     watch,
+    trigger,
     formState: { errors, isSubmitted },
   } = useFormContext();
   const [typeState, setTypeState] = useState(type);
@@ -57,6 +58,10 @@ function Input(
   } else if (watch(id) !== '') {
     inputIcon = { icon: 'xmark', alt: '텍스트 삭제 아이콘' };
   }
+
+  useEffect(() => {
+    trigger();
+  }, []);
 
   return (
     <div className="relative w-full">

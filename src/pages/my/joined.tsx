@@ -1,7 +1,6 @@
 import React from 'react';
 
 import Loading from '@/components/Loading';
-import GatheringReviewCard from '@/components/My/GatheringReviewCard';
 import MyCard from '@/components/My/MyCard';
 import NotCard from '@/components/NotCard';
 
@@ -26,17 +25,13 @@ export default function Joined() {
           gatheringsData.pages.map((datas) =>
             datas.map(
               (data: Gathering, index: number) =>
-                isDateBeforeToday({ date: data.dateTime }) && data.hasReviewed ? (
-                  <GatheringReviewCard key={index} gatheringId={data.gatheringId} />
-                ) : (
-                  <MyCard key={index} data={data} />
-                ),
-              hasNextPage && <button onClick={() => fetchNextPage()}>더보기</button>,
+                !isDateBeforeToday({ date: data.dateTime }) && <MyCard key={index} data={data} />,
             ),
           )
         ) : (
           <>{isPending ? <Loading width="300" height="300" /> : <NotCard type="join" />}</>
         )}
+        {hasNextPage && <button onClick={() => fetchNextPage()}>더보기</button>}
       </div>
     </div>
   );

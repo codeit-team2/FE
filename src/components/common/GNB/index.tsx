@@ -1,6 +1,8 @@
+import { useAuth } from '@/context/AuthProvider';
+
 import { useEffect, useRef, useState } from 'react';
 
-import { deleteCookie } from 'cookies-next';
+import { deleteCookie, getCookie } from 'cookies-next';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -17,6 +19,16 @@ export default function GNB() {
   const [isSignupModalOpen, setIsSignupModalOpen] = useState(false);
   const [isMobileClient, setIsMobileClient] = useState(false);
   const [isOpenPopover, setIsOpenPopover] = useState(false);
+
+  const { setIsLogin } = useAuth();
+
+  useEffect(() => {
+    if (!getCookie('accessToken')) {
+      setIsLogin(false);
+    } else {
+      setIsLogin(true);
+    }
+  }, [setIsLogin]);
 
   const router = useRouter();
   const { pathname } = router;
@@ -62,31 +74,35 @@ export default function GNB() {
   }, []);
 
   return (
-    <div className="flex h-60 w-full flex-row justify-between px-20 shadow-sm md:px-32">
-      <Link className="flex" href="/">
-        <Image src="/icons/ic-logo.svg" alt="logo" priority={true} width={65} height={14} />
+    <div className="sticky top-0 z-20 flex h-60 w-full flex-row justify-between border-b border-b-neutral-100 bg-white px-20 shadow-sm md:px-32 lg:relative">
+      <Link className="group flex items-center" href="/">
+        <span className='h-14 w-65 bg-[url("/icons/ic-logo.svg")] bg-center bg-no-repeat group-hover:bg-[url("/icons/ic-logo-blue.svg")]'></span>
       </Link>
-      <div className="flex flex-row items-center gap-12 md:gap-40">
+      <div className="flex flex-row items-center gap-8 md:gap-40">
         <Link
           href="/"
-          className={`text-body-1M text-neutral-500 hover:text-body-1M hover:text-primary-300 ${pathname === '/' && 'text-body-1Sb text-neutral-900'}`}
+          className={`text-body-1M !leading-none text-neutral-500 hover:text-body-1M hover:text-primary-300 ${pathname === '/' && 'text-body-1Sb text-neutral-900'}`}
         >
           모임찾기
         </Link>
         <div className="flex flex-row items-center gap-4">
           <Link
             href="/bookmark"
-            className={`text-body-1M text-neutral-500 hover:text-body-1M hover:text-primary-300 ${
+            className={`text-body-1M !leading-none text-neutral-500 hover:text-body-1M hover:text-primary-300 ${
               pathname === '/bookmark' ? 'text-body-1Sb text-neutral-900' : ''
             }`}
           >
             찜한모임
           </Link>
-          {favorites.length ? <p className="text-primary-300">{favorites.length}</p> : ''}
+          {favorites.length ? (
+            <p className="hidden text-primary-300 md:block">{favorites.length}</p>
+          ) : (
+            ''
+          )}
         </div>
         <Link
           href="/review"
-          className={`text-body-1M text-neutral-500 hover:text-body-1M hover:text-primary-300 ${pathname === '/review' && 'text-body-1Sb text-neutral-900'}`}
+          className={`text-body-1M !leading-none text-neutral-500 hover:text-body-1M hover:text-primary-300 ${pathname === '/review' && 'text-body-1Sb text-neutral-900'}`}
         >
           활동후기
         </Link>
@@ -132,7 +148,7 @@ export default function GNB() {
           <div>
             {isMobileClient ? (
               <Link
-                className={`text-body-1M text-neutral-500 hover:text-body-1M hover:text-primary-300 ${pathname === '/login' && 'text-body-1Sb text-neutral-900'}`}
+                className={`text-body-1M !leading-none text-neutral-500 hover:text-body-1M hover:text-primary-300 ${pathname === '/login' && 'text-body-1Sb text-neutral-900'}`}
                 href={'/login'}
               >
                 로그인

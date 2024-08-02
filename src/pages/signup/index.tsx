@@ -16,7 +16,6 @@ import { Button } from '@/components/ui/button';
 
 import { usePostNickname, usePostSendmail, usePostSignup, usePostVerify } from '@/hooks/useAuths';
 import useIsMobile from '@/hooks/useIsMobile';
-import useScrollbarAndScrollState from '@/hooks/useIsScrollbarVisible';
 
 import { PostSignup } from '@/types/auths';
 
@@ -69,10 +68,7 @@ const submitErrorMessages: SubmitErrorMessages = {
   },
 };
 
-export default function MobileSiginupPage({
-  isSignupModalOpen,
-  setIsSignupModalOpen,
-}: SignupModalProps) {
+export default function MobileSiginupPage({ setIsSignupModalOpen }: SignupModalProps) {
   const [isValidated, setIsValidated] = useState({
     nickname: false,
     verify: false,
@@ -89,9 +85,6 @@ export default function MobileSiginupPage({
     code: '',
   });
   const [isSubmitModalOpen, setIsSubmitModalOpen] = useState<boolean>(false);
-
-  const [ref, isScrollbarVisible, isScrolling] =
-    useScrollbarAndScrollState<HTMLDivElement>(isSignupModalOpen);
 
   const router = useRouter();
   const isMobile = useIsMobile();
@@ -220,9 +213,6 @@ export default function MobileSiginupPage({
     }
   };
 
-  useEffect(() => {
-    trigger();
-  }, [isSignupModalOpen, trigger]);
   return (
     <>
       <GNB />
@@ -232,12 +222,9 @@ export default function MobileSiginupPage({
           <form
             autoComplete="off"
             onSubmit={handleSubmit(onSubmit)}
-            className={`z-50 h-full overflow-hidden ${isScrolling && "before:absolute before:z-[999] before:h-20 before:w-full before:-translate-y-2 before:bg-gradient-to-t before:from-transparent before:to-white before:content-[''] after:absolute after:z-[999] after:h-20 after:w-full after:-translate-y-19 after:bg-gradient-to-t after:from-white after:to-transparent after:content-['']"}`}
+            className="z-50 h-full overflow-hidden"
           >
-            <div
-              className={`scroll h-full overflow-y-auto px-20 md:px-40 ${isScrollbarVisible && 'md:pr-20'}`}
-              ref={ref}
-            >
+            <div className="scroll h-full overflow-y-auto">
               <div className="flex h-full flex-col gap-50">
                 <div>
                   <label className="mb-6 block text-body-2Sb" htmlFor="nickname">

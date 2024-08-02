@@ -81,6 +81,7 @@ export default function ReviewModal({ gatheringId, reviewId, type }: Props) {
       putMutate(value, {
         onSuccess: (data) => {
           console.log(data);
+          router.reload();
         },
         onError: (error: AxiosError) => {
           console.error('Error: ', error);

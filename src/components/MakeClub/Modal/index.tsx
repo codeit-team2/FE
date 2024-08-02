@@ -1,6 +1,7 @@
 import { CATEGORY, LOCATION } from '@/constants/dropdownItems';
 import { ERROR_MESSAGE, PLACEHOLDER } from '@/constants/formMessages';
 import { amTime, pmTime } from '@/constants/timeItems';
+import { useAuth } from '@/context/AuthProvider';
 
 import React, { useEffect, useState } from 'react';
 import { FieldValues, FormProvider, SubmitHandler, useForm } from 'react-hook-form';
@@ -10,7 +11,6 @@ import { useRouter } from 'next/router';
 
 import Calendar from '@/components/common/Calendar';
 import Input from '@/components/common/Input';
-import LoginRequired from '@/components/common/Modal/LoginRequired';
 
 import DropdownInput from '@/components/MakeClub/DropdownInput';
 import FileInput from '@/components/MakeClub/FileInput';
@@ -53,8 +53,6 @@ export default function MakeClubModal({ trigger, data }: Props) {
       router.push('/make-club');
     }
   }, [isTablet, router, isModalOpen]);
-
-  console.log(isScrollbarVisible);
 
   interface FormValues {
     gatheringImage: File | null;
@@ -142,7 +140,8 @@ export default function MakeClubModal({ trigger, data }: Props) {
       const subCateogry = splitItem[1];
 
       // dateTime
-      const date_str = date?.toISOString();
+      const ko_date = new Date(date.getTime() + 9 * 60 * 60 * 1000);
+      const date_str = ko_date.toISOString();
       const date_part = date_str.split('T')[0];
       const newDatetimeStr = `${date_part}T${selectTime}:00.000Z`;
 
@@ -187,7 +186,7 @@ export default function MakeClubModal({ trigger, data }: Props) {
   };
 
   // login 상태 확인하는 과정 추가 필요
-  const isLogin = true;
+  const { isLogin } = useAuth();
 
   // 제출버튼 클릭 여부 (제출과 상관 없이 단순 버튼 클릭 여부)
   const handleSubmitButton = () => {
@@ -214,12 +213,12 @@ export default function MakeClubModal({ trigger, data }: Props) {
           <DialogTitle className="w-440 text-center md:w-952">모임 만들기</DialogTitle>
           <FormProvider {...form}>
             <form
-              className="flex h-full w-fit flex-col justify-between gap-24 overflow-hidden"
+              className={`flex h-full w-fit flex-col justify-between gap-24 overflow-hidden ${isScrollbarVisible && "before:absolute before:z-[999] before:h-20 before:w-full before:-translate-y-2 before:bg-gradient-to-t before:from-transparent before:to-white before:content-[''] after:absolute after:bottom-0 after:z-[999] after:h-20 after:w-full after:-translate-y-96 after:bg-gradient-to-t after:from-white after:to-transparent after:content-['']"}`}
               autoComplete="off"
               onSubmit={handleSubmit(onSubmit)}
             >
               <div
-                className={`scroll flex h-full w-fit flex-col justify-center overflow-y-auto px-20 sm:flex-row md:px-40 ${isScrollbarVisible && 'md:pr-20'}`}
+                className={`scroll flex h-full w-fit flex-col justify-center overflow-y-auto px-20 pt-10 sm:flex-row md:px-40 ${isScrollbarVisible && 'md:pr-20'}`}
                 ref={scrollRef}
               >
                 <div className="flex w-fit flex-col gap-24">
@@ -264,7 +263,7 @@ export default function MakeClubModal({ trigger, data }: Props) {
                   <div>
                     <DialogDescription>날짜</DialogDescription>
                     <div
-                      className={`mx-auto w-full rounded-md border ${dateErrorMsg && isSubmitCheck && 'border-secondary-300'}`}
+                      className={`mx-auto mb-12 w-full rounded-md border ${dateErrorMsg && isSubmitCheck && 'border-secondary-300'}`}
                     >
                       <Calendar date={date} setDate={setDate} />
                     </div>
@@ -282,7 +281,7 @@ export default function MakeClubModal({ trigger, data }: Props) {
                         <Button
                           variant="chip"
                           size="chip"
-                          className={`${timeErrorMsg && isSubmitCheck && `border border-secondary-300`}`}
+                          className={`w-80 ${timeErrorMsg && isSubmitCheck && `w-80 border border-secondary-300`}`}
                           key={i}
                           selected={selectTime === time}
                           onClick={() => setSelectTime(time)}
@@ -300,7 +299,7 @@ export default function MakeClubModal({ trigger, data }: Props) {
                         <Button
                           variant="chip"
                           size="chip"
-                          className={`${timeErrorMsg && isSubmitCheck && `border border-secondary-300`}`}
+                          className={`w-80 ${timeErrorMsg && isSubmitCheck && `w-80 border border-secondary-300`}`}
                           key={i}
                           selected={selectTime === time}
                           onClick={() => setSelectTime(time)}
@@ -361,8 +360,11 @@ export default function MakeClubModal({ trigger, data }: Props) {
           </FormProvider>
         </DialogContent>
       ) : (
-        <DialogContent className="w-0">
-          <LoginRequired />
+        <DialogContent className="flex h-252 w-320 flex-col items-center justify-center rounded-md bg-white p-20 md:h-332 md:w-520 md:px-40 md:py-32">
+          <div className="relative h-100 w-100 md:h-150 md:w-150">
+            <Image src={'/images/login.png'} alt="login-required" fill />
+          </div>
+          <p className="text-body-1Sb text-neutral-900 md:text-heading-2Sb">로그인이 필요해요</p>
         </DialogContent>
       )}
     </Dialog>

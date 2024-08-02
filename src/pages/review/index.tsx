@@ -22,6 +22,7 @@ import { Reviews } from '@/types/reviews';
 export default function Review() {
   const [mainCategory, setMainCategory] = useState<string>('운동');
   const [subCategory, setSubCategory] = useState<string>('전체');
+  const [sortOrder, setSortOrder] = useState<string>('desc');
 
   const handleMainTapClick = (title: string) => {
     setMainCategory(title);
@@ -36,7 +37,7 @@ export default function Review() {
     isPending,
     fetchNextPage,
     hasNextPage,
-  } = useGetReviewsAll(mainCategory, subCategory, 5, 'score', 'asc');
+  } = useGetReviewsAll(mainCategory, subCategory, 5, 'score', sortOrder);
 
   const reviewData = allReviewData?.pages.flatMap((page) => page.reviewInfos) || [];
   const scoreData = allReviewData?.pages[0]?.scoreInfo || {
@@ -49,6 +50,14 @@ export default function Review() {
   };
 
   console.log(allReviewData);
+
+  const handleSortOrderClick = (item: string | null) => {
+    if (item === '높은순') {
+      setSortOrder('desc');
+    } else if (item === '낮은순') {
+      setSortOrder('asc');
+    }
+  };
 
   return (
     <>
@@ -68,17 +77,18 @@ export default function Review() {
         </div>
         <div className="my-22 flex w-full max-w-[1010px] justify-end md:my-30">
           <Dropdown
-            items={['최신순', '별점순']}
+            items={['높은순', '낮은순']}
             icon="/icons/ic-chevron-updown.svg"
-            itemTrigger="최신순"
+            itemTrigger="별점순"
             isUpDown
+            handleLocationClick={handleSortOrderClick}
           />
         </div>
         {isPending ? (
           <Loading width="300" height="300" />
         ) : reviewData.length > 0 ? (
           <>
-            <div className="mb-40 flex w-full flex-col gap-20 md:mb-50">
+            <div className="mb-8 flex w-full flex-col gap-20 md:mb-18">
               {reviewData.map((data: Reviews, index: number) => (
                 <UserReview key={index} data={data} />
               ))}
@@ -99,7 +109,9 @@ export default function Review() {
             )}
           </>
         ) : (
-          <NotReview type="find" />
+          <div className="pt-70">
+            <NotReview type="find" />
+          </div>
         )}
       </MainLayout>
       <Footer />

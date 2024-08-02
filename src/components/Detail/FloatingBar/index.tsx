@@ -119,10 +119,6 @@ export default function FloatingBar({ data, queryId }: FloatingBarProps) {
     }
   };
 
-  const handleCloseLoginModal = () => {
-    setShowLoginModal(false);
-  };
-
   const handleOpenDialog = () => {
     const accessToken = getCookie('accessToken');
     if (!accessToken) {
@@ -148,13 +144,12 @@ export default function FloatingBar({ data, queryId }: FloatingBarProps) {
     <>
       {showLoginModal && (
         <>
-          <div className="fixed inset-0 z-40 bg-neutral-900 opacity-70"></div>
-          <LoginRequired onClose={handleCloseLoginModal} />
+          <LoginRequired isModalOpen={showLoginModal} setIsModalOpen={setShowLoginModal} />
         </>
       )}
-      <div className="fixed bottom-0 z-30 flex h-84 w-full items-center justify-center border border-t-neutral-100 px-12 py-12 backdrop-blur-sm md:h-74 md:py-16">
+      <div className="fixed bottom-0 z-30 flex h-84 w-full items-center justify-center border border-t-neutral-100 bg-white bg-opacity-20 px-12 py-12 backdrop-blur-md md:h-74 md:py-16">
         {isOwner ? (
-          <div className="flex w-full justify-center gap-12">
+          <div className="flex w-full justify-center gap-8 md:gap-12">
             <Button className="w-286 md:w-392" onClick={handleOpenCancelDialog}>
               개설 취소하기
             </Button>
