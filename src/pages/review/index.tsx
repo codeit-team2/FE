@@ -88,7 +88,7 @@ export default function Review() {
           <Loading width="300" height="300" />
         ) : reviewData.length > 0 ? (
           <>
-            <div className="mb-40 flex w-full flex-col gap-20 md:mb-50">
+            <div className="mb-8 flex w-full flex-col gap-20 md:mb-18">
               {reviewData.map((data: Reviews, index: number) => (
                 <UserReview key={index} data={data} />
               ))}

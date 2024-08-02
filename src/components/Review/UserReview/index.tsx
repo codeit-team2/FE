@@ -43,7 +43,7 @@ export default function UserReview({ data }: UserReviewProps) {
         <div>
           <div className="mb-6 flex">{renderStars(data.score)}</div>
           <div
-            className="text-body-1S mb-36 h-44 truncate text-ellipsis whitespace-normal md:h-56 md:text-heading-2M"
+            className="text-body-1S h-44 truncate text-ellipsis whitespace-normal md:h-56 md:text-heading-2M"
             style={{
               display: '-webkit-box',
               WebkitLineClamp: 2,
@@ -53,7 +53,7 @@ export default function UserReview({ data }: UserReviewProps) {
             {data.comment}
           </div>
         </div>
-        <div className="flex flex-col gap-4 text-body-2Sb text-neutral-500">
+        <div className="flex h-45 flex-col gap-4 text-body-2Sb text-neutral-500">
           <div className="flex gap-6">
             <div className="text-primary-300">{data.gatheringInfo.subCategoryName} 모임 이용</div>
             <div>{data.gatheringInfo.location}</div>
