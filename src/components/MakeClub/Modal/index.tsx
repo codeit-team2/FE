@@ -1,6 +1,7 @@
 import { CATEGORY, LOCATION } from '@/constants/dropdownItems';
 import { ERROR_MESSAGE, PLACEHOLDER } from '@/constants/formMessages';
 import { amTime, pmTime } from '@/constants/timeItems';
+import { useAuth } from '@/context/AuthProvider';
 
 import React, { useEffect, useState } from 'react';
 import { FieldValues, FormProvider, SubmitHandler, useForm } from 'react-hook-form';
@@ -24,7 +25,6 @@ import {
 
 import { isDateBeforeToday } from '@/lib/utils';
 
-import useCheckLogin from '@/hooks/useCheckLogin';
 import { usePostGatherings, usePutGatherings } from '@/hooks/useGatherings';
 import useScrollbarAndScrollState from '@/hooks/useIsScrollbarVisible';
 import useIsTablet from '@/hooks/useIsTablet';
@@ -186,7 +186,7 @@ export default function MakeClubModal({ trigger, data }: Props) {
   };
 
   // login 상태 확인하는 과정 추가 필요
-  const isLogin = useCheckLogin();
+  const { isLogin } = useAuth();
 
   // 제출버튼 클릭 여부 (제출과 상관 없이 단순 버튼 클릭 여부)
   const handleSubmitButton = () => {
@@ -210,15 +210,15 @@ export default function MakeClubModal({ trigger, data }: Props) {
       <DialogTrigger asChild>{triggerButton}</DialogTrigger>
       {isLogin ? (
         <DialogContent className="flex h-[calc(100%-56px)] max-h-[732px] w-fit flex-col items-center gap-24 px-0 py-32">
+          <DialogTitle className="w-440 text-center md:w-952">모임 만들기</DialogTitle>
           <FormProvider {...form}>
-            <DialogTitle className="w-440 text-center md:w-952">모임 만들기</DialogTitle>
             <form
-              className="flex h-full w-fit flex-col justify-between gap-24 overflow-hidden"
+              className={`flex h-full w-fit flex-col justify-between gap-24 overflow-hidden ${isScrollbarVisible && "before:absolute before:z-[999] before:h-20 before:w-full before:-translate-y-2 before:bg-gradient-to-t before:from-transparent before:to-white before:content-[''] after:absolute after:bottom-0 after:z-[999] after:h-20 after:w-full after:-translate-y-96 after:bg-gradient-to-t after:from-white after:to-transparent after:content-['']"}`}
               autoComplete="off"
               onSubmit={handleSubmit(onSubmit)}
             >
               <div
-                className={`scroll flex h-full w-fit flex-col justify-center overflow-y-auto px-20 sm:flex-row md:px-40 ${isScrollbarVisible && 'md:pr-20'}`}
+                className={`scroll flex h-full w-fit flex-col justify-center overflow-y-auto px-20 pt-10 sm:flex-row md:px-40 ${isScrollbarVisible && 'md:pr-20'}`}
                 ref={scrollRef}
               >
                 <div className="flex w-fit flex-col gap-24">
@@ -263,7 +263,7 @@ export default function MakeClubModal({ trigger, data }: Props) {
                   <div>
                     <DialogDescription>날짜</DialogDescription>
                     <div
-                      className={`mx-auto w-full rounded-md border ${dateErrorMsg && isSubmitCheck && 'border-secondary-300'}`}
+                      className={`mx-auto mb-12 w-full rounded-md border ${dateErrorMsg && isSubmitCheck && 'border-secondary-300'}`}
                     >
                       <Calendar date={date} setDate={setDate} />
                     </div>
@@ -365,13 +365,6 @@ export default function MakeClubModal({ trigger, data }: Props) {
             <Image src={'/images/login.png'} alt="login-required" fill />
           </div>
           <p className="text-body-1Sb text-neutral-900 md:text-heading-2Sb">로그인이 필요해요</p>
-          <Button
-            variant={'secondary'}
-            className="w-280 text-body-1Sb md:w-440"
-            onClick={() => router.reload()}
-          >
-            로그인하러 가기
-          </Button>
         </DialogContent>
       )}
     </Dialog>

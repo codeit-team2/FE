@@ -14,7 +14,7 @@ import Profile from '@/components/My/Profile';
 import useCheckLogin from '@/hooks/useCheckLogin';
 
 export default function My() {
-  useCheckLogin();
+  const loginRequiredModal = useCheckLogin();
 
   const [selectTab, setSelectTab] = useState('joined');
 
@@ -22,6 +22,7 @@ export default function My() {
     <>
       <GNB />
       <MainLayout>
+        {loginRequiredModal}
         <div className="mx-auto min-h-[calc(100vh-476px)] max-w-screen-lg">
           <Profile />
           <div className="mb-27 mt-32 md:px-156">

@@ -63,10 +63,6 @@ export default function Card({ data, clickFavorites, isFavorite }: CardProps) {
     setDialogOpen(false);
   };
 
-  const handleCloseLoginModal = () => {
-    setShowLoginModal(false);
-  };
-
   const handleOpenDialog = () => {
     const accessToken = getCookie('accessToken');
     if (!accessToken) {
@@ -90,8 +86,7 @@ export default function Card({ data, clickFavorites, isFavorite }: CardProps) {
     <>
       {showLoginModal && (
         <>
-          <div className="fixed inset-0 z-40 bg-neutral-900 opacity-70"></div>
-          <LoginRequired onClose={handleCloseLoginModal} />
+          <LoginRequired isModalOpen={showLoginModal} setIsModalOpen={setShowLoginModal} />
         </>
       )}
 
@@ -131,7 +126,13 @@ export default function Card({ data, clickFavorites, isFavorite }: CardProps) {
                 variant={'secondary'}
                 disabled={(!isEntered && maxReached) || !freshDataFiltering}
               >
-                {maxReached ? '참여마감' : isEntered ? '참여 중' : '참여하기'}
+                {!freshDataFiltering
+                  ? '마감'
+                  : maxReached
+                    ? '참여마감'
+                    : isEntered
+                      ? '참여 중'
+                      : '참여하기'}
               </Button>
               {!isEntered && (
                 <DynamicModal

@@ -33,6 +33,7 @@ export default function Main() {
   const [mainCategory, setMainCategory] = useState<string>('운동');
   const [subCategory, setSubCategory] = useState<string>('전체');
   const formattedDate = formatDateToISO(dateTime);
+
   const { clickFavorites, isFavorite } = useFavorite();
 
   const handleMainTapClick = (title: string) => {
