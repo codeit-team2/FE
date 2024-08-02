@@ -126,7 +126,13 @@ export default function Card({ data, clickFavorites, isFavorite }: CardProps) {
                 variant={'secondary'}
                 disabled={(!isEntered && maxReached) || !freshDataFiltering}
               >
-                {maxReached ? '참여마감' : isEntered ? '참여 중' : '참여하기'}
+                {!freshDataFiltering
+                  ? '마감'
+                  : maxReached
+                    ? '참여마감'
+                    : isEntered
+                      ? '참여 중'
+                      : '참여하기'}
               </Button>
               {!isEntered && (
                 <DynamicModal
