@@ -16,6 +16,7 @@ export function isDateBeforeToday({ date }: IsDateBeforeTodayProps) {
   }
   const compareDate = typeof date === 'string' ? new Date(date) : date;
   const today = new Date();
+  today.setHours(0, 0, 0, 0);
 
   // 오늘 날짜와 비교, 오늘 이전이면 true 아니면 false
   if (compareDate < today) {

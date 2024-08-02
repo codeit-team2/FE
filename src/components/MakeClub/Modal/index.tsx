@@ -140,7 +140,8 @@ export default function MakeClubModal({ trigger, data }: Props) {
       const subCateogry = splitItem[1];
 
       // dateTime
-      const date_str = date?.toISOString();
+      const ko_date = new Date(date.getTime() + 9 * 60 * 60 * 1000);
+      const date_str = ko_date.toISOString();
       const date_part = date_str.split('T')[0];
       const newDatetimeStr = `${date_part}T${selectTime}:00.000Z`;
 
