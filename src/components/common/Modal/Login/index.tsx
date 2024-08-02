@@ -57,7 +57,6 @@ export default function LoginModal({
   const {
     handleSubmit,
     register,
-    trigger,
     setError,
     formState: { isValid },
   } = form;
@@ -81,10 +80,6 @@ export default function LoginModal({
       },
     });
   };
-
-  useEffect(() => {
-    trigger();
-  }, [isLoginModalOpen]);
 
   if (router.pathname === '/login') return;
 
