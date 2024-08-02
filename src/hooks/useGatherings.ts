@@ -110,7 +110,7 @@ export const useGetGatheringsMine = (
     queryFn: ({ pageParam }) => getGatheringsMine(pageParam, size, sortBy, sortOrder),
     initialPageParam: 0,
     getNextPageParam: (lastPage, pages) => {
-      if (lastPage.length === 5 && lastPage.length !== 0) {
+      if (lastPage.length === size && lastPage.length !== 0) {
         return pages.length;
       } else {
         return undefined;
@@ -130,7 +130,7 @@ export const useGetGatheringsJoined = (
     queryFn: ({ pageParam }) => getGatheringsJoined(pageParam, size, sortBy, sortOrder),
     initialPageParam: 0,
     getNextPageParam: (lastPage, pages) => {
-      if (lastPage.length === 5 && lastPage.length !== 0) {
+      if (lastPage.length === size && lastPage.length !== 0) {
         return pages.length;
       } else {
         return undefined;
