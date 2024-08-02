@@ -21,6 +21,14 @@ export default function ReviewAvailable({ data, isPending }: Props) {
   return reviewRequiredItems.length > 0 ? (
     reviewRequiredItems.map((item, i) => <MyCard key={i} data={item} type="review" />)
   ) : (
-    <>{isPending ? <Loading width="300" height="300" /> : <NotReview type="reviewAvailable" />}</>
+    <>
+      {isPending ? (
+        <Loading width="300" height="300" />
+      ) : (
+        <div className="pt-72">
+          <NotReview type="reviewAvailable" />
+        </div>
+      )}
+    </>
   );
 }

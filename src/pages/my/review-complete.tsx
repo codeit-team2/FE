@@ -22,6 +22,14 @@ export default function ReviewComplete() {
   return reviewsDatas && reviewsDatas.length > 0 ? (
     reviewsDatas.map((data: Reviews, index: number) => <ReviewCard key={index} data={data} />)
   ) : (
-    <>{isPending ? <Loading width="300" height="300" /> : <NotReview type="reviewComplete" />}</>
+    <>
+      {isPending ? (
+        <Loading width="300" height="300" />
+      ) : (
+        <div className="pt-72">
+          <NotReview type="reviewComplete" />
+        </div>
+      )}
+    </>
   );
 }
