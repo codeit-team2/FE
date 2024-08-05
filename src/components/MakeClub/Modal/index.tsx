@@ -111,7 +111,7 @@ export default function MakeClubModal({ trigger, data }: Props) {
       </button>
     )) ||
     (trigger === 'modify' && (
-      <Button className="w-186" variant={'secondary'}>
+      <Button className="w-132 sm:w-186" variant={'secondary'}>
         모임 수정하기
       </Button>
     ));

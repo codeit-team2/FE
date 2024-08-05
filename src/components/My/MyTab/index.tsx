@@ -67,7 +67,7 @@ export default function MyTap({ setSelectTab }: Props) {
   };
 
   return (
-    <div className="relative flex w-full items-center justify-center gap-12 md:gap-32">
+    <div className="relative flex w-full items-center justify-start gap-12 text-nowrap sm:justify-center md:gap-32">
       {titles.map(({ title, icon, iconWidth, iconHeight, id }, index) => (
         <button
           key={index}

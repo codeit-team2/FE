@@ -74,7 +74,7 @@ export default function GNB() {
   }, []);
 
   return (
-    <div className="sticky top-0 z-20 flex h-60 w-full flex-row justify-between border-b border-b-neutral-100 bg-white px-20 shadow-sm md:px-32 lg:relative">
+    <div className="sticky top-0 z-30 flex h-60 w-full flex-row justify-between border-b border-b-neutral-100 bg-white px-20 shadow-sm md:px-32 lg:relative">
       <Link className="group flex items-center" href="/">
         <span className='h-14 w-65 bg-[url("/icons/ic-logo.svg")] bg-center bg-no-repeat group-hover:bg-[url("/icons/ic-logo-blue.svg")]'></span>
       </Link>

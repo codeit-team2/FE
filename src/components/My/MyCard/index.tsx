@@ -93,7 +93,7 @@ export default function MyCard({ data, type = 'default' }: Props) {
           </div>
         )}
       </div>
-      <div className="flex grow flex-col justify-between">
+      <div className="flex grow flex-col justify-between px-20 pb-20 sm:px-0 sm:pb-0">
         <Description data={data} />
         {type === 'review' && (
           <div className="flex flex-row justify-end gap-16">
@@ -120,7 +120,7 @@ export default function MyCard({ data, type = 'default' }: Props) {
               !data.hasReviewed && <ReviewModal type="new" gatheringId={data.gatheringId} />
             ) : (
               <Button
-                className="mb-2 h-42 w-288"
+                className="h-42 w-120 sm:w-288"
                 variant={'secondary'}
                 onClick={() => handleLeaveClick()}
               >

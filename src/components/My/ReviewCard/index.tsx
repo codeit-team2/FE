@@ -7,8 +7,6 @@ import ReviewModal from '@/components/common/Modal/Review';
 
 import NotCard from '@/components/NotCard';
 
-import { formatDate } from '@/lib/utils';
-
 import { Reviews } from '@/types/reviews';
 
 interface Props {
@@ -16,6 +14,9 @@ interface Props {
 }
 
 export default function ReviewCard({ data }: Props) {
+  const formattedDate = new Date(data.createdAt).toLocaleDateString();
+  const cleanDate = formattedDate.replace(/\.$/, '');
+
   const renderStars = (score: number) => {
     const starArray = [];
     for (let i = 0; i < 5; i++) {
@@ -50,7 +51,7 @@ export default function ReviewCard({ data }: Props) {
           이용완료
         </div>
       </div>
-      <div className="mt-10 flex grow flex-col justify-between">
+      <div className="flex grow flex-col justify-between px-20 pb-20 sm:mt-10 sm:pb-0">
         <div>
           <div className="flex flex-row">{renderStars(data.score)}</div>
           <p className="mt-6 max-h-56 w-220 min-w-230 truncate text-body-1Sb md:text-heading-2M">
@@ -60,9 +61,7 @@ export default function ReviewCard({ data }: Props) {
             <p className="text-primary-300">{data.gatheringInfo.subCategoryName} 모임 이용</p>
             <p className="text-neutral-500">{data.gatheringInfo.location}</p>
           </div>
-          <p className="mt-4 text-body-3Sb text-neutral-500">
-            {formatDate({ date: data.createdAt })?.formattedDate} 작성
-          </p>
+          <p className="mt-4 pb-16 text-body-3Sb text-neutral-500 sm:pb-0">{cleanDate}</p>
         </div>
         <div className="flex flex-row items-center justify-end gap-8">
           <ReviewModal type="modify" reviewId={data.reviewId} />
