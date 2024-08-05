@@ -35,6 +35,10 @@ export const postSignout = async () => {
 };
 
 export const postRefreshtoken = async () => {
-  const res = await axios.post('/auths/refreshtoken');
+  const res = await axios.post(
+    'https://hobbyzone.p-e.kr/auths/refreshtoken',
+    {},
+    { withCredentials: true },
+  );
   return res.data;
 };
