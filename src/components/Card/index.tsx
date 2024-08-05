@@ -114,7 +114,7 @@ export default function Card({ data, clickFavorites, isFavorite }: CardProps) {
         </div>
         <div className="relative mx-12 flex grow flex-col items-start justify-between text-gray-600 md:mx-0">
           <Description data={data} />
-          <div className="mb-11 flex w-full items-center justify-center gap-8 md:gap-16">
+          <div className="mb-11 flex w-full items-center justify-center gap-8 md:mb-0 md:gap-16">
             <div className="flex w-full items-center gap-16">
               <Person data={data} />
               <ProgressPercentage data={data} />
@@ -148,7 +148,7 @@ export default function Card({ data, clickFavorites, isFavorite }: CardProps) {
             </>
           </div>
         </div>
-        <div className="absolute right-30 top-30">
+        <div className="absolute right-20 top-187 md:right-30 md:top-30">
           <Bookmark
             favorite={favorite}
             handleToggleBookmark={handleToggleBookmark}
