@@ -26,7 +26,7 @@ export default function Review() {
 
   return (
     <div>
-      <div className="mb-32 flex flex-row justify-center gap-8">
+      <div className="mb-32 flex flex-row justify-start gap-8 sm:justify-center">
         <Button
           variant={isReviewWritten === true ? 'secondary' : 'chip'}
           type="submit"
