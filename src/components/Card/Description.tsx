@@ -14,7 +14,7 @@ export default function Description({ data }: Props) {
   const router = useRouter();
   return (
     <div
-      className="mb-16 flex w-full cursor-pointer flex-col text-body-3Sb md:mb-4 md:text-body-2Sb"
+      className="mb-16 mt-4 flex w-full cursor-pointer flex-col text-body-3Sb md:mb-4 md:mt-10 md:text-body-2Sb"
       onClick={() => router.push(`/detail/${data.gatheringId}`)}
     >
       <div className="flex gap-6">
