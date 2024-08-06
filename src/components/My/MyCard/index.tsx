@@ -107,8 +107,21 @@ export default function MyCard({ data, type = 'default' }: Props) {
         {type === 'club' && (
           <div className="flex flex-row justify-end gap-8">
             <Person data={data} />
-            <MakeClubModal trigger="modify" data={data} />
-            <DeleteButton gatheringId={data.gatheringId} type="mine" />
+            {isDateBeforeToday({ date: data.dateTime }) || data.capacity > 1 ? (
+              <>
+                <Button className="w-132 sm:w-186" variant="secondary" disabled={true}>
+                  모임 수정하기
+                </Button>
+                <Button variant="secondary" disabled={true}>
+                  <Image src="/icons/ic-delete.svg" alt="delete" width={24} height={24} />
+                </Button>
+              </>
+            ) : (
+              <>
+                <MakeClubModal trigger="modify" data={data} />
+                <DeleteButton gatheringId={data.gatheringId} type="mine" />
+              </>
+            )}
             <Button variant={'secondary'} onClick={() => handleCopyURL()}>
               <Image src="/icons/ic-share.svg" alt="share" width={24} height={24} />
             </Button>
