@@ -1,12 +1,13 @@
 import { useQueryClient } from '@tanstack/react-query';
 
-import React from 'react';
+import React, { useState } from 'react';
 
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 
 import DeleteButton from '@/components/common/DeleteButton';
 import ReviewModal from '@/components/common/Modal/Review';
+import Toast from '@/components/common/Toast';
 
 import Description from '@/components/Card/Description';
 import Person from '@/components/Card/Person';
@@ -29,13 +30,21 @@ export default function MyCard({ data, type = 'default' }: Props) {
   const router = useRouter();
   const queryClient = useQueryClient();
 
+  const [showToast, setShowToast] = useState<boolean>(false);
+  const [toastMessage, setToastMessage] = useState<string>('');
+
   const handleCopyURL = async () => {
     const url = window.location.href;
     try {
       await navigator.clipboard.writeText(url);
-      alert('링크가 복사되었습니다.😆');
+      setToastMessage('링크가 복사되었습니다.😆');
+      setShowToast(true);
+      setTimeout(() => setShowToast(false), 3000); // 3초 후 토스트 메시지 숨김
     } catch (err) {
       console.error('링크 복사에 실패했습니다.🥲', err);
+      setToastMessage('링크 복사에 실패했습니다.🥲');
+      setShowToast(true);
+      setTimeout(() => setShowToast(false), 3000);
     }
   };
 
@@ -130,6 +139,7 @@ export default function MyCard({ data, type = 'default' }: Props) {
           </div>
         )}
       </div>
+      {showToast && <Toast message={toastMessage} />}
     </div>
   );
 }
