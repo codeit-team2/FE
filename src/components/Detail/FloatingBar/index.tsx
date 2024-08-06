@@ -6,6 +6,7 @@ import { getCookie } from 'cookies-next';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 
+import Toast from '@/components/common/\bToast';
 import DynamicModal from '@/components/common/Modal/Dynamic';
 import LoginRequired from '@/components/common/Modal/LoginRequired';
 
@@ -27,14 +28,20 @@ interface FloatingBarProps {
 export default function FloatingBar({ data, queryId }: FloatingBarProps) {
   const router = useRouter();
   const queryClient = useQueryClient();
+  const now = new Date();
+  const todayMidnight = new Date(now.getFullYear(), now.getMonth(), now.getDate());
   const isOwner = data.isCreator;
   const isEntered = data.isJoiner;
 
   const maxReached = data.participantCount >= data.capacity;
 
+  const isExpired = new Date(data.dateTime) < now || new Date(data.dateTime) < todayMidnight;
+
   const [showLoginModal, setShowLoginModal] = useState<boolean>(false);
   const [isDialogOpen, setDialogOpen] = useState<boolean>(false);
   const [isCancelOpen, setCancelOpen] = useState<boolean>(false);
+  const [showToast, setShowToast] = useState<boolean>(false);
+  const [toastMessage, setToastMessage] = useState<string>('');
 
   const value: GatheringsParams = {
     page: 0,
@@ -42,6 +49,8 @@ export default function FloatingBar({ data, queryId }: FloatingBarProps) {
     sortBy: 'joinedAt',
     sortOrder: 'asc',
   };
+
+  console.log(data);
 
   const joinMutation = usePostGatheringsJoin({
     onSuccess: (data) => {
@@ -113,9 +122,14 @@ export default function FloatingBar({ data, queryId }: FloatingBarProps) {
     const url = window.location.href;
     try {
       await navigator.clipboard.writeText(url);
-      alert('링크가 복사되었습니다.😆');
+      setToastMessage('링크가 복사되었습니다.😆');
+      setShowToast(true);
+      setTimeout(() => setShowToast(false), 3000); // 3초 후 토스트 메시지 숨김
     } catch (err) {
       console.error('링크 복사에 실패했습니다.🥲', err);
+      setToastMessage('링크 복사에 실패했습니다.🥲');
+      setShowToast(true);
+      setTimeout(() => setShowToast(false), 3000);
     }
   };
 
@@ -150,8 +164,12 @@ export default function FloatingBar({ data, queryId }: FloatingBarProps) {
       <div className="fixed bottom-0 z-30 flex h-84 w-full items-center justify-center border border-t-neutral-100 bg-white bg-opacity-20 px-12 py-12 backdrop-blur-md md:h-74 md:py-16">
         {isOwner ? (
           <div className="flex w-full justify-center gap-8 md:gap-12">
-            <Button className="w-286 md:w-392" onClick={handleOpenCancelDialog}>
-              개설 취소하기
+            <Button
+              className="w-286 md:w-392"
+              onClick={handleOpenCancelDialog}
+              disabled={isExpired}
+            >
+              {isExpired ? '마감' : '개설 취소하기'}
             </Button>
             <DynamicModal
               modalType="confirm"
@@ -173,9 +191,9 @@ export default function FloatingBar({ data, queryId }: FloatingBarProps) {
             <Button
               className="w-336 md:w-392"
               onClick={handleOpenDialog}
-              disabled={!isEntered && maxReached}
+              disabled={!isEntered && (maxReached || isExpired)}
             >
-              {isEntered ? '참여 취소하기' : '참여하기'}
+              {isExpired ? '마감' : isEntered ? '참여 취소하기' : '참여하기'}
             </Button>
             <DynamicModal
               modalType="confirm"
@@ -189,6 +207,7 @@ export default function FloatingBar({ data, queryId }: FloatingBarProps) {
           </>
         )}
       </div>
+      {showToast && <Toast message={toastMessage} />}
     </>
   );
 }
