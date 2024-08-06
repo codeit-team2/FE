@@ -5,9 +5,9 @@ import React, { useState } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 
-import Toast from '@/components/common/\bToast';
 import DeleteButton from '@/components/common/DeleteButton';
 import ReviewModal from '@/components/common/Modal/Review';
+import Toast from '@/components/common/Toast';
 
 import Description from '@/components/Card/Description';
 import Person from '@/components/Card/Person';
