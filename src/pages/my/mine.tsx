@@ -19,7 +19,7 @@ export default function Mine() {
 
   return (
     <div className="flex flex-col gap-20 pb-50">
-      {gatheringsData ? (
+      {gatheringsData && gatheringsData.pages.length > 0 ? (
         gatheringsData.pages.map((datas) =>
           datas.map((data: Gathering, index: number) => (
             <>
