@@ -1,6 +1,6 @@
 import { useQueryClient } from '@tanstack/react-query';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import Bookmark from '../common/Bookmark';
 import DynamicModal from '../common/Modal/Dynamic';
@@ -25,25 +25,31 @@ interface CardProps {
 
 export default function Card({ data, clickFavorites, isFavorite }: CardProps) {
   const today = new Date();
-  // const filteredData = CardData?.pages.map((page) =>
-  //   page.filter((data) => new Date(data.dateTime) <= today),
-  // );
-  // console.log('filterData : ', filteredData);
   const freshDataFiltering = new Date(data.dateTime) >= today;
 
   const minReached = data.participantCount >= 5;
   const favorite = isFavorite(data);
   const queryClient = useQueryClient();
-  const isEntered = data.isJoiner;
 
   const maxReached = data.participantCount >= data.capacity;
 
   const [showLoginModal, setShowLoginModal] = useState<boolean>(false);
   const [isDialogOpen, setDialogOpen] = useState<boolean>(false);
+  const [localData, setLocalData] = useState(data);
 
   const joinMutation = usePostGatheringsJoin({
-    onSuccess: (data) => {
-      console.log('참여하기 성공', data);
+    onSuccess: (updatedData) => {
+      console.log('참여하기 성공', updatedData);
+
+      const newData = {
+        ...localData,
+        isJoiner: true,
+        participantCount: localData.participantCount + 1,
+      };
+
+      setLocalData(newData);
+
+      queryClient.setQueryData(['gatherings', data.gatheringId], newData);
       queryClient.invalidateQueries({ queryKey: ['gatherings'] });
     },
     onError: (error) => {
@@ -51,16 +57,12 @@ export default function Card({ data, clickFavorites, isFavorite }: CardProps) {
     },
   });
 
+  useEffect(() => {
+    setLocalData(data);
+  }, [data]);
+
   const handleJoin = () => {
     joinMutation.mutate(data.gatheringId);
-  };
-
-  const handleClick = () => {
-    console.log('handleClick called. isEntered:', isEntered);
-    if (!isEntered) {
-      handleJoin();
-    }
-    setDialogOpen(false);
   };
 
   const handleOpenDialog = () => {
@@ -69,7 +71,17 @@ export default function Card({ data, clickFavorites, isFavorite }: CardProps) {
       setShowLoginModal(true);
       return;
     }
-    setDialogOpen(true);
+    if (!localData.isJoiner) {
+      setDialogOpen(true);
+    }
+  };
+
+  const handleClick = () => {
+    console.log('handleClick called. isEntered:', localData.isJoiner);
+    if (!localData.isJoiner) {
+      handleJoin();
+    }
+    setDialogOpen(false);
   };
 
   const handleCloseDialog = () => {
@@ -116,25 +128,25 @@ export default function Card({ data, clickFavorites, isFavorite }: CardProps) {
           <Description data={data} />
           <div className="mb-11 flex w-full items-center justify-center gap-8 md:mb-0 md:gap-16">
             <div className="flex w-full items-center gap-16">
-              <Person data={data} />
-              <ProgressPercentage data={data} />
+              <Person data={localData} />
+              <ProgressPercentage data={localData} />
             </div>
             <>
               <Button
                 className="mb-2 h-42 w-full md:w-200 lg:w-288"
                 onClick={handleOpenDialog}
                 variant={'secondary'}
-                disabled={(!isEntered && maxReached) || !freshDataFiltering}
+                disabled={(!localData.isJoiner && maxReached) || !freshDataFiltering}
               >
                 {!freshDataFiltering
                   ? '마감'
                   : maxReached
                     ? '참여마감'
-                    : isEntered
+                    : localData.isJoiner
                       ? '참여 중'
                       : '참여하기'}
               </Button>
-              {!isEntered && (
+              {!localData.isJoiner && (
                 <DynamicModal
                   modalType="confirm"
                   title="참여하기"
