@@ -46,7 +46,7 @@ export default function Dropdown({
   // resetTrigger,
 }: DropdownProps) {
   const [isOpen, setIsOpen] = useState(false);
-  const [itemValue, setItemValue] = useState<string | null>(itemTrigger);
+  const [itemValue, setItemValue] = useState<string | null | undefined>(itemTrigger);
   const [errorMessage, setErrorMessage] = useState<string | null>();
   const [date, setDate] = React.useState<Date | undefined>();
 
@@ -82,7 +82,7 @@ export default function Dropdown({
   };
 
   const handleDateClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-    const itemText = e.currentTarget.textContent;
+    const itemText = e.currentTarget.textContent?.replace(/\s*선택.*/, '');
     setItemValue(itemText);
 
     if (handleCalendarClick) {
@@ -109,7 +109,7 @@ export default function Dropdown({
     <div ref={dropdownRef} className="relative z-10">
       <button
         onClick={toggleDropdown}
-        className={`${isSelectedValue && '!text-black'} ${itemTrigger === '지역선택' && 'w-97'} relative flex items-center justify-between truncate rounded-sm bg-neutral-50 px-12 py-10 text-body-2M text-neutral-400 hover:text-primary-300 md:text-body-1M`}
+        className={`${isSelectedValue && '!text-black'} ${itemTrigger === '지역선택' && 'w-97'} relative flex items-center truncate rounded-sm bg-neutral-50 text-body-2M text-neutral-400 hover:text-primary-300 md:text-body-1M`}
         type="button"
       >
         {itemValue}
@@ -130,7 +130,7 @@ export default function Dropdown({
           <div className="absolute z-10 max-h-176 w-full overflow-y-scroll rounded-md bg-white px-4 py-5 text-body-2Sb shadow-lg scrollbar-none">
             {itemTrigger === '지역선택' && (
               <div
-                className="flex w-full cursor-pointer items-center justify-center px-10 py-12 hover:rounded-full hover:bg-primary-50 active:bg-primary-100"
+                className="my-5 flex h-34 w-full cursor-pointer items-center justify-center px-10 hover:rounded-full hover:bg-primary-50 active:bg-primary-100"
                 onClick={handleItemClick}
               >
                 전체
@@ -140,18 +140,18 @@ export default function Dropdown({
               <div
                 key={index}
                 onClick={handleItemClick}
-                className="flex w-full cursor-pointer items-center justify-center px-10 py-12 hover:rounded-full hover:bg-primary-50 active:bg-primary-100"
+                className="my-5 flex h-34 w-full cursor-pointer items-center justify-center px-10 hover:rounded-full hover:bg-primary-50 active:bg-primary-100"
               >
                 {item}
               </div>
             ))}
           </div>
         ) : (
-          <div className="absolute rounded-md border bg-white p-12">
+          <div className="absolute -left-100 rounded-md bg-white p-12 shadow-lg">
             <Calendar date={date} setDate={setDate} />
             <Button variant="secondary" className="mt-2 w-full" onClick={handleDateClick}>
               {formattedDate
-                ? `${formattedDate.formattedDate} ${formattedDate.formattedWeekday}`
+                ? `${formattedDate.formattedDate} ${formattedDate.formattedWeekday} 선택`
                 : '날짜를 선택해주세요'}
             </Button>
           </div>

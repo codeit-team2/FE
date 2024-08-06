@@ -93,7 +93,10 @@ export default function ReviewModal({ gatheringId, reviewId, type }: Props) {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button className="mb-2 h-42 w-288" variant={type === 'new' ? `default` : 'secondary'}>
+        <Button
+          className="mb-2 h-42 w-120 sm:w-288"
+          variant={type === 'new' ? `default` : 'secondary'}
+        >
           {type === 'new' ? '후기 작성하기' : '후기 수정하기'}
         </Button>
       </DialogTrigger>
