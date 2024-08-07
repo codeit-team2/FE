@@ -48,16 +48,16 @@
 
 
 ### 모임 상세 페이지
-<img src="https://github.com/user-attachments/assets/73e5a031-ab6d-4d3c-a6a9-44d9b05d7557">
+
 
 ### 찜목록 페이지
-<img src="">
+
 
 ### 마이페이지
-<img src="">
+
 
 ### 활동후기 페이지
-<img src="">
+
 
 </br>
 
