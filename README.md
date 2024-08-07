@@ -67,6 +67,50 @@ https://github.com/user-attachments/assets/7538de8b-1c3a-47cd-8d32-292fa4b135db
 
 # 폴더 구조
 
+```
+
+codeit-team2-fe
+├─ .eslintrc.json
+├─ .firebase
+├─ public
+│  ├─ 404.html
+│  ├─ icons
+│  ├─ images
+│  └─ index.html
+├─ src
+│  ├─ apis
+│  ├─ components
+│  │  ├─ Card
+│  │  ├─ Review
+│  │  ├─ ...
+│  │  ├─ common
+│  │  └─ ui
+│  ├─ constants
+│  ├─ context
+│  │  └─ AuthProvider.tsx
+│  ├─ hooks
+│  ├─ lib
+│  │  ├─ axios.ts
+│  │  └─ utils.ts
+│  ├─ pages
+│  │  ├─ index.tsx
+│  │  ├─ 404.tsx
+│  │  ├─ _app.tsx
+│  │  ├─ _document.tsx
+│  │  ├─ bookmark
+│  │  ├─ detail
+│  │  │  └─ [id]
+│  │  ├─ login
+│  │  ├─ make-club
+│  │  ├─ my
+│  │  ├─ review
+│  │  └─ signup
+│  ├─ styles
+│  │  └─ globals.css
+│  └─ types
+├─ tailwind.config.ts
+└─ tsconfig.json
+```
 </br>
 
 # 프로젝트 실행 방법
