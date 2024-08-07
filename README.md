@@ -39,25 +39,25 @@
 
 # 주요 기능
 ### 메인 페이지
-<img src="https://github.com/user-attachments/assets/954ec580-152e-4a7a-942b-06d7580174d6">
+https://github.com/user-attachments/assets/f54a4c20-e242-4c66-ad9b-eaa43d0f0a00
 
 ### 회원가입/로그인 모달
-<img src="https://github.com/user-attachments/assets/d60e2f52-45ad-49b7-aff1-bd682f70a9ee">
+https://github.com/user-attachments/assets/a16d1019-068b-4406-95eb-4fbfa202313c
 
 ### 모임 생성 모달
-
+https://github.com/user-attachments/assets/4bcd9902-3c5c-4088-b06a-0f73cf3ad7fd
 
 ### 모임 상세 페이지
-
+https://github.com/user-attachments/assets/e4d175a4-16bd-428e-a2d9-bf96643657c9
 
 ### 찜목록 페이지
-
+https://github.com/user-attachments/assets/1dfb15d5-caf8-413f-88b4-d5c5581a3f36
 
 ### 마이페이지
-
+https://github.com/user-attachments/assets/df692994-9ebb-4692-b609-a0eeca8db8b2
 
 ### 활동후기 페이지
-
+https://github.com/user-attachments/assets/7538de8b-1c3a-47cd-8d32-292fa4b135db
 
 </br>
 
