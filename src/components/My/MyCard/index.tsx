@@ -67,6 +67,8 @@ export default function MyCard({ data, type = 'default' }: Props) {
     leaveMutation.mutate(data.gatheringId);
   };
 
+  console.log(data);
+
   return (
     <div className="relative flex w-full max-w-screen-lg flex-col gap-16 rounded-lg border-2 border-white bg-white p-8 hover:border-2 hover:border-neutral-100 hover:shadow-sm active:bg-neutral-50 md:h-230 md:flex-row md:gap-10 md:p-20 lg:gap-20">
       <div
@@ -116,7 +118,7 @@ export default function MyCard({ data, type = 'default' }: Props) {
         {type === 'club' && (
           <div className="flex flex-row justify-end gap-8">
             <Person data={data} />
-            {isDateBeforeToday({ date: data.dateTime }) || data.capacity > 1 ? (
+            {new Date(data.dateTime) < new Date() ? ( // 인원 수 수정 필요
               <>
                 <Button className="w-132 sm:w-186" variant="secondary" disabled={true}>
                   모임 수정하기
