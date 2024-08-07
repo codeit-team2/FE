@@ -39,18 +39,25 @@
 
 # 주요 기능
 ### 메인 페이지
+<img src="https://github.com/user-attachments/assets/954ec580-152e-4a7a-942b-06d7580174d6">
 
 ### 회원가입/로그인 모달
+<img src="https://github.com/user-attachments/assets/d60e2f52-45ad-49b7-aff1-bd682f70a9ee">
 
 ### 모임 생성 모달
 
+
 ### 모임 상세 페이지
+<img src="https://github.com/user-attachments/assets/73e5a031-ab6d-4d3c-a6a9-44d9b05d7557">
 
 ### 찜목록 페이지
+<img src="">
 
 ### 마이페이지
+<img src="">
 
 ### 활동후기 페이지
+<img src="">
 
 </br>
 
