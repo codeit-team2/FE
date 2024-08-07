@@ -1,40 +1,65 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# 프로젝트 소개
+- **서비스 개요** : 취향이 비슷한 사람들을 연결해 원하는 모임을 만드는 플랫폼
+- **목표** : 사용자가 간편하게 모임을 생성하고 참여할 수 있는 환경 제공
+- **기간** : 24.06.28 ~ 24.08.07
 
-## Getting Started
 
-First, run the development server:
+> 취Zone은 '취향 존중'이라는 의미를 담아, 취향이 비슷한 사람들을 연결해 원하는 모임을 쉽게 만들고 참여할 수 있는 플랫폼입니다.</br>
+> 각자의 개성과 취향을 존중하며, 다양한 관심사를 공유하고 사람들 간의 소통과 교류를 하기 위한 서비스를 제작했습니다.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+</br>
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+# 배포 링크
+### [취Zone Link](https://hostinghobbyzone--hostinghobbyzone.us-central1.hosted.app/)
+> Test ID : pasobe8017@sablecc.com</br>
+> Test PW : test1234
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+</br>
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+# 팀원
+### 프론트엔드
+#### 박준성(팀장)
+-
+#### 문필겸
+-
+#### 박세은
+-
+#### 유미정
+-
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+### 백엔드
+#### 김지민
+-
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+### 디자이너
+#### 이예빈
+-
 
-## Learn More
+</br>
 
-To learn more about Next.js, take a look at the following resources:
+# 주요 기능
+### 메인 페이지
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### 회원가입/로그인 모달
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+### 모임 생성 모달
 
-## Deploy on Vercel
+### 모임 상세 페이지
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### 찜목록 페이지
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+### 마이페이지
+
+### 활동후기 페이지
+
+</br>
+
+# 기술 스택
+
+</br>
+
+# 폴더 구조
+
+</br>
+
+# 프로젝트 실행 방법
