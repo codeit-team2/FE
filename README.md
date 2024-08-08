@@ -34,7 +34,7 @@
 #### [김지민](https://github.com/apptie)
 
 ### Design
-#### [이예빈](leeyebin951@gmail.com)
+#### [이예빈](mailto:leeyebin951@gmail.com)
 
 </br>
 
