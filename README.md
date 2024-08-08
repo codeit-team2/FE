@@ -22,7 +22,7 @@
 - 활동 후기 페이지
 #### [문필겸](https://github.com/MoonPillGyeom)
 - 메인 페이지
-- 북마크 페이지
+- 찜 목록 페이지
 #### [박세은](https://github.com/marchfirst01)
 - 모임 생성 모달
 - 마이페이지
@@ -42,20 +42,32 @@
 ### 메인 페이지
 https://github.com/user-attachments/assets/f54a4c20-e242-4c66-ad9b-eaa43d0f0a00
 
+</br>
+
 ### 회원가입/로그인 모달
 https://github.com/user-attachments/assets/a16d1019-068b-4406-95eb-4fbfa202313c
+
+</br>
 
 ### 모임 생성 모달
 https://github.com/user-attachments/assets/4bcd9902-3c5c-4088-b06a-0f73cf3ad7fd
 
+</br>
+
 ### 모임 상세 페이지
 https://github.com/user-attachments/assets/e4d175a4-16bd-428e-a2d9-bf96643657c9
 
-### 찜목록 페이지
+</br>
+
+### 찜 목록 페이지
 https://github.com/user-attachments/assets/1dfb15d5-caf8-413f-88b4-d5c5581a3f36
+
+</br>
 
 ### 마이페이지
 https://github.com/user-attachments/assets/df692994-9ebb-4692-b609-a0eeca8db8b2
+
+</br>
 
 ### 활동후기 페이지
 https://github.com/user-attachments/assets/7538de8b-1c3a-47cd-8d32-292fa4b135db
@@ -63,6 +75,32 @@ https://github.com/user-attachments/assets/7538de8b-1c3a-47cd-8d32-292fa4b135db
 </br>
 
 ## 기술 스택
+### Language
+![TypeScript](https://img.shields.io/badge/TypeScript-3178C6.svg?&style=for-the-badge&logo=TypeScript&logoColor=white)
+
+
+### Framework
+![Next.js](https://img.shields.io/badge/Next.js-black?style=for-the-badge&logo=next.js&logoColor=white)
+![Tailwind-CSS](https://img.shields.io/badge/tailwind_css-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white)
+         
+### Library
+![Axios](https://img.shields.io/badge/Axios-5429e4.svg?&logo=Axios&logoColor=white&style=for-the-badge)
+![Tanstack-Query](https://img.shields.io/badge/tanstack_query-FF4154.svg?style=for-the-badge&logo=reactquery&logoColor=white)
+![React-Hook-Form](https://img.shields.io/badge/react_hook_form-EC5990.svg?style=for-the-badge&logo=reacthookform&logoColor=white)
+![Shadcn/ui](https://img.shields.io/badge/shadcn/ui-000000.svg?style=for-the-badge&logo=shadcn/ui&logoColor=white)
+
+### Code Convention
+![ESLint](https://img.shields.io/badge/ESLint-4B32C3?style=for-the-badge&logo=eslint&logoColor=white)
+![Prettier](https://img.shields.io/badge/prettier-F7B93E?style=for-the-badge&logo=prettier&logoColor=white)
+
+### Version Control
+![Git](https://img.shields.io/badge/Git-f05032.svg?&style=for-the-badge&logo=Git&logoColor=white)
+![GitHub](https://img.shields.io/badge/GitHub-181717.svg?&style=for-the-badge&logo=GitHub&logoColor=white)
+
+### Collaboration
+![Discord](https://img.shields.io/badge/Discord-%235865F2.svg?style=for-the-badge&logo=discord&logoColor=white)
+![Figma](https://img.shields.io/badge/Figma-f24e1e.svg?&style=for-the-badge&logo=Figma&logoColor=white)
+![Notion](https://img.shields.io/badge/Notion-%23000000.svg?style=for-the-badge&logo=notion&logoColor=white)
 
 </br>
 
@@ -110,6 +148,7 @@ codeit-team2-fe
 ├─ tailwind.config.ts
 └─ tsconfig.json
 ```
+
 </br>
 
 ## 프로젝트 실행 방법
