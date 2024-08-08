@@ -1,4 +1,4 @@
-# 프로젝트 소개
+## 프로젝트 소개
 **취ZONE**은 '취향 존중'이라는 의미를 담아, 취향이 비슷한 사람들을 연결해 원하는 모임을 쉽게 만들고 참여할 수 있는 플랫폼입니다.</br>
 각자의 개성과 취향을 존중하며, 다양한 관심사를 공유하고 사람들 간의 소통과 교류를 하기 위한 서비스를 제작했습니다.
 
@@ -8,14 +8,14 @@
 
 </br>
 
-# 배포 링크
+## 배포 링크
 ### [취ZONE Link](https://hostinghobbyzone--hostinghobbyzone.us-central1.hosted.app/)
 > Test ID : pasobe8017@sablecc.com</br>
 > Test PW : test1234
 
 </br>
 
-# 팀원
+## 팀원
 ### Front-end
 #### [박준성(팀장)](https://github.com/juncastle97)
 - 모임 상세 페이지
@@ -38,7 +38,7 @@
 
 </br>
 
-# 주요 기능
+## 주요 기능
 ### 메인 페이지
 https://github.com/user-attachments/assets/f54a4c20-e242-4c66-ad9b-eaa43d0f0a00
 
@@ -62,12 +62,11 @@ https://github.com/user-attachments/assets/7538de8b-1c3a-47cd-8d32-292fa4b135db
 
 </br>
 
-# 기술 스택
+## 기술 스택
 
 </br>
 
-# 폴더 구조
-
+## 폴더 구조
 ```
 codeit-team2-fe
 ├─ .eslintrc.json
@@ -113,7 +112,7 @@ codeit-team2-fe
 ```
 </br>
 
-# 프로젝트 실행 방법
+## 프로젝트 실행 방법
 1. Clone the repository
 
   ```bash
